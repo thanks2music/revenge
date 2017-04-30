@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+@function z($layer) {
+  @if not map-has-key($z-layers, $layer) {
+    @warn "$z-layers内に`#{$layer}`が見つかりません。";
+  }
+
+  @return map-get($z-layers, $layer);
+}
+
+@function color($color) {
+  @if not map-has-key($colors, $color) {
+    @warn "$colors内に`#{$color}`が見つかりません。";
+  }
+
+  @return map-get($colors, $color);
+}
+
+// 変数が深くても一回で取得する
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+
+  @return $map;
+}
+
+// 変数の深さを得る
+@function map-depth($map) {
+  $level: 1;
+
+  @each $key, $value in $map {
+    @if type-of($value) == "map" {
+      $level: max(map-depth($value) + 1, $level);
+    }
+  }
+
+  @return $level;
+}

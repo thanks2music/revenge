@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// 要素幅を超える場合はテキストを「・・・」と省略する
+%ellipsis-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+// 記号
+%mark-kome {
+  content: '\203b'; // ※ の8進数
+}
+
+%mark-square {
+  content: '\25a0'; // ■の8進数
+}
+
+// WebFont
+%webfont-init {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+}
