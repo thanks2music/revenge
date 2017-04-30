@@ -1,16 +1,10 @@
-# Adhesive
+# Revenge
 
-## WordPress Child Theme
-
-Re:Re: of Stork
+CC Child Theme for Stork
 
 ## Env
 
-- PHP7
-- ECMA Script(Babel)
-- Sass (No Compass)
-
-## TODO
-
-- [ ] webpack v2
-- [ ] gulpfileもES化
+- PHP7.0.15
+- Gulp
+- Babel
+- Sass
