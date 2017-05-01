@@ -25,27 +25,49 @@ function add_javascripts() {
 // MOREタグの下に広告を表示
 add_filter('the_content', 'adMoreReplace');
 function adMoreReplace($contentData) {
-if (is_mobile()){
+  global $is_sp;
+  $adTags = '';
+
+  // SP
+  if ($is_sp) {
 $adTags = <<< EOF
 
 <div class="add more">
-<!--ここにスマホ用の広告コードをはりつけてください。-->
-
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- CC - 記事の途中 -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="4994583614"
+       data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 </div>
 
 EOF;
-} else{
+    // PC
+  } else {
 $adTags = <<< EOF
 
 <div class="add more">
-<!--ここにPC用・タブレット用の広告コードをはりつけてください。-->
-
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- CC - PC記事の途中 -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="6789910818"
+       data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 </div>
-  
+
 EOF;
-}
-$contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTags, $contentData);
-$contentData = str_replace('', "", $contentData);
-$contentData = str_replace('', '', $contentData);
-return $contentData;
+  }
+  $contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTags, $contentData);
+  $contentData = str_replace('<p></p>', '', $contentData);
+  $contentData = str_replace('<p><br />', '<p>', $contentData);
+
+  return $contentData;
 }
