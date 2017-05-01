@@ -2,7 +2,7 @@
 <?php
 
   $args = array(
-    'post_type' => array('post', 'page', 'event'),
+    'post_type' => array('post', 'event'),
     'posts_per_page' => 10,
     'order' => 'DESC',
     'orderby' => 'date modified',

@@ -25,5 +25,3 @@ let is_pc = () => {
     return false;
   }
 };
-
-console.log(0);

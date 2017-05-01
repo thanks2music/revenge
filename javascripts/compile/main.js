@@ -32,5 +32,3 @@ var is_pc = function is_pc() {
     return false;
   }
 };
-
-console.log(0);
