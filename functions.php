@@ -4,9 +4,10 @@
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
   global $dir;
+  $time_stamp = time();
   wp_enqueue_style('style', get_template_directory_uri() . '/style.css' );
   wp_enqueue_style('child-style',
-    $dir['theme'] . '/stylesheets/main.css',
+    $dir['theme'] . '/stylesheets/main.css?' . $time_stamp,
     array('style')
   );
 }

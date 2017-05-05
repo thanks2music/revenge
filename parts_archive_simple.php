@@ -15,18 +15,36 @@
   if ($the_query->have_posts()) {
     while ($the_query->have_posts()) {
       $the_query->the_post();
+      $cf = get_post_custom();
       $post_type = get_post_type();
       $taxonomy_name = 'category';
 
       if ($post_type === 'event') {
         $taxonomy_name = 'event-category';
+        $start_date = '';
+        $end_date = '';
+        $date_dom = '';
+
+        if (isset($cf['_eventorganiser_schedule_start_start'][0])) {
+          $start_date = $cf['_eventorganiser_schedule_start_start'][0];
+          $start_date = date('Y年n月j日', strtotime($start_date));
+        }
+
+        if (isset($cf['_eventorganiser_schedule_start_finish'][0])) {
+          $end_date = $cf['_eventorganiser_schedule_start_finish'][0];
+          $end_date = date('n月j日', strtotime($end_date));
+        }
+      }
+
+      if (! empty($start_date) && ! empty($end_date)) {
+        $date_dom .= $start_date . '〜' . $end_date;
       }
 
       $cat_name = '';
       $cat = get_the_terms($post->ID, $taxonomy_name);
 
       for ($i = 0; $i < count($cat); $i++) {
-        if ($cat[$i]->slug !== 'cafe') {
+        if ($cat[$i]->slug !== 'cafe' && $cat[$i]->slug !== 'event') {
           $cat_name .= $cat[$i]->name;
         }
       }
@@ -47,12 +65,12 @@
       </figure>
     <?php } ?>
 
-    <section class="entry-content">
+    <section class="entry-content remix">
       <h1 class="h2 entry-title"><?php the_title(); ?></h1>
 
       <p class="byline entry-meta vcard">
-        <span class="date gf updated"><?php the_time('Y.m.d'); ?></span>
-        <span class="writer name author"><span class="fn"><?php the_author(); ?></span></span>
+        <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+        <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
       </p>
 
       <?php if (! is_mobile()) { ?>
