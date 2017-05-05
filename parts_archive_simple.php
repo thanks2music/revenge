@@ -1,12 +1,13 @@
 <div class="top-post-list">
 <?php
-
+  $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
   $args = array(
     'post_type' => array('post', 'event'),
     'posts_per_page' => 10,
     'order' => 'DESC',
     'orderby' => 'date modified',
     'post_status' => 'publish',
+    'paged' => $paged,
   );
 
   // Main Post
@@ -36,7 +37,7 @@
         }
       }
 
-      if (! empty($start_date) && ! empty($end_date)) {
+      if (! empty($start_date) && ! empty($end_date) && empty($date_dom)) {
         $date_dom .= $start_date . '〜' . $end_date;
       }
 

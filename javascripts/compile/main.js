@@ -32,3 +32,14 @@ var is_pc = function is_pc() {
     return false;
   }
 };
+
+// Common
+var body = doc.getElementsByTagName('body');
+
+// for Single
+if (body[0].className.indexOf('single') > -1) {
+  var theContent = $('#main .article');
+  var eventDetail = $(body).find('.eventorganiser-event-meta');
+
+  $(theContent).append(eventDetail);
+}

@@ -59,7 +59,16 @@ endif;?>
 </div>
 <?php endif; ?>
 
-<?php the_content();
+<?php
+// フィルターを通してthe_contentを呼び出す
+$the_content = apply_filters('the_content', get_the_content());
+// TODO 翻訳をPR
+$the_content = str_replace('<strong>Date:</strong>', '<strong>開催日:</strong>', $the_content);
+$the_content = str_replace('<h4>イベント詳細</h4>', '<h4>アクセス・イベント詳細</h4>', $the_content);
+
+// the_content();
+echo $the_content;
+
 wp_link_pages( array(
 'before'      => '<div class="page-links cf"><ul>',
 'after'       => '</ul></div>',

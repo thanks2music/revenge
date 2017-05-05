@@ -19,7 +19,8 @@ locate_template('config/variables.php', true);
 add_action('wp_footer', 'add_javascripts');
 function add_javascripts() {
   global $dir;
-  wp_enqueue_script('app', $dir['theme'] . '/dist/scripts/app.js' );
+  $time_stamp = time();
+  wp_enqueue_script('app', $dir['theme'] . '/dist/scripts/app.js?' . $time_stamp);
 }
 
 

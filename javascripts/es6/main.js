@@ -25,3 +25,14 @@ let is_pc = () => {
     return false;
   }
 };
+
+// Common
+let body = doc.getElementsByTagName('body');
+
+// for Single
+if (body[0].className.indexOf('single') > -1) {
+  let theContent = $('#main .article');
+  let eventDetail = $(body).find('.eventorganiser-event-meta');
+
+  $(theContent).append(eventDetail);
+}
