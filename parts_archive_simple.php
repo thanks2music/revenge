@@ -1,14 +1,50 @@
 <div class="top-post-list">
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  $args = array(
-    'post_type' => array('post', 'event'),
-    'posts_per_page' => 10,
-    'order' => 'DESC',
-    'orderby' => 'date modified',
-    'post_status' => 'publish',
-    'paged' => $paged,
-  );
+
+  if (is_home() || is_post_type_archive()) {
+    $args = array(
+      'post_type' => array('post', 'event'),
+      'posts_per_page' => 10,
+      'order' => 'DESC',
+      'orderby' => 'date modified',
+      'post_status' => 'publish',
+      'paged' => $paged,
+    );
+  } elseif (is_archive()) {
+    $post_type = get_post_type();
+    $taxonomy_name = 'category';
+    $cat_slug = [];
+
+    if ($post_type === 'event') {
+      $taxonomy_name = 'event-category';
+    }
+
+    $category = get_the_terms($post->ID, $taxonomy_name);
+
+    for($i = 0; $i < count($category); $i++) {
+      if (is_category($category[$i]->slug)) {
+        $cat_slug[$i] = $category[$i]->slug;
+      }
+    }
+
+    $args = array(
+      'post_type' => array('post', 'event'),
+      'posts_per_page' => 10,
+      'order' => 'DESC',
+      'orderby' => 'date modified',
+      'post_status' => 'publish',
+      'paged' => $paged,
+      'tax_query' => array(
+        array(
+          'taxonomy' => $taxonomy_name,
+          'terms' => $cat_slug,
+          'field' => 'slug',
+          'operator'=>'IN',
+        ),
+      ),
+    );
+  }
 
   // Main Post
   $the_query = new WP_Query($args);
@@ -45,7 +81,7 @@
       $cat = get_the_terms($post->ID, $taxonomy_name);
 
       for ($i = 0; $i < count($cat); $i++) {
-        if ($cat[$i]->slug !== 'cafe' && $cat[$i]->slug !== 'event') {
+        if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news') {
           $cat_name .= $cat[$i]->name;
         }
       }
