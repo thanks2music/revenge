@@ -263,8 +263,13 @@ class NewEntryImageWidget extends WP_Widget {
             }
             ?></span></h4>
 			<ul>
-			<?php global $g_entry_count; //グローバル変数の呼び出し?>
-			<?php query_posts('posts_per_page='.$g_entry_count); //クエリの作成?>
+      <?php global $g_entry_count; //グローバル変数の呼び出し
+        $args = array(
+          'post_type' => 'event',
+          'posts_per_page' => $g_entry_count,
+        );
+      ?>
+			<?php query_posts($args); //クエリの作成?>
 			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			<li>
 			<a class="cf" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
