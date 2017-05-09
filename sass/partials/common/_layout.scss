@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+.wf-amatic {
+  @extend %webfont-amatic;
+
+  &#logo {
+    font-size: 1.2em;
+  }
+}
+
+// EOイベントのウィジェットで不自然な日付を隠す
+.widget.EO_Event_List_Widget {
+  ul {
+    li {
+      visibility: hidden;
+      position: relative;
+      margin: 0;
+      padding: 0;
+
+      a {
+        display: block;
+        visibility: visible;
+        font-size: 14px;
+        border-bottom: 1px dotted rgba(0,0,0,.2);
+        padding-bottom: .7em;
+        color: #444;
+        text-decoration: none;
+
+        &:visited {
+          color: #444;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+// 最新の画像付き投稿一覧
+.widget.widget_recent_entries {
+  li {
+    a {
+      font-size: 14px;
+      color: #444;
+    }
+  }
+}
+
+// 人気の投稿
+.widget.popular-posts {
+  li {
+    &:not(:first-child) {
+      padding-top: .75em;
+    }
+
+    a {
+      font-size: 14px;
+      color: #444;
+      position: relative;
+    }
+  }
+}

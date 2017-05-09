@@ -46,18 +46,18 @@
 <?php if ( get_option( 'side_options_description' ) ) : ?><p class="site_description"><?php bloginfo('description'); ?></p><?php endif; ?>
 <header class="header animated fadeIn <?php echo esc_html(get_option('side_options_headerbg'));?> <?php if ( wp_is_mobile() ) : ?>headercenter<?php else:?><?php echo get_option( 'side_options_headercenter' ); ?><?php endif; ?>" role="banner">
 <div id="inner-header" class="wrap cf">
-<div id="logo" class="gf <?php echo esc_html(get_option('opencage_logo_size'));?>">
+<div id="logo" class="wf-amatic <?php echo esc_html(get_option('opencage_logo_size'));?>">
 <?php if ( is_home() || is_front_page() ) : ?>
 <?php if ( get_theme_mod( 'opencage_logo' ) ) : ?>
 <h1 class="h1 img"><a href="<?php echo home_url(); ?>" rel="nofollow"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></h1>
 <?php else : ?>
-<h1 class="h1 text"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></h1>
+<h1 class="h1 text"><a href="<?php echo home_url(); ?>" rel="nofollow">Collabo Cafe</a></h1>
 <?php endif; ?>
 <?php else: ?>
 <?php if ( get_theme_mod( 'opencage_logo' ) ) : ?>
 <p class="h1 img"><a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></p>
 <?php else : ?>
-<p class="h1 text"><a href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a></p>
+<p class="h1 text"><a href="<?php echo home_url(); ?>">Collabo Cafe</a></p>
 <?php endif; ?>
 <?php endif; ?>
 </div>

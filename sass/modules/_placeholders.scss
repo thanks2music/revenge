@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+// Detail -> https://fonts.google.com/specimen/Amatic+SC
+%webfont-amatic {
+  font-family: 'Amatic SC', cursive;
+}
+
 %clearfix {
   &:after {
     content: "";

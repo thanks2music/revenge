@@ -6,6 +6,8 @@ function theme_enqueue_styles() {
   global $dir;
   $time_stamp = time();
   wp_enqueue_style('style', get_template_directory_uri() . '/style.css' );
+  wp_enqueue_style('webfont-amatic', 'https://fonts.googleapis.com/css?family=Amatic+SC');
+
   wp_enqueue_style('child-style',
     $dir['theme'] . '/stylesheets/main.css?' . $time_stamp,
     array('style')
