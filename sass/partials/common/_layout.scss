@@ -66,15 +66,16 @@
   text-align: center;
   width: 100%;
   margin: 0 auto 1em;
+  padding-top: 1em;
 
-  li {
+  > div {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     letter-spacing: normal;
   }
 
   &.col3 {
-    li {
+    > div {
       width: 31.333333333%;
 
       &:not(:last-child) {
@@ -84,10 +85,12 @@
   }
 
   &.col2 {
-    width: 47%;
+    > div {
+      width: 47%;
 
-    &:not(:last-child) {
-      margin-right: 6%;
+      &:not(:last-child) {
+        margin-right: 6%;
+      }
     }
   }
 }
