@@ -110,7 +110,6 @@ if (!function_exists('breadcrumb')) {
               }
 
               $categories = get_the_terms($post->ID, $taxonomy_name);
-              var_dump($categories);
               $cat_len = count($categories);
 
               if ($cat_len > 0) {
