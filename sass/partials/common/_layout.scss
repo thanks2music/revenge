@@ -59,3 +59,35 @@
     }
   }
 }
+
+// 記事詳細の3カラムレイアウト
+.ads-area {
+  letter-spacing: -.5em;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto 1em;
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    letter-spacing: normal;
+  }
+
+  &.col3 {
+    li {
+      width: 31.333333333%;
+
+      &:not(:last-child) {
+        margin-right: 3%;
+      }
+    }
+  }
+
+  &.col2 {
+    width: 47%;
+
+    &:not(:last-child) {
+      margin-right: 6%;
+    }
+  }
+}
