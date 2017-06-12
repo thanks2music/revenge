@@ -25,7 +25,9 @@ endif;?>
 <?php if(is_singular('post')):?><span class="cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span><?php endif;?>
 
 <time class="date gf entry-date updated"<?php if ( get_the_date('Ymd') >= get_the_modified_date('Ymd') ) : ?>  datetime="<?php echo get_the_date('Y-m-d') ?>"<?php endif; ?>><?php echo get_the_date('Y.m.d'); ?></time>
-<?php if ( get_the_date('Ymd') < get_the_modified_date('Ymd') ) : ?><time class="date gf entry-date undo updated" datetime="<?php echo get_the_modified_date( 'Y-m-d' ) ?>"><?php echo get_the_modified_date('Y.m.d') ?></time><?php endif; ?>
+<?php /* if (get_the_date('Ymd') < get_the_modified_date('Ymd')) { ?>
+  <time class="date gf entry-date undo updated" datetime="<?php echo get_the_modified_date( 'Y-m-d' ) ?>"><?php echo get_the_modified_date('Y.m.d') ?></time>
+<?php } */ ?>
 
 <span class="writer name author"><span class="fn"><?php the_author(); ?></span></span>
 </p>

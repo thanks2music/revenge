@@ -180,3 +180,26 @@ if (!function_exists('breadcrumb')) {
     echo $str;
 	}
 }
+
+// サーチフォームのDOM
+if (! function_exists('my_search_form')) {
+  function my_search_form( $form ) {
+    $form = '<form role="search" method="get" id="searchform" class="searchform cf" action="' . home_url( '/' ) . '" >
+    <input type="search" placeholder="検索する" value="' . get_search_query() . '" name="s" id="s" />
+    <button type="submit" id="searchsubmit" ><i class="fa fa-search"></i></button>
+    </form>';
+    return $form;
+  }
+  add_filter( 'get_search_form', 'my_search_form' );
+}
+
+//サイト内検索をカスタマイズ
+if (! function_exists('SearchFilter')) {
+  function SearchFilter($query) {
+  if ($query->is_search && $query->is_main_query() && !is_admin()) {
+    $query->set('post_type', array('post', 'page', 'event'));
+  }
+  return $query;
+  }
+  add_filter('pre_get_posts','SearchFilter');
+}
