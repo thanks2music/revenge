@@ -1,8 +1,9 @@
 <div class="top-post-list">
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
+  echo $paged;
 
-  if (is_home() || is_post_type_archive()) {
+  if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
       'posts_per_page' => 10,
@@ -44,129 +45,54 @@
         ),
       ),
     );
-  }
+  } elseif (is_search()) {
+    $s = $_GET['s'];
+    $args = array(
+      's' => $s,
+      'posts_per_page' => -1,
+      'order' => 'DESC',
+      'orderby' => 'date modified',
+      'post_status' => 'publish',
+    );
+    // Search Query
+    $the_query = new WP_Query($args);
+    // 検索を行い記事があったら
+    if ($the_query->have_posts()) {
+      while ($the_query->have_posts()) {
+        $the_query->the_post();
+      ?>
+        <article <?php post_class('post-list animated fadeIn'); ?> role="article">
+          <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
-  // Main Post
-  $the_query = new WP_Query($args);
-
-  if ($the_query->have_posts()) {
-    while ($the_query->have_posts()) {
-      $the_query->the_post();
-      $cf = get_post_custom();
-      $post_type = get_post_type();
-      $taxonomy_name = 'category';
-
-      if ($post_type === 'event') {
-        $taxonomy_name = 'event-category';
-        $start_date = '';
-        $end_date = '';
-        $date_dom = '';
-
-        if (isset($cf['_eventorganiser_schedule_start_start'][0])) {
-          $start_date = $cf['_eventorganiser_schedule_start_start'][0];
-          $start_date = date('Y年n月j日', strtotime($start_date));
-        }
-
-        if (isset($cf['_eventorganiser_schedule_start_finish'][0])) {
-          $end_date = $cf['_eventorganiser_schedule_start_finish'][0];
-          $end_date = date('n月j日', strtotime($end_date));
-        }
-      }
-
-      if (! empty($start_date) && ! empty($end_date) && empty($date_dom)) {
-        $date_dom .= $start_date . '〜' . $end_date;
-      }
-
-      $cat_name = '';
-      $cat = get_the_terms($post->ID, $taxonomy_name);
-
-      for ($i = 0; $i < count($cat); $i++) {
-        if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news') {
-          $cat_name .= $cat[$i]->name;
-        }
-      }
-?>
-
-    <article <?php post_class('post-list animated fadeIn'); ?> role="article">
-      <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
-
-        <?php if ( has_post_thumbnail()) { ?>
-          <figure class="eyecatch">
-            <?php the_post_thumbnail('home-thum'); ?>
-            <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
-          </figure>
-        <?php } else { ?>
-          <figure class="eyecatch noimg">
-            <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-            <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
-          </figure>
-        <?php } ?>
-
-        <section class="entry-content remix">
-          <h1 class="h2 entry-title"><?php the_title(); ?></h1>
-
-          <p class="byline entry-meta vcard">
-            <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
-            <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
-          </p>
-
-          <?php if (! is_mobile()) { ?>
-            <div class="description"><?php the_excerpt(); ?></div>
+            <?php if ( has_post_thumbnail()) { ?>
+              <figure class="eyecatch">
+                <?php the_post_thumbnail('home-thum'); ?>
+                <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+              </figure>
+            <?php } else { ?>
+              <figure class="eyecatch noimg">
+                <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+                <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+              </figure>
           <?php } ?>
-        </section>
-      </a>
-    </article>
-  <?php } // end while the_post();
-  wp_reset_postdata();
-} elseif (is_search()) {
-  $s = $_GET['s'];
-  $args = array(
-    's' => $s,
-    'posts_per_page' => -1,
-    'order' => 'DESC',
-    'orderby' => 'date modified',
-    'post_status' => 'publish',
-  );
-  // Search Query
-  $the_query = new WP_Query($args);
-  // var_dump($the_query);
-  // 検索を行い記事があったら
-  if ($the_query->have_posts()) {
-    while ($the_query->have_posts()) {
-      $the_query->the_post();
+          <section class="entry-content remix">
+            <h1 class="h2 entry-title"><?php the_title(); ?></h1>
+
+            <?php /* <p class="byline entry-meta vcard">
+              <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+              <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
+            </p> */ ?>
+
+            <?php if (! is_mobile()) { ?>
+              <div class="description"><?php the_excerpt(); ?></div>
+            <?php } ?>
+          </section>
+        </a>
+      </article>
+      <?php
+      }
     ?>
-      <article <?php post_class('post-list animated fadeIn'); ?> role="article">
-        <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
-
-          <?php if ( has_post_thumbnail()) { ?>
-            <figure class="eyecatch">
-              <?php the_post_thumbnail('home-thum'); ?>
-              <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
-            </figure>
-          <?php } else { ?>
-            <figure class="eyecatch noimg">
-              <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-              <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
-            </figure>
-        <?php } ?>
-        <section class="entry-content remix">
-          <h1 class="h2 entry-title"><?php the_title(); ?></h1>
-
-          <?php /* <p class="byline entry-meta vcard">
-            <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
-            <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
-          </p> */ ?>
-
-          <?php if (! is_mobile()) { ?>
-            <div class="description"><?php the_excerpt(); ?></div>
-          <?php } ?>
-        </section>
-      </a>
-    </article>
-    <?php
-    }
-  ?>
-  <?php } else { // 記事がなかったら ?>
+  <?php } else { // 検索しても記事がなかったら ?>
     <article id="post-not-found" class="hentry cf">
       <header class="article-header">
         <h1>記事が見つかりませんでした。</h1>
@@ -190,19 +116,101 @@
         </div>
       </section>
     </article>
-  <?php } ?>
+    <?php } ?>
+  <?php }
 
-<?php } else { ?>
-  <article id="post-not-found" class="hentry cf">
-    <header class="article-header">
-      <h1>まだ投稿がありません！</h1>
-    </header>
-    <section class="entry-content">
-      <p>表示する記事がまだありません。</p>
-    </section>
-  </article>
+  // TODO ごちゃごちゃしてきたからページ毎にテンプレート分ける
+  if (! is_search()) {
+    // Main Post
+    $the_query = new WP_Query($args);
+    echo 'max_num_pages' . $the_query->max_num_pages;
 
-<?php } // end if have_posts
-  wp_reset_postdata();
-?>
-</div>
+    if ($the_query->have_posts()) {
+      while ($the_query->have_posts()) {
+        $the_query->the_post();
+        $cf = get_post_custom();
+        $post_type = get_post_type();
+        $taxonomy_name = 'category';
+
+        if ($post_type === 'event') {
+          $taxonomy_name = 'event-category';
+          $start_date = '';
+          $end_date = '';
+          $date_dom = '';
+
+          if (isset($cf['_eventorganiser_schedule_start_start'][0])) {
+            $start_date = $cf['_eventorganiser_schedule_start_start'][0];
+            $start_date = date('Y年n月j日', strtotime($start_date));
+          }
+
+          if (isset($cf['_eventorganiser_schedule_start_finish'][0])) {
+            $end_date = $cf['_eventorganiser_schedule_start_finish'][0];
+            $end_date = date('n月j日', strtotime($end_date));
+          }
+        }
+
+        if (! empty($start_date) && ! empty($end_date) && empty($date_dom)) {
+          $date_dom .= $start_date . '〜' . $end_date;
+        }
+
+        $cat_name = '';
+        $cat = get_the_terms($post->ID, $taxonomy_name);
+
+        for ($i = 0; $i < count($cat); $i++) {
+          if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news') {
+            $cat_name .= $cat[$i]->name;
+          }
+        }
+  ?>
+
+      <article <?php post_class('post-list animated fadeIn'); ?> role="article">
+        <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
+
+          <?php if ( has_post_thumbnail()) { ?>
+            <figure class="eyecatch">
+              <?php the_post_thumbnail('home-thum'); ?>
+              <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+            </figure>
+          <?php } else { ?>
+            <figure class="eyecatch noimg">
+              <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+              <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+            </figure>
+          <?php } ?>
+
+          <section class="entry-content remix">
+            <h1 class="h2 entry-title"><?php the_title(); ?></h1>
+
+            <p class="byline entry-meta vcard">
+              <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+              <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
+            </p>
+
+            <?php if (! is_mobile()) { ?>
+              <div class="description"><?php the_excerpt(); ?></div>
+            <?php } ?>
+          </section>
+        </a>
+      </article>
+    <?php } // end while the_post();
+    } else { ?>
+      <article id="post-not-found" class="hentry cf">
+        <header class="article-header">
+          <h1>まだ投稿がありません！</h1>
+        </header>
+        <section class="entry-content">
+          <p>表示する記事がまだありません。</p>
+        </section>
+      </article>
+  <?php } // end Main Loop
+  } // end ! is_search()
+  if (! function_exists('wp_pagenavi')) {
+    // Original Pagination
+    pagination();
+  } else {
+    // Pagination Plugin
+    wp_pagenavi(array('query' => $the_query));
+  }
+  // Reset WP_Query
+  wp_reset_postdata(); ?>
+</div><?php // end div.top-post-list ?>

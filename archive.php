@@ -74,7 +74,16 @@ $author_id = $post->post_author;
 	<?php endif;?>
 <?php endif;?>
 
-<?php pagination(); ?>
+<?php
+  // if (! function_exists('wp_pagenavi')) {
+  //   pagination();
+  // } else {
+  //   global $wp_query, $paged;
+  //   wp_pagenavi(array('query' => $wp_query));
+  // }
+  // // Reset WP_Query
+  // wp_reset_postdata();
+?>
 
 </main>
 <?php get_sidebar(); ?>

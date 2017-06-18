@@ -32,7 +32,7 @@
 	<?php endif;?>
 <?php endif;?>
 
-<?php pagination(); ?>
+<?php // pagination(); ?>
 </main>
 <?php get_sidebar(); ?>
 </div>

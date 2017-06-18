@@ -38,8 +38,25 @@ var body = doc.getElementsByTagName('body');
 
 // for Single
 if (body[0].className.indexOf('single') > -1) {
-  var theContent = $('#main .article');
+  var main = $(body).find('#main');
+  var theContent = main.find('.article');
   var eventDetail = $(body).find('.eventorganiser-event-meta');
 
+  // 記事詳細のMap部分を切り抜いて記事下部に追加
   $(theContent).append(eventDetail);
+
+  // スムーススクロール
+  main.find('.smooth-scroll').on('click', function (e) {
+    var speed, href, target, position;
+    speed = 300;
+    href = $(this).attr('href');
+    target = $(href == '#' || href == '' ? 'html' : href);
+
+    if (target.length) {
+      position = target.offset().top;
+      $('body, html').animate({ scrollTop: position }, speed, 'swing');
+    }
+
+    return false;
+  });
 }

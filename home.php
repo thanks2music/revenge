@@ -3,7 +3,6 @@
 <div id="inner-content" class="wrap cf">
 
 <main id="main" class="m-all t-all d-5of7 cf" role="main">
-
 <?php get_template_part( 'parts_add_top' ); ?>
 
 <?php
@@ -32,7 +31,18 @@
 	<?php endif;?>
 <?php endif;?>
 
-<?php pagination(); ?>
+<?php
+  if (! is_home() && ! is_front_page() && ! is_archive()) {
+    // if (! function_exists('wp_pagenavi')) {
+    //   pagination();
+    // } else {
+    //   global $wp_query;
+    //   wp_pagenavi(array('query' => $wp_query));
+    // }
+    // // Reset WP_Query
+    // wp_reset_postdata();
+  }
+?>
 <?php get_template_part( 'parts_add_bottom' ); ?>
 </main>
 <?php get_sidebar(); ?>

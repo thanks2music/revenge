@@ -94,3 +94,49 @@
     }
   }
 }
+
+// ページネーション
+.wp-pagenavi {
+  $color: #00b5fa;
+  text-align: center;
+  letter-spacing: -.5em;
+  padding-top: 2em;
+
+  span,
+  a {
+    display: inline-block;
+    letter-spacing: normal;
+    font-size: 16px;
+    padding: 12px 8px 0px 8px;
+    border: 1px solid $color;
+    color: $color;
+    line-height: 1;
+    min-width: 40px;
+    min-height: 40px;
+    text-decoration: none;
+
+    @include mediaquery('max', 374px) {
+      font-size: 14px;
+      min-width: 35px;
+      min-height: 35px;
+      padding: 10px 8px 0px 8px;
+    }
+  }
+
+  > * {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  .current {
+    background: $color;
+    color: #fff;
+    text-decoration: none;
+
+    &:visited {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
