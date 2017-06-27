@@ -2,13 +2,6 @@
 <?php if ( is_front_page() && !is_paged() ) : ?>
 
 <div id="custom_header" class="<?php echo esc_html(get_option('opencage_toppage_textlayout')); ?>" style="color:<?php echo get_theme_mod('opencage_toppage_textcolor');?>; background-image: url(<?php if ( get_theme_mod('opencage_toppage_headerbgsp') && is_mobile()):?><?php echo get_theme_mod('opencage_toppage_headerbgsp');?><?php else:?><?php echo get_theme_mod('opencage_toppage_headerbg');?><?php endif;?>); background-position: center center; background-repeat:<?php echo get_option('opencage_toppage_headerbgrepeat');?>; background-size:<?php echo get_option('opencage_toppage_headerbgsize');?>;">
-<script type="text/javascript">
-jQuery(function( $ ) {
-	$(window).load(function(){
-	    $("#custom_header .wrap").css("opacity", "100");
-	});
-});
-</script>
 
 	<div class="wrap cf" style="opacity: 0;">
 		<div class="header-text">
@@ -56,52 +49,6 @@ $args = array(
 $the_query = new WP_Query( $args );
 if ( $the_query->have_posts() ) {
 	?>
-
-<script type="text/javascript">
-jQuery(function( $ ) {
-	$('.slickcar').slick({
-		centerMode: true,
-		dots: true,
-		autoplay: true,
-		autoplaySpeed: 3000,
-		speed: 260,
-		centerPadding: '90px',
-		slidesToShow: 4,
-		responsive: [
-		{
-			breakpoint: 1160,
-			settings: {
-			arrows: false,
-			centerMode: true,
-			centerPadding: '40px',
-			slidesToShow: 4
-		}
-		},
-		{
-			breakpoint: 768,
-			settings: {
-			arrows: false,
-			centerMode: true,
-			centerPadding: '40px',
-			slidesToShow: 3
-		}
-		},
-		{
-			breakpoint: 480,
-			settings: {
-			arrows: false,
-			centerMode: true,
-			centerPadding: '25px',
-			slidesToShow: 1
-		}
-		}]
-	});
-	$(window).load(function(){
-	    $(".slickcar").css("opacity", "1.0");
-	});
-});
-</script>
-
 <div id="top_carousel" class="carouselwrap wrap cf">
 <ul class="slider slickcar" style="opacity: 0;">
 

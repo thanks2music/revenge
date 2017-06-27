@@ -1,7 +1,7 @@
+<?php global $url; ?>
 <div class="top-post-list">
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  echo $paged;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
@@ -16,16 +16,31 @@
     $post_type = get_post_type();
     $taxonomy_name = 'category';
     $cat_slug = [];
+    $debug = 0;
 
     if ($post_type === 'event') {
-      $taxonomy_name = 'event-category';
+      if (is_tax('event-category')) {
+        $taxonomy_name = 'event-category';
+      } elseif (is_tax('event-tag')) {
+        $taxonomy_name = 'event-tag';
+      } else {
+        $taxonomy_name = 'event-category';
+      }
     }
 
     $category = get_the_terms($post->ID, $taxonomy_name);
 
-    for($i = 0; $i < count($category); $i++) {
-      if (is_category($category[$i]->slug)) {
-        $cat_slug[$i] = $category[$i]->slug;
+    if (is_category()) {
+      for($i = 0; $i < count($category); $i++) {
+        if (is_category($category[$i]->slug)) {
+          $cat_slug[$i] = $category[$i]->slug;
+        }
+      }
+    } elseif (is_tax()) {
+      for($i = 0; $i < count($category); $i++) {
+        if (is_tax($taxonomy_name, $category[$i]->slug)) {
+          $cat_slug[$i] = $category[$i]->slug;
+        }
       }
     }
 
@@ -123,7 +138,6 @@
   if (! is_search()) {
     // Main Post
     $the_query = new WP_Query($args);
-    echo 'max_num_pages' . $the_query->max_num_pages;
 
     if ($the_query->have_posts()) {
       while ($the_query->have_posts()) {
@@ -133,10 +147,17 @@
         $taxonomy_name = 'category';
 
         if ($post_type === 'event') {
-          $taxonomy_name = 'event-category';
           $start_date = '';
           $end_date = '';
           $date_dom = '';
+
+          if (is_tax('event-category')) {
+            $taxonomy_name = 'event-category';
+          } elseif (is_tax('event-tag')) {
+            $taxonomy_name = 'event-tag';
+          } else {
+            $taxonomy_name = 'event-category';
+          }
 
           if (isset($cf['_eventorganiser_schedule_start_start'][0])) {
             $start_date = $cf['_eventorganiser_schedule_start_start'][0];

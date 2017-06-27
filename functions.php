@@ -28,13 +28,16 @@ function add_javascripts() {
 
 // MOREタグの下に広告を表示
 add_filter('the_content', 'adMoreReplace');
+
 function adMoreReplace($contentData) {
   global $is_sp;
-  $adTags = '';
+  $adTagResponsive = '';
+  $adTagText = '';
 
   // SP
+  // レスポンシブ広告
   if ($is_sp) {
-$adTags = <<< EOF
+$adTagResponsive = <<< EOF
 
 <div class="add more">
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -52,7 +55,7 @@ $adTags = <<< EOF
 EOF;
     // PC
   } else {
-$adTags = <<< EOF
+$adTagResponsive = <<< EOF
 
 <div class="add more">
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -69,7 +72,29 @@ $adTags = <<< EOF
 
 EOF;
   }
-  $contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTags, $contentData);
+
+// テキスト広告
+$adTagText = <<< EOF
+
+<div class="add more text">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- CC - レスポンシブテキスト -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="9384949215"
+       data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+EOF;
+
+  // レスポンシブ広告
+  $contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTagResponsive, $contentData);
+  // テキスト広告
+  $contentData = str_replace('<p><moreads></moreads></p>', $adTagText, $contentData);
   $contentData = str_replace('<p></p>', '', $contentData);
   $contentData = str_replace('<p><br />', '<p>', $contentData);
 

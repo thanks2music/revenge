@@ -3,14 +3,19 @@
 <div id="inner-content" class="wrap cf">
 <main id="main" class="m-all t-all d-5of7 cf" role="main">
 <div class="archivettl">
-<?php if (is_category() || is_post_type_archive()) { ?>
+<?php if (is_archive() || is_post_type_archive()) { ?>
 <?php
   $post_type = get_post_type();
   $taxonomy_name = 'category';
   $cat_name = '';
 
   if ($post_type === 'event') {
-    $taxonomy_name = 'event-category';
+    if (is_tax('event-category')) {
+      $taxonomy_name = 'event-category';
+    } elseif (is_tax('event-tag')) {
+      $taxonomy_name = 'event-tag';
+    }
+
     $cat_name .= 'コラボカテゴリー';
   }
 
@@ -19,7 +24,7 @@
   }
 ?>
 <h1 class="archive-title h2">
-<?php if (is_category()) {?>
+<?php if (is_category() || is_tax()) {?>
   <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span> <?php single_cat_title(); ?>
 <?php } elseif (is_post_type_archive()) { ?>
   <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span> <?php echo $cat_name; ?>
