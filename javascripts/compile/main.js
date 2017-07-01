@@ -34,7 +34,8 @@ var is_pc = function is_pc() {
 };
 
 // Common
-var body = doc.getElementsByTagName('body');
+var body = document.getElementsByTagName('body'),
+    wrap = document.getElementById('container');
 
 // for Single
 if (body[0].className.indexOf('single') > -1) {
@@ -59,4 +60,54 @@ if (body[0].className.indexOf('single') > -1) {
 
     return false;
   });
+}
+
+// for Design
+var customHeader = $(wrap).find('#custom_header .wrap'),
+    slickElement = $(wrap).find('.slickcar');
+
+// Slickがあったら
+if (slickElement.length) {
+  slickElement.slick({
+    centerMode: true,
+    dots: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    speed: 260,
+    centerPadding: '90px',
+    slidesToShow: 4,
+    responsive: [{
+      breakpoint: 1160,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 4
+      }
+    }, {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '25px',
+        slidesToShow: 1
+      }
+    }]
+  });
+
+  $(window).on('load', function () {
+    slickElement.fadeIn(400);
+  });
+}
+
+if (customHeader.length) {
+  customHeader.fadeIn(400);
 }

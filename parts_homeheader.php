@@ -50,7 +50,7 @@ $the_query = new WP_Query( $args );
 if ( $the_query->have_posts() ) {
 	?>
 <div id="top_carousel" class="carouselwrap wrap cf">
-<ul class="slider slickcar" style="opacity: 0;">
+<ul class="slider slickcar">
 
 <?php while ( $the_query->have_posts() ) {
 $the_query->the_post();

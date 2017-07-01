@@ -140,3 +140,19 @@
     }
   }
 }
+
+// カスタムヘッダーが有効な場合、表示される
+#custom_header {
+  .wrap {
+    opacity: 1;
+  }
+}
+
+// SP
+.sp {
+  #top_carousel {
+    min-height: 190px;
+    max-height: 210px;
+    overflow: hidden;
+  }
+}
