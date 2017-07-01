@@ -30,6 +30,11 @@ let is_pc = () => {
 let body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container');
 
+// for Design
+let customHeader = $(wrap).find('#custom_header .wrap'),
+    slickElement = $(wrap).find('.slickcar');
+
+
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   let main = $(body).find('#main');
@@ -54,10 +59,6 @@ if (body[0].className.indexOf('single') > -1) {
     return false;
   });
 }
-
-// for Design
-let customHeader = $(wrap).find('#custom_header .wrap'),
-    slickElement = $(wrap).find('.slickcar');
 
 // Slickがあったら
 if (slickElement.length) {
@@ -102,8 +103,3 @@ if (slickElement.length) {
     slickElement.fadeIn(400);
   });
 }
-
-if (customHeader.length) {
-  customHeader.fadeIn(400);
-}
-
