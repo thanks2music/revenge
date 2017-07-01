@@ -4,8 +4,8 @@ CC Child Theme for Stork
 
 ## TODO
 
-- [] SPメニューをFixedにする
-- [] 記事詳細ページのSNSをfixedにする
+- [ ] SPメニューをFixedにする
+- [ ] 記事詳細ページのSNSをfixedにする
 
 ## Env
 
