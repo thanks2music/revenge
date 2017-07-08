@@ -61,7 +61,8 @@
 }
 
 // 記事詳細の3カラムレイアウト
-.ads-area {
+.ads-area,
+.cc-col-wrap {
   letter-spacing: -.5em;
   text-align: center;
   width: 100%;
@@ -154,5 +155,35 @@
     min-height: 190px;
     max-height: 210px;
     overflow: hidden;
+  }
+}
+
+// PC
+.pc {
+  #top_carousel {
+    overflow: hidden;
+    min-width: 1166px;
+    max-height: 230px;
+
+    img {
+      max-width: 234px;
+    }
+
+    ul.slider {
+      opacity: 0;
+
+      .slick-slide {
+        display: block !important;
+      }
+    }
+  }
+
+  &.loaded {
+    #top_carousel {
+      ul.slider {
+        opacity: 1;
+        transition: opacity 400ms ease-in-out;
+      }
+    }
   }
 }

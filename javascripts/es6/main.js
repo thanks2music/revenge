@@ -29,10 +29,13 @@ let is_pc = () => {
 // Common
 let body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container');
-
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
     slickElement = $(wrap).find('.slickcar');
+
+document.addEventListener('DOMContentLoaded', () => {
+  $(body).addClass('loaded');
+});
 
 
 // for Single
@@ -60,7 +63,7 @@ if (body[0].className.indexOf('single') > -1) {
   });
 }
 
-// Slickがあったら
+// トップページでSlickがあったら
 if (slickElement.length) {
   slickElement.slick({
     centerMode: true,
@@ -97,9 +100,5 @@ if (slickElement.length) {
         slidesToShow: 1
       }
     }]
-  });
-
-  $(window).on('load', function() {
-    slickElement.fadeIn(400);
   });
 }

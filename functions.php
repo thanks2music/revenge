@@ -41,14 +41,14 @@ $adTagResponsive = <<< EOF
 
 <div class="add more">
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <!-- CC - 記事の途中 -->
   <ins class="adsbygoogle"
-       style="display:block"
+       style="display:block; text-align:center;"
+       data-ad-format="fluid"
+       data-ad-layout="in-article"
        data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="4994583614"
-       data-ad-format="auto"></ins>
+       data-ad-slot="2805411615"></ins>
   <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});
+       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 
@@ -59,14 +59,14 @@ $adTagResponsive = <<< EOF
 
 <div class="add more">
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <!-- CC - PC記事の途中 -->
   <ins class="adsbygoogle"
-       style="display:block"
+       style="display:block; text-align:center;"
+       data-ad-format="fluid"
+       data-ad-layout="in-article"
        data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="6789910818"
-       data-ad-format="auto"></ins>
+       data-ad-slot="2805411615"></ins>
   <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});
+       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 
