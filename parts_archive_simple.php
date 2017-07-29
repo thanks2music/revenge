@@ -18,6 +18,10 @@
     $cat_slug = [];
     $debug = 0;
 
+    if ($post_type === 'post' && is_tag()) {
+      $taxonomy_name = 'post_tag';
+    }
+
     if ($post_type === 'event') {
       if (is_tax('event-category')) {
         $taxonomy_name = 'event-category';
@@ -31,8 +35,6 @@
     $category = get_the_terms($post->ID, $taxonomy_name);
 
     if (is_category()) {
-      $debug++;
-      echo $debug;
       for($i = 0; $i < count($category); $i++) {
         if (is_category($category[$i]->slug)) {
           $cat_slug[$i] = $category[$i]->slug;
@@ -218,7 +220,9 @@
             <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
 
             <p class="byline entry-meta vcard">
-              <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+              <?php if ($post_type === 'event') { ?>
+                <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+              <?php } ?>
               <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
               <span class="author name entry-author">
               <span class="fn"><?php the_author_meta('nickname'); ?></span>

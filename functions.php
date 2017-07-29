@@ -109,12 +109,15 @@ if (!function_exists('breadcrumb')) {
     if(! get_option('side_options_pannavi')){
       if (! is_home() && ! is_front_page() && ! is_admin() ){
           $tagAttribute = '';
+          $itemLength = 1;
           foreach($divOption as $attrName => $attrValue){
               $tagAttribute .= sprintf(' %s="%s"', $attrName, $attrValue);
           }
           $str.= '<div'. $tagAttribute .'>';
-          $str.= '<ul>';
-          $str.= '<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. home_url() .'/" itemprop="url"><i class="fa fa-home"></i><span itemprop="title"> HOME</span></a></li>';
+          $str.= '<ul itemscope itemtype="http://schema.org/BreadcrumbList">';
+          $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. home_url() .'/" itemprop="item"><i class="fa fa-home"></i><span itemprop="name">HOME</span></a>';
+          $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+          $itemLength++;
    
           if (is_archive()) {
               $cat = get_queried_object();
@@ -122,11 +125,13 @@ if (!function_exists('breadcrumb')) {
               if ($cat->parent != 0){
                 $ancestors = array_reverse(get_ancestors($cat->cat_ID, 'category' ));
                 foreach($ancestors as $ancestor){
-                  $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($ancestor) .'" itemprop="url"><span itemprop="title">'. get_cat_name($ancestor) .'</span></a></li>';
+                  $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a></li>';
+                  $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                  $itemLength++;
                 }
               }
 
-              $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><span itemprop="title">'. $cat -> name . '</span></li>';
+              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $cat -> name . '</span><meta itemprop="position" content="' . $itemLength . '" /></a></li>';
           } elseif (is_single()) {
               $post_type = get_post_type();
               $taxonomy_name = 'category';
@@ -151,26 +156,37 @@ if (!function_exists('breadcrumb')) {
               if ($cat->parent != 0) {
                   $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, $taxonomy_name));
                   foreach($ancestors as $ancestor){
-                      $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($ancestor).'" itemprop="url"><span itemprop="title">'. get_cat_name($ancestor). '</span></a></li>';
+                    $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+                    $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                    $itemLength++;
                   }
               }
 
               // Category
               if ($post_type === 'post') {
-                $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($cat -> term_id). '" itemprop="url"><span itemprop="title">'. $cat-> cat_name . '</span></a></li>';
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $itemLength++;
                 // Taxonomy
               } else {
-                $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_term_link($cat->term_taxonomy_id, $taxonomy_name). '" itemprop="url"><span itemprop="title">'. $cat->name . '</span></a></li>';
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_term_link($cat->term_taxonomy_id, $taxonomy_name) .'" itemprop="item"><span itemprop="name">'. $cat->name .'</span></a>';
+                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $itemLength++;
               }
-              $str.= '<li>'. $post -> post_title .'</li>';
+
+              $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $post -> post_title .'</span></a><meta itemprop="position" content="' . $itemLength . '" /></li>';
+              $itemLength++;
           } elseif(is_page()){
               if($post -> post_parent != 0 ){
                   $ancestors = array_reverse(get_post_ancestors( $post->ID ));
                   foreach($ancestors as $ancestor){
-                      $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_permalink($ancestor).'" itemprop="url"><span itemprop="title">'. get_the_title($ancestor) .'</span></a></li>';
+                    $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_permalink($ancestor).'" itemprop="item"><span itemprop="name">'. get_the_title($ancestor) .'</span></a>';
+                    $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                    $itemLength++;
                   }
               }
-              $str.= '<li>'. $post -> post_title .'</li>';
+
+              $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $post -> post_title .'</span></a><meta itemprop="position" content="' . $itemLength . '" /></li>';
           } elseif(is_date()){
         if( is_year() ){
           $str.= '<li>' . get_the_time('Y') . '年</li>';
