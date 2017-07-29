@@ -212,14 +212,11 @@
   }
 }
 
-// 一覧ページ
-.archive {
+body {
   .entry-content {
-    .entry-meta {
-      .entry-author {
-        opacity: 0;
-        display: none;
-      }
+    .entry-author {
+      opacity: 0;
+      display: none;
     }
   }
 }
