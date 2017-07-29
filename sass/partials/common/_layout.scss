@@ -187,3 +187,39 @@
     }
   }
 }
+
+.single {
+  // header部分のwriter上書き
+  .byline .writer {
+    display: inline-block;
+  }
+
+  // 記事下の著者情報
+  .entry-author {
+    text-align: right;
+    font-size: 12px;
+    opacity: .3;
+
+    // .fn class
+    span {
+      &:before {
+        font-family: 'fontawesome';
+        content: '\f007';
+        font-size: 12px;
+        margin-right: .3em;
+      }
+    }
+  }
+}
+
+// 一覧ページ
+.archive {
+  .entry-content {
+    .entry-meta {
+      .entry-author {
+        opacity: 0;
+        display: none;
+      }
+    }
+  }
+}

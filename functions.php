@@ -116,7 +116,7 @@ if (!function_exists('breadcrumb')) {
           $str.= '<ul>';
           $str.= '<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. home_url() .'/" itemprop="url"><i class="fa fa-home"></i><span itemprop="title"> HOME</span></a></li>';
    
-          if (is_category()) {
+          if (is_archive()) {
               $cat = get_queried_object();
 
               if ($cat->parent != 0){

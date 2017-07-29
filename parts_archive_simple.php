@@ -31,6 +31,8 @@
     $category = get_the_terms($post->ID, $taxonomy_name);
 
     if (is_category()) {
+      $debug++;
+      echo $debug;
       for($i = 0; $i < count($category); $i++) {
         if (is_category($category[$i]->slug)) {
           $cat_slug[$i] = $category[$i]->slug;
@@ -40,6 +42,19 @@
       for($i = 0; $i < count($category); $i++) {
         if (is_tax($taxonomy_name, $category[$i]->slug)) {
           $cat_slug[$i] = $category[$i]->slug;
+        }
+      }
+    }
+
+    if (empty($cat_slug)) {
+      $url = $_SERVER['REQUEST_URI'];
+      $path_arr = explode('/', $url);
+      $path_count = count($path_arr);
+
+      // 2以上なら
+      if ($path_count >= 2) {
+        if (array_values($path_arr) === $path_arr) {
+          $cat_slug = $path_arr[$path_count - 2];
         }
       }
     }
@@ -76,7 +91,7 @@
       while ($the_query->have_posts()) {
         $the_query->the_post();
       ?>
-        <article <?php post_class('post-list animated fadeIn'); ?> role="article">
+        <article <?php post_class('post-list animated fadeIn search-container'); ?> role="article">
           <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
             <?php if ( has_post_thumbnail()) { ?>
@@ -93,10 +108,10 @@
           <section class="entry-content remix">
             <h1 class="h2 entry-title"><?php the_title(); ?></h1>
 
-            <?php /* <p class="byline entry-meta vcard">
+            <p class="byline entry-meta vcard">
               <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
-              <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
-            </p> */ ?>
+              <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
+            </p>
 
             <?php if (! is_mobile()) { ?>
               <div class="description"><?php the_excerpt(); ?></div>
@@ -108,9 +123,9 @@
       }
     ?>
   <?php } else { // 検索しても記事がなかったら ?>
-    <article id="post-not-found" class="hentry cf">
+    <article id="post-not-found" class="cf">
       <header class="article-header">
-        <h1>記事が見つかりませんでした。</h1>
+        <h1 class="entry-title">記事が見つかりませんでした。</h1>
       </header>
       <section class="entry-content">
         <p>お探しのキーワードで記事が見つかりませんでした。別のキーワードで再度お探しいただくか、カテゴリ一覧からお探し下さい。</p>
@@ -200,11 +215,14 @@
           <?php } ?>
 
           <section class="entry-content remix">
-            <h1 class="h2 entry-title"><?php the_title(); ?></h1>
+            <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
 
             <p class="byline entry-meta vcard">
               <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
-              <span class="date gf">記事公開日 : <?php the_time('Y.m.d'); ?></span>
+              <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
+              <span class="author name entry-author">
+              <span class="fn"><?php the_author_meta('nickname'); ?></span>
+              </span>
             </p>
 
             <?php if (! is_mobile()) { ?>

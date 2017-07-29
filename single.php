@@ -13,10 +13,13 @@
 
 <main id="main" class="m-all t-all d-5of7 cf" role="main">
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> role="article">
+<?php
+  $post_class = '';
+?>
+<article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?> role="article">
 <?php dynamic_sidebar( 'addbanner-titletop' ); ?>
 <header class="article-header entry-header">
-<p class="byline entry-meta vcard cf">
+<p class="byline entry-meta cf">
 <?php if(is_singular('post')):
 	$cat = get_the_category();
 	$cat = $cat[0];
@@ -24,13 +27,10 @@ endif;?>
 
 <?php if(is_singular('post')):?><span class="cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span><?php endif;?>
 
-<time class="date gf entry-date updated"<?php if ( get_the_date('Ymd') >= get_the_modified_date('Ymd') ) : ?>  datetime="<?php echo get_the_date('Y-m-d') ?>"<?php endif; ?>><?php echo get_the_date('Y.m.d'); ?></time>
-<?php /* if (get_the_date('Ymd') < get_the_modified_date('Ymd')) { ?>
+<time class="date gf entry-date published"<?php if ( get_the_date('Ymd') >= get_the_modified_date('Ymd') ) : ?>  datetime="<?php echo get_the_date('Y-m-d') ?>"<?php endif; ?>><?php echo get_the_date('Y.m.d'); ?></time>
+<?php if (get_the_date('Ymd') < get_the_modified_date('Ymd')) { ?>
   <time class="date gf entry-date undo updated" datetime="<?php echo get_the_modified_date( 'Y-m-d' ) ?>"><?php echo get_the_modified_date('Y.m.d') ?></time>
-<?php } */ ?>
-
-<span class="writer name author"><span class="fn"><?php the_author(); ?></span></span>
-</p>
+<?php } ?>
 
 <h1 class="entry-title single-title" itemprop="headline" rel="bookmark"><?php the_title(); ?></h1>
 
@@ -87,7 +87,9 @@ wp_link_pages( array(
 <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
 </div>
 <?php endif; ?>
-
+  <p class="entry-author vcard author">
+    <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
+  </p>
 </section>
 
 <?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>
