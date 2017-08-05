@@ -2,6 +2,8 @@
 <div class="top-post-list">
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
+  $ads_infeed = 7;
+  $ads_infeed_count = 0;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
@@ -199,7 +201,24 @@
             $cat_name .= $cat[$i]->name;
           }
         }
-  ?>
+
+        // Infeed広告
+        if ($ads_infeed_count === $ads_infeed) { ?>
+          <?php /*
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-format="fluid"
+            data-ad-layout="image-side"
+            data-ad-layout-key="-ez+72+1n-m8+zk"
+            data-ad-client="ca-pub-7307810455044245"
+            data-ad-slot="4912770015"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script> */ ?>
+        <?php }
+          $ads_infeed_count++;
+      ?>
 
       <article <?php post_class('post-list animated fadeIn'); ?> role="article">
         <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
