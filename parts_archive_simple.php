@@ -2,13 +2,13 @@
 <div class="top-post-list">
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  $ads_infeed = 7;
+  $ads_infeed = 10;
   $ads_infeed_count = 0;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
-      'posts_per_page' => 10,
+      'posts_per_page' => 15,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
@@ -204,7 +204,6 @@
 
         // Infeed広告
         if ($ads_infeed_count === $ads_infeed) { ?>
-          <?php /*
           <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
           <ins class="adsbygoogle"
             style="display:block"
@@ -215,7 +214,7 @@
             data-ad-slot="4912770015"></ins>
           <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
-          </script> */ ?>
+          </script>
         <?php }
           $ads_infeed_count++;
       ?>
