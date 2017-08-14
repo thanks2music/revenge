@@ -1,5 +1,35 @@
 @charset "utf-8";
 
+// ホーム
+.home {
+  &.pc {
+    .homewidget.popular-posts {
+      .wpp-post-title {
+        font-size: 1.4em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .wpp-excerpt {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .wpp-thumbnail {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  &.sp {
+    .sidebar {
+      .widget.widget_recent_entries {
+        display: none;
+      }
+    }
+  }
+}
+
 .entry-content {
   // Override Class
   &.remix {

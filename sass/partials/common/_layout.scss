@@ -96,6 +96,11 @@
   }
 }
 
+.cc-infeed {
+  padding: 0.7em;
+  border-bottom: 1px dotted rgba(0,0,0,.2);
+}
+
 // ページネーション
 .wp-pagenavi {
   $color: #00b5fa;
@@ -210,6 +215,29 @@
       }
     }
   }
+
+  // for Amazon
+  .amazonjs_item {
+    background: none;
+
+    .amazonjs_image {
+      a {
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    .amazonjs_info {
+      ul {
+        li {
+          &:before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }
 
 body {
@@ -220,3 +248,4 @@ body {
     }
   }
 }
+
