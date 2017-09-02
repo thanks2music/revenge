@@ -112,7 +112,7 @@
           'order' => 'ASC',
           'post_status' => 'publish',
           'paged' => $paged,
-          'meta_key' => '_eventorganiser_schedule_start_finish',
+          'meta_key' => '_eventorganiser_schedule_start_start',
           'orderby'    => 'meta_value',
           'tax_query' => array(
             array(
