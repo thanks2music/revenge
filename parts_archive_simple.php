@@ -334,18 +334,20 @@
                 $term_len = count($terms);
                 $dom = '';
 
-                for($i = 0; $i < $term_len; $i++) {
-                  if ($i === 0) {
-                    $dom .= '<ul>';
-                  }
+                if (1 <= $term_len) {
+                  for($i = 0; $i < $term_len; $i++) {
+                    if ($i === 0) {
+                      $dom .= '<ul>';
+                    }
 
-                  $name = $terms[$i]->name;
-                  $link = get_term_link($terms[$i]);
-                  $dom .= '<li><a href="' . $link . '">';
-                  $dom .= $name . '</a></li>';
+                    $name = $terms[$i]->name;
+                    $link = get_term_link($terms[$i]);
+                    $dom .= '<li><a href="' . $link . '">';
+                    $dom .= $name . '</a></li>';
 
-                  if ($i === $term_len - 1) {
-                    $dom .= '</ul>';
+                    if ($i === $term_len - 1) {
+                      $dom .= '</ul>';
+                    }
                   }
                 }
 
