@@ -249,3 +249,204 @@ body {
   }
 }
 
+#container {
+  $pink: #ff5dab;
+
+  // 記事内ナビゲーション
+  .cc-jump-section {
+    background: #f4f4f4;
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid darken(#f4f4f4, 10%);
+    border-radius: 5px;
+
+    .sp & {
+      padding: 1em .5em .5em 1em;
+    }
+
+    > p {
+      text-align: center;
+      margin: 0;
+      line-height: 1;
+
+      .sp & {
+        text-align: left;
+      }
+    }
+
+    .cc-nav-list {
+      text-align: center;
+      letter-spacing: -.5em;
+      margin: 0;
+      padding-top: 1em;
+
+      .sp & {
+        text-align: left;
+        font-size: 13px;
+      }
+
+      li {
+        display: inline-block;
+        letter-spacing: normal;
+        vertical-align: top;
+        padding-left: 1em;
+        margin: 0;
+
+        .sp & {
+          width: 47%;
+          margin-bottom: 3%;
+        }
+
+        &:not(:last-child) {
+          margin-right: 1em;
+
+          .sp & {
+            margin-right: 3%;
+          }
+        }
+      }
+    }
+  }
+
+  // 記事内装飾
+  .column-wrap {
+    > div {
+      p {
+        font-size: 14px;
+      }
+
+      i {
+        color: #ff5dab;
+      }
+    }
+  }
+
+  // 上書きするためセレクタ付きにする
+  // 開催時期別一覧用
+  #main {
+    .period & {
+      background: #f5f5f5;
+    }
+  }
+
+  article.period-list {
+    background: #fff;
+    margin: 0.7em;
+
+    > a {
+      padding: 0;
+      border: 0;
+
+      &:first-child {
+        border-top: 0;
+      }
+    }
+
+    span.date,
+    span.entry-author {
+      display: none;
+    }
+
+    // アイキャッチ
+    .eyecatch {
+      float: none;
+      max-height: none;
+      width: 100%;
+    }
+
+    // 記事メタ情報
+    .entry-meta {
+      .event-date-parent {
+        display: block;
+        background: $pink;
+        color: #fff;
+        letter-spacing: -.5em;
+
+        span {
+          display: inline-block;
+          font-size: 11px;
+          font-weight: bold;
+          font-family: $font-family;
+          letter-spacing: normal;
+          padding: 5px 7px;
+        }
+
+        .event-date {
+        }
+
+        .event-cat {
+          background: #00b5fa;
+          margin: 0;
+          float: none;
+
+          &:before {
+            @extend %webfont-fa;
+            content: '\f0f4'; // Coffee
+            transform: none;
+            margin-right: .3em;
+          }
+        }
+      }
+    }
+
+    section.entry-content {
+      padding-top: 3%;
+
+      .pc & {
+        padding: 3% 3% 0;
+      }
+
+      // h1
+      .entry-title {
+        font-size: 1.4em;
+      }
+    }
+
+    .enrty-tags {
+      padding: .5em 1em;
+
+      .pc & {
+        padding: .5em 2em;
+      }
+
+      ul {
+        margin: 0;
+        letter-spacing: -.5em;
+      }
+
+      li {
+        display: inline-block;
+        letter-spacing: normal;
+        margin-bottom: .5em;
+
+        &:not(:last-child) {
+          margin-right: .5em;
+        }
+      }
+
+      a {
+        padding: .5em;
+        margin: 0;
+        border: 1px solid $pink;
+        color: $pink;
+        font-size: 13px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  // カテゴリタイトル
+  .archivettl {
+    .archive & {
+      margin-left: -1em;
+      margin-right: -1em;
+    }
+  }
+
+  .archive-title {
+    .archive & {
+      padding: 0 0 .2em;
+      margin: 0 .5em 1em;
+    }
+  }
+}

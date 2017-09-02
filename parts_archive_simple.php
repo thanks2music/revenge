@@ -35,17 +35,34 @@
     }
 
     $category = get_the_terms($post->ID, $taxonomy_name);
+    $cat_len = count($category);
 
     if (is_category()) {
-      for($i = 0; $i < count($category); $i++) {
+      for($i = 0; $i < $cat_len; $i++) {
         if (is_category($category[$i]->slug)) {
           $cat_slug[$i] = $category[$i]->slug;
+          break;
         }
       }
     } elseif (is_tax()) {
-      for($i = 0; $i < count($category); $i++) {
+      for($i = 0; $i < $cat_len; $i++) {
         if (is_tax($taxonomy_name, $category[$i]->slug)) {
           $cat_slug[$i] = $category[$i]->slug;
+
+          // 説明文をトリガーにクエリーを分岐させる
+          if ($category[$i]->slug === 'collabo-period') {
+            $period_flag = true;
+            break;
+          } elseif ($category[$i]->parent !== 0) {
+            $cat_parent_id = $category[$i]->parent;
+            $cat_parent = get_term($cat_parent_id, $taxonomy_name);
+
+            if (! empty($cat_parent->description) && $cat_parent->slug === 'collabo-period') {
+              $period_flag = true;
+            }
+
+            break;
+          }
         }
       }
     }
@@ -63,22 +80,68 @@
       }
     }
 
-    $args = array(
-      'post_type' => array('post', 'event'),
-      'posts_per_page' => 16,
-      'order' => 'DESC',
-      'orderby' => 'date modified',
-      'post_status' => 'publish',
-      'paged' => $paged,
-      'tax_query' => array(
-        array(
-          'taxonomy' => $taxonomy_name,
-          'terms' => $cat_slug,
-          'field' => 'slug',
-          'operator'=>'IN',
+    if (isset($period_flag) && $period_flag === true) {
+      if (is_tax($taxonomy_name, 'collabo-period')) {
+        // Local タイム取得
+        $current_date = date('Y-m-d'); //2017-09-02
+        $current_date = strval($current_date);
+
+        $args = array(
+          'post_type' => array('post', 'event'),
+          'posts_per_page' => 16,
+          'order' => 'ASC',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          'meta_key' => '_eventorganiser_schedule_start_finish',
+          'meta_value' => $current_date,
+          'meta_compare' => '>=',
+          'orderby'    => 'meta_value',
+          'tax_query' => array(
+            array(
+              'taxonomy' => $taxonomy_name,
+              'terms' => $cat_slug,
+              'field' => 'slug',
+              'operator'=>'IN',
+            ),
+          ),
+        );
+      } else {
+        $args = array(
+          'post_type' => array('post', 'event'),
+          'posts_per_page' => 16,
+          'order' => 'ASC',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          'meta_key' => '_eventorganiser_schedule_start_finish',
+          'orderby'    => 'meta_value',
+          'tax_query' => array(
+            array(
+              'taxonomy' => $taxonomy_name,
+              'terms' => $cat_slug,
+              'field' => 'slug',
+              'operator'=>'IN',
+            ),
+          ),
+        );
+      }
+    } else {
+      $args = array(
+        'post_type' => array('post', 'event'),
+        'posts_per_page' => 16,
+        'order' => 'DESC',
+        'orderby' => 'date modified',
+        'post_status' => 'publish',
+        'paged' => $paged,
+        'tax_query' => array(
+          array(
+            'taxonomy' => $taxonomy_name,
+            'terms' => $cat_slug,
+            'field' => 'slug',
+            'operator'=>'IN',
+          ),
         ),
-      ),
-    );
+      );
+    }
   } elseif (is_search()) {
     $s = $_GET['s'];
     $args = array(
@@ -162,6 +225,7 @@
       while ($the_query->have_posts()) {
         $the_query->the_post();
         $cf = get_post_custom();
+        $endless_flag = get_post_meta($post->ID, 'endless_event_flag', true);
         $post_type = get_post_type();
         $taxonomy_name = 'category';
 
@@ -169,6 +233,7 @@
           $start_date = '';
           $end_date = '';
           $date_dom = '';
+          $taxonomy_tag = 'event-tag';
 
           if (is_tax('event-category')) {
             $taxonomy_name = 'event-category';
@@ -190,11 +255,19 @@
         }
 
         if (! empty($start_date) && ! empty($end_date) && empty($date_dom)) {
-          $date_dom .= $start_date . '〜' . $end_date;
+          if ($endless_flag) {
+            $date_dom .= $start_date . '〜';
+          } else {
+            $date_dom .= $start_date . '〜' . $end_date;
+          }
         }
 
         $cat_name = '';
         $cat = get_the_terms($post->ID, $taxonomy_name);
+        if (isset($taxonomy_tag)) {
+          $tag = get_the_terms($post->ID, $taxonomy_tag);
+
+        }
 
         for ($i = 0; $i < count($cat); $i++) {
           if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news') {
@@ -220,42 +293,102 @@
           </div>
         <?php }
           $ads_infeed_count++;
-      ?>
 
-      <article <?php post_class('post-list animated fadeIn'); ?> role="article">
-        <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
-
-          <?php if ( has_post_thumbnail()) { ?>
-            <figure class="eyecatch">
-              <?php the_post_thumbnail('home-thum'); ?>
-              <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
-            </figure>
-          <?php } else { ?>
-            <figure class="eyecatch noimg">
-              <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-              <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
-            </figure>
-          <?php } ?>
-
-          <section class="entry-content remix">
-            <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
-
-            <p class="byline entry-meta vcard">
-              <?php if ($post_type === 'event') { ?>
-                <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+        // 期間別一覧の場合
+        if (isset($period_flag)) { ?>
+          <article <?php post_class('post-list period-list animated fadeIn'); ?> role="article">
+            <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
+              <div class="byline entry-meta vcard">
+                <?php if ($post_type === 'event') { ?>
+                  <div class="event-date-parent">
+                    <span class="event-cat cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                    <span class="event-date gf"><?php echo $date_dom; ?></span>
+                  </div>
+                <?php } ?>
+                <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
+                <span class="author name entry-author">
+                  <span class="fn"><?php the_author_meta('nickname'); ?></span>
+                </span>
+              </div>
+              <?php if ( has_post_thumbnail()) { ?>
+                <figure class="eyecatch">
+                  <?php the_post_thumbnail(); ?>
+                </figure>
+              <?php } else { ?>
+                <figure class="eyecatch noimg">
+                  <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+                </figure>
               <?php } ?>
-              <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
-              <span class="author name entry-author">
-              <span class="fn"><?php the_author_meta('nickname'); ?></span>
-              </span>
-            </p>
 
-            <?php if (! is_mobile()) { ?>
-              <div class="description"><?php the_excerpt(); ?></div>
-            <?php } ?>
-          </section>
-        </a>
-      </article>
+              <section class="entry-content remix">
+                <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
+
+                <?php if (! is_mobile()) { ?>
+                  <div class="description"><?php the_excerpt(); ?></div>
+                <?php } ?>
+              </section>
+            </a>
+            <div class="enrty-tags">
+              <?php // 開催期間別一覧
+                $terms = get_the_terms($post->ID, 'event-tag');
+                $term_len = count($terms);
+                $dom = '';
+
+                for($i = 0; $i < $term_len; $i++) {
+                  if ($i === 0) {
+                    $dom .= '<ul>';
+                  }
+
+                  $name = $terms[$i]->name;
+                  $link = get_term_link($terms[$i]);
+                  $dom .= '<li><a href="' . $link . '">';
+                  $dom .= $name . '</a></li>';
+
+                  if ($i === $term_len - 1) {
+                    $dom .= '</ul>';
+                  }
+                }
+
+                echo $dom;
+              ?>
+            </div>
+          </article>
+        <?php } else { ?>
+          <article <?php post_class('post-list animated fadeIn'); ?> role="article">
+            <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
+
+              <?php if ( has_post_thumbnail()) { ?>
+                <figure class="eyecatch">
+                  <?php the_post_thumbnail('home-thum'); ?>
+                  <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                </figure>
+              <?php } else { ?>
+                <figure class="eyecatch noimg">
+                  <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+                  <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                </figure>
+              <?php } ?>
+
+              <section class="entry-content remix">
+                <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
+
+                <p class="byline entry-meta vcard">
+                  <?php if ($post_type === 'event') { ?>
+                    <span class="event-date gf">開催日 : <?php echo $date_dom; ?></span>
+                  <?php } ?>
+                  <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
+                  <span class="author name entry-author">
+                  <span class="fn"><?php the_author_meta('nickname'); ?></span>
+                  </span>
+                </p>
+
+                <?php if (! is_mobile()) { ?>
+                  <div class="description"><?php the_excerpt(); ?></div>
+                <?php } ?>
+              </section>
+            </a>
+          </article>
+      <?php } ?>
     <?php } // end while the_post();
     } else { ?>
       <article id="post-not-found" class="hentry cf">

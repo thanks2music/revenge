@@ -5,6 +5,12 @@
   font-family: 'Amatic SC', cursive;
 }
 
+// Font Awesome
+%webfont-fa {
+  font-family: 'fontawesome';
+  display: inline-block;
+}
+
 %clearfix {
   &:after {
     content: "";

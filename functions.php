@@ -102,12 +102,12 @@ EOF;
 }
 
 // パンくず
-if (!function_exists('breadcrumb')) {
-	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")){
+if (! function_exists('breadcrumb')) {
+	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {
     global $post;
     $str ='';
-    if(! get_option('side_options_pannavi')){
-      if (! is_home() && ! is_front_page() && ! is_admin() ){
+    if (! get_option('side_options_pannavi')){
+      if (! is_home() && ! is_front_page() && ! is_admin()) {
           $tagAttribute = '';
           $itemLength = 1;
           foreach($divOption as $attrName => $attrValue){
@@ -118,64 +118,78 @@ if (!function_exists('breadcrumb')) {
           $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. home_url() .'/" itemprop="item"><i class="fa fa-home"></i><span itemprop="name">HOME</span></a>';
           $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
           $itemLength++;
-   
-          if (is_archive()) {
-              $cat = get_queried_object();
 
-              if ($cat->parent != 0){
-                $ancestors = array_reverse(get_ancestors($cat->cat_ID, 'category' ));
+          if (is_archive()) {
+            $cat = get_queried_object();
+
+            // カテゴリーアーカイブ
+            // 親カテゴリがある場合
+            if (isset($cat->parent)) {
+              // カスタムタクソノミーの場合
+              if (isset($cat->taxonomy) && isset($cat->term_id)) {
+                $ancestors = array_reverse(get_ancestors($cat->term_id, 'event-category', 'taxonomy'));
+                // デフォルト投稿の場合
+              } else {
+                $ancestors = array_reverse(get_ancestors($cat->cat_ID, 'category'));
+              }
+
+              foreach($ancestors as $ancestor) {
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a></li>';
+                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $itemLength++;
+              }
+            }
+
+            // 投稿アーカイブの場合
+            if (isset($cat->name) && $cat->name === 'event') {
+              $cat->name = 'コラボイベント記事一覧';
+            }
+
+            $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $cat -> name . '</span><meta itemprop="position" content="' . $itemLength . '" /></a></li>';
+          } elseif (is_single()) {
+            $post_type = get_post_type();
+            $taxonomy_name = 'category';
+            if ($post_type === 'event') {
+              $taxonomy_name = 'event-category';
+            }
+
+            $categories = get_the_terms($post->ID, $taxonomy_name);
+            $cat_len = count($categories);
+            $ignore_parent = '';
+
+            for ($i= 0; $i < $cat_len; $i++) {
+              $slug = $categories[$i]->slug;
+              $des = $categories[$i]->description;
+
+              if ($categories[$i]->parent === 0 && $slug !== 'collabo-period' && $slug !== 'cafe') {
+                $cat = $categories[$i];
+                break;
+              }
+            }
+
+            if (isset($cat)) {
+                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, $taxonomy_name));
                 foreach($ancestors as $ancestor){
-                  $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a></li>';
+                  $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
                   $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
                   $itemLength++;
                 }
-              }
+            }
 
-              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $cat -> name . '</span><meta itemprop="position" content="' . $itemLength . '" /></a></li>';
-          } elseif (is_single()) {
-              $post_type = get_post_type();
-              $taxonomy_name = 'category';
-              if ($post_type === 'event') {
-                $taxonomy_name = 'event-category';
-              }
-
-              $categories = get_the_terms($post->ID, $taxonomy_name);
-              $cat_len = count($categories);
-
-              if ($cat_len > 0) {
-                $cat = $categories[1];
-                // TODO 後で文字列以外の方法で
-                // for ($i= 0; $i < $cat_len; $i++) {
-                //   if ($cat[$i]->slug !== '') {
-                //   }
-                // }
-              } else {
-                $cat = $categories[0];
-              }
-
-              if ($cat->parent != 0) {
-                  $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, $taxonomy_name));
-                  foreach($ancestors as $ancestor){
-                    $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
-                    $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
-                    $itemLength++;
-                  }
-              }
-
-              // Category
-              if ($post_type === 'post') {
-                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
-                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
-                $itemLength++;
-                // Taxonomy
-              } else {
-                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_term_link($cat->term_taxonomy_id, $taxonomy_name) .'" itemprop="item"><span itemprop="name">'. $cat->name .'</span></a>';
-                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
-                $itemLength++;
-              }
-
-              $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $post -> post_title .'</span></a><meta itemprop="position" content="' . $itemLength . '" /></li>';
+            // Category
+            if ($post_type === 'post') {
+              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+              $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
               $itemLength++;
+              // Taxonomy
+            } else {
+              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_term_link($cat->term_taxonomy_id, $taxonomy_name) .'" itemprop="item"><span itemprop="name">'. $cat->name .'</span></a>';
+              $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+              $itemLength++;
+            }
+
+            $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $post -> post_title .'</span></a><meta itemprop="position" content="' . $itemLength . '" /></li>';
+            $itemLength++;
           } elseif(is_page()){
               if($post -> post_parent != 0 ){
                   $ancestors = array_reverse(get_post_ancestors( $post->ID ));
@@ -267,4 +281,18 @@ function home_posts_type($wp_query) {
   if (! is_admin() && $wp_query->is_main_query() && $wp_query->is_home()) {
     $wp_query->set('post_type', array('post', 'event'));
   }
+}
+
+// レスポンシブイメージを停止
+add_filter( 'wp_calculate_image_srcset', '__return_false' );
+
+// 独自アイキャッチ画像
+// TODO 停止して問題なさそうならサムネイルの生成はOFFにする
+if (! function_exists('add_mythumbnail_size')) {
+	function add_mythumbnail_size() {
+	add_theme_support('post-thumbnails');
+	add_image_size('home-thum', 486, 290, true);
+	add_image_size('post-thum', 300, 200, true);
+	}
+	add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }
