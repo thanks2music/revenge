@@ -28,6 +28,17 @@
       }
     }
   }
+
+  // 特定の記事だけ隠す
+  // ポム
+  .post-3674 {
+    // 上書きしたいのでセレクタ付き
+    a .entry-content.remix {
+      .event-date {
+        display: none;
+      }
+    }
+  }
 }
 
 .entry-content {

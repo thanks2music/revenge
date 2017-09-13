@@ -6,6 +6,7 @@ function theme_enqueue_styles() {
   global $dir;
   $time_stamp = time();
   wp_enqueue_style('style', get_template_directory_uri() . '/style.css' );
+  wp_enqueue_style('fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
   wp_enqueue_style('webfont-amatic', 'https://fonts.googleapis.com/css?family=Amatic+SC');
 
   wp_enqueue_style('child-style',
@@ -287,10 +288,11 @@ function home_posts_type($wp_query) {
 add_filter( 'wp_calculate_image_srcset', '__return_false' );
 
 // 独自アイキャッチ画像
-// TODO 停止して問題なさそうならサムネイルの生成はOFFにする
+// サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {
 	function add_mythumbnail_size() {
 	add_theme_support('post-thumbnails');
+	add_image_size('period-thum', 672, 416, false);
 	add_image_size('home-thum', 486, 290, true);
 	add_image_size('post-thum', 300, 200, true);
 	}

@@ -46,7 +46,28 @@ $query = new WP_Query($args); ?>
 	        <?php } else { ?>
 	                <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png" />
 	        <?php } ?>
-	        		<span class="cat-name"><?php $cat = get_the_category(); ?><?php $cat = $cat[0]; ?><?php echo get_cat_name($cat->term_id); ?></span>
+            <?php
+              $post_type = get_post_type();
+              $taxonomy_name = 'category';
+
+              if ($post_type === 'event') {
+                $taxonomy_name = 'event-category';
+              }
+
+              $cat = get_the_terms($post->ID, $taxonomy_name);
+              $the_cat_length = count($cat);
+              $cat_name = '';
+              $event_cat_slug = '';
+
+              for ($i = 0; $i < $the_cat_length; $i++) {
+                if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news' || $cat[$i]->slug === 'karaoke') {
+                  $cat_name = $cat[$i]->name;
+                  $event_cat_slug = $cat[$i]->slug;
+                  break;
+                }
+              }
+            ?>
+              <span class="cat-name <?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
 		            </figure>
 					<time class="date gf"><?php the_time( 'Y.n.j' ); ?></time>
 					<h3 class="ttl">

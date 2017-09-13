@@ -49,7 +49,7 @@
         if (is_tax($taxonomy_name, $category[$i]->slug)) {
           $cat_slug[$i] = $category[$i]->slug;
 
-          // 説明文をトリガーにクエリーを分岐させる
+          // スラッグをトリガーにクエリーを分岐させる
           if ($category[$i]->slug === 'collabo-period') {
             $period_flag = true;
             break;
@@ -83,7 +83,8 @@
     if (isset($period_flag) && $period_flag === true) {
       if (is_tax($taxonomy_name, 'collabo-period')) {
         // Local タイム取得
-        $current_date = date('Y-m-d'); //2017-09-02
+        $current_date = date('Y-m-d');
+        // 文字に変換
         $current_date = strval($current_date);
 
         $args = array(
@@ -233,7 +234,6 @@
           $start_date = '';
           $end_date = '';
           $date_dom = '';
-          $taxonomy_tag = 'event-tag';
 
           if (is_tax('event-category')) {
             $taxonomy_name = 'event-category';
@@ -263,15 +263,14 @@
         }
 
         $cat_name = '';
+        $event_cat_slug = '';
         $cat = get_the_terms($post->ID, $taxonomy_name);
-        if (isset($taxonomy_tag)) {
-          $tag = get_the_terms($post->ID, $taxonomy_tag);
+        $the_cat_length = count($cat);
 
-        }
-
-        for ($i = 0; $i < count($cat); $i++) {
+        for ($i = 0; $i < $the_cat_length; $i++) {
           if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news' || $cat[$i]->slug === 'karaoke') {
             $cat_name .= $cat[$i]->name;
+            $event_cat_slug .= $cat[$i]->slug;
             break;
           }
         }
@@ -302,7 +301,7 @@
               <div class="byline entry-meta vcard">
                 <?php if ($post_type === 'event') { ?>
                   <div class="event-date-parent">
-                    <span class="event-cat cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                    <span class="event-cat cat-name term-slug-<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
                     <span class="event-date gf"><?php echo $date_dom; ?></span>
                   </div>
                 <?php } ?>
@@ -330,7 +329,7 @@
               </section>
             </a>
             <div class="enrty-tags">
-              <?php // 開催期間別一覧
+              <?php // 開催期間別一覧のタグリスト
                 $terms = get_the_terms($post->ID, 'event-tag');
                 $term_len = count($terms);
                 $dom = '';

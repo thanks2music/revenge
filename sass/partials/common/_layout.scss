@@ -257,6 +257,17 @@
       }
     }
   }
+
+  // ポム
+  &.postid-3674 {
+    .eo-event-meta {
+      li {
+        &:first-child {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 body {
@@ -350,11 +361,12 @@ body {
 
   article.period-list {
     background: #fff;
-    margin: 0.7em;
+    margin: 1em;
 
     > a {
       padding: 0;
       border: 0;
+      text-decoration: none;
 
       &:first-child {
         border-top: 0;
@@ -371,6 +383,17 @@ body {
       float: none;
       max-height: none;
       width: 100%;
+
+      img {
+        vertical-align: top;
+      }
+
+      .pc & {
+        &:hover img {
+          transition: opacity 400ms ease-in-out;
+          opacity: .7;
+        }
+      }
     }
 
     // 記事メタ情報
@@ -398,18 +421,48 @@ body {
           margin: 0;
           float: none;
 
+          // Override
+          position: static;
+          left: inherit;
+          top: inherit;
+          transform: none;
+
           &:before {
             @extend %webfont-fa;
-            content: '\f0f4'; // Coffee
             transform: none;
             margin-right: .3em;
+          }
+
+          &.term-slug-cafe {
+            &:before {
+              content: '\f0f4'; // Coffee
+            }
+          }
+
+          &.term-slug-news {
+            &:before {
+              content: '\f02d'; // Book
+            }
+          }
+
+          &.term-slug-event {
+            &:before {
+              content: '\f073'; // Calender
+            }
+          }
+
+          &.term-slug-karaoke {
+            &:before {
+              content: '\f028'; // Volume
+            }
           }
         }
       }
     }
 
     section.entry-content {
-      padding-top: 3%;
+      padding: 3% 3% 0 3%;
+      overflow: hidden;
 
       .pc & {
         padding: 3% 3% 0;
@@ -417,7 +470,10 @@ body {
 
       // h1
       .entry-title {
-        font-size: 1.4em;
+        font-size: 18px;
+        margin: .3em 0;
+        color: #444;
+        line-height: 1.4;
       }
     }
 
@@ -444,13 +500,84 @@ body {
       }
 
       a {
+        display: block;
         padding: .5em;
         margin: 0;
         border: 1px solid $pink;
         color: $pink;
         font-size: 13px;
         font-weight: bold;
+        text-decoration: none;
       }
+    }
+  }
+
+  .period-container {
+    margin: 0 1em;
+
+    .home & {
+      margin: 2em 1em;
+    }
+
+    .pc & {
+      box-shadow: 0 0 1px #dddddd;
+      background: #fff;
+      width: 1166px;
+      padding: 35px;
+      margin: 0 auto 2em;
+      text-align: left;
+      letter-spacing: -.5em;
+    }
+
+    article.period-list {
+      margin: 0 0 2em;
+      box-shadow: 0px 2px 1px #ddd;
+
+      .pc & {
+        width: 31.333333333%;
+        letter-spacing: normal;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 3%;
+        box-shadow: none;
+
+        &:not(:nth-of-type(3n)) {
+          margin-right: 3%;
+        }
+      }
+    }
+  }
+
+  // 開催期間別の見出し
+  .headline-period {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    letter-spacing: normal;
+    color: #222;
+    padding: 12px 10px;
+    border-left: 4px solid #ff5dab;
+    margin: 0 0 1em;
+
+    .pc & {
+    }
+  }
+  // もっと見る
+  .more-read-period {
+    display: block;
+    background: #00b5fa;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 16px 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2em 1em 2em;
+    letter-spacing: normal;
+
+    .pc & {
+      margin: 2em auto 2em;
     }
   }
 
@@ -465,7 +592,28 @@ body {
   .archive-title {
     .archive & {
       padding: 0 0 .2em;
-      margin: 0 .5em 1em;
+      margin: 0 .7em 1em;
     }
+  }
+
+  // ウィジェット
+  .widget {
+    margin: 0 0 2em;
+
+    .home & {
+      margin: 0 0 1em;
+    }
+
+    &#text-25 {
+      margin: 0;
+
+      > div > p {
+        margin: 0;
+      }
+    }
+  }
+
+  .home_widget {
+    margin: 0 auto;
   }
 }
