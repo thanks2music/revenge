@@ -108,10 +108,31 @@ var is_pc = function is_pc() {
 
 // Common
 var body = document.getElementsByTagName('body'),
-    wrap = document.getElementById('container');
+    wrap = document.getElementById('container'),
+    header = $(wrap).find('.header'),
+    des = $(wrap).find('.site_description');
+var cloneHeader = header.clone(true);
+
 // for Design
 var customHeader = $(wrap).find('#custom_header .wrap'),
     slickElement = $(wrap).find('.slickcar');
+
+$(window).on('scroll', function () {
+  var pos = $(this).scrollTop();
+
+  setTimeout(function () {
+    if (pos > 100 && !cloneHeader.hasClass('fixed')) {
+      cloneHeader.appendTo(header).addClass('fixed');
+      cloneHeader.delay(1000).queue(function () {
+        $(this).addClass('action');
+      });
+    }
+
+    if (pos < 100) {
+      cloneHeader.removeClass('fixed action').fadeOut(300).remove();
+    }
+  }, 100);
+});
 
 document.addEventListener('DOMContentLoaded', function () {
   $(body).addClass('loaded');

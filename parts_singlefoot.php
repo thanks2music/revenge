@@ -31,7 +31,7 @@
 <?php if(function_exists('related_posts')): ?>
 <?php related_posts(); ?>
 <?php else :?>
-<?php get_template_part( 'related-entries' ); ?>
+<?php get_template_part('gad-related'); ?>
 <?php endif;?>
 
 <div class="authorbox wow animated fadeIn" data-wow-delay="0.5s">

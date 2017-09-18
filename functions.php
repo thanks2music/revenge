@@ -292,7 +292,7 @@ add_filter( 'wp_calculate_image_srcset', '__return_false' );
 if (! function_exists('add_mythumbnail_size')) {
 	function add_mythumbnail_size() {
 	add_theme_support('post-thumbnails');
-	add_image_size('period-thum', 672, 416, false);
+	add_image_size('period-thum', 672, 416, true);
 	add_image_size('home-thum', 486, 290, true);
 	add_image_size('post-thum', 300, 200, true);
 	}
