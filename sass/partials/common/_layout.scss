@@ -40,7 +40,13 @@
   li {
     a {
       font-size: 14px;
+      font-weight: bold;
       color: #444;
+    }
+
+    .eyecatch {
+      width: 50%;
+      max-width: 154px;
     }
   }
 }
@@ -54,6 +60,7 @@
 
     a {
       font-size: 14px;
+      font-weight: bold;
       color: #444;
       position: relative;
     }
@@ -669,6 +676,15 @@ body {
           padding-top: 3px;
         }
       }
+    }
+  }
+
+  // Tableデザイン変更
+  table {
+    thead th,
+    th.pink {
+      background: #666;
+      color: #fff;
     }
   }
 }
