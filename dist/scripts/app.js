@@ -109,6 +109,7 @@ var is_pc = function is_pc() {
 // Common
 var body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container'),
+    selectCategory = $(wrap).find('.eo__event_categories select'),
     header = $(wrap).find('.header'),
     des = $(wrap).find('.site_description');
 var cloneHeader = header.clone(true);
@@ -131,6 +132,15 @@ $(window).on('scroll', function () {
     if (pos < 100) {
       cloneHeader.removeClass('fixed action').fadeOut(300).remove();
     }
+  }, 100);
+});
+
+selectCategory.on('change', function () {
+  var categoryPath = $(this).val(),
+      redirectPath = '/events/category/' + categoryPath;
+
+  setTimeout(function () {
+    window.location.href = redirectPath;
   }, 100);
 });
 
