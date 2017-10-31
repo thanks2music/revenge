@@ -68,9 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $(body).addClass('loaded');
 });
 
-
 // for Single
 if (body[0].className.indexOf('single') > -1) {
+  const photoSwipe = $(body).find('.pswp');
   let main = $(body).find('#main');
   let theContent = main.find('.hentry');
   let eventDetail = theContent.find('.eventorganiser-event-meta');
@@ -93,6 +93,12 @@ if (body[0].className.indexOf('single') > -1) {
 
     return false;
   });
+
+  if (photoSwipe === null || photoSwipe === undefined) {
+    $.get('/wp-content/themes/collabo-child/partials/photoswipe.php', function(data) {
+      $(wrap).after(data);
+    });
+  }
 }
 
 // トップページでSlickがあったら
