@@ -108,41 +108,10 @@ var is_pc = function is_pc() {
 
 // Common
 var body = document.getElementsByTagName('body'),
-    wrap = document.getElementById('container'),
-    selectCategory = $(wrap).find('.eo__event_categories select'),
-    header = $(wrap).find('.header'),
-    des = $(wrap).find('.site_description');
-var cloneHeader = header.clone(true);
-
+    wrap = document.getElementById('container');
 // for Design
 var customHeader = $(wrap).find('#custom_header .wrap'),
     slickElement = $(wrap).find('.slickcar');
-
-$(window).on('scroll', function () {
-  var pos = $(this).scrollTop();
-
-  setTimeout(function () {
-    if (pos > 100 && !cloneHeader.hasClass('fixed')) {
-      cloneHeader.appendTo(header).addClass('fixed');
-      cloneHeader.delay(1000).queue(function () {
-        $(this).addClass('action');
-      });
-    }
-
-    if (pos < 100) {
-      cloneHeader.removeClass('fixed action').fadeOut(300).remove();
-    }
-  }, 100);
-});
-
-selectCategory.on('change', function () {
-  var categoryPath = $(this).val(),
-      redirectPath = '/events/category/' + categoryPath;
-
-  setTimeout(function () {
-    window.location.href = redirectPath;
-  }, 100);
-});
 
 document.addEventListener('DOMContentLoaded', function () {
   $(body).addClass('loaded');
@@ -151,12 +120,11 @@ document.addEventListener('DOMContentLoaded', function () {
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   var main = $(body).find('#main');
-  var theContent = main.find('.hentry');
-  var eventDetail = theContent.find('.eventorganiser-event-meta');
+  var theContent = main.find('.article');
+  var eventDetail = $(body).find('.eventorganiser-event-meta');
 
   // 記事詳細のMap部分を切り抜いて記事下部に追加
   $(theContent).append(eventDetail);
-  eventDetail.addClass('action');
 
   // スムーススクロール
   main.find('.smooth-scroll').on('click', function (e) {

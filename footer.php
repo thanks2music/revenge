@@ -165,9 +165,13 @@
               <section class="entry-content remix">
                 <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
 
-                <?php if (! is_mobile()) { ?>
-                  <div class="description"><?php the_excerpt(); ?></div>
-                <?php } ?>
+                  <?php if (! is_mobile()) {
+                    $excerpt = get_the_excerpt();
+
+                    if ($excerpt !== '' && ! empty($excerpt)) { ?>
+                      <div class="description"><?php the_excerpt(); ?></div>
+                    <?php }
+                  } ?>
               </section>
             </a>
             <div class="enrty-tags">
@@ -258,6 +262,7 @@
 	</div>
 </footer>
 </div>
+<?php // get_template_part('partials/photoswipe.php'); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

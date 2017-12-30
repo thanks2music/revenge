@@ -21,7 +21,7 @@
 <?php endif; ?>
 
 <?php if ( is_front_page() || is_home() ) : ?>
-<?php
+<?php		  
 $args = array(
     'post_type' => array('post', 'event'),
     'posts_per_page' => 16,
@@ -52,23 +52,18 @@ if ( $the_query->have_posts() ) {
 <div id="top_carousel" class="carouselwrap wrap cf">
 <ul class="slider slickcar">
 
-<?php while ($the_query->have_posts() ) {
+<?php while ( $the_query->have_posts() ) {
 $the_query->the_post();
 ?>
 <li><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
 <?php
 $cat = get_the_category();
-
-if (isset($cat) && ! empty($cat)) {
-  $cat = $cat[0];
-}
+$cat = $cat[0];
 ?>
 <?php if ( has_post_thumbnail()) : ?>
 <figure class="eyecatch">
 <?php the_post_thumbnail('home-thum'); ?>
-<?php if (isset($cat) && ! empty($cat)) { ?>
-  <span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
-<?php } ?>
+<span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
 </figure>
 <?php else: ?>
 <figure class="eyecatch noimg">
