@@ -21,17 +21,10 @@
 <?php endif; ?>
 
 <?php if ( is_front_page() || is_home() ) : ?>
-<?php		  
+<?php
 $args = array(
     'post_type' => array('post', 'event'),
     'posts_per_page' => 16,
-    // 'offset' => 0,
-    // 'orderby' => 'post_date',
-    // 'order' => 'DESC',
-    // 'post_status' => 'publish',
-    // 'suppress_filters' => true,
-    // 'ignore_sticky_posts' => true,
-    // 'no_found_rows' => true,
     'tax_query' => array(
       'relation' => 'OR',
       array(
@@ -52,18 +45,23 @@ if ( $the_query->have_posts() ) {
 <div id="top_carousel" class="carouselwrap wrap cf">
 <ul class="slider slickcar">
 
-<?php while ( $the_query->have_posts() ) {
+<?php while ($the_query->have_posts()) {
 $the_query->the_post();
 ?>
 <li><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
 <?php
 $cat = get_the_category();
-$cat = $cat[0];
+
+if (isset($cat) && ! empty($cat)) {
+  $cat = $cat[0];
+}
 ?>
 <?php if ( has_post_thumbnail()) : ?>
 <figure class="eyecatch">
 <?php the_post_thumbnail('home-thum'); ?>
-<span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
+<?php if (isset($cat) && ! empty($cat)) { ?>
+  <span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
+<?php } ?>
 </figure>
 <?php else: ?>
 <figure class="eyecatch noimg">
