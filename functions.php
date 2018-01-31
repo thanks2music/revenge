@@ -24,8 +24,13 @@ function add_javascripts() {
   global $dir;
   $time_stamp = time();
   wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?' . $time_stamp);
-}
+  wp_enqueue_script('nend', 'https://js1.nend.net/js/nendAdLoader.js');
 
+  if (function_exists('wp_add_inline_script')) {
+    $tag = 'var nend_params = {"media":52651,"site":288880,"spot":843423,"type":1,"oriented":1};console.log(nend_params);';
+    wp_add_inline_script('nend', $tag, 'after');
+  }
+}
 
 // MOREタグの下に広告を表示
 add_filter('the_content', 'adMoreReplace');
