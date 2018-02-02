@@ -312,14 +312,14 @@ body {
     }
 
     .cc-nav-list {
-      text-align: center;
       letter-spacing: -.5em;
       margin: 0;
-      padding-top: 1em;
+      padding: 1em 1em 0;
 
       .sp & {
         text-align: left;
         font-size: 13px;
+        padding: 1em 0 0 0;
       }
 
       li {
@@ -327,7 +327,7 @@ body {
         letter-spacing: normal;
         vertical-align: top;
         padding-left: 1em;
-        margin: 0;
+        margin: 0 0 .5em;
 
         .sp & {
           width: 47%;
@@ -582,6 +582,7 @@ body {
     text-decoration: none;
     margin: 2em 1em 2em;
     letter-spacing: normal;
+    max-width: 300px;
 
     .pc & {
       margin: 2em auto 2em;
