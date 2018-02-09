@@ -24,7 +24,6 @@ function add_javascripts() {
   global $dir;
   $time_stamp = time();
   wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?' . $time_stamp);
-  wp_enqueue_script('nend', 'https://js1.nend.net/js/nendAdLoader.js');
 }
 
 // MOREタグの下に広告を表示
