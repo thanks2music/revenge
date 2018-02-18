@@ -44,7 +44,7 @@ endif;?>
 
 <?php if ( has_post_thumbnail() && !get_option( 'post_options_eyecatch' ) ) :?>
 <figure class="eyecatch">
-<?php the_post_thumbnail(); ?>
+<?php the_post_thumbnail('full', array('class' => 'lazy size-full wp-image wp-eyecatch')); ?>
 </figure>
 <?php endif; ?>
 <?php if ( !get_option( 'sns_options_hide' ) ) : ?>
@@ -72,11 +72,12 @@ endif;?>
 <?php
 // フィルターを通してthe_contentを呼び出す
 $the_content = apply_filters('the_content', get_the_content());
-// TODO 翻訳をPR
-$the_content = str_replace('<strong>Date:</strong>', '<strong>開催日:</strong>', $the_content);
-$the_content = str_replace('<h4>イベント詳細</h4>', '<h4>アクセス・イベント詳細</h4>', $the_content);
 
-// the_content();
+// [0] 英字を日本語に [1] デフォルト文言を変更
+$search  = ['<img src=', '<strong>Date:</strong>', '<h4>イベント詳細</h4>'];
+$replace = ['<img src="/wp-content/uploads/dummy.png" data-src=', '<strong>開催日:</strong>', '<h4>アクセス・イベント詳細</h4>'];
+$the_content = str_replace($search, $replace, $the_content);
+
 echo $the_content;
 
 wp_link_pages( array(

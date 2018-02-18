@@ -1,21 +1,23 @@
-  // Global Object
-  let [win, doc, uri, ua] = [window, document, window.location, navigator.userAgent];
-  let is_sp = () => {
-    if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
-      return true;
-    } else if (ua.indexOf('Mobile') > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+// Vendors
+import Layzr from 'layzr.js';
 
-  let is_tab = () => {
-    if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') === -1) {
-      return true;
-    } else {
-      return false;
-    }
+let [win, doc, uri, ua] = [window, document, window.location, navigator.userAgent];
+let is_sp = () => {
+  if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
+    return true;
+  } else if (ua.indexOf('Mobile') > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+let is_tab = () => {
+  if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') === -1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 let is_pc = () => {
@@ -71,6 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   const photoSwipe = $(body).find('.pswp');
+  const instance = Layzr({
+    normal: 'data-src',
+    threshold: 5
+  });
+  instance.update().check().handlers(true);
+
   let main = $(body).find('#main');
   let theContent = main.find('.hentry');
   let eventDetail = theContent.find('.eventorganiser-event-meta');
