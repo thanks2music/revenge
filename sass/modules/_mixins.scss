@@ -124,3 +124,29 @@
     }
   }
 }
+
+@mixin bg-responsive($file, $dimensions, $base: width, $scale: 100%) {
+  $width: nth($dimensions, 1);
+  $height: nth($dimensions, 2);
+  background: {
+    image: url($file);
+    size: contain;
+    repeat: no-repeat;
+    position: 0 0;
+  }
+
+  @if $base == width {
+    padding-bottom: $height / $width * $scale;
+    width: $scale;
+    height: 0;
+  } @else if $base == height {
+    padding-left: $width / $height * $scale;
+    height: $scale;
+    width: 0;
+  }
+}
+
+@mixin hide-text {
+  text-indent: -9999px;
+  text-align: left;
+}
