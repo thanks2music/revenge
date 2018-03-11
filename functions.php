@@ -295,7 +295,10 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
   $width = $src[1];
   $height = $src[2];
   $alt = get_the_title(); // gets the post thumbnail title
-  $class = $attr['class']; // gets classes passed to the post thumbnail, defined here for easier function access
+  $class = '';
+  if (isset($attr['class'])) {
+    $class = $attr['class']; // gets classes passed to the post thumbnail, defined here for easier function access
+  }
 
   // Check to see if a 'retina' class exists in the array when calling "the_post_thumbnail()", if so output different <img/> html
   if (strpos($class, 'lazy') !== false) {

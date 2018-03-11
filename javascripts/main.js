@@ -40,6 +40,8 @@ const lazyLoadInstance = Layzr({
   normal: 'data-src',
   threshold: 5
 });
+// lazyLoad
+lazyLoadInstance.update().check().handlers(true);
 
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
@@ -78,9 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   const photoSwipe = $(body).find('.pswp');
-  // lazyLoad
-  lazyLoadInstance.update().check().handlers(true);
-
   let main = $(body).find('#main');
   let theContent = main.find('.hentry');
   let eventDetail = theContent.find('.eventorganiser-event-meta');
@@ -109,12 +108,6 @@ if (body[0].className.indexOf('single') > -1) {
       $(wrap).after(data);
     });
   }
-}
-
-// トップページ
-if (body[0].className.indexOf('home') > -1) {
-  // lazyLoad
-  lazyLoadInstance.update().check().handlers(true);
 }
 
 // トップページでSlickがあったら
