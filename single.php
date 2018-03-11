@@ -44,6 +44,7 @@ endif;?>
 
 <?php if ( has_post_thumbnail() && !get_option( 'post_options_eyecatch' ) ) :?>
 <figure class="eyecatch">
+<?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
 <?php the_post_thumbnail('full', array('class' => 'lazy size-full wp-image wp-eyecatch')); ?>
 </figure>
 <?php endif; ?>

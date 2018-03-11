@@ -361,7 +361,8 @@
 
               <?php if ( has_post_thumbnail()) { ?>
                 <figure class="eyecatch">
-                  <?php the_post_thumbnail('home-thum'); ?>
+                  <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
+                  <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                   <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } else { ?>
