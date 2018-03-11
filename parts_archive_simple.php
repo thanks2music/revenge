@@ -350,7 +350,7 @@
                 </span>
               </div>
               <?php if ( has_post_thumbnail()) { ?>
-                <figure class="eyecatch koko">
+                <figure class="eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
                   <?php the_post_thumbnail('full', array('class' => 'lazy attachment-post-thumbnail size-post-thumbnail wp-post-image')); ?>
                 </figure>

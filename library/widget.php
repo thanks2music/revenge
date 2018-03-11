@@ -255,7 +255,7 @@ class NewEntryImageWidget extends WP_Widget {
           $g_entry_count = $entry_count;
         }
         ?>
-          <div id="new-entries" class="widget widget_recent_entries widget_new_img_post cf hoge">
+          <div id="new-entries" class="widget widget_recent_entries widget_new_img_post cf">
             <h4 class="widgettitle"><span><?php if ($title_new) {
               echo $title_new;//タイトルが設定されている場合は使用する
             } else {
