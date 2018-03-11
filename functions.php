@@ -286,29 +286,31 @@ function home_posts_type($wp_query) {
 // レスポンシブイメージを停止
 add_filter( 'wp_calculate_image_srcset', '__return_false' );
 
-// 投稿だけではなく何かTriggerをつけて試験的に導入していきたい
-// add_filterはスコープ内では使用出来ないもよう
-// if (is_single()) {
-//   function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, $attr) {
-//       $id = get_post_thumbnail_id(); // gets the id of the current post_thumbnail (in the loop)
-//       $src = wp_get_attachment_image_src($id, $size); // gets the image url specific to the passed in size (aka. custom image size)
-//       //  [1]=> int(1280) [2]=> int(794
-//       $width = $src[1];
-//       $height = $src[2];
-//       $alt = get_the_title(); // gets the post thumbnail title
-//       $class = $attr['class']; // gets classes passed to the post thumbnail, defined here for easier function access
-// 
-//       // Check to see if a 'retina' class exists in the array when calling "the_post_thumbnail()", if so output different <img/> html
-//       if (strpos($class, 'lazy') !== false) {
-//           $html = '<img src="/wp-content/uploads/dummy.png" alt="" data-src="' . $src[0] . '" alt="' . $alt . '" class="' . $class . '" width="' . $width . '" height="' . $height . '" />';
-//       } else {
-//           $html = '<img src="' . $src[0] . '" alt="' . $alt . '" class="' . $class . '" width="' . $width . '" height="' . $height . '" />';
-//       }
-// 
-//       return $html;
-//   }
-//   add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
-// }
+// the_post_thumbnailの引数に「class」をつけて呼び出す
+// classに「lazy」をつけるとlazyLoadの対象になる
+function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, $attr) {
+  $id = get_post_thumbnail_id(); // gets the id of the current post_thumbnail (in the loop)
+  $src = wp_get_attachment_image_src($id, $size); // gets the image url specific to the passed in size (aka. custom image size)
+  //  [1]=> int(1280) [2]=> int(794
+  $width = $src[1];
+  $height = $src[2];
+  $alt = get_the_title(); // gets the post thumbnail title
+  $class = '';
+  if (isset($attr['class'])) {
+    $class = $attr['class']; // gets classes passed to the post thumbnail, defined here for easier function access
+  }
+
+  // Check to see if a 'retina' class exists in the array when calling "the_post_thumbnail()", if so output different <img/> html
+  if (strpos($class, 'lazy') !== false) {
+    $html = '<img src="/wp-content/uploads/dummy.png" alt="" data-src="' . $src[0] . '" alt="' . $alt . '" class="' . $class . '" width="' . $width . '" height="' . $height . '" />';
+  } else {
+    $html = '<img src="' . $src[0] . '" alt="' . $alt . '" class="' . $class . '" width="' . $width . '" height="' . $height . '" />';
+  }
+
+  return $html;
+}
+add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {

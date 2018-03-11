@@ -3,7 +3,7 @@
 <div class="prev np-post-list">
 <?php $nextpost = get_adjacent_post(false, '', false); if ($nextpost) : ?>
 <a href="<?php echo get_permalink($nextpost->ID); ?>" class="cf">
-<figure class="eyecatch"><?php echo get_the_post_thumbnail($nextpost->ID,'thumbnail'); ?></figure>
+<figure class="eyecatch"><?php echo get_the_post_thumbnail($nextpost->ID,'post-thum', array('class' => 'attachment-thumbnail size-thumbnail wp-post-image')); ?></figure>
 <span class="ttl"><?php echo esc_attr($nextpost->post_title); ?></span>
 </a>
 <?php else:?>
@@ -17,7 +17,7 @@
 <?php $prevpost = get_adjacent_post(false, '', true); if ($prevpost) : ?>
 <a href="<?php echo get_permalink($prevpost->ID); ?>" class="cf">
 <span class="ttl"><?php echo esc_attr($prevpost->post_title); ?></span>
-<figure class="eyecatch"><?php echo get_the_post_thumbnail($prevpost->ID,'thumbnail'); ?></figure>
+<figure class="eyecatch"><?php echo get_the_post_thumbnail($prevpost->ID,'post-thum', array('class' => 'attachment-thumbnail size-thumbnail wp-post-image')); ?></figure>
 </a>
 <?php else:?>
 <div class="home_link">

@@ -270,7 +270,7 @@ class NewEntryImageWidget extends WP_Widget {
 			<a class="cf" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
 			<?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
 			<figure class="eyecatch">
-			<?php the_post_thumbnail('home-thum'); ?>
+			<?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
 			</figure>
 			<?php else: ?>
 			<figure class="eyecatch noimg">

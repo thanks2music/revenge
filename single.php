@@ -44,6 +44,7 @@ endif;?>
 
 <?php if ( has_post_thumbnail() && !get_option( 'post_options_eyecatch' ) ) :?>
 <figure class="eyecatch">
+<?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
 <?php the_post_thumbnail('full', array('class' => 'lazy size-full wp-image wp-eyecatch')); ?>
 </figure>
 <?php endif; ?>
@@ -73,7 +74,7 @@ endif;?>
 // フィルターを通してthe_contentを呼び出す
 $the_content = apply_filters('the_content', get_the_content());
 
-// [0] 英字を日本語に [1] デフォルト文言を変更
+// [0] 画像にはdummyをセット [1] 英字を日本語に [2] デフォルト文言を変更
 $search  = ['<img src=', '<strong>Date:</strong>', '<h4>イベント詳細</h4>'];
 $replace = ['<img src="/wp-content/uploads/dummy.png" data-src=', '<strong>開催日:</strong>', '<h4>アクセス・イベント詳細</h4>'];
 $the_content = str_replace($search, $replace, $the_content);
@@ -128,7 +129,7 @@ fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <figure class="eyecatch">
 <?php if ( has_post_thumbnail() ): ?>
-<?php the_post_thumbnail('home-thum'); ?>
+<?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
 <?php else: ?>
 <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
 <?php endif; ?>

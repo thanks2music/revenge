@@ -58,7 +58,8 @@ if (isset($cat) && ! empty($cat)) {
 ?>
 <?php if ( has_post_thumbnail()) : ?>
 <figure class="eyecatch">
-<?php the_post_thumbnail('home-thum'); ?>
+<?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする - Slickの関係でここでは対象にしていない ?>
+<?php the_post_thumbnail('home-thum', array('class' => 'attachment-home-thum size-home-thum wp-post-image')); ?>
 <?php if (isset($cat) && ! empty($cat)) { ?>
   <span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
 <?php } ?>

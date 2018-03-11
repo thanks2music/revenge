@@ -35,6 +35,13 @@ let body = document.getElementsByTagName('body'),
     header = $(wrap).find('.header'),
     des = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
+// @description img data-srcがあり、class="lazy" があるimg要素は遅延読み込みさせる
+const lazyLoadInstance = Layzr({
+  normal: 'data-src',
+  threshold: 5
+});
+// lazyLoad
+lazyLoadInstance.update().check().handlers(true);
 
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
@@ -73,12 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   const photoSwipe = $(body).find('.pswp');
-  const instance = Layzr({
-    normal: 'data-src',
-    threshold: 5
-  });
-  instance.update().check().handlers(true);
-
   let main = $(body).find('#main');
   let theContent = main.find('.hentry');
   let eventDetail = theContent.find('.eventorganiser-event-meta');

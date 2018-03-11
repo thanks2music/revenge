@@ -156,15 +156,52 @@
     $the_query = new WP_Query($args);
     // 検索を行い記事があったら
     if ($the_query->have_posts()) {
+
       while ($the_query->have_posts()) {
         $the_query->the_post();
+        $cf = get_post_custom();
+        $endless_flag = get_post_meta($post->ID, 'endless_event_flag', true);
+        $post_type = get_post_type();
+        $taxonomy_name = 'category';
+
+        if ($post_type === 'event') {
+          $start_date = '';
+          $end_date = '';
+          $date_dom = '';
+
+          if (is_tax('event-category')) {
+            $taxonomy_name = 'event-category';
+          } elseif (is_tax('event-tag')) {
+            $taxonomy_name = 'event-tag';
+          } else {
+            $taxonomy_name = 'event-category';
+          }
+
+          if (isset($cf['_eventorganiser_schedule_start_start'][0])) {
+            $start_date = $cf['_eventorganiser_schedule_start_start'][0];
+            $start_date = date('Y年n月j日', strtotime($start_date));
+          }
+
+          if (isset($cf['_eventorganiser_schedule_start_finish'][0])) {
+            $end_date = $cf['_eventorganiser_schedule_start_finish'][0];
+            $end_date = date('n月j日', strtotime($end_date));
+          }
+
+          if (! empty($start_date) && ! empty($end_date) && empty($date_dom)) {
+            if ($endless_flag) {
+              $date_dom .= $start_date . '〜';
+            } else {
+              $date_dom .= $start_date . '〜' . $end_date;
+            }
+          }
+        }
       ?>
         <article <?php post_class('post-list animated fadeIn search-container'); ?> role="article">
           <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
             <?php if ( has_post_thumbnail()) { ?>
               <figure class="eyecatch">
-                <?php the_post_thumbnail('home-thum'); ?>
+                <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                 <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
               </figure>
             <?php } else { ?>
@@ -177,7 +214,9 @@
             <h1 class="h2 entry-title"><?php the_title(); ?></h1>
 
             <p class="byline entry-meta vcard">
-              <span class="event-date gf">開催期間 : <?php echo $date_dom; ?></span>
+              <?php if (! empty($date_dom)) { ?>
+                <span class="event-date gf">開催期間 : <?php echo $date_dom; ?></span>
+              <?php } ?>
               <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
             </p>
 
@@ -312,7 +351,8 @@
               </div>
               <?php if ( has_post_thumbnail()) { ?>
                 <figure class="eyecatch">
-                  <?php the_post_thumbnail(); ?>
+                  <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
+                  <?php the_post_thumbnail('full', array('class' => 'lazy attachment-post-thumbnail size-post-thumbnail wp-post-image')); ?>
                 </figure>
               <?php } else { ?>
                 <figure class="eyecatch noimg">
@@ -361,7 +401,8 @@
 
               <?php if ( has_post_thumbnail()) { ?>
                 <figure class="eyecatch">
-                  <?php the_post_thumbnail('home-thum'); ?>
+                  <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
+                  <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                   <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } else { ?>
