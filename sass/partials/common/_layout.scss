@@ -2,10 +2,6 @@
 
 .wf-amatic {
   @extend %webfont-amatic;
-
-  &#logo {
-    font-size: 1.2em;
-  }
 }
 
 // EOイベントのウィジェットで不自然な日付を隠す
@@ -293,6 +289,7 @@ body {
 
 #container {
   $pink: #ff5dab;
+  $dir: '/wp-content/uploads/';
 
   // 記事内ナビゲーション
   .cc-jump-section {
@@ -663,6 +660,10 @@ body {
         padding: 0;
         width: 100%;
 
+        .pc & {
+          padding: 0 0 0 140px;
+        }
+
         .nav_btn {
           transition: all 400ms ease-in-out;
 
@@ -674,12 +675,35 @@ body {
         }
       }
 
+      // Close後の#logo
       #logo {
         transition: none;
-        font-size: 1em;
+      }
+    }
 
-        .h1 {
-          padding-top: 3px;
+    #logo {
+      $img: $dir + 'logo-vertical.png';
+      $size: 730px, 109px;
+      position: relative;
+
+      .pc & {
+        width: 200px;
+      }
+
+      a {
+        @include hide-text;
+        @include bg-responsive($img, $size, $scale: 70%);
+        display: block;
+        position: absolute;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .pc & {
+          @include bg-responsive($img, $size, $scale: 100%);
+          transform: translate(0, -50%);
+          left: 0;
+          top: 50%;
         }
       }
     }
