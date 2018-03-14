@@ -725,9 +725,19 @@ body {
   }
 }
 
+// 記事で使うレイアウト用のclass
 .l-center {
   text-align: center;
   margin: auto;
+}
+
+.l-font-size0 {
+  font-size: 0;
+}
+
+.l-di-va-b {
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 @for $i from 1 through 10 {
