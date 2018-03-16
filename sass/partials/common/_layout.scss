@@ -290,6 +290,16 @@ body {
         width: 30%;
       }
     }
+
+    h2,
+    h3,
+    h4 {
+      $pink: #ff5dab;
+
+      i {
+        color: $pink;
+      }
+    }
   }
 }
 
