@@ -44,8 +44,8 @@ endif;?>
 
 <?php if ( has_post_thumbnail() && !get_option( 'post_options_eyecatch' ) ) :?>
 <figure class="eyecatch">
-<?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
-<?php the_post_thumbnail('full', array('class' => 'lazy size-full wp-image wp-eyecatch')); ?>
+<?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする。アイキャッチ画像は最初に表示させたいので遅延ロード行わない ?>
+<?php the_post_thumbnail('full', array('class' => 'size-full wp-image wp-eyecatch')); ?>
 </figure>
 <?php endif; ?>
 <?php if ( !get_option( 'sns_options_hide' ) ) : ?>
