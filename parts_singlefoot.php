@@ -1,31 +1,48 @@
-<div class="np-post">
-<div class="navigation">
-<div class="prev np-post-list">
-<?php $nextpost = get_adjacent_post(false, '', false); if ($nextpost) : ?>
-<a href="<?php echo get_permalink($nextpost->ID); ?>" class="cf">
-<figure class="eyecatch"><?php echo get_the_post_thumbnail($nextpost->ID,'post-thum', array('class' => 'attachment-thumbnail size-thumbnail wp-post-image')); ?></figure>
-<span class="ttl"><?php echo esc_attr($nextpost->post_title); ?></span>
-</a>
-<?php else:?>
-<div class="home_link">
-<a href="<?php echo home_url(); ?>"><figure class="eyecatch"><i class="fa fa-home"></i></figure><span class="ttl">トップページへ</span></a>
-</div>
-<?php endif; ?>
-</div>
+<?php global $is_sp, $is_pc ?>
+<div class="np-post adjacent__post">
+  <div class="navigation adjacent__post__inner">
+    <div class="prev np-post-list adjacent__post__prev">
+      <?php $nextpost = get_adjacent_post(false, '', false); if ($nextpost) : ?>
+        <?php $nextpost_img = get_the_post_thumbnail_url($nextpost->ID,'post-thum'); ?>
+        <h4>前の記事</h4>
+        <a href="<?php echo get_permalink($nextpost->ID); ?>" class="cf">
+          <figure class="eyecatch"><img src="<?php echo $nextpost_img; ?>" alt="<?php echo esc_attr($nextpost->post_title); ?>"></figure>
+          <h5 class="ttl">
+            <?php echo esc_attr($nextpost->post_title); ?>
 
-<div class="next np-post-list">
-<?php $prevpost = get_adjacent_post(false, '', true); if ($prevpost) : ?>
-<a href="<?php echo get_permalink($prevpost->ID); ?>" class="cf">
-<span class="ttl"><?php echo esc_attr($prevpost->post_title); ?></span>
-<figure class="eyecatch"><?php echo get_the_post_thumbnail($prevpost->ID,'post-thum', array('class' => 'attachment-thumbnail size-thumbnail wp-post-image')); ?></figure>
-</a>
-<?php else:?>
-<div class="home_link">
-<a href="<?php echo home_url(); ?>"><span class="ttl">トップページへ</span><figure class="eyecatch"><i class="fa fa-home"></i></figure></a>
-</div>
-<?php endif; ?>
-</div>
-</div>
+            <?php if ($is_pc) { ?>
+              <?php the_excerpt(); ?>
+            <?php } ?>
+          </h5>
+        </a>
+      <?php else:?>
+        <div class="home_link">
+          <a href="<?php echo home_url(); ?>"><figure class="eyecatch"><i class="fa fa-home"></i></figure><span class="ttl">トップページへ</span></a>
+        </div>
+    <?php endif; ?>
+    </div>
+
+    <div class="next np-post-list adjacent__post__next">
+      <?php $prevpost = get_adjacent_post(false, '', true); if ($prevpost) : ?>
+        <?php $prevpost_img = get_the_post_thumbnail_url($prevpost->ID,'post-thum'); ?>
+        <h4>次の記事</h4>
+        <a href="<?php echo get_permalink($prevpost->ID); ?>" class="cf">
+          <h5 class="ttl">
+            <?php echo esc_attr($prevpost->post_title); ?>
+
+            <?php if ($is_pc) { ?>
+              <?php the_excerpt(); ?>
+            <?php } ?>
+          </h5>
+          <figure class="eyecatch"><img src="<?php echo $prevpost_img; ?>" alt="<?php echo esc_attr($prevpost->post_title); ?>"></figure>
+        </a>
+      <?php else:?>
+        <div class="home_link">
+          <a href="<?php echo home_url(); ?>"><span class="ttl">トップページへ</span><figure class="eyecatch"><i class="fa fa-home"></i></figure></a>
+        </div>
+      <?php endif; ?>
+    </div>
+  </div>
 </div>
 
 <?php if(function_exists('related_posts')): ?>

@@ -278,6 +278,120 @@
   }
 }
 
+// body階層からにしたく無い
+#content {
+  .adjacent__post {
+    &__inner {
+      .home_link {
+        text-align: left;
+
+        a {
+          padding: 0;
+        }
+
+        figure {
+          width: auto;
+        }
+      }
+
+      h4 {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1;
+        margin: 0;
+        padding: 0 12px 12px;
+        border-bottom: 1px solid #E5E5E5;
+      }
+    }
+
+    &__prev {
+      background: #FAFAFA;
+      border: 1px solid #E5E5E5;
+      padding: 12px 0;
+      margin: 0;
+
+      a {
+        padding: 12px 12px 0;
+
+        figure {
+          padding: 0;
+          width: 120px;
+
+          // 疑似要素のFont Awesomeアイコン
+          &:before {
+            display: none;
+          }
+        }
+
+        h5 {
+          font-size: .9rem;
+          font-weight: bold;
+          padding-left: 12px;
+          vertical-align: top;
+          line-height: 1.4;
+
+          .pc & {
+            font-size: 1rem;
+          }
+
+          // description
+          p {
+            font-size: 12px;
+            font-weight: normal;
+            color: #999;
+            margin: .7em 0 0 0;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+
+    &__next {
+      background: #FAFAFA;
+      border: 1px solid #E5E5E5;
+      padding: 12px 0;
+      margin-top: -1px;
+      text-align: right;
+
+      a {
+        padding: 12px 12px 0;
+
+        figure {
+          padding: 0;
+          width: 120px;
+
+          // 疑似要素のFont Awesomeアイコン
+          &:after {
+            display: none;
+          }
+        }
+
+        h5 {
+          font-size: .9rem;
+          font-weight: bold;
+          padding-right: 12px;
+          vertical-align: top;
+          text-align: left;
+          line-height: 1.4;
+
+          .pc & {
+            font-size: 1rem;
+          }
+
+          // description
+          p {
+            font-size: 12px;
+            font-weight: normal;
+            color: #999;
+            margin: .7em 0 0 0;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+  }
+}
+
 body {
   .entry-content {
     .entry-author {
