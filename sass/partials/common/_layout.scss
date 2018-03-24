@@ -543,6 +543,10 @@ body {
         color: #fff;
         letter-spacing: -.5em;
 
+        .pc & {
+          white-space: nowrap;
+        }
+
         span {
           display: inline-block;
           font-size: 11px;
