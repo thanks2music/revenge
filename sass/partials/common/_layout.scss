@@ -542,10 +542,7 @@ body {
         background: $pink;
         color: #fff;
         letter-spacing: -.5em;
-
-        .pc & {
-          white-space: nowrap;
-        }
+        white-space: nowrap;
 
         span {
           display: inline-block;
