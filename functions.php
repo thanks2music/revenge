@@ -40,7 +40,6 @@ function adMoreReplace($contentData) {
 $adTagResponsive = <<< EOF
 
 <div class="add more">
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
        data-ad-format="fluid"
@@ -58,7 +57,6 @@ EOF;
 $adTagResponsive = <<< EOF
 
 <div class="add more">
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
        data-ad-format="fluid"
@@ -77,7 +75,6 @@ EOF;
 $adTagText = <<< EOF
 
 <div class="add more text">
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <!-- CC - レスポンシブテキスト -->
   <ins class="adsbygoogle"
        style="display:block"

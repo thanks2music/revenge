@@ -318,7 +318,6 @@
         if ($ads_infeed_count === $ads_infeed) { ?>
           <!-- CC - Infeed -->
           <div class="cc-infeed">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-format="fluid"
@@ -327,7 +326,7 @@
                  data-ad-client="ca-pub-7307810455044245"
                  data-ad-slot="4912770015"></ins>
             <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
+               (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
           </div>
         <?php }
