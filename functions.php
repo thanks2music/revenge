@@ -47,7 +47,7 @@ $adTagResponsive = <<< EOF
        data-ad-client="ca-pub-7307810455044245"
        data-ad-slot="2805411615"></ins>
   <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
+     (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 
@@ -75,14 +75,13 @@ EOF;
 $adTagText = <<< EOF
 
 <div class="add more text">
-  <!-- CC - レスポンシブテキスト -->
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-7307810455044245"
        data-ad-slot="9384949215"
        data-ad-format="auto"></ins>
   <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 

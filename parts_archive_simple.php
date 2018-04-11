@@ -316,7 +316,6 @@
 
         // Infeed広告
         if ($ads_infeed_count === $ads_infeed) { ?>
-          <!-- CC - Infeed -->
           <div class="cc-infeed">
             <ins class="adsbygoogle"
                  style="display:block"
