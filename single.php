@@ -20,25 +20,26 @@
 <?php dynamic_sidebar( 'addbanner-titletop' ); ?>
 <header class="article-header entry-header">
 <p class="byline entry-meta cf">
-<?php if(is_singular('post')):
-	$cat = get_the_category();
-	$cat = $cat[0];
-endif;?>
+  <?php if (is_singular('post')) {
+    $cat = get_the_category();
+    $cat = $cat[0];
+  } ?>
 
-<?php if(is_singular('post')):?><span class="cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span><?php endif;?>
-<?php
-  $time_class_publish = 'date gf entry-date published';
-  // 編集時間のが大きかったら
-  if (get_the_date('Ymd') < get_the_modified_date('Ymd')) {
-    // 編集していなかったら
-  } else {
-    $time_class_publish .= ' updated';
-  }
-?>
-<time class="<?php echo $time_class_publish; ?>"<?php if ( get_the_date('Ymd') >= get_the_modified_date('Ymd') ) : ?>  datetime="<?php echo get_the_date('Y-m-d') ?>"<?php endif; ?>><?php echo get_the_date('Y.m.d'); ?></time>
-<?php if (get_the_date('Ymd') < get_the_modified_date('Ymd')) { ?>
-  <time class="date gf entry-date undo updated sr-only" datetime="<?php echo get_the_modified_date( 'Y-m-d' ) ?>"><?php echo get_the_modified_date('Y.m.d') ?></time>
-<?php } ?>
+  <?php if(is_singular('post')):?><span class="cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span><?php endif;?>
+  <?php
+    $time_class_publish = 'date gf entry-date published';
+    // 編集時間のが大きかったら
+    if (get_the_date('Ymd') < get_the_modified_date('Ymd')) {
+      // 編集していなかったら
+    } else {
+      $time_class_publish .= ' updated';
+    }
+  ?>
+  <time class="<?php echo $time_class_publish; ?>"<?php if ( get_the_date('Ymd') >= get_the_modified_date('Ymd') ) : ?>  datetime="<?php echo get_the_date('Y-m-d') ?>"<?php endif; ?>><?php echo get_the_date('Y.m.d'); ?></time>
+  <?php if (get_the_date('Ymd') < get_the_modified_date('Ymd')) { ?>
+    <time class="date gf entry-date undo updated sr-only" datetime="<?php echo get_the_modified_date( 'Y-m-d' ) ?>"><?php echo get_the_modified_date('Y.m.d') ?></time>
+  <?php } ?>
+</p>
 
 <h1 class="entry-title single-title" itemprop="headline" rel="bookmark"><?php the_title(); ?></h1>
 
