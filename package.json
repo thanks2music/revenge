@@ -35,5 +35,8 @@
     "node-sass-package-importer": "^5.1.0",
     "run-sequence": "^1.2.2",
     "webpack-stream": "^4.0.1"
+  },
+  "dependencies": {
+    "raven-js": "^3.24.2"
   }
 }
