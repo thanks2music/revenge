@@ -97,7 +97,9 @@ if (body[0].className.indexOf('single') > -1) {
     target = $(href == '#' || href == '' ? 'html' : href);
 
     if (target.length) {
+      const headerHeight = $(body).find("#inner-header").height();
       position = target.offset().top;
+      position = position - headerHeight;
       $('body, html').animate({scrollTop: position}, speed, 'swing');
     }
 
