@@ -42,10 +42,10 @@ const lazyLoadInstance = Layzr({
   threshold: 5
 });
 // lazyLoad
-lazyLoadInstance.update().check().handlers(true);
 lazyLoadInstance.on('src:before', (element) => {
   element.classList.add('is-loaded');
 });
+lazyLoadInstance.update().check().handlers(true);
 
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
