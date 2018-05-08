@@ -100,8 +100,9 @@
 }
 
 .cc-infeed {
-  padding: 0.7em;
   border-bottom: 1px dotted rgba(0,0,0,.2);
+  width: 100%;
+  min-height: 108px;
 }
 
 // ページネーション
@@ -880,7 +881,7 @@ body {
   vertical-align: bottom;
 }
 
-@for $i from 1 through 10 {
+@for $i from 1 through 11 {
   $tenCount: 1#{$i - 1};
 
   .l-width-#{$i}0percent {
