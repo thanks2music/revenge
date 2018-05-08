@@ -2,8 +2,8 @@ import Raven from 'raven-js';
 Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 import Layzr from 'layzr.js';
 
-let [win, doc, uri, ua] = [window, document, window.location, navigator.userAgent];
-let is_sp = () => {
+const [win, doc, uri, ua] = [window, document, window.location, navigator.userAgent];
+const is_sp = () => {
   if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
     return true;
   } else if (ua.indexOf('Mobile') > 0) {
@@ -13,7 +13,7 @@ let is_sp = () => {
   }
 };
 
-let is_tab = () => {
+const is_tab = () => {
   if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') === -1) {
     return true;
   } else {
@@ -21,7 +21,7 @@ let is_tab = () => {
   }
 };
 
-let is_pc = () => {
+const is_pc = () => {
   if (! is_sp() && ! is_tab()) {
     return true;
   } else {
@@ -30,7 +30,7 @@ let is_pc = () => {
 };
 
 // Common
-let body = document.getElementsByTagName('body'),
+const body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container'),
     selectCategory = $(wrap).find('.eo__event_categories select'),
     header = $(wrap).find('.header'),
@@ -42,27 +42,33 @@ const lazyLoadInstance = Layzr({
   threshold: 5
 });
 // lazyLoad
+lazyLoadInstance.on('src:before', (element) => {
+  element.classList.add('is-loaded');
+});
 lazyLoadInstance.update().check().handlers(true);
 
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
+    initPos = 0,
     slickElement = $(wrap).find('.slickcar');
 
-$(window).on('scroll', function() {
-  const pos = $(this).scrollTop();
+$(window).on('scroll', (e) => {
+  setTimeout(() => {
+    const currentPos = $(window).scrollTop();
 
-  setTimeout(function() {
-    if (pos > 100 && ! cloneHeader.hasClass('fixed')) {
+    if (cloneHeader.hasClass('fixed')) {
+      if (currentPos < 200) {
+        cloneHeader.fadeOut(300).removeClass('fixed action').remove();
+      }
+    } else if (initPos > currentPos && currentPos >= 200) {
       cloneHeader.appendTo(header).addClass('fixed');
-      cloneHeader.delay(1000).queue(function() {
-        $(this).addClass('action');
+      cloneHeader.delay(300).queue(() => {
+        cloneHeader.addClass('action');
       });
     }
 
-    if (pos < 100) {
-      cloneHeader.removeClass('fixed action').fadeOut(300).remove();
-    }
-  }, 100);
+    initPos = currentPos;
+  }, 200);
 });
 
 selectCategory.on('change', function() {
