@@ -1,6 +1,7 @@
 import Raven from 'raven-js';
-Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 import Layzr from 'layzr.js';
+
+Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 
 const [win, doc, uri, ua] = [window, document, window.location, navigator.userAgent];
 const is_sp = () => {
