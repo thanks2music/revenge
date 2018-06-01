@@ -74,12 +74,6 @@
 <?php
 // フィルターを通してthe_contentを呼び出す
 $the_content = apply_filters('the_content', get_the_content());
-
-// [0] 画像にはdummyをセット [1] 英字を日本語に [2] デフォルト文言を変更
-$search  = ['<img src=', '<strong>Date:</strong>', '<h4>イベント詳細</h4>'];
-$replace = ['<img src="/wp-content/uploads/dummy.png" data-src=', '<strong>開催日:</strong>', '<h4>アクセス・イベント詳細</h4>'];
-$the_content = str_replace($search, $replace, $the_content);
-
 echo $the_content;
 
 wp_link_pages( array(

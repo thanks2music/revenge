@@ -307,6 +307,15 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
 }
 add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
+function change_the_content($the_content) {
+  $search  = ['<img src='];
+  $replace = ['<img src="/wp-content/uploads/dummy.png" data-src='];
+  $the_content = str_replace($search, $replace, $the_content);
+  return $the_content;
+}
+// デフォルトの優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
+add_filter('the_content', 'change_the_content');
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {
