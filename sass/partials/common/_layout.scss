@@ -281,7 +281,7 @@
   }
   [src$='dummy.png'] {
     width: 100%;
-    height: 30vh !important;
+    height: inherit;
   }
 }
 
@@ -890,6 +890,7 @@ body {
 
   .l-margin-b-#{$i}em {
     margin-bottom: #{$i}em;
+    margin-bottom: #{$i}rem;
   }
 
   .l-padding-t-#{$i}em {
