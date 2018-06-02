@@ -512,6 +512,11 @@ body {
     .period & {
       background: #f5f5f5;
     }
+
+    .cat-name {
+      right: inherit;
+      left: 0;
+    }
   }
 
   article.period-list {
