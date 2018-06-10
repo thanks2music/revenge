@@ -56,20 +56,20 @@
 
 
 <?php if ( is_active_sidebar( 'addbanner-sp-titleunder' ) ) : ?>
-<?php if ( wp_is_mobile() ) : ?>
-<div class="add titleunder">
-<?php dynamic_sidebar( 'addbanner-sp-titleunder' ); ?>
-</div>
-<?php endif; ?>
+  <?php if ( wp_is_mobile() ) : ?>
+    <div class="add titleunder">
+      <?php dynamic_sidebar( 'addbanner-sp-titleunder' ); ?>
+    </div>
+  <?php endif; ?>
 <?php endif; ?>
 
 <section class="entry-content cf">
 
-<?php if ( is_active_sidebar( 'addbanner-pc-titleunder' ) && !wp_is_mobile()) : ?>
-<div class="add titleunder">
-<?php dynamic_sidebar( 'addbanner-pc-titleunder' ); ?>
-</div>
-<?php endif; ?>
+<?php if (is_active_sidebar('addbanner-pc-titleunder') && !wp_is_mobile()) { ?>
+  <div class="add titleunder">
+    <?php dynamic_sidebar( 'addbanner-pc-titleunder' ); ?>
+  </div>
+<?php } ?>
 
 <?php
 // フィルターを通してthe_contentを呼び出す
