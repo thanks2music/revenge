@@ -806,10 +806,8 @@ body {
         transition: all 400ms ease-in-out;
         padding: 0;
         width: 100%;
-
-        .pc & {
-          padding: 0 0 0 140px;
-        }
+        display: flex;
+        justify-content: center;
 
         .nav_btn {
           transition: all 400ms ease-in-out;

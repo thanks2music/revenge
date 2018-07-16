@@ -37,6 +37,7 @@
     "webpack-stream": "^4.0.1"
   },
   "dependencies": {
+    "npm": "^6.2.0",
     "raven-js": "^3.24.2"
   }
 }
