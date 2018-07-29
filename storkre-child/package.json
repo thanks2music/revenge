@@ -2,10 +2,13 @@
   "name": "CC",
   "version": "0.0.1",
   "description": "Gulp",
+  "author": "Yoshiyuki Ito",
   "repository": {
     "type": "git"
   },
-  "author": "Yoshiyuki Ito",
+  "scripts": {
+    "gulp": "gulp"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
