@@ -887,6 +887,26 @@ body {
   vertical-align: bottom;
 }
 
+.l-sp-only {
+  .pc & {
+    display: none;
+  }
+
+  .sp & {
+    display: block;
+  }
+}
+
+.l-pc-only {
+  .sp & {
+    display: none;
+  }
+
+  .pc & {
+    display: block;
+  }
+}
+
 @for $i from 1 through 11 {
   $tenCount: 1#{$i - 1};
 
