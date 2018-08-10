@@ -849,6 +849,10 @@ body {
           text-align: center;
           margin-top: 15px;
         }
+
+        .pc & {
+          margin-top: 0;
+        }
       }
 
       a {
