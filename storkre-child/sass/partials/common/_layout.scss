@@ -843,6 +843,14 @@ body {
         width: 200px;
       }
 
+      .h1 {
+        @include mediaquery('min', 768px) {
+          display: block;
+          text-align: center;
+          margin-top: 15px;
+        }
+      }
+
       a {
         @include hide-text;
         @include bg-responsive($img, $size, $scale: 70%);
@@ -851,6 +859,15 @@ body {
         top: 48%;
         left: 50%;
         transform: translate(-50%, -50%);
+
+        @include mediaquery('min', 768px) {
+          @include bg-responsive($img, $size, $scale: 40%);
+          display: inline-block;
+          position: relative;
+          top: inherit;
+          left: inherit;
+          transform: none;
+        }
 
         .pc & {
           @include bg-responsive($img, $size, $scale: 100%);
