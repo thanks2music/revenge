@@ -182,7 +182,6 @@ function theme_register_sidebars() {
 		'before_title' => '',
 		'after_title' => '',
 	));
-
 }
 
 
