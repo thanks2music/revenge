@@ -1,4 +1,5 @@
 <?php
+  global $amp_flag;
   // 開催期間別一覧をフッター下部に追加
   $show_period_flag = true;
   $post_type = get_post_type();
@@ -78,7 +79,7 @@
     // ループ開始
     if ($the_query->have_posts()) {
       $period_wrap_dom = '<div class="period-container">';
-      $period_wrap_dom .= '<h3 class="headline-period">開催期間別</h3>';
+      $period_wrap_dom .= '<h3 class="headline-period">終了間近</h3>';
       echo $period_wrap_dom;
 
       while ($the_query->have_posts()) {
@@ -205,7 +206,7 @@
         <?php
       } // end while
       $more_dom = '<a href="/events/category/collabo-period/" class="more-read-period">';
-      $more_dom .= '開催期間別をもっと見る' . '</a>';
+      $more_dom .= '終了間近の一覧' . '</a>';
       echo $more_dom;
       echo '</div>'; // end .period-container
     } // end if
@@ -263,7 +264,9 @@
 	</div>
 </footer>
 </div>
-<?php // get_template_part('partials/photoswipe.php'); ?>
-<?php wp_footer(); ?>
+<?php if (! $amp_flag) {
+    wp_footer();
+  }
+?>
 </body>
 </html>
