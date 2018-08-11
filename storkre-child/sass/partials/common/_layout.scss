@@ -1,5 +1,12 @@
 @charset "utf-8";
 
+@import 'partials/common/toc';
+@import 'partials/common/l-class';
+@import 'partials/common/adjacent-post';
+@import 'partials/common/related-post';
+@import 'partials/common/ad';
+@import 'partials/common/widget';
+
 .wf-amatic {
   @extend %webfont-amatic;
 }
@@ -294,120 +301,6 @@
   }
 }
 
-// body階層からにしたく無い
-#content {
-  .adjacent__post {
-    &__inner {
-      .home_link {
-        text-align: left;
-
-        a {
-          padding: 0;
-        }
-
-        figure {
-          width: auto;
-        }
-      }
-
-      h4 {
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 1;
-        margin: 0;
-        padding: 0 12px 12px;
-        border-bottom: 1px solid #E5E5E5;
-      }
-    }
-
-    &__prev {
-      background: #FAFAFA;
-      border: 1px solid #E5E5E5;
-      padding: 12px 0;
-      margin: 0;
-
-      a {
-        padding: 12px 12px 0;
-
-        figure {
-          padding: 0;
-          width: 120px;
-
-          // 疑似要素のFont Awesomeアイコン
-          &:before {
-            display: none;
-          }
-        }
-
-        h5 {
-          font-size: .9rem;
-          font-weight: bold;
-          padding-left: 12px;
-          vertical-align: top;
-          line-height: 1.4;
-
-          .pc & {
-            font-size: 1rem;
-          }
-
-          // description
-          p {
-            font-size: 12px;
-            font-weight: normal;
-            color: #999;
-            margin: .7em 0 0 0;
-            line-height: 1.4;
-          }
-        }
-      }
-    }
-
-    &__next {
-      background: #FAFAFA;
-      border: 1px solid #E5E5E5;
-      padding: 12px 0;
-      margin-top: -1px;
-      text-align: right;
-
-      a {
-        padding: 12px 12px 0;
-
-        figure {
-          padding: 0;
-          width: 120px;
-
-          // 疑似要素のFont Awesomeアイコン
-          &:after {
-            display: none;
-          }
-        }
-
-        h5 {
-          font-size: .9rem;
-          font-weight: bold;
-          padding-right: 12px;
-          vertical-align: top;
-          text-align: left;
-          line-height: 1.4;
-
-          .pc & {
-            font-size: 1rem;
-          }
-
-          // description
-          p {
-            font-size: 12px;
-            font-weight: normal;
-            color: #999;
-            margin: .7em 0 0 0;
-            line-height: 1.4;
-          }
-        }
-      }
-    }
-  }
-}
-
 body {
   .entry-content {
     .entry-author {
@@ -436,62 +329,6 @@ body {
 #container {
   $pink: #ff5dab;
   $dir: '/wp-content/uploads/';
-
-  // 記事内ナビゲーション
-  .cc-jump-section {
-    background: #f4f4f4;
-    margin-bottom: 1em;
-    padding: 1em;
-    border: 1px solid darken(#f4f4f4, 10%);
-    border-radius: 5px;
-
-    .sp & {
-      padding: 1em .5em .5em 1em;
-    }
-
-    > p {
-      text-align: center;
-      margin: 0;
-      line-height: 1;
-
-      .sp & {
-        text-align: left;
-      }
-    }
-
-    .cc-nav-list {
-      letter-spacing: -.5em;
-      margin: 0;
-      padding: 1em 1em 0;
-
-      .sp & {
-        text-align: left;
-        font-size: 13px;
-        padding: 1em 0 0 0;
-      }
-
-      li {
-        display: inline-block;
-        letter-spacing: normal;
-        vertical-align: top;
-        padding-left: 1em;
-        margin: 0 0 .5em;
-
-        .sp & {
-          width: 47%;
-          margin-bottom: 3%;
-        }
-
-        &:not(:last-child) {
-          margin-right: 1em;
-
-          .sp & {
-            margin-right: 3%;
-          }
-        }
-      }
-    }
-  }
 
   // 記事内装飾
   .column-wrap {
@@ -718,7 +555,7 @@ body {
     color: #222;
     padding: 12px 10px;
     border-left: 4px solid #ff5dab;
-    margin: 0 0 1em;
+    margin: 1em 0 1em;
 
     .pc & {
     }
@@ -890,61 +727,5 @@ body {
       background: #666;
       color: #fff;
     }
-  }
-}
-
-// 記事で使うレイアウト用のclass
-.l-center {
-  text-align: center;
-  margin: auto;
-}
-
-.l-font-size0 {
-  font-size: 0;
-}
-
-.l-di-va-b {
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.l-sp-only {
-  .pc & {
-    display: none;
-  }
-
-  .sp & {
-    display: block;
-  }
-}
-
-.l-pc-only {
-  .sp & {
-    display: none;
-  }
-
-  .pc & {
-    display: block;
-  }
-}
-
-@for $i from 1 through 11 {
-  $tenCount: 1#{$i - 1};
-
-  .l-width-#{$i}0percent {
-    width: #{$i}0%;
-  }
-
-  .l-margin-b-#{$i}em {
-    margin-bottom: #{$i}em;
-    margin-bottom: #{$i}rem;
-  }
-
-  .l-padding-t-#{$i}em {
-    padding-top: #{$i}em;
-  }
-
-  .f-size#{$tenCount}px {
-    font-size: #{$tenCount}px;
   }
 }

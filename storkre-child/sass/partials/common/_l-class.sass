@@ -1,0 +1,47 @@
+// Prefix "l-" is layout.
+// 記事で使う装飾
+.l
+  &-center
+    text-align: center
+    margin: auto
+
+  &-font-size0
+    font-size: 0
+
+  &-di-va-b
+    display: inline-block
+    vertical-align: bottom
+
+  &-sp-only
+    .pc &
+      display: none
+
+    .sp &
+      display: block
+
+  &-pc-only
+    .sp &
+      display: none
+
+    .pc &
+      display: block
+
+  @for $i from 1 through 11
+    $tenCount: 1#{$i - 1}
+
+    &-width-#{$i}0percent
+      width: #{$i}0%
+      margin: auto auto 1rem
+
+    &-margin-b-#{$i}em
+      margin-bottom: #{$i}em
+      margin-bottom: #{$i}rem
+
+    &-padding-t-#{$i}em
+      padding-top: #{$i}em
+
+    &-font-size#{$tenCount}px
+      font-size: #{$tenCount}px
+
+.amp__container .f-size12px
+  font-size: 12px

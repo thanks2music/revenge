@@ -1,0 +1,64 @@
+// Toc - 記事内ナビゲーション
+.cc-jump-section
+  background: #f4f4f4
+  margin-bottom: 1em
+  padding: 1em
+  border: 1px solid darken(#f4f4f4, 10%)
+  border-radius: 5px
+
+  .sp &
+    padding: 1em .5em .5em 1em
+
+  > p
+    text-align: center
+    margin: 0
+    line-height: 1
+
+    .amp &
+      margin: 0
+
+    .sp &
+      text-align: left
+
+  .cc-nav-list
+    letter-spacing: -.5em
+    margin: 0
+    padding: 1em 1em 0
+
+    .sp &
+      text-align: left
+      font-size: 13px
+      padding: 1em 0 0 0
+
+    li
+      display: inline-block
+      letter-spacing: normal
+      vertical-align: top
+      padding-left: 1em
+      margin: 0 0 .5em
+      position: relative
+
+      .sp &
+        width: 47%
+        margin-bottom: 3%
+
+      &:not(:last-child)
+        margin-right: 1em
+
+        .sp &
+          margin-right: 3%
+
+    a
+      $r: 8px
+
+      &:before
+        content: ''
+        display: block
+        width: $r
+        height: $r
+        border-radius: $r
+        background: var(--key-color)
+        position: absolute
+        top: 5px
+        left: 0
+
