@@ -58,6 +58,7 @@ if ($amp_flag) {
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
     <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
     <script async custom-element="amp-twitter" src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"></script>
+    <script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Concert+One|Lato" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
@@ -164,6 +165,7 @@ if ($amp_flag) {
                 $the_content = apply_filters('the_content', get_the_content());
                 echo $the_content;
               ?>
+              <amp-image-lightbox id="lightbox2" layout="nodisplay"></amp-image-lightbox>
               <p class="entry-author vcard author sr-only">
                 <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
               </p>
