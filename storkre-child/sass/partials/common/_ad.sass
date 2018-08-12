@@ -1,0 +1,43 @@
+%__ad
+  text-align: center
+  display: block
+  position: relative
+
+.ad
+  &__in-post--more
+    @extend %__ad
+
+  &__in-post--moreads
+    @extend %__ad
+
+  &__title-under
+    @extend %__ad
+
+  &__pc-content
+    @extend %__ad
+
+  &__sp-content
+    @extend %__ad
+
+
+%__amp__ad
+  position: relative
+  display: block
+
+.amp
+  &__ad
+    &--responsive
+      @extend %__amp__ad
+
+    &--eyecatch-under
+      @extend %__amp__ad
+      padding: 10px 20px 20px
+
+  &__ad
+    @extend %__amp__ad
+
+    &--eyecatch-under
+      @extend %__amp__ad
+
+    &--content-under
+      @extend %__amp__ad

@@ -67,7 +67,7 @@ EOF;
 } else {
 $adTagResponsive = <<< EOF
 
-<div class="add more">
+<div class="ad__in-post--more">
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
        data-ad-format="fluid"
@@ -85,7 +85,7 @@ EOF;
 // PC
 $adTagResponsive = <<< EOF
 
-<div class="add more">
+<div class="ad__in-post--more">
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
        data-ad-format="fluid"
@@ -119,7 +119,7 @@ EOF;
 } else {
 $adTagText = <<< EOF
 
-<div class="add more text">
+<div class="ad__in-post--moreads">
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-7307810455044245"
