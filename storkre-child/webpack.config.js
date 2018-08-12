@@ -2,30 +2,41 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+module.exports = env => {
+  // Use env.<YOUR VARIABLE> here:
+  console.log('NODE_ENV: ', env.NODE_ENV); // 'local'
+  console.log('Production: ', env.production); // true
+
+  return {
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    }
+  };
+};
 
 module.exports = {
-  entry: {
-    app: path.resolve(__dirname, 'javascripts/main.js'),
-  },
+  mode: process.env.NODE_ENV || "development",
+  entry: ["./src/index.js"],
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist/scripts'),
+    filename: "app.js",
+    path: __dirname + "dist/"
   },
-  // ローダーの設定
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015']
+    rules: [
+      {
+        test: /\.js$/,
+        use: "babel-loader",
+        exclude: /node_modules/
       }
-    }],
+    ]
   },
-  // プラグインの設定
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['app']
-    }),
-  ]
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin()
+    ]
+  }
 }
