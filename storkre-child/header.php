@@ -40,7 +40,7 @@
     $body_class = '';
     $event_taxonomy_cat = 'event-category';
     if ($is_sp) {
-      $body_class .= 'sp';
+      $body_class .= 'sp no-amp';
     } else {
       $body_class .= 'pc';
     }
