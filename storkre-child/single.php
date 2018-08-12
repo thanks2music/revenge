@@ -100,6 +100,9 @@
       <p class="entry-author vcard author">
         <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
       </p>
+      <div class="entry__detail">
+        <?php get_template_part( 'event-meta-event-single' ); ?>
+      </div>
     </section>
 
     <?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>
