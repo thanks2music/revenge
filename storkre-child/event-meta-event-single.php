@@ -36,19 +36,19 @@
 
   <ul class="eo-event-meta">
     <?php if ( ! eo_recurs() ) { ?>
-      <li><strong><?php esc_html_e( 'Date', 'eventorganiser' );?>:</strong> <?php echo eo_format_event_occurrence();?></li>
+      <li class="eo__event__date"><strong><?php esc_html_e( 'Date', 'eventorganiser' );?>:</strong> <?php echo eo_format_event_occurrence();?></li>
     <?php } ?>
     <?php if ( eo_get_venue() ) {
       $tax = get_taxonomy( 'event-venue' ); ?>
-      <li><strong><?php echo esc_html( $tax->labels->singular_name ) ?>:</strong> <a href="<?php eo_venue_link(); ?>"> <?php eo_venue_name(); ?></a></li>
+      <li class="eo__event__venue"><strong><?php echo esc_html( $tax->labels->singular_name ) ?>:</strong> <a href="<?php eo_venue_link(); ?>"> <?php eo_venue_name(); ?></a></li>
     <?php } ?>
 
     <?php if ( get_the_terms( get_the_ID(), 'event-category' ) && ! is_wp_error( get_the_terms( get_the_ID(), 'event-category' ) ) ) { ?>
-      <li><strong><?php esc_html_e( 'Categories', 'eventorganiser' ); ?></strong> <?php echo get_the_term_list( get_the_ID(),'event-category', '', '', '' ); ?></li>
+      <li class="eo__event__category"><strong><?php esc_html_e( 'Categories', 'eventorganiser' ); ?></strong> <?php echo get_the_term_list( get_the_ID(),'event-category', '', '', '' ); ?></li>
     <?php } ?>
 
     <?php if ( get_the_terms( get_the_ID(), 'event-tag' ) && ! is_wp_error( get_the_terms( get_the_ID(), 'event-tag' ) ) ) { ?>
-      <li><strong><?php esc_html_e( 'Tags', 'eventorganiser' ); ?></strong> <?php echo get_the_term_list( get_the_ID(), 'event-tag', '', '', '' ); ?></li>
+      <li class="eo__event__tags"><strong><?php esc_html_e( 'Tags', 'eventorganiser' ); ?></strong> <?php echo get_the_term_list( get_the_ID(), 'event-tag', '', '', '' ); ?></li>
     <?php } ?>
 
     <?php if ( eo_recurs() ) {
@@ -63,7 +63,7 @@
 
         if ( $upcoming->have_posts() ) : ?>
 
-          <li><strong><?php _e( 'Upcoming Dates', 'eventorganiser' ); ?>:</strong>
+          <li class="eo__event__date"><strong><?php _e( 'Upcoming Dates', 'eventorganiser' ); ?>:</strong>
             <ul class="eo-upcoming-dates">
               <?php
               while ( $upcoming->have_posts() ) {
@@ -93,10 +93,5 @@
       <?php echo eo_get_venue_map( eo_get_venue(), array( 'width' => '100%' ) ); ?>
     </div>
   <?php endif; ?>
-
-
-  <div style="clear:both"></div>
-
-  <hr>
 
 </div><!-- .entry-meta -->

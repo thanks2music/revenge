@@ -77,32 +77,33 @@
     <?php } ?>
 
     <?php
-    // フィルターを通してthe_contentを呼び出す
-    $the_content = apply_filters('the_content', get_the_content());
-    echo $the_content;
+      // フィルターを通してthe_contentを呼び出す
+      $the_content = apply_filters('the_content', get_the_content());
+      echo $the_content;
 
-    wp_link_pages( array(
-    'before'      => '<div class="page-links cf"><ul>',
-    'after'       => '</ul></div>',
-    'link_before' => '<li><span>',
-    'link_after'  => '</span></li>',
-    'next_or_number'   => 'next',
-    'nextpagelink'     => __('次のページへ ≫'),
-    'previouspagelink' => __('≪ 前のページへ'),
-    ) );    
-    ?>
+      wp_link_pages( array(
+      'before'      => '<div class="page-links cf"><ul>',
+      'after'       => '</ul></div>',
+      'link_before' => '<li><span>',
+      'link_after'  => '</span></li>',
+      'next_or_number'   => 'next',
+      'nextpagelink'     => __('次のページへ ≫'),
+      'previouspagelink' => __('≪ 前のページへ'),
+      ) );
+      ?>
 
-    <?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !is_mobile() ) : ?>
-    <div class="add">
-    <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
-    </div>
-    <?php endif; ?>
-      <p class="entry-author vcard author">
-        <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
-      </p>
       <div class="entry__detail">
         <?php get_template_part( 'event-meta-event-single' ); ?>
       </div>
+
+      <?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !is_mobile() ) : ?>
+        <div class="add">
+        <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
+        </div>
+      <?php endif; ?>
+      <p class="entry-author vcard author">
+        <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
+      </p>
     </section>
 
     <?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>

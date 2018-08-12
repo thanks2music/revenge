@@ -6,6 +6,9 @@
   &__related-post
     @extend %__related-post
 
+    .sp.no-amp &
+      padding: 0
+
   &__related-post--google
     @extend %__related-post
 
@@ -18,8 +21,8 @@
     padding: 20px 20px 0
     margin: 20px 0 10px
 
-    .pc &
-      font-size: 18px
+    .sp.no-amp &
+      font-size: 14px
       margin-bottom: 0
 
   &__event
@@ -29,6 +32,7 @@
 
     &__post
       display: flex
+      align-items: flex-start
       margin-bottom: 20px
 
       .pc &
@@ -42,6 +46,7 @@
         font-weight: bold;
         line-height: 1.8;
         color: #333;
+        margin: 0;
 
       &__date
         font-size: 11px;

@@ -4,6 +4,7 @@
 @import 'partials/common/adjacent-post'
 @import 'partials/common/related-post'
 @import 'partials/common/widget'
+@import 'partials/common/event-detail'
 
 \:root
   --key-color: #ff5dab
@@ -495,64 +496,6 @@
       border-radius: 3px;
       color: #fff;
       box-shadow: 0 1px 5px rgba(0,0,0,.3);
-
-    .eo-event-meta
-      margin-bottom: 1em
-      font-size: 14px
-
-      li
-        padding: 0
-        margin: 0
-
-        &:not(:last-child)
-          margin-bottom: var(--margin)
-
-          a
-            margin-right: .5em
-
-        // カレンダー
-        &:first-child
-          display: none
-
-          strong
-            &:before
-              +font-awesome("\f274")
-
-        // Coffee
-        &:nth-child(2)
-          strong
-            &:before
-              +font-awesome("\f0f4")
-
-          a
-            display: inline-block
-            font-size: 12px;
-            border-radius: 20px;
-            background: var(--sub-color)
-            color: #fff
-            text-decoration: none
-            padding: 3px 7px
-            margin-bottom: 5px
-
-            &:visited
-              color: #fff
-
-        &:last-child
-          strong
-            &:before
-              +font-awesome("\f02b")
-
-          a
-            color: var(--sub-color)
-            text-decoration: none
-            margin-right: .7em
-
-            &:before
-              content: '#'
-              margin-right: .1em
-
-        &:before
-          display: none
 
   // Hide Normal Google Map, TODO Amp Google Map View
   .eo-venue-map

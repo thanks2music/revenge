@@ -5,6 +5,7 @@
 @import 'partials/common/adjacent-post';
 @import 'partials/common/related-post';
 @import 'partials/common/widget';
+@import 'partials/common/event-detail';
 
 .wf-amatic {
   @extend %webfont-amatic;
@@ -244,25 +245,6 @@
           &:before {
             display: none;
           }
-        }
-      }
-    }
-  }
-
-  #main {
-    article {
-      // 記事カテゴリ・タグ・Google Map
-      .eventorganiser-event-meta {
-        opacity: 0;
-        visibility: hidden;
-        position: absolute;
-        z-index: -1;
-
-        &.action {
-          opacity: 1;
-          visibility: visible;
-          position: relative;
-          z-index: 0;
         }
       }
     }
