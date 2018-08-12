@@ -3,27 +3,6 @@
   <div class="inbox">
     <p class="related-h h_ttl related__title">この記事を読んだ人は、こんな記事も読んでいます。</p>
     <div class="ad__related-post related-post">
-      <?php if (! $amp_flag) { ?>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-7307810455044245"
-             data-ad-slot="7735657787"></ins>
-        <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      <?php } else { ?>
-      <?php /* NOTE: シミュレーターで広告が出ないので一旦非表示でリリースする。リリース後、問題なさそうなら一回ONにしてみる
-       <amp-ad
-         layout="fixed-height"
-         height=1200
-         type="adsense"
-         data-ad-client="ca-pub-7307810455044245"
-         data-ad-slot="7735657787">
-       </amp-ad> */
-      ?>
-    <?php } ?>
       <div class="related__event">
         <?php if (get_the_terms(get_the_ID(), 'event-tag') && ! is_wp_error(get_the_terms(get_the_ID(), 'event-tag'))) {
           $terms = get_the_terms(get_the_ID(), 'event-tag');
@@ -78,11 +57,15 @@
             <div class="related__event__post">
               <figure class="related__event__post__thumbnail">
                 <?php
-                  $amp_img = '';
-                  $image_array = get_the_thumbnail_image_array($post->ID);
-                  $amp_img .= '<amp-img src="'.$image_array[0].'" layout="responsive" width="'.$image_array[1].'" height="'.$image_array[2].'" alt="'.$title.'"></amp-img>';
+                  if ($amp_flag) {
+                    $amp_img = '';
+                    $image_array = get_the_thumbnail_image_array($post->ID);
+                    $amp_img .= '<amp-img src="'.$image_array[0].'" layout="responsive" width="'.$image_array[1].'" height="'.$image_array[2].'" alt="'.$title.'"></amp-img>';
 
-                  echo $amp_img;
+                    echo $amp_img;
+                  } else {
+                    the_post_thumbnail('home-thum', array('class' => 'lazy'));
+                  }
                 ?>
               </figure>
               <p class="related__event__post__title">
@@ -95,6 +78,27 @@
             <?php }
           }
         } ?>
+      </div>
+      <div class="ad__related-post--google">
+        <?php if (! $amp_flag) { ?>
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-format="autorelaxed"
+               data-ad-client="ca-pub-7307810455044245"
+               data-ad-slot="7735657787"></ins>
+          <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        <?php } else { ?>
+          <amp-ad
+            layout="fixed-height"
+            height=600
+            type="adsense"
+            data-ad-client="ca-pub-7307810455044245"
+            data-ad-slot="7735657787">
+          </amp-ad>
+        <?php } ?>
       </div>
     </div>
   </div>

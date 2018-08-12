@@ -1,3 +1,14 @@
+%__related-post
+  padding: 0 20px
+  margin-bottom: 10px
+
+.ad
+  &__related-post
+    @extend %__related-post
+
+  &__related-post--google
+    @extend %__related-post
+
 .related
   &__title
     @extend %gradient-hr
@@ -7,10 +18,22 @@
     padding: 20px 20px 0
     margin: 20px 0 10px
 
+    .pc &
+      font-size: 18px
+      margin-bottom: 0
+
   &__event
+    .pc &
+      display: flex
+      justify-content: space-between
+
     &__post
       display: flex
       margin-bottom: 20px
+
+      .pc &
+        display: block
+        width: 32%
 
       &__title
         flex-basis: 53%;

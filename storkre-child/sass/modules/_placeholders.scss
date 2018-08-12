@@ -30,6 +30,11 @@
   position: relative;
   margin: 20px 0 20px;
 
+  .single.pc & {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
   &:before {
     background: linear-gradient(to right, #ff5dab 0%, #00b5fa 100%);
     content: "";

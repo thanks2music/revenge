@@ -12,6 +12,7 @@
     <?php get_template_part( 'singleparts_full' ); ?>
     <?php else : ?>
 
+    <div id="single__container" class="single__container">
     <div id="content">
     <div id="inner-content" class="wrap cf">
 
@@ -165,6 +166,7 @@
     <?php endif; ?>
     </main>
     <?php get_sidebar(); ?>
+    </div>
     </div>
     </div>
     <?php endif; wp_reset_query(); //ワンカラム条件分岐END ?>
