@@ -3,6 +3,7 @@
 @import 'partials/common/l-class'
 @import 'partials/common/adjacent-post'
 @import 'partials/common/related-post'
+@import 'partials/common/ad'
 @import 'partials/common/widget'
 @import 'partials/common/event-detail'
 
@@ -77,20 +78,6 @@
     &__title
       font-size: 1.1rem
       margin-bottom: 10px
-
-  %__ad
-    padding: 10px
-    margin-bottom: 10px
-
-  &__ad
-    @extend %__ad
-
-    &--eyecatch-under
-      @extend %__ad
-
-    &--content-under
-      @extend %__ad
-
 
   &__eyecatch
     margin: 0 -10px
@@ -187,6 +174,10 @@
         padding: .7em
         border: 1px solid #ddd
 
+    // AMP Lightbox
+    .amp-image-lightbox-caption
+      font-size: 13px
+
     // PhotoSwipe
     .psgal
       display: flex
@@ -208,6 +199,10 @@
           color: var(--key-color)
           font-weight: bold
 
+      figcaption
+        font-size: 13px;
+        padding-top: 5px;
+
     .single_photoswipe
       display: block
       position: relative
@@ -219,9 +214,6 @@
       .m-all
         padding-bottom: 1rem
         position: relative
-
-      amp-img
-        display: inline-block
 
     .btn-wrap
       text-align: center

@@ -67,7 +67,7 @@ EOF;
 } else {
 $adTagResponsive = <<< EOF
 
-<div class="add more">
+<div class="ad__in-post--more">
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
        data-ad-format="fluid"
@@ -85,7 +85,7 @@ EOF;
 // PC
 $adTagResponsive = <<< EOF
 
-<div class="add more">
+<div class="ad__in-post--more">
   <ins class="adsbygoogle"
        style="display:block; text-align:center;"
        data-ad-format="fluid"
@@ -119,7 +119,7 @@ EOF;
 } else {
 $adTagText = <<< EOF
 
-<div class="add more text">
+<div class="ad__in-post--moreads">
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-7307810455044245"
@@ -413,15 +413,60 @@ add_filter('the_content', 'replace_tweet_url_to_amp_html');
 
 function replace_img_for_amp($the_content) {
   global $amp_flag;
-  $search  = ['<img src='];
+  $pattern_anchor = '/<a class="single_photoswipe.*?\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
+  $single_photoswipe_anchor = preg_match_all($pattern_anchor, $the_content, $matches);
 
-  if ($amp_flag) {
-    $replace = ['<amp-img layout="responsive" src='];
-  } else {
-    $replace = ['<img src="/wp-content/uploads/dummy.png" data-src='];
+  // 一つ目がa要素
+  $current_index = $target_index = 0;
+
+  foreach($matches[0] as $key => $value) {
+    if (strpos($value, 'single_photoswipe') !== false) {
+      $target_index = $current_index + 1;
+      $amp_lightbox_dom = $image_src = $image_size = '';
+
+      if ($amp_flag === true) {
+        $the_content = str_replace($value, '', $the_content);
+        $image_size = array_slice($matches[1], $array[$target_index], 1);
+        $image_size = explode('x', $image_size[0]);
+        $image_src = array_slice($matches[2], $target_index, 1);
+
+        if (! empty($image_size) && ! empty($image_src)) {
+          $amp_lightbox_dom = '<amp-img 
+            on="tap:lightbox2"
+            role="button"
+            tabindex="0"
+            src="'.$image_src[0].'" 
+            width="'.$image_size[0].'" 
+            height="'.$image_size[1].'" 
+            layout="responsive" 
+            alt="">
+          </amp-img>';
+        }
+      }
+    } else if ($current_index !== $target_index) {
+      $image_array = array_slice($matches[0], $key, 1);
+      $image_width = preg_match('/width="\d*/', $image_array[0], $width);
+      $width = explode('width="', $width[0])[1];
+      $image_heihgt = preg_match('/height="\d*/', $image_array[0], $height);
+      $height = explode('height="', $height[0])[1];
+      $image_path = array_slice($matches[2], $key, 1);
+      $search = $image_array[0];
+
+      if ($amp_flag) {
+        $replace = '<amp-img layout="responsive" src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt=""></amp-img>';
+      } else {
+        $replace = '<img src="/wp-content/uploads/dummy.png" data-src="'.$image_path[0].'" alt="">';
+      }
+
+      $the_content = str_replace($search, $replace, $the_content);
+    }
+
+    if ($key === $target_index && $amp_flag === true) {
+      $the_content = str_replace($value, $amp_lightbox_dom, $the_content);
+    }
+
+    $current_index++;
   }
-
-  $the_content = str_replace($search, $replace, $the_content);
 
   return $the_content;
 }

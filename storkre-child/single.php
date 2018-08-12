@@ -62,7 +62,7 @@
 
     <?php if ( is_active_sidebar( 'addbanner-sp-titleunder' ) ) : ?>
       <?php if ( wp_is_mobile() ) : ?>
-        <div class="add titleunder">
+        <div class="ad__title-under">
           <?php dynamic_sidebar( 'addbanner-sp-titleunder' ); ?>
         </div>
       <?php endif; ?>
@@ -71,7 +71,7 @@
     <section class="entry-content cf">
 
     <?php if (is_active_sidebar('addbanner-pc-titleunder') && !wp_is_mobile()) { ?>
-      <div class="add titleunder">
+      <div class="ad__title-under">
         <?php dynamic_sidebar( 'addbanner-pc-titleunder' ); ?>
       </div>
     <?php } ?>
@@ -97,7 +97,7 @@
       </div>
 
       <?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !is_mobile() ) : ?>
-        <div class="add">
+        <div class="ad__pc-content">
         <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
         </div>
       <?php endif; ?>
@@ -107,7 +107,7 @@
     </section>
 
     <?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>
-    <div class="add">
+    <div class="ad__sp-content">
     <?php dynamic_sidebar( 'addbanner-sp-contentfoot' ); ?>
     </div>
     <?php endif; ?>
