@@ -125,6 +125,13 @@
   }
 }
 
+@mixin font-awesome($icon) {
+  font-family: "fontawesome";
+  content: $icon;
+  position: relative;
+  margin-right: .3em;
+}
+
 @mixin bg-responsive($file, $dimensions, $base: width, $scale: 100%) {
   $width: nth($dimensions, 1);
   $height: nth($dimensions, 2);

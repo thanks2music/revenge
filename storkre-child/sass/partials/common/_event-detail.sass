@@ -1,0 +1,71 @@
+\:root
+  --key-color: #ff5dab
+  --sub-color: #00b5fa
+  --margin: 10px
+
+main
+  .eo-event-meta
+    margin-bottom: 1em
+    font-size: 14px
+
+    %__button-link
+      a
+        display: inline-block
+        font-size: 12px;
+        border-radius: 20px;
+        background: var(--sub-color)
+        color: #fff
+        text-decoration: none
+        padding: 3px 7px
+        margin-bottom: 5px
+
+        &:visited
+          color: #fff
+
+    %__tag-link
+      strong
+        &:before
+          +font-awesome("\f02b")
+
+      a
+        color: var(--sub-color)
+        text-decoration: none
+        margin-right: .7em
+
+        &:before
+          content: '#'
+          margin-right: .1em
+
+    .eo__event
+      &__date
+        display: none
+
+      &__venue
+        @extend %__button-link
+
+        strong
+          &:before
+            +font-awesome("\f291")
+
+      &__category
+        @extend %__button-link
+
+        strong
+          &:before
+            +font-awesome("\f0f4")
+
+      &__tags
+        @extend %__tag-link
+
+    li
+      padding: 0
+      margin: 0
+
+      &:before
+        display: none
+
+      &:not(:last-child)
+        margin-bottom: var(--margin)
+
+        a
+          margin-right: .5em

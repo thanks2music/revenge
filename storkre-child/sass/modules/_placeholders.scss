@@ -26,6 +26,26 @@
   overflow: hidden;
 }
 
+%gradient-hr {
+  position: relative;
+  margin: 20px 0 20px;
+
+  .single.pc & {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
+  &:before {
+    background: linear-gradient(to right, #ff5dab 0%, #00b5fa 100%);
+    content: "";
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 // 記号
 %mark-kome {
   content: '\203b'; // ※ の8進数

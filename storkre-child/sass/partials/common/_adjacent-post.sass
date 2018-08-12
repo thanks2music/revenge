@@ -1,0 +1,106 @@
+#single__container
+  .adjacent__post
+    .amp &
+      margin: 0 20px 10px
+
+    %__post
+      background: #fafafa
+      border: 1px solid #e5e5e5
+      padding: 12px 0
+      word-break: break-all
+
+    %__link
+      width: 100%
+      display: table
+      font-size: .9em
+      text-decoration: none
+      padding: 12px 12px 0
+      color: #444
+
+      &:visited
+        color: #444
+
+    %__h5
+      display: table-cell
+      font-size: .9rem
+      font-weight: bold
+      vertical-align: top
+      line-height: 1.4
+      text-transform: uppercase
+      letter-spacing: 1px
+
+    &__inner
+      .home_link
+        text-align: left
+
+      figure
+        padding: 0
+        width: 120px
+        max-width: 120px
+        display: table-cell
+        vertical-align: middle
+        text-align: center
+        position: relative
+
+        &:before,
+        &:after
+          display: none
+
+        img,
+        amp-img
+          width: 100%
+          display: inline-block
+
+      h4
+        font-size: 16px
+        font-weight: bold
+        line-height: 1
+        margin: 0
+        padding: 0 12px 12px
+        border-bottom: 1px solid #E5E5E5
+
+    &__prev
+      @extend %__post
+      margin: 0
+
+      a
+        @extend %__link
+
+        h5
+          @extend %__h5
+          padding-left: 12px
+
+          .pc &
+            font-size: 1rem
+
+          // description
+          p
+            font-size: 12px
+            font-weight: normal
+            color: #999
+            margin: .7em 0 0 0
+            line-height: 1.4
+
+    &__next
+      @extend %__post
+      margin-top: -1px
+      text-align: right
+
+      a
+        @extend %__link
+
+        h5
+          @extend %__h5
+          padding-right: 12px
+          text-align: left
+
+          .pc &
+            font-size: 1rem
+
+          // description
+          p
+            font-size: 12px
+            font-weight: normal
+            color: #999
+            margin: .7em 0 0 0
+            line-height: 1.4

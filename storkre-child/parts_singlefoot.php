@@ -1,12 +1,25 @@
-<?php global $is_sp, $is_pc ?>
+<?php global $is_sp, $is_pc, $amp_flag ?>
 <div class="np-post adjacent__post">
   <div class="navigation adjacent__post__inner">
     <div class="prev np-post-list adjacent__post__prev">
       <?php $nextpost = get_adjacent_post(false, '', false); if ($nextpost) : ?>
-        <?php $nextpost_img = get_the_post_thumbnail_url($nextpost->ID,'post-thum'); ?>
         <h4>前の記事</h4>
         <a href="<?php echo get_permalink($nextpost->ID); ?>" class="cf">
-          <figure class="eyecatch"><img src="<?php echo $nextpost_img; ?>" alt="<?php echo esc_attr($nextpost->post_title); ?>"></figure>
+          <figure class="eyecatch">
+            <?php if ($amp_flag) { ?>
+            <?php
+              $amp_img = '';
+              $image_array = get_the_thumbnail_image_array($nextpost->ID);
+              $title = $nextpost->post_title;
+              $amp_img .= '<amp-img src="'.$image_array[0].'" layout="responsive" width="'.$image_array[1].'" height="'.$image_array[2].'" alt="'.$title.'"></amp-img>';
+
+              echo $amp_img;
+            ?>
+            <?php } else { ?>
+              <?php $nextpost_img = get_the_post_thumbnail_url($nextpost->ID,'post-thum'); ?>
+              <img src="<?php echo $nextpost_img; ?>" alt="<?php echo esc_attr($nextpost->post_title); ?>">
+            <?php } ?>
+          </figure>
           <h5 class="ttl">
             <?php echo esc_attr($nextpost->post_title); ?>
 
@@ -24,7 +37,6 @@
 
     <div class="next np-post-list adjacent__post__next">
       <?php $prevpost = get_adjacent_post(false, '', true); if ($prevpost) : ?>
-        <?php $prevpost_img = get_the_post_thumbnail_url($prevpost->ID,'post-thum'); ?>
         <h4>次の記事</h4>
         <a href="<?php echo get_permalink($prevpost->ID); ?>" class="cf">
           <h5 class="ttl">
@@ -34,7 +46,22 @@
               <?php the_excerpt(); ?>
             <?php } ?>
           </h5>
-          <figure class="eyecatch"><img src="<?php echo $prevpost_img; ?>" alt="<?php echo esc_attr($prevpost->post_title); ?>"></figure>
+
+          <figure class="eyecatch">
+            <?php if ($amp_flag) { ?>
+            <?php
+              $amp_img = '';
+              $image_array = get_the_thumbnail_image_array($prevpost->ID);
+              $title = $prevpost->post_title;
+              $amp_img .= '<amp-img src="'.$image_array[0].'" layout="responsive" width="'.$image_array[1].'" height="'.$image_array[2].'" alt="'.$title.'"></amp-img>';
+
+              echo $amp_img;
+            ?>
+            <?php } else { ?>
+              <?php $prevpost_img = get_the_post_thumbnail_url($prevpost->ID,'post-thum'); ?>
+              <img src="<?php echo $prevpost_img; ?>" alt="<?php echo esc_attr($prevpost->post_title); ?>"></figure>
+            <?php } ?>
+          </figure>
         </a>
       <?php else:?>
         <div class="home_link">
@@ -45,14 +72,14 @@
   </div>
 </div>
 
-<?php if(function_exists('related_posts')): ?>
+<?php if (function_exists('related_posts') && ! $amp_flag) { ?>
 <?php related_posts(); ?>
-<?php else :?>
+<?php } else {?>
 <?php get_template_part('gad-related'); ?>
-<?php endif;?>
+<?php } ?>
 
-<div class="authorbox wow animated fadeIn" data-wow-delay="0.5s">
 <?php if(get_the_author_meta('description') && !get_option('post_options_authorbox')) : ?>
+<div class="authorbox wow animated fadeIn" data-wow-delay="0.5s">
 <div class="inbox">
 <div class="profile cf">
 <h2 class="h_ttl"><span class="gf">ABOUT</span>この記事をかいた人</h2>
@@ -113,5 +140,5 @@
 </ul>
 </div>
 </div>
-<?php endif ;?>
 </div>
+<?php endif ;?>

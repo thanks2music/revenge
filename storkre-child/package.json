@@ -37,10 +37,13 @@
     "node-notifier": "^5.2.1",
     "node-sass-package-importer": "^5.1.0",
     "run-sequence": "^2.2.1",
-    "webpack-stream": "^5.0.0"
+    "webpack-stream": "^5.1.1"
   },
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
     "npm": "^6.2.0",
-    "raven-js": "^3.24.2"
+    "raven-js": "^3.24.2",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.5"
   }
 }

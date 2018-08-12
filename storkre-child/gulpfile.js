@@ -1,6 +1,5 @@
 'use strict';
 
-// Plugins
 const gulp = require('gulp');
 const path = require('path');
 const webpack = require('webpack');
@@ -18,11 +17,10 @@ const header = require('gulp-header');
 const config = {
   supportBrowsers: ['ios >= 7', 'android >= 4.4'],
   images: 'images/**/*.+(jpeg|jpg|png|gif|svg)',
-  javascripts: ['javascripts/**/*.js', '! javascripts/vendor/*.js'],
-  sass: 'sass/**/*.scss',
+  javascripts: ['src/**/*.js'],
+  sass: ['sass/**/*.scss', 'sass/**/*.sass'],
 };
 
-// エラー時のnotify表示
 const notify = (taskName, error) => {
   let title = `[task] ${taskName} ${error.plugin}`;
   let errorMsg = `error: ${error.messageFormatted}`;
@@ -34,7 +32,6 @@ const notify = (taskName, error) => {
   });
 };
 
-// Task
 gulp.task('sass-image', () => {
   return gulp.src(config.images)
     .pipe(sassImage({
@@ -48,7 +45,7 @@ gulp.task('sass-image', () => {
 
 gulp.task('sass', () => {
   return gulp.src(
-      ['sass/event/*.scss', 'sass/*.scss']
+      ['sass/*.scss', 'sass/*.sass']
     )
     .pipe(plumber({
       errorHandler: function(error) {
@@ -59,11 +56,10 @@ gulp.task('sass', () => {
     .pipe(sass({
       outputStyle: 'compressed',
       importer: packageImporter({
-        extensions: ['.scss', '.css']
+        extensions: ['.sass', '.scss', '.css']
       })
     }))
     .pipe(autoprefixer({browsers: config.supportBrowsers, add: true}))
-    .pipe(header('@charset "utf-8";'))
     .pipe(gulp.dest('dist/css/'));
 });
 

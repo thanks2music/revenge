@@ -1,6 +1,6 @@
 <?php
 
-function opencage_customize_register($wp_customize) {
+function opencage_customize_register_child($wp_customize) {
 	
     $wp_customize->add_section( 'colors', array(
     'title' => __( '> サイトカラー設定', 'opencage' ),
@@ -150,9 +150,9 @@ function opencage_customize_register($wp_customize) {
 
 	  
          }
-    add_action('customize_register', 'opencage_customize_register');
+    add_action('customize_register', 'opencage_customize_register_child');
     
-    function opencage_customize_css()
+    function opencage_customize_css_child()
     {
     //初期カラー
     $maintext = get_theme_mod( 'opencage_color_maintext', '#3E3E3E');
@@ -245,10 +245,10 @@ ul.wpp-list li a:before{background: <?php echo $mainttlbg; ?>; color: <?php echo
 </style>
 <?php
     }
-    add_action( 'wp_head', 'opencage_customize_css');
+    add_action( 'wp_head', 'opencage_customize_css_child');
 
 
-function opencage_theme_support() {
+function opencage_theme_support_child() {
 
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'custom-background',
@@ -281,7 +281,7 @@ function opencage_theme_support() {
 
 
 //カスタムロゴ
-function opencage_logo_theme_customizer( $wp_customize ) {
+function opencage_logo_theme_customizer_child( $wp_customize ) {
     // Logo upload
     $wp_customize->add_section( 'opencage_logo_section' , array(
 	    'title'       => __( '> サイトロゴ・アイコン', 'opencage_logo' ),
@@ -317,11 +317,11 @@ function opencage_logo_theme_customizer( $wp_customize ) {
 		'settings'   => 'opencage_appleicon',
 	) ) );
 }
-add_action('customize_register', 'opencage_logo_theme_customizer');
+add_action('customize_register', 'opencage_logo_theme_customizer_child');
 
 
 
-function opencage_global_customizer($wp_customize) {
+function opencage_global_customizer_child($wp_customize) {
     $wp_customize->add_section( 'global_section', array(
         'title'          =>'> グローバル設定',
         'priority'       => 30,
@@ -539,13 +539,13 @@ function opencage_global_customizer($wp_customize) {
         ),
 	));
 }
-add_action( 'customize_register', 'opencage_global_customizer' );
+add_action( 'customize_register', 'opencage_global_customizer_child' );
 
 
 
 
 //トップページ
-function opencage_toppage_theme_customizer( $wp_customize ) {
+function opencage_toppage_theme_customizer_child( $wp_customize ) {
     $wp_customize->add_section( 'opencage_toppage_section' , array(
 	    'title'       => __( '> トップページ設定', 'opencage_toppage' ),
 	    'priority'    => 30,
@@ -683,9 +683,9 @@ function opencage_toppage_theme_customizer( $wp_customize ) {
 	));
 
 }
-add_action('customize_register', 'opencage_toppage_theme_customizer');
+add_action('customize_register', 'opencage_toppage_theme_customizer_child');
 
-function opencage_postpage_customizer($wp_customize) {
+function opencage_postpage_customizer_child($wp_customize) {
     $wp_customize->add_section( 'postpage_section', array(
         'title'          =>'> 投稿・固定ページ設定',
         'priority'       => 30,
@@ -796,11 +796,11 @@ function opencage_postpage_customizer($wp_customize) {
 	    'section' => 'postpage_section',
 	));
 }
-add_action( 'customize_register', 'opencage_postpage_customizer' );
+add_action( 'customize_register', 'opencage_postpage_customizer_child' );
 
 
-add_action( 'customize_register', 'theme_customize_register' );
-function theme_customize_register($wp_customize) {
+add_action( 'customize_register', 'theme_customize_register_child' );
+function theme_customize_register_child($wp_customize) {
     $wp_customize->add_section( 'option_section', array(
         'title'          =>'> アクセス解析コード',
         'priority'       => 30,

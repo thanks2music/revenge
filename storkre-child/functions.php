@@ -1,5 +1,6 @@
-<?php
-
+<?php global $amp_flag;
+require_once( 'library/widget.php' );
+require_once( 'library/customizer.php' );
 // 子テーマのstyle.cssを後から読み込む
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
@@ -18,6 +19,17 @@ function theme_enqueue_styles() {
 // Global Variable
 locate_template('config/variables.php', true);
 
+// Override WordPress Setting
+// if $amp_flag 内でネストするとremove_actionが動作しないのでどうにかする
+if ($_GET['amp'] === '1') {
+  remove_action('wp_head','rest_output_link_wp_head');
+  remove_action('wp_head','wp_oembed_add_discovery_links');
+  remove_action('wp_head','wp_oembed_add_host_js');
+  remove_filter('the_content', array($wp_embed, 'autoembed'), 8);
+}
+
+add_action( 'widgets_init', 'theme_register_sidebars_child' );
+
 // JavaScriptを指定する関数
 add_action('wp_footer', 'add_javascripts');
 function add_javascripts() {
@@ -30,13 +42,29 @@ function add_javascripts() {
 add_filter('the_content', 'adMoreReplace');
 
 function adMoreReplace($contentData) {
-  global $is_sp;
-  $adTagResponsive = '';
-  $adTagText = '';
+global $is_sp, $amp_flag;
+$adTagResponsive = '';
+$adTagText = '';
 
-  // SP
-  // レスポンシブ広告
-  if ($is_sp) {
+// SP
+if ($is_sp) {
+
+if ($amp_flag) {
+$adTagResponsive = <<< EOF
+
+<div class="amp__ad--responsive">
+<amp-ad
+   layout="responsive"
+   width=300
+   height=250
+   type="adsense"
+   data-ad-client="ca-pub-7307810455044245"
+   data-ad-slot="2805411615">
+</amp-ad>
+</div>
+
+EOF;
+} else {
 $adTagResponsive = <<< EOF
 
 <div class="add more">
@@ -52,8 +80,9 @@ $adTagResponsive = <<< EOF
 </div>
 
 EOF;
-    // PC
-  } else {
+}
+} else {
+// PC
 $adTagResponsive = <<< EOF
 
 <div class="add more">
@@ -69,9 +98,25 @@ $adTagResponsive = <<< EOF
 </div>
 
 EOF;
-  }
+}
 
-// テキスト広告
+// moreads広告
+if ($amp_flag) {
+$adTagText = <<< EOF
+
+<div class="amp__ad--responsive">
+<amp-ad
+   layout="responsive"
+   width=300
+   height=250
+   type="adsense"
+   data-ad-client="ca-pub-7307810455044245"
+   data-ad-slot="9384949215">
+</amp-ad>
+</div>
+
+EOF;
+} else {
 $adTagText = <<< EOF
 
 <div class="add more text">
@@ -86,6 +131,7 @@ $adTagText = <<< EOF
 </div>
 
 EOF;
+}
 
   // レスポンシブ広告
   $contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTagResponsive, $contentData);
@@ -279,6 +325,12 @@ function home_posts_type($wp_query) {
   }
 }
 
+function get_the_thumbnail_image_array($post_id) {
+  $image_id = get_post_thumbnail_id($post_id);
+  $image_array = wp_get_attachment_image_src($image_id, 'full');
+  return $image_array;
+}
+
 // レスポンシブイメージを停止
 add_filter( 'wp_calculate_image_srcset', '__return_false' );
 
@@ -307,14 +359,74 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
 }
 add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
-function change_the_content($the_content) {
-  $search  = ['<img src='];
-  $replace = ['<img src="/wp-content/uploads/dummy.png" data-src='];
-  $the_content = str_replace($search, $replace, $the_content);
+function custom_embed_content($code) {
+  global $amp_flag;
+  if ($amp_flag) {
+    if (strpos($code, 'twitter.com/') !== false && strpos($code, '/status/') !== false) {
+      $html = '<div class="embed__twitter">' . $code . '</div>';
+
+      return $html;
+    }
+  }
+
+  return $code;
+}
+
+add_filter('embed_handler_html', 'custom_embed_content');
+add_filter('embed_oembed_html', 'custom_embed_content');
+
+function replace_tweet_url_to_amp_html($the_content) {
+  global $amp_flag;
+
+  if ($amp_flag) {
+    if (strpos($the_content, 'twitter.com') !== false && strpos($the_content, '/status/') !== false) {
+      $_get_tweet_url = preg_match_all("#(?:https?://)?(?:mobile.)?(?:www.)?(?:twitter.com/)?(?:\#!/)?(?:\w+)/status(?:es)?/(\d+)#i", $the_content, $url_match);
+
+      if (! empty($url_match[0])) {
+        $search_url = [];
+        foreach($url_match[0] as $value) {
+          $search_url[] = $value;
+        }
+      }
+
+      if (! empty($url_match[1])) {
+        $tweet_id = [];
+        foreach($url_match[1] as $value) {
+          $tweet_id[] = $value;
+        }
+      }
+
+      if (! empty($tweet_id) && ! empty($search_url)) {
+        foreach($tweet_id as $value) {
+          $amp_html[] = '<amp-twitter width="375" height="472" layout="responsive" data-tweetid="' . $value . '"></amp-twitter>';
+        }
+      }
+
+      $the_content = str_replace($search_url, $amp_html, $the_content);
+    }
+  }
+
   return $the_content;
 }
-// デフォルトの優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
-add_filter('the_content', 'change_the_content');
+
+add_filter('the_content', 'replace_tweet_url_to_amp_html');
+
+function replace_img_for_amp($the_content) {
+  global $amp_flag;
+  $search  = ['<img src='];
+
+  if ($amp_flag) {
+    $replace = ['<amp-img layout="responsive" src='];
+  } else {
+    $replace = ['<img src="/wp-content/uploads/dummy.png" data-src='];
+  }
+
+  $the_content = str_replace($search, $replace, $the_content);
+
+  return $the_content;
+}
+// デフォルトのプラグイン実行優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
+add_filter('the_content', 'replace_img_for_amp');
 
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
@@ -326,4 +438,23 @@ if (! function_exists('add_mythumbnail_size')) {
 	add_image_size('post-thum', 300, 200, true);
 	}
 	add_action( 'after_setup_theme', 'add_mythumbnail_size' );
+}
+
+function minify_css($data) {
+  // コメント削除
+  $data = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $data);
+  // コロンの後の空白を削除する
+  $data = str_replace(': ', ':', $data);
+  // タブ、スペース、改行などを削除する
+  $data = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $data);
+
+  return $data;
+}
+
+function get_amp_style() {
+$amp_style = <<< EOF
+
+EOF;
+
+return $amp_style;
 }
