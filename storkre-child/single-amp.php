@@ -19,6 +19,7 @@ if ($amp_flag) {
     <meta charset="utf-8">
     <title><?php wp_title(''); ?></title>
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
+    <link rel="amphtml" href="<?php echo $canonical_url.'?amp=1'; ?>">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
       <?php echo $amp_style; ?>
