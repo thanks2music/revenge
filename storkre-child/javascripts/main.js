@@ -90,11 +90,6 @@ if (body[0].className.indexOf('single') > -1) {
   const photoSwipe = $(body).find('.pswp');
   let main = $(body).find('#main');
   let theContent = main.find('.hentry');
-  let eventDetail = theContent.find('.eventorganiser-event-meta');
-
-  // 記事詳細のMap部分を切り抜いて記事下部に追加
-  $(theContent).append(eventDetail);
-  eventDetail.addClass('action');
 
   // スムーススクロール
   main.find('.smooth-scroll').on('click', function(e) {
