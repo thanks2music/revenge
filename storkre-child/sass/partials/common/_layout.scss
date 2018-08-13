@@ -305,6 +305,14 @@ body {
         color: $pink;
       }
     }
+
+    ul {
+      li {
+        &:before {
+          display: none;
+        }
+      }
+    }
   }
 }
 
