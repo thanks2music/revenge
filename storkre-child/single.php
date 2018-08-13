@@ -98,7 +98,7 @@
 
       <?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !is_mobile() ) : ?>
         <div class="ad__pc-content">
-        <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
+          <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
         </div>
       <?php endif; ?>
       <p class="entry-author vcard author">
