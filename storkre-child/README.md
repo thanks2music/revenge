@@ -1,10 +1,9 @@
-# Revenge
+# Dependence
 
-CC Child Theme for Stork
+- https://github.com/thanks2music/photoswipe-bricks
+- https://github.com/thanks2music/revenge/tree/master/storkre
 
-## Env
+## Setup
 
-- PHP7.0.15
-- Gulp
-- Babel
-- Sass
+- `npm i`
+- `npm run gulp`
