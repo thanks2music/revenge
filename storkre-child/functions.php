@@ -416,7 +416,7 @@ function replace_img_for_amp($the_content) {
   $pattern_anchor = '/<a class="single_photoswipe.*?\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
   $single_photoswipe_anchor = preg_match_all($pattern_anchor, $the_content, $matches);
 
-  // 一つ目がa要素
+  // [0] = a要素 / [1] = img要素
   $current_index = $target_index = 0;
 
   foreach($matches[0] as $key => $value) {
@@ -426,7 +426,12 @@ function replace_img_for_amp($the_content) {
 
       if ($amp_flag === true) {
         $the_content = str_replace($value, '', $the_content);
-        $image_size = array_slice($matches[1], $array[$target_index], 1);
+        $image_size = array_slice($matches[1], $target_index, 1);
+
+        if (empty($image_size[0])) {
+          $image_size = array_slice($matches[1], $current_index, 1);
+        }
+
         $image_size = explode('x', $image_size[0]);
         $image_src = array_slice($matches[2], $target_index, 1);
 
