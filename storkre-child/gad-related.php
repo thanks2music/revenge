@@ -16,7 +16,7 @@
           $current_date = strval($current_date);
           $args = array(
             'post_type' => array('post', 'event'),
-            'posts_per_page' => 9,
+            'posts_per_page' => 8,
             'order' => 'ASC',
             'meta_key' => '_eventorganiser_schedule_start_start',
             'meta_value' => $current_date,
