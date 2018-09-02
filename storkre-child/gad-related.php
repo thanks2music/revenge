@@ -55,25 +55,27 @@
               }
             ?>
             <div class="related__event__post">
-              <figure class="related__event__post__thumbnail">
-                <?php
-                  if ($amp_flag) {
-                    $amp_img = '';
-                    $image_array = get_the_thumbnail_image_array($post->ID);
-                    $amp_img .= '<amp-img src="'.$image_array[0].'" layout="responsive" width="'.$image_array[1].'" height="'.$image_array[2].'" alt="'.$title.'"></amp-img>';
+              <a href="<?php the_permalink(); ?>" class="related__event__post__link">
+                <figure class="related__event__post__thumbnail">
+                  <?php
+                    if ($amp_flag) {
+                      $amp_img = '';
+                      $image_array = get_the_thumbnail_image_array($post->ID);
+                      $amp_img .= '<amp-img src="'.$image_array[0].'" layout="responsive" width="'.$image_array[1].'" height="'.$image_array[2].'" alt="'.$title.'"></amp-img>';
 
-                    echo $amp_img;
-                  } else {
-                    the_post_thumbnail('home-thum', array('class' => 'lazy'));
-                  }
-                ?>
-              </figure>
-              <p class="related__event__post__title">
-                <?php echo $title; ?>
-                <?php if (! empty($date_dom)) { ?>
-                  <span class="related__event__post__date"><?php echo $date_dom; ?></span>
-                <?php } ?>
-              </p>
+                      echo $amp_img;
+                    } else {
+                      the_post_thumbnail('home-thum', array('class' => 'lazy'));
+                    }
+                  ?>
+                </figure>
+                <p class="related__event__post__title">
+                  <?php echo $title; ?>
+                  <?php if (! empty($date_dom)) { ?>
+                    <span class="related__event__post__date"><?php echo $date_dom; ?></span>
+                  <?php } ?>
+                </p>
+              </a>
             </div>
             <?php }
           }
