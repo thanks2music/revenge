@@ -1,9 +1,6 @@
 <!doctype html>
 <?php
   global $is_sp, $is_pc, $amp_flag;
-  if (is_single()) {
-    $canonical_url = get_permalink();
-  }
 ?>
 
   <html lang="ja">
@@ -14,7 +11,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <link rel="amphtml" href="<?php echo $canonical_url.'?amp=1'; ?>">
+  <?php if (is_single()) { ?>
+    <link rel="amphtml" href="<?php echo get_permalink() .'?amp=1'; ?>">
+  <?php } ?>
 
   <?php if ( get_theme_mod( 'opencage_appleicon' ) ) : ?><link rel="apple-touch-icon" href="<?php echo get_theme_mod( 'opencage_appleicon' ); ?>"><?php endif; ?>
   <?php if ( get_theme_mod( 'opencage_favicon' ) ) : ?><link rel="icon" href="<?php echo get_theme_mod( 'opencage_favicon' ); ?>"><?php endif; ?>
