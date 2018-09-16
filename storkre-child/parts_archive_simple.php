@@ -164,6 +164,7 @@
         $post_type = get_post_type();
         $taxonomy_name = 'category';
 
+
         if ($post_type === 'event') {
           $start_date = '';
           $end_date = '';
@@ -194,6 +195,10 @@
               $date_dom .= $start_date . '〜' . $end_date;
             }
           }
+
+
+          $terms = get_the_terms($post->ID, $taxonomy_name);
+          $cat_name = get_the_work_term_name($terms);
         }
       ?>
         <article <?php post_class('post-list animated fadeIn search-container'); ?> role="article">
@@ -202,12 +207,12 @@
             <?php if ( has_post_thumbnail()) { ?>
               <figure class="eyecatch">
                 <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
-                <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                <span class="cat-name"><?php echo $cat_name; ?></span>
               </figure>
             <?php } else { ?>
               <figure class="eyecatch noimg">
                 <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-                <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                <span class="cat-name"><?php echo $cat_name; ?></span>
               </figure>
           <?php } ?>
           <section class="entry-content remix">
