@@ -502,6 +502,22 @@ function replace_img_for_amp($the_content) {
 // デフォルトのプラグイン実行優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
 add_filter('the_content', 'replace_img_for_amp');
 
+if ($_GET['amp'] === '1') {
+  function replace_youtube_for_amp($the_content) {
+    $pattern = '/https:\/\/www\.youtube\.com\/watch\?v=([\w\-]+)/';
+    $get_youtube_url = preg_match_all($pattern, $the_content, $matches);
+    foreach($matches[1] as $key => $value) {
+      $search = 'https://www.youtube.com/watch?v=' . $value;
+      $replace = '<div class="amp__youtube"><amp-youtube width="480" height="270" layout="responsive" data-videoid="';
+      $replace .= $value . '"></amp-youtube></div>';
+      $the_content = str_replace($search, $replace, $the_content);
+    }
+
+    return $the_content;
+  }
+  add_filter('the_content', 'replace_youtube_for_amp');
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {
