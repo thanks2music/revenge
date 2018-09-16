@@ -359,6 +359,30 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
 }
 add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
+function get_the_work_term_name($terms) {
+  $length = count($terms);
+  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke'];
+  $term_name = [];
+  for($i = 0; $i < $length; $i++) {
+    // 親カテゴリがあるカテゴリを除外
+    if ($terms[$i]->parent === 0) {
+      $term_name[] .= $terms[$i]->slug;
+    }
+  }
+
+  $result = array_diff($term_name, $ignore_terms);
+  $result = array_values($result);
+  $work_name = '';
+
+  for($i = 0; $i < $length; $i++) {
+    if ($terms[$i]->slug === $result[0]) {
+      $work_name = $terms[$i]->name;
+    }
+  }
+
+  return $work_name;
+}
+
 function custom_embed_content($code) {
   global $amp_flag;
   if ($amp_flag) {
