@@ -46,9 +46,6 @@ global $is_sp, $amp_flag;
 $adTagResponsive = '';
 $adTagText = '';
 
-// SP
-if ($is_sp) {
-
 if ($_GET['amp'] === '1') {
 $adTagResponsive = <<< EOF
 
@@ -76,24 +73,6 @@ $adTagResponsive = <<< EOF
        data-ad-slot="2805411615"></ins>
   <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
-EOF;
-}
-} else {
-// PC
-$adTagResponsive = <<< EOF
-
-<div class="ad__in-post--more">
-  <ins class="adsbygoogle"
-       style="display:block; text-align:center;"
-       data-ad-format="fluid"
-       data-ad-layout="in-article"
-       data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="2805411615"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 
@@ -133,14 +112,14 @@ $adTagText = <<< EOF
 EOF;
 }
 
-  // レスポンシブ広告
-  $contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTagResponsive, $contentData);
-  // テキスト広告
-  $contentData = str_replace('<p><moreads></moreads></p>', $adTagText, $contentData);
-  $contentData = str_replace('<p></p>', '', $contentData);
-  $contentData = str_replace('<p><br />', '<p>', $contentData);
+// レスポンシブ広告
+$contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTagResponsive, $contentData);
+// テキスト広告
+$contentData = str_replace('<p><moreads></moreads></p>', $adTagText, $contentData);
+$contentData = str_replace('<p></p>', '', $contentData);
+$contentData = str_replace('<p><br />', '<p>', $contentData);
 
-  return $contentData;
+return $contentData;
 }
 
 // パンくず
