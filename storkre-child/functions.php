@@ -49,7 +49,7 @@ $adTagText = '';
 // SP
 if ($is_sp) {
 
-if ($amp_flag) {
+if ($_GET['amp'] === '1') {
 $adTagResponsive = <<< EOF
 
 <div class="amp__ad--responsive">
@@ -101,7 +101,7 @@ EOF;
 }
 
 // moreads広告
-if ($amp_flag) {
+if ($_GET['amp'] === '1') {
 $adTagText = <<< EOF
 
 <div class="amp__ad--responsive">
