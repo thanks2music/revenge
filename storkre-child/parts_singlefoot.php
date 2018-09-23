@@ -23,9 +23,9 @@
           <h5 class="ttl">
             <?php echo esc_attr($nextpost->post_title); ?>
 
-            <?php if ($is_pc) { ?>
-              <?php the_excerpt(); ?>
-            <?php } ?>
+            <?php if ($is_pc) {
+              echo '<p>' . esc_attr($nextpost->post_excerpt) . '</p>';
+            } ?>
           </h5>
         </a>
       <?php else:?>
@@ -42,9 +42,9 @@
           <h5 class="ttl">
             <?php echo esc_attr($prevpost->post_title); ?>
 
-            <?php if ($is_pc) { ?>
-              <?php the_excerpt(); ?>
-            <?php } ?>
+            <?php if ($is_pc) {
+              echo '<p>' . esc_attr($prevpost->post_excerpt) . '</p>';
+            } ?>
           </h5>
 
           <figure class="eyecatch">
