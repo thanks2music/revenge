@@ -494,7 +494,27 @@ if ($_GET['amp'] === '1') {
 
     return $the_content;
   }
+
+  function replace_video_for_amp($the_content) {
+    $pattern = '/<video.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?<\/video>/i';
+    $get_video_element = preg_match_all($pattern, $the_content, $matches);
+
+    if (! empty($matches[0])) {
+      foreach($matches[0] as $key => $value) {
+        $poster = preg_match('/poster\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $poster_path);
+        $video = preg_match('/src\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $video_path);
+        $search = $value;
+        $replace = '<div class="amp__video"><amp-video width="480" height="270" layout="responsive" src="';
+        $replace .= $video_path . '" poster="' . $poster_path[1] . '" controls>';
+        $replace .= '<source type="video/mp4" src="' . $video_path[1] . '"></amp-video></div>';
+        $the_content = str_replace($search, $replace, $the_content);
+      }
+
+      return $the_content;
+    }
+  }
   add_filter('the_content', 'replace_youtube_for_amp');
+  add_filter('the_content', 'replace_video_for_amp');
 }
 
 // 独自アイキャッチ画像

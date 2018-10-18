@@ -26,6 +26,24 @@
     .pc &
       display: block
 
+  &-amp-only
+    .sp &
+      display: none
+
+    .pc &
+      display: none
+
+    .sp.amp &
+      display: block
+
+  &-pc-and-sp-only
+    .pc &,
+    .sp &
+      display: block
+
+    .sp.amp &
+      display: none
+
   @for $i from 1 through 11
     $tenCount: 1#{$i - 1}
 
