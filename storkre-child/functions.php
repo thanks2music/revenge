@@ -505,7 +505,7 @@ if ($_GET['amp'] === '1') {
         $video = preg_match('/src\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $video_path);
         $search = $value;
         $replace = '<div class="amp__video"><amp-video width="480" height="270" layout="responsive" src="';
-        $replace .= $video_path . '" poster="' . $poster_path[1] . '" controls>';
+        $replace .= $video_path[1] . '" poster="' . $poster_path[1] . '" controls>';
         $replace .= '<source type="video/mp4" src="' . $video_path[1] . '"></amp-video></div>';
         $the_content = str_replace($search, $replace, $the_content);
       }
