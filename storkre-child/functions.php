@@ -514,7 +514,10 @@ if ($_GET['amp'] === '1') {
     }
   }
   add_filter('the_content', 'replace_youtube_for_amp');
-  add_filter('the_content', 'replace_video_for_amp');
+
+  if (strpos($_SERVER['REQUEST_URI'], 'usamaru-cafe2018-winter') !== false) {
+    add_filter('the_content', 'replace_video_for_amp');
+  }
 }
 
 // 独自アイキャッチ画像
