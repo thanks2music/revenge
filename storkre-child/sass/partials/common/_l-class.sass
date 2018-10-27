@@ -47,9 +47,10 @@
   @for $i from 1 through 11
     $tenCount: 1#{$i - 1}
 
-    &-width-#{$i}0percent
-      width: #{$i}0%
-      margin: auto auto 1rem
+    html body main section &
+      &-width-#{$i}0percent
+        width: #{$i}0%
+        margin: auto auto 1rem
 
     &-margin-b-#{$i}em
       margin-bottom: #{$i}em
