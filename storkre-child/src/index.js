@@ -35,6 +35,7 @@ const body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container'),
     selectCategory = $(wrap).find('.eo__event_categories select'),
     header = $(wrap).find('.header'),
+    modal = $(wrap).find('.js__modal--mail'),
     des = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 // @description img data-srcがあり、class="lazy" があるimg要素は遅延読み込みさせる
@@ -52,6 +53,25 @@ lazyLoadInstance.update().check().handlers(true);
 let customHeader = $(wrap).find('#custom_header .wrap'),
     initPos = 0,
     slickElement = $(wrap).find('.slickcar');
+
+modal.on('click', function(e) {
+  let target = $(this).attr('href'),
+      targetModal = $(target),
+      closeButton = targetModal.find('.js__modal-close');
+
+  if (targetModal.length) {
+    targetModal.addClass('is-show');
+  }
+
+  if (closeButton.length) {
+    closeButton.on('click', function(e) {
+      targetModal.removeClass('is-show');
+      e.preventDefault();
+    });
+  }
+
+  e.preventDefault();
+});
 
 $(window).on('scroll', (e) => {
   setTimeout(() => {
