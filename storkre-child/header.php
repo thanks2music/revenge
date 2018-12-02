@@ -38,7 +38,6 @@
       enable_page_level_ads: true
     });
   </script>
-  <script src="//j.wovn.io/1" data-wovnio="key=ERGLmO" async></script>
   </head>
   <?php
     $body_class = '';
