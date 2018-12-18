@@ -122,6 +122,43 @@ $contentData = str_replace('<p><br />', '<p>', $contentData);
 return $contentData;
 }
 
+function get_html_attr($search_text, $content) {
+  $_array = explode($search_text, $content);
+  $end_point = strpos($_array[1], '"');
+  $attr_value = substr($_array[1], 0, $end_point);
+
+  return $attr_value;
+}
+
+function single_photoswipe_shortcode($atts, $content = null) {
+  extract( shortcode_atts( array(
+    'class' => '',
+  ), $atts));
+
+  $pattern = '/<img.*?data-src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
+  $single_photoswipe_target = preg_match_all($pattern, $content, $matches);
+  $dom_array = [];
+
+  // Single PhotoswipeのDOMを作る
+  foreach($matches[0] as $key => $value) {
+    $width  = get_html_attr('width="', $value);
+    $height = get_html_attr('height="', $value);
+    // a要素を作る
+    $dom_array[$key] .= '<a class="single_photoswipe" data-size="';
+    $dom_array[$key] .= $width . 'x' . $height;
+    $dom_array[$key] .= '" href="' . $matches[1][$key] . '">';
+    // img要素
+    $dom_array[$key] .= $value;
+    $dom_array[$key] .= '</a>';
+  }
+
+  $content = str_replace($matches[0], $dom_array, $content);
+  $content = do_shortcode(shortcode_unautop($content));
+  return '<div class="photoswipe--single">' . $content . '</div>';
+
+}
+add_shortcode('single_photoswipe', 'single_photoswipe_shortcode');
+
 // パンくず
 if (! function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {
@@ -463,7 +500,7 @@ function replace_img_for_amp($the_content) {
       if ($amp_flag) {
         $replace = '<amp-img layout="responsive" src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt=""></amp-img>';
       } else {
-        $replace = '<img src="/wp-content/uploads/dummy.png" data-src="'.$image_path[0].'" alt="">';
+        $replace = '<img src="/wp-content/uploads/dummy.png" data-src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt="">';
       }
 
       $the_content = str_replace($search, $replace, $the_content);
