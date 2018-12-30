@@ -122,6 +122,49 @@ $contentData = str_replace('<p><br />', '<p>', $contentData);
 return $contentData;
 }
 
+function get_html_attr($search_text, $content) {
+  $_array = explode($search_text, $content);
+  $end_point = strpos($_array[1], '"');
+  $attr_value = substr($_array[1], 0, $end_point);
+
+  return $attr_value;
+}
+
+function single_photoswipe_shortcode($atts, $content = null) {
+  extract( shortcode_atts( array(
+    'class' => '',
+  ), $atts));
+
+  $pattern = '/<img.*?data-src\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
+  $single_photoswipe_target = preg_match_all($pattern, $content, $matches);
+  $dom_array = [];
+
+  // Single PhotoswipeのDOMを作る
+  foreach($matches[0] as $key => $value) {
+    $width  = get_html_attr('width="', $value);
+    $height = get_html_attr('height="', $value);
+    $src    = get_html_attr('src="', $value);
+    // Lazyload用のdummy.pngだったら
+    if (strpos($src, 'dummy.png') !== false) {
+      $src  = get_html_attr('data-src="', $value);
+    }
+
+    // a要素を作る
+    $dom_array[$key] .= '<a class="single_photoswipe" data-size="';
+    $dom_array[$key] .= $width . 'x' . $height;
+    $dom_array[$key] .= '" href="' . $src . '">';
+    // img要素
+    $dom_array[$key] .= $value;
+    $dom_array[$key] .= '</a>';
+  }
+
+  $content = str_replace($matches[0], $dom_array, $content);
+  $content = do_shortcode(shortcode_unautop($content));
+  return '<div class="photoswipe--single">' . $content . '</div>';
+
+}
+add_shortcode('single_photoswipe', 'single_photoswipe_shortcode');
+
 // パンくず
 if (! function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {
@@ -453,20 +496,48 @@ function replace_img_for_amp($the_content) {
       }
     } else if ($current_index !== $target_index) {
       $image_array = array_slice($matches[0], $key, 1);
-      $image_width = preg_match('/width="\d*/', $image_array[0], $width);
-      $width = explode('width="', $width[0])[1];
-      $image_heihgt = preg_match('/height="\d*/', $image_array[0], $height);
-      $height = explode('height="', $height[0])[1];
+      $width  = get_html_attr('width="', $image_array[0]);
+      $height = get_html_attr('height="', $image_array[0]);
       $image_path = array_slice($matches[2], $key, 1);
       $search = $image_array[0];
 
       if ($amp_flag) {
-        $replace = '<amp-img layout="responsive" src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt=""></amp-img>';
+        $replace = '<amp-img
+          on="tap:lightbox2"
+          role="button"
+          tabindex="0"
+          src="'.$image_path[0].'"
+          width="'.$width.'"
+          height="'.$height.'"
+          layout="responsive"
+          alt="">
+        </amp-img>';
       } else {
-        $replace = '<img src="/wp-content/uploads/dummy.png" data-src="'.$image_path[0].'" alt="">';
+        $replace = '<img src="/wp-content/uploads/dummy.png" data-src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt="">';
       }
 
       $the_content = str_replace($search, $replace, $the_content);
+    } else {
+      $image_array = array_slice($matches[0], $key, 1);
+      $width  = get_html_attr('width="', $image_array[0]);
+      $height = get_html_attr('height="', $image_array[0]);
+      $src    = get_html_attr('src="', $image_array[0]);
+      $search = $image_array[0];
+
+      if ($amp_flag) {
+        $replace = '<amp-img
+          on="tap:lightbox2"
+          role="button"
+          tabindex="0"
+          src="'.$src.'"
+          width="'.$width.'"
+          height="'.$height.'"
+          layout="responsive"
+          alt="">
+        </amp-img>';
+
+        $the_content = str_replace($search, $replace, $the_content);
+      }
     }
 
     if ($key === $target_index && $amp_flag === true) {
