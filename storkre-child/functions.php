@@ -461,7 +461,6 @@ function replace_img_for_amp($the_content) {
   global $amp_flag;
   $pattern_anchor = '/<a class="single_photoswipe.*?\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
   $single_photoswipe_anchor = preg_match_all($pattern_anchor, $the_content, $matches);
-  // var_dump($matches);
 
   // [0] = a要素 / [1] = img要素
   $current_index = $target_index = 0;
