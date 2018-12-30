@@ -135,7 +135,7 @@ function single_photoswipe_shortcode($atts, $content = null) {
     'class' => '',
   ), $atts));
 
-  $pattern = '/<img.*?data-src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
+  $pattern = '/<img.*?data-src\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
   $single_photoswipe_target = preg_match_all($pattern, $content, $matches);
   $dom_array = [];
 
@@ -143,10 +143,16 @@ function single_photoswipe_shortcode($atts, $content = null) {
   foreach($matches[0] as $key => $value) {
     $width  = get_html_attr('width="', $value);
     $height = get_html_attr('height="', $value);
+    $src    = get_html_attr('src="', $value);
+    // Lazyload用のdummy.pngだったら
+    if (strpos($src, 'dummy.png') !== false) {
+      $src  = get_html_attr('data-src="', $value);
+    }
+
     // a要素を作る
     $dom_array[$key] .= '<a class="single_photoswipe" data-size="';
     $dom_array[$key] .= $width . 'x' . $height;
-    $dom_array[$key] .= '" href="' . $matches[1][$key] . '">';
+    $dom_array[$key] .= '" href="' . $src . '">';
     // img要素
     $dom_array[$key] .= $value;
     $dom_array[$key] .= '</a>';
@@ -455,6 +461,7 @@ function replace_img_for_amp($the_content) {
   global $amp_flag;
   $pattern_anchor = '/<a class="single_photoswipe.*?\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
   $single_photoswipe_anchor = preg_match_all($pattern_anchor, $the_content, $matches);
+  // var_dump($matches);
 
   // [0] = a要素 / [1] = img要素
   $current_index = $target_index = 0;
