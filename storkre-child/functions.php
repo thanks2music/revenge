@@ -497,20 +497,48 @@ function replace_img_for_amp($the_content) {
       }
     } else if ($current_index !== $target_index) {
       $image_array = array_slice($matches[0], $key, 1);
-      $image_width = preg_match('/width="\d*/', $image_array[0], $width);
-      $width = explode('width="', $width[0])[1];
-      $image_heihgt = preg_match('/height="\d*/', $image_array[0], $height);
-      $height = explode('height="', $height[0])[1];
+      $width  = get_html_attr('width="', $image_array[0]);
+      $height = get_html_attr('height="', $image_array[0]);
       $image_path = array_slice($matches[2], $key, 1);
       $search = $image_array[0];
 
       if ($amp_flag) {
-        $replace = '<amp-img layout="responsive" src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt=""></amp-img>';
+        $replace = '<amp-img
+          on="tap:lightbox2"
+          role="button"
+          tabindex="0"
+          src="'.$image_path[0].'"
+          width="'.$width.'"
+          height="'.$height.'"
+          layout="responsive"
+          alt="">
+        </amp-img>';
       } else {
         $replace = '<img src="/wp-content/uploads/dummy.png" data-src="'.$image_path[0].'" width="'.$width.'" height="'.$height.'" alt="">';
       }
 
       $the_content = str_replace($search, $replace, $the_content);
+    } else {
+      $image_array = array_slice($matches[0], $key, 1);
+      $width  = get_html_attr('width="', $image_array[0]);
+      $height = get_html_attr('height="', $image_array[0]);
+      $src    = get_html_attr('src="', $image_array[0]);
+      $search = $image_array[0];
+
+      if ($amp_flag) {
+        $replace = '<amp-img
+          on="tap:lightbox2"
+          role="button"
+          tabindex="0"
+          src="'.$src.'"
+          width="'.$width.'"
+          height="'.$height.'"
+          layout="responsive"
+          alt="">
+        </amp-img>';
+
+        $the_content = str_replace($search, $replace, $the_content);
+      }
     }
 
     if ($key === $target_index && $amp_flag === true) {
