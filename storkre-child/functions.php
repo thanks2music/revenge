@@ -591,6 +591,22 @@ if ($_GET['amp'] === '1') {
   }
 }
 
+function is_dev() {
+  $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+
+  if (strpos($url, '.dev') !== false || strpos($url, '.net') !== false) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function is_prod() {
+  if (! is_dev()) {
+    return true;
+  }
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {

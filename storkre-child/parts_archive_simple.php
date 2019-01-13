@@ -328,18 +328,20 @@
 
         // Infeed広告
         if ($ads_infeed_count === $ads_infeed) { ?>
-          <div class="cc-infeed">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="fluid"
-                 data-ad-layout="image-side"
-                 data-ad-layout-key="-f0+6h+4r-et+9t"
-                 data-ad-client="ca-pub-7307810455044245"
-                 data-ad-slot="4912770015"></ins>
-            <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
+          <?php if (is_prod()) { ?>
+            <div class="cc-infeed">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-format="fluid"
+                   data-ad-layout="image-side"
+                   data-ad-layout-key="-f0+6h+4r-et+9t"
+                   data-ad-client="ca-pub-7307810455044245"
+                   data-ad-slot="4912770015"></ins>
+              <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          <?php } ?>
         <?php }
           $ads_infeed_count++;
 
