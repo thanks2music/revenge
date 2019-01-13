@@ -41,6 +41,8 @@
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
+    "flickity-fullscreen": "^1.1.1",
+    "flickity-imagesloaded": "^2.0.0",
     "npm": "^6.2.0",
     "raven-js": "^3.24.2",
     "uglifyjs-webpack-plugin": "^1.2.7",

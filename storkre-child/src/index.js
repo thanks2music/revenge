@@ -1,34 +1,10 @@
 import Raven from 'raven-js';
 import Layzr from 'layzr.js';
+const Flickity = require('flickity');
+// require('flickity-imagesloaded');
+// require('flickity-fullscreen');
 
 Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
-
-const [win, doc, uri, ua] = [window, document, window.location, navigator.userAgent];
-const is_sp = () => {
-  if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
-    return true;
-  } else if (ua.indexOf('Mobile') > 0) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const is_tab = () => {
-  if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') === -1) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const is_pc = () => {
-  if (! is_sp() && ! is_tab()) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 // Common
 const body = document.getElementsByTagName('body'),
@@ -43,6 +19,7 @@ const lazyLoadInstance = Layzr({
   normal: 'data-src',
   threshold: 5
 });
+
 // lazyLoad
 lazyLoadInstance.on('src:before', (element) => {
   element.classList.add('is-loaded');
@@ -51,8 +28,7 @@ lazyLoadInstance.update().check().handlers(true);
 
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
-    initPos = 0,
-    slickElement = $(wrap).find('.slickcar');
+    initPos = 0;
 
 modal.on('click', function(e) {
   let target = $(this).attr('href'),
@@ -135,42 +111,77 @@ if (body[0].className.indexOf('single') > -1) {
   }
 }
 
-// トップページでSlickがあったら
-if (slickElement.length) {
-  slickElement.slick({
-    centerMode: true,
-    dots: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    speed: 260,
-    centerPadding: '90px',
-    slidesToShow: 4,
-    responsive: [{
-      breakpoint: 1160,
-      settings: {
-        arrows: false,
-        centerMode: true,
-        centerPadding: '40px',
-        slidesToShow: 4
-      }
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        arrows: false,
-        centerMode: true,
-        centerPadding: '40px',
-        slidesToShow: 3
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        arrows: false,
-        centerMode: true,
-        centerPadding: '25px',
-        slidesToShow: 1
-      }
-    }]
-  });
-}
+let sliderMain = document.getElementById('header__slider__ul'),
+    sliderItem = document.querySelectorAll('.header__slider__nav__item');
+
+let flktyMain = new Flickity(sliderMain, {
+  freeScroll: false,
+  contain: true,
+  imagesLoaded: true,
+  autoPlay: 5000,
+  pageDots: false,
+  wrapAround: true,
+  on: {
+    ready: (() => {
+      sliderItem[0].classList.add('header__slider__nav--current');
+
+      $(sliderItem).on('click', function() {
+        const index = $(this).index();
+        flktyMain.select(index);
+      });
+
+      $(sliderItem).on({
+        'mouseenter' : function(e) {
+          flktyMain.pausePlayer();
+          // $(this).find('.header__slider__nav__progress').removeClass('header__slider__nav--hover');
+        },
+        'mouseleave' : function(e) {
+          flktyMain.playPlayer();
+          // $(this).find('.header__slider__nav__progress').addClass('header__slider__nav--hover');
+        }
+      });
+    }),
+    change: ((index) => {
+      $(sliderItem).removeClass('header__slider__nav--current');
+      sliderItem[index].classList.add('header__slider__nav--current');
+    }),
+  },
+});
+
+
+  // slider.slick({
+  //   centerMode: true,
+  //   dots: true,
+  //   autoplay: true,
+  //   autoplaySpeed: 3000,
+  //   speed: 260,
+  //   centerPadding: '90px',
+  //   slidesToShow: 4,
+  //   responsive: [{
+  //     breakpoint: 1160,
+  //     settings: {
+  //       arrows: false,
+  //       centerMode: true,
+  //       centerPadding: '40px',
+  //       slidesToShow: 4
+  //     }
+  //   },
+  //   {
+  //     breakpoint: 768,
+  //     settings: {
+  //       arrows: false,
+  //       centerMode: true,
+  //       centerPadding: '40px',
+  //       slidesToShow: 3
+  //     }
+  //   },
+  //   {
+  //     breakpoint: 480,
+  //     settings: {
+  //       arrows: false,
+  //       centerMode: true,
+  //       centerPadding: '25px',
+  //       slidesToShow: 1
+  //     }
+  //   }]
+  // });
