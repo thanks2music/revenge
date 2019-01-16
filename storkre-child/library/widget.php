@@ -2,6 +2,16 @@
 // ウィジェット
 function theme_register_sidebars_child() {
   register_sidebar(array(
+    'id' => 'widget_sp_puread',
+    'name' => 'SP: 純広告枠',
+    'description' => 'スマホViewで表示される純広告枠です',
+    'before_widget' => '<div id="%1$s" class="sp__puread %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<h4 class="widgettitle">',
+    'after_title' => '</h4>',
+  ));
+
+  register_sidebar(array(
     'id' => 'widget_nav_drawer',
     'name' => 'SP: AMPハンバーガーメニュー',
     'description' => 'ハンバーガーメニュー内で表示されるナビドロワーです',

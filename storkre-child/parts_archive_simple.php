@@ -1,5 +1,10 @@
 <?php global $url; ?>
 <div class="top-post-list">
+<?php if (is_mobile()) { ?>
+<div class="ad__pickup__banner">
+  <?php dynamic_sidebar('widget_sp_puread'); ?>
+</div>
+<?php } ?>
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
   $ads_infeed = 8;
