@@ -2,8 +2,18 @@
 // ウィジェット
 function theme_register_sidebars_child() {
   register_sidebar(array(
-    'id' => 'widget_sp_puread',
-    'name' => 'SP: 純広告枠',
+    'id' => 'widget_sp_puread_home',
+    'name' => 'SP: 純広告枠 (Large - ホーム)',
+    'description' => 'スマホViewで表示される純広告枠です',
+    'before_widget' => '<div id="%1$s" class="sp__puread %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<h4 class="widgettitle">',
+    'after_title' => '</h4>',
+  ));
+
+  register_sidebar(array(
+    'id' => 'widget_sp_puread_small',
+    'name' => 'SP: 純広告枠 (Small - 一覧)',
     'description' => 'スマホViewで表示される純広告枠です',
     'before_widget' => '<div id="%1$s" class="sp__puread %2$s">',
     'after_widget' => '</div>',
