@@ -3,7 +3,7 @@
 <div id="inner-content" class="wrap cf">
 
 <main id="main" class="m-all t-all d-5of7 cf" role="main">
-  <a class="modal__sorry__anchor js__modal--mail" href="#js__modal-sorry">お問い合わせ対応のお詫び</a>
+  <?php /* <a class="modal__sorry__anchor js__modal--mail" href="#js__modal-sorry">お問い合わせ対応のお詫び</a> */ ?>
 <?php
 	$toplayout = get_option('opencage_toppage_archivelayout');
 	$toplayoutsp = get_option('opencage_toppage_sp_archivelayout');

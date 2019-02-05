@@ -3,6 +3,11 @@
   display: block
   position: relative
 
+%__puread__sp
+  padding: 0 .7em .7em
+  margin: -.3em 0 .7em 0
+  border-bottom: 1px dotted rgba(0,0,0,.2)
+
 .ad
   &__in-post--more
     @extend %__ad
@@ -22,6 +27,23 @@
 
   &__sp-content
     @extend %__ad
+
+  // 純広告
+  &__puread
+    &__pc
+      &--sidebar
+        margin-bottom: -.8em
+
+        .postid-28930 &
+          display: none
+
+    &__sp
+      &--large
+        @extend %__puread__sp
+
+      &--small
+        @extend %__puread__sp
+
 
 
 %__amp__ad
