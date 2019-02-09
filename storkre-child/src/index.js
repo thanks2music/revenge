@@ -1,8 +1,7 @@
 import Raven from 'raven-js';
 import Layzr from 'layzr.js';
-const Flickity = require('flickity');
-// require('flickity-imagesloaded');
-// require('flickity-fullscreen');
+// import {TweenMax, TimelineLite} from "gsap/TweenMax";
+const Flickity = require('flickity-fade');;
 
 Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 
@@ -112,18 +111,25 @@ if (body[0].className.indexOf('single') > -1) {
 }
 
 let sliderMain = document.getElementById('header__slider__ul'),
-    sliderItem = document.querySelectorAll('.header__slider__nav__item');
+    sliderItem = document.querySelectorAll('.header__slider__nav__item'),
+    slideCurrentClass = 'header__slider__nav__progress--current';
+
+function progressBarAnimation(elem) {
+  const bar = elem.querySelector('.header__slider__nav__progress');
+  TweenMax.to(bar, 5, {xPercent: '100%', ease: Power0.easeNone});
+}
 
 let flktyMain = new Flickity(sliderMain, {
+  fade: true,
   freeScroll: false,
   contain: true,
   imagesLoaded: true,
-  autoPlay: 5000,
+  autoPlay: false,
   pageDots: false,
   wrapAround: true,
   on: {
     ready: (() => {
-      sliderItem[0].classList.add('header__slider__nav--current');
+      sliderItem[0].classList.add(slideCurrentClass);
 
       $(sliderItem).on('click', function() {
         const index = $(this).index();
@@ -133,55 +139,15 @@ let flktyMain = new Flickity(sliderMain, {
       $(sliderItem).on({
         'mouseenter' : function(e) {
           flktyMain.pausePlayer();
-          // $(this).find('.header__slider__nav__progress').removeClass('header__slider__nav--hover');
         },
         'mouseleave' : function(e) {
           flktyMain.playPlayer();
-          // $(this).find('.header__slider__nav__progress').addClass('header__slider__nav--hover');
         }
       });
     }),
     change: ((index) => {
-      $(sliderItem).removeClass('header__slider__nav--current');
-      sliderItem[index].classList.add('header__slider__nav--current');
+      $(sliderItem).removeClass(slideCurrentClass);
+      sliderItem[index].classList.add(slideCurrentClass);
     }),
   },
 });
-
-
-  // slider.slick({
-  //   centerMode: true,
-  //   dots: true,
-  //   autoplay: true,
-  //   autoplaySpeed: 3000,
-  //   speed: 260,
-  //   centerPadding: '90px',
-  //   slidesToShow: 4,
-  //   responsive: [{
-  //     breakpoint: 1160,
-  //     settings: {
-  //       arrows: false,
-  //       centerMode: true,
-  //       centerPadding: '40px',
-  //       slidesToShow: 4
-  //     }
-  //   },
-  //   {
-  //     breakpoint: 768,
-  //     settings: {
-  //       arrows: false,
-  //       centerMode: true,
-  //       centerPadding: '40px',
-  //       slidesToShow: 3
-  //     }
-  //   },
-  //   {
-  //     breakpoint: 480,
-  //     settings: {
-  //       arrows: false,
-  //       centerMode: true,
-  //       centerPadding: '25px',
-  //       slidesToShow: 1
-  //     }
-  //   }]
-  // });

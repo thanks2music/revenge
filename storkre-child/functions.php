@@ -604,6 +604,8 @@ function is_dev() {
 function is_prod() {
   if (! is_dev()) {
     return true;
+  } else {
+    return false;
   }
 }
 

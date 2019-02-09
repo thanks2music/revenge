@@ -55,8 +55,12 @@ if ( $the_query->have_posts() ) {
         ?>
         <?php if (has_post_thumbnail()) { ?>
           <figure class="header__slider__eyecatch">
-            <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする - Slickの関係でここでは対象にしていない ?>
-            <?php the_post_thumbnail('full', array('class' => 'attachment-home-thum size-home-thum wp-post-image')); ?>
+            <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする - Slickの関係でここでは対象にしていない ?> 
+            <?php if (is_mobile()) { ?>
+              <?php the_post_thumbnail('home-thum', array('class' => 'attachment-home-thum size-home-thum wp-post-image')); ?>
+            <?php } else { ?>
+              <?php the_post_thumbnail('full', array('class' => 'attachment-home-thum size-home-thum wp-post-image')); ?>
+            <?php } ?>
           </figure>
         <?php } ?>
         <?php /* <h2 class="header__slider__item__title"><?php the_title(); ?></h2> */ ?>
@@ -69,8 +73,8 @@ if ( $the_query->have_posts() ) {
       $the_query->the_post();
     ?>
     <div class="header__slider__nav__item">
-      <div class="header__slider__nav__progress header__slider__nav--hover"></div>
-      <div class="header__slider__nav__item__thumbnail"><?php the_post_thumbnail('post-thum'); ?></div>
+      <div class="header__slider__nav__progress"></div>
+      <div class="header__slider__nav__item__thumbnail"><?php the_post_thumbnail('home-thum'); ?></div>
       <h3 class="header__slider__nav__item__title"><?php the_title(); ?></h3>
     </div>
   <?php } ?>
