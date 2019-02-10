@@ -151,7 +151,7 @@ let flktyMain = new Flickity(sliderMain, {
         flktyMain.select(index);
       });
 
-      $(sliderItem).on({
+      $(sliderItem, slideCurrentElem).on({
         'mouseenter' : function(e) {
           flktyMain.pausePlayer();
         },
@@ -166,8 +166,6 @@ let flktyMain = new Flickity(sliderMain, {
       let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
 
       slideCurrentElem.addEventListener("transitionend", function(event) {
-        console.log('transition end!');
-        console.log(event);
         flktyMain.select(index + 1);
       }, false);
     }),

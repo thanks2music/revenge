@@ -109,7 +109,6 @@ function register_style() {
 	function add_stylesheet() {
 		register_style();
 			wp_enqueue_style('style');
-			wp_enqueue_style('slick');
 			wp_enqueue_style('shortcode');
 			wp_enqueue_style('gf_Concert');
 			wp_enqueue_style('gf_Lato');
