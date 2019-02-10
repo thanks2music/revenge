@@ -149,14 +149,21 @@ let flktyMain = new Flickity(sliderMain, {
       sliderItem[0].classList.add(slideCurrentClass);
       let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
 
-      $(sliderItem).on('click', function() {
-        const index = $(this).index();
-        $(sliderItem).removeClass(slideCurrentClass);
-        flktyMain.stopPlayer();
-        sliderItem[index].classList.add(slideCurrentClass);
-        flktyMain.select(index);
-        flktyMain.playPlayer();
-      });
+      if (is_sp()) {
+        $(sliderItem).on('click', function() {
+          const index = $(this).index();
+          $(sliderItem).removeClass(slideCurrentClass);
+          flktyMain.stopPlayer();
+          sliderItem[index].classList.add(slideCurrentClass);
+          flktyMain.select(index);
+          flktyMain.playPlayer();
+        });
+      } else {
+        $(sliderItem).on('click', function() {
+          const index = $(this).index();
+          flktyMain.select(index);
+        });
+      }
 
       if (! is_sp()) {
         $(sliderItem, slideCurrentElem).on({
@@ -170,8 +177,16 @@ let flktyMain = new Flickity(sliderMain, {
       }
     }),
     change: ((index) => {
-      $(sliderItem).removeClass(slideCurrentClass);
-      sliderItem[index].classList.add(slideCurrentClass);
+      if (is_sp()) {
+        flktyMain.stopPlayer();
+        $(sliderItem).removeClass(slideCurrentClass);
+        sliderItem[index].classList.add(slideCurrentClass);
+        flktyMain.select(index);
+        flktyMain.playPlayer();
+      } else {
+        $(sliderItem).removeClass(slideCurrentClass);
+        sliderItem[index].classList.add(slideCurrentClass);
+      }
     }),
   },
 });
