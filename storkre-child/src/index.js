@@ -129,6 +129,7 @@ let sliderMain = document.getElementById('header__slider__ul'),
 
 let flickityFade = false;
 
+// PCの場合
 if (! is_sp()) {
   flickityFade = true;
 }
@@ -143,31 +144,34 @@ let flktyMain = new Flickity(sliderMain, {
   wrapAround: true,
   on: {
     ready: (() => {
+      sliderMain.previousElementSibling.classList.add('header__slider__dummy--is-hide');
+      sliderMain.classList.add('header__slider__ul--is-active');
       sliderItem[0].classList.add(slideCurrentClass);
       let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
 
       $(sliderItem).on('click', function() {
         const index = $(this).index();
+        $(sliderItem).removeClass(slideCurrentClass);
+        flktyMain.stopPlayer();
+        sliderItem[index].classList.add(slideCurrentClass);
         flktyMain.select(index);
+        flktyMain.playPlayer();
       });
 
-      $(sliderItem, slideCurrentElem).on({
-        'mouseenter' : function(e) {
-          flktyMain.pausePlayer();
-        },
-        'mouseleave' : function(e) {
-          flktyMain.playPlayer();
-        }
-      });
+      if (! is_sp()) {
+        $(sliderItem, slideCurrentElem).on({
+          'mouseenter' : function(e) {
+            flktyMain.pausePlayer();
+          },
+          'mouseleave' : function(e) {
+            flktyMain.playPlayer();
+          }
+        });
+      }
     }),
     change: ((index) => {
       $(sliderItem).removeClass(slideCurrentClass);
       sliderItem[index].classList.add(slideCurrentClass);
-      let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
-
-      slideCurrentElem.addEventListener("transitionend", function(event) {
-        flktyMain.select(index + 1);
-      }, false);
     }),
   },
 });

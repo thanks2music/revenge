@@ -41,6 +41,7 @@ $the_query = new WP_Query( $args );
 if ( $the_query->have_posts() ) {
 	?>
 <div class="header__slider">
+  <div class="header__slider__dummy"></div>
   <ul id="header__slider__ul" class="header__slider__ul">
     <?php while ($the_query->have_posts()) {
       $the_query->the_post();

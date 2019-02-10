@@ -2,11 +2,35 @@
   width: 100%
   position: relative
 
+  &__dummy
+    background: #eaeaea
+    width: 100%
+    height: 220px
+
+    +mediaquery('max', 374px)
+      height: 190px
+
+    +mediaquery('min', 600px)
+      height: 300px
+
+    +mediaquery('min', 1025px)
+      height: 520px
+
+    &.header__slider__dummy--is-hide
+      display: none
+
   &__ul
-    transition: opacity 400ms
     backface-visibility: hidden
-    height: auto
+    height: 0
     margin: 0
+    opacity: 0
+    visibility: hidden
+    transition: opacity 300ms ease-in-out
+
+    &.header__slider__ul--is-active
+      height: auto
+      opacity: 1
+      visibility: visible
 
     li
       width: 100%
@@ -33,7 +57,7 @@
     display: flex
     aligm-items: center
     padding-bottom: 15px
-    border-bottom: 1px solid #ededed
+    border-bottom: 1px solid #ddd
 
     .sp &
       display: block
@@ -47,29 +71,28 @@
       margin: 0
 
     &__progress
+      display: block
       position: absolute
       top: 0px
       left: 0
       width: 99%
       height: 4px
       background: var(--key-color)
-
-      .pc &
-        opacity: 0
+      opacity: 0
 
       .sp &
-        transform: translateX(-100%)
+        transition: transform 5000ms linear
+        transform: translateX(-99%)
+        transition-delay: 50ms
 
       &--current
         // Bar
         .header__slider__nav__progress
           .pc &
-            display: block
             opacity: 1
 
           .sp &
-            display: block
-            transition: transform 5s linear
+            opacity: 1
             transform: translateX(0%)
 
         // Title
