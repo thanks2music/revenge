@@ -5,6 +5,17 @@ const Flickity = require('flickity-fade');;
 
 Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 
+const ua = navigator.userAgent;
+const is_sp = () => {
+  if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
+    return true;
+  } else if (ua.indexOf('Mobile') > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 // Common
 const body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container'),
@@ -110,26 +121,30 @@ if (body[0].className.indexOf('single') > -1) {
   }
 }
 
+// Slickの置き換え
 let sliderMain = document.getElementById('header__slider__ul'),
-    sliderItem = document.querySelectorAll('.header__slider__nav__item'),
+    sliderNav  = document.getElementById('header__slider__nav'),
+    sliderItem = sliderNav.querySelectorAll('.header__slider__nav__item'),
     slideCurrentClass = 'header__slider__nav__progress--current';
 
-function progressBarAnimation(elem) {
-  const bar = elem.querySelector('.header__slider__nav__progress');
-  TweenMax.to(bar, 5, {xPercent: '100%', ease: Power0.easeNone});
+let flickityFade = false;
+
+if (! is_sp()) {
+  flickityFade = true;
 }
 
 let flktyMain = new Flickity(sliderMain, {
-  fade: true,
+  fade: flickityFade,
   freeScroll: false,
   contain: true,
   imagesLoaded: true,
-  autoPlay: false,
+  autoPlay: 5000,
   pageDots: false,
   wrapAround: true,
   on: {
     ready: (() => {
       sliderItem[0].classList.add(slideCurrentClass);
+      let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
 
       $(sliderItem).on('click', function() {
         const index = $(this).index();
@@ -148,6 +163,13 @@ let flktyMain = new Flickity(sliderMain, {
     change: ((index) => {
       $(sliderItem).removeClass(slideCurrentClass);
       sliderItem[index].classList.add(slideCurrentClass);
+      let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
+
+      slideCurrentElem.addEventListener("transitionend", function(event) {
+        console.log('transition end!');
+        console.log(event);
+        flktyMain.select(index + 1);
+      }, false);
     }),
   },
 });

@@ -68,14 +68,24 @@ if ( $the_query->have_posts() ) {
     </li>
   <?php } ?>
   </ul>
-  <div class="header__slider__nav">
+  <div id="header__slider__nav" class="header__slider__nav">
     <?php while ($the_query->have_posts()) {
       $the_query->the_post();
+      $cf = get_post_custom();
+      $pickup_title = $cf['pickup_title'][0];
+      $date = get_event_date($cf);
     ?>
     <div class="header__slider__nav__item">
       <div class="header__slider__nav__progress"></div>
       <div class="header__slider__nav__item__thumbnail"><?php the_post_thumbnail('home-thum'); ?></div>
-      <h3 class="header__slider__nav__item__title"><?php the_title(); ?></h3>
+      <h3 class="header__slider__nav__item__title">
+        <?php if (! empty($pickup_title)) { ?>
+          <?php echo $pickup_title; ?>
+        <?php } else { ?>
+          <?php the_title(); ?>
+        <?php } ?>
+        <p class="header__slider__nav__event-date"><?php echo $date; ?></p>
+      </h3>
     </div>
   <?php } ?>
   </div>

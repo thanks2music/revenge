@@ -16,7 +16,10 @@
       +mediaquery('max', 374px)
         height: 190px
 
-      +mediaquery('min', 768px)
+      +mediaquery('min', 600px)
+        height: 300px
+
+      +mediaquery('min', 1025px)
         height: 520px
 
     a
@@ -31,7 +34,17 @@
     aligm-items: center
     padding-bottom: 15px
     border-bottom: 1px solid #ededed
-    // justify-content: space-between
+
+    .sp &
+      display: block
+      padding-bottom: 0
+      font-size: 0
+
+    &__event-date
+      font-size: 10px
+      color: var(--key-color)
+      white-space: nowrap
+      margin: 0
 
     &__progress
       position: absolute
@@ -40,11 +53,29 @@
       width: 99%
       height: 4px
       background: var(--key-color)
-      display: none
+
+      .pc &
+        opacity: 0
+
+      .sp &
+        transform: translateX(-100%)
 
       &--current
+        // Bar
         .header__slider__nav__progress
-          display: block
+          .pc &
+            display: block
+            opacity: 1
+
+          .sp &
+            display: block
+            transition: transform 5s linear
+            transform: translateX(0%)
+
+        // Title
+        .header__slider__nav__item__title
+          .sp &
+            display: inline-block
 
     &__item
       cursor: pointer
@@ -54,8 +85,23 @@
       text-align: left
       overflow: hidden
 
+      .pc &
+        width: 20%
+
+      .sp &
+        padding: 10px
+        display: inline-block
+        vertical-align: top
+        width: 13%
+
+        +mediaquery('max', 320px)
+          padding: 7px
+
+      &.header__slider__nav__progress--current
+        .sp &
+          width: 48%
+
       &:before
-        content: ''
         display: block
         background: #ddd
         width: 99%
@@ -63,6 +109,22 @@
         position: absolute
         top: 0
         left: 0
+
+        .sp &
+          content: ''
+
+      &:not(:last-child)
+        &:after
+          display: block
+          background: #fff
+          width: 1px
+          height: 4px
+          position: absolute
+          top: 0
+          right: 0
+
+          .sp &
+            content: ''
 
       &__thumbnail
         width: 42px
@@ -74,6 +136,11 @@
         border-radius: 50%
         overflow: hidden
 
+        .sp &
+          width: 35px
+          height: 35px
+          margin-right: 10px
+
         img
           display: inline-block
           position: absolute
@@ -83,7 +150,7 @@
           min-width: 200%
 
       &__title
-        width: 70%
+        width: calc(100% - 42px - 14px)
         vertical-align: middle
         font-size: 13px
         font-weight: bold
@@ -92,8 +159,12 @@
         color: #333
         display: none
 
-        +mediaquery('min', 1024px)
+        .pc &
           display: inline-block
+
+        .sp &
+          width: calc(100% - 35px - 12px)
+          font-size: 11px
 
   .flickity-button
     +mediaquery('max', 768px)

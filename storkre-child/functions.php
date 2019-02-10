@@ -601,6 +601,23 @@ function is_dev() {
   }
 }
 
+function get_event_date($cf) {
+  $date = '';
+  $start = $cf['_eventorganiser_schedule_start_start'][0];
+  $start = date('Y年n月j日', strtotime($start));
+  $end = $cf['_eventorganiser_schedule_start_finish'][0];
+  $end = date('n月j日', strtotime($end));
+  $endless_flag = $cf['endless_event_flag'][0];
+
+  if ($endless_flag) {
+    $date .= $start . '〜';
+  } else {
+    $date .= $start . '〜' . $end;
+  }
+
+  return $date;
+}
+
 function is_prod() {
   if (! is_dev()) {
     return true;
