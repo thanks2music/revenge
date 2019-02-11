@@ -1,11 +1,12 @@
 <?php global $url; ?>
 <div class="top-post-list">
-<?php // モバイルかつ一覧ページの場合 ?>
-<?php if (is_mobile() && is_tax() || is_post_type_archive('event') || is_paged()) { ?>
-  <?php dynamic_sidebar('widget_sp_puread_small'); ?>
 <?php // モバイルかつトップページの場合 ?>
-<?php } else if (is_mobile() && is_home()) { ?>
+<?php if (! is_paged() && is_mobile() && is_home()) { ?>
   <?php dynamic_sidebar('widget_sp_puread_home'); ?>
+<?php } ?>
+<?php // モバイルかつ一覧ページの場合 ?>
+<?php if (is_mobile() && is_paged()) { ?>
+  <?php dynamic_sidebar('widget_sp_puread_small'); ?>
 <?php } ?>
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
