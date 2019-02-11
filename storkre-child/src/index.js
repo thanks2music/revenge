@@ -121,72 +121,74 @@ if (body[0].className.indexOf('single') > -1) {
   }
 }
 
-// Slickの置き換え
-let sliderMain = document.getElementById('header__slider__ul'),
-    sliderNav  = document.getElementById('header__slider__nav'),
-    sliderItem = sliderNav.querySelectorAll('.header__slider__nav__item'),
-    slideCurrentClass = 'header__slider__nav__progress--current';
+// Toppage only
+if (window.location.pathname === '/') {
+  let sliderMain = document.getElementById('header__slider__ul'),
+      sliderNav  = document.getElementById('header__slider__nav'),
+      sliderItem = sliderNav.querySelectorAll('.header__slider__nav__item'),
+      slideCurrentClass = 'header__slider__nav__progress--current';
 
-let flickityFade = false;
+  let flickityFade = false;
 
-// PCの場合
-if (! is_sp()) {
-  flickityFade = true;
-}
+  // PCの場合
+  if (! is_sp()) {
+    flickityFade = true;
+  }
 
-let flktyMain = new Flickity(sliderMain, {
-  fade: flickityFade,
-  freeScroll: false,
-  contain: true,
-  imagesLoaded: true,
-  autoPlay: 5000,
-  pageDots: false,
-  wrapAround: true,
-  on: {
-    ready: (() => {
-      sliderMain.previousElementSibling.classList.add('header__slider__dummy--is-hide');
-      sliderMain.classList.add('header__slider__ul--is-active');
-      sliderItem[0].classList.add(slideCurrentClass);
-      let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
+  let flktyMain = new Flickity(sliderMain, {
+    fade: flickityFade,
+    freeScroll: false,
+    contain: true,
+    imagesLoaded: true,
+    autoPlay: 5000,
+    pageDots: false,
+    wrapAround: true,
+    on: {
+      ready: (() => {
+        sliderMain.previousElementSibling.classList.add('header__slider__dummy--is-hide');
+        sliderMain.classList.add('header__slider__ul--is-active');
+        sliderItem[0].classList.add(slideCurrentClass);
+        let slideCurrentElem = sliderNav.querySelector(`.${slideCurrentClass}`);
 
-      if (is_sp()) {
-        $(sliderItem).on('click', function() {
-          const index = $(this).index();
-          $(sliderItem).removeClass(slideCurrentClass);
+        if (is_sp()) {
+          $(sliderItem).on('click', function() {
+            const index = $(this).index();
+            $(sliderItem).removeClass(slideCurrentClass);
+            flktyMain.stopPlayer();
+            sliderItem[index].classList.add(slideCurrentClass);
+            flktyMain.select(index);
+            flktyMain.playPlayer();
+          });
+        } else {
+          $(sliderItem).on('click', function() {
+            const index = $(this).index();
+            flktyMain.select(index);
+          });
+        }
+
+        if (! is_sp()) {
+          $(sliderItem, slideCurrentElem).on({
+            'mouseenter' : function(e) {
+              flktyMain.pausePlayer();
+            },
+            'mouseleave' : function(e) {
+              flktyMain.playPlayer();
+            }
+          });
+        }
+      }),
+      change: ((index) => {
+        if (is_sp()) {
           flktyMain.stopPlayer();
+          $(sliderItem).removeClass(slideCurrentClass);
           sliderItem[index].classList.add(slideCurrentClass);
           flktyMain.select(index);
           flktyMain.playPlayer();
-        });
-      } else {
-        $(sliderItem).on('click', function() {
-          const index = $(this).index();
-          flktyMain.select(index);
-        });
-      }
-
-      if (! is_sp()) {
-        $(sliderItem, slideCurrentElem).on({
-          'mouseenter' : function(e) {
-            flktyMain.pausePlayer();
-          },
-          'mouseleave' : function(e) {
-            flktyMain.playPlayer();
-          }
-        });
-      }
-    }),
-    change: ((index) => {
-      if (is_sp()) {
-        flktyMain.stopPlayer();
-        $(sliderItem).removeClass(slideCurrentClass);
-        sliderItem[index].classList.add(slideCurrentClass);
-        flktyMain.select(index);
-        flktyMain.playPlayer();
-      } else {
-        $(sliderItem).removeClass(slideCurrentClass);
-        sliderItem[index].classList.add(slideCurrentClass);
-      }
-    }),
-  },
-});
+        } else {
+          $(sliderItem).removeClass(slideCurrentClass);
+          sliderItem[index].classList.add(slideCurrentClass);
+        }
+      }),
+    },
+  });
+}
