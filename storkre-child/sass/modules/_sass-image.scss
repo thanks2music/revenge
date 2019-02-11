@@ -126,33 +126,12 @@
 $compass-imagehelper-path-prefix: '../../images/';
 
 $compass-imagehelper-imagesmap: (
-  'common/logo.png': (
-    width: '730',
-    height: '109',
-    hash: 'ce801dc9923782d2da5e4d2076007fbb'
-  ),
   'loading/dummy.png': (
     width: '1',
     height: '1',
     hash: '125fe20a8c448cbfc389a2ebd3b1fde1'
   ),
 );
-
-%common-logo-png {
-  // Available properties:
-  // prefix: ;
-  // width: 730;
-  // height: 109;
-  // filename: logo.png;
-  // basename: logo;
-  // dirname: common;
-  // ext: .png;
-  // path: common/logo.png;
-  // fullname: common-logo-png;
-  // mime: image/png;
-  // hash: ce801dc9923782d2da5e4d2076007fbb;
-  background-image: image-url('common/logo.png');
-}
 
 %loading-dummy-png {
   // Available properties:

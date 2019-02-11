@@ -12,6 +12,7 @@
 @import 'partials/common/contacts';
 @import 'partials/common/modal';
 @import 'partials/common/photoswipe';
+@import 'partials/common/slider';
 
 .wf-amatic {
   @extend %webfont-amatic;
@@ -183,30 +184,30 @@
 // PC
 .pc {
   #top_carousel {
-    overflow: hidden;
-    min-width: 1166px;
-    max-height: 230px;
+    // overflow: hidden;
+    // min-width: 1166px;
+    // max-height: 230px;
 
-    img {
-      max-width: 234px;
-    }
+    // img {
+    //   max-width: 234px;
+    // }
 
-    ul.slider {
-      opacity: 0;
+    // ul.slider {
+    //   opacity: 0;
 
-      .slick-slide {
-        display: block !important;
-      }
-    }
+    //   .slick-slide {
+    //     display: block !important;
+    //   }
+    // }
   }
 
   &.loaded {
-    #top_carousel {
-      ul.slider {
-        opacity: 1;
-        transition: opacity 400ms ease-in-out;
-      }
-    }
+    // #top_carousel {
+    //   ul.slider {
+    //     opacity: 1;
+    //     transition: opacity 400ms ease-in-out;
+    //   }
+    // }
   }
 }
 
@@ -628,6 +629,7 @@ body {
     top: inherit;
     left: inherit;
     right: inherit;
+    margin-bottom: 0;
 
     &.fixed {
       background: transparent;

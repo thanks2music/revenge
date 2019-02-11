@@ -6,6 +6,7 @@
   <html lang="ja">
   <head>
   <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php wp_title(''); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -31,15 +32,13 @@
   <?php get_template_part( 'head' ); ?>
 
   <?php wp_head(); ?>
-  <?php if (is_prod()) { ?>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-7307810455044245",
-        enable_page_level_ads: true
-      });
-    </script>
-  <?php } ?>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-7307810455044245",
+      enable_page_level_ads: true
+    });
+  </script>
   </head>
   <?php
     $body_class = '';

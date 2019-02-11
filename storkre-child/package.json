@@ -16,6 +16,7 @@
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "coffee-script": "^1.12.2",
+    "flickity": "^2.1.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.1",
@@ -40,6 +41,8 @@
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
+    "flickity-fullscreen": "^1.1.1",
+    "flickity-imagesloaded": "^2.0.0",
     "npm": "^6.2.0",
     "raven-js": "^3.24.2",
     "uglifyjs-webpack-plugin": "^1.2.7",

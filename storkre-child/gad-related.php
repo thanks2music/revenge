@@ -83,15 +83,17 @@
       </div>
       <div class="ad__related-post--google">
         <?php if (! $amp_flag) { ?>
-          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-format="autorelaxed"
-               data-ad-client="ca-pub-7307810455044245"
-               data-ad-slot="7735657787"></ins>
-          <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+          <?php if (is_prod()) { ?>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="autorelaxed"
+                 data-ad-client="ca-pub-7307810455044245"
+                 data-ad-slot="7735657787"></ins>
+            <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          <?php } ?>
         <?php } else { ?>
           <amp-ad
             layout="fixed-height"
