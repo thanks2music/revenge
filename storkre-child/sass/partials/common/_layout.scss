@@ -13,6 +13,8 @@
 @import 'partials/common/modal';
 @import 'partials/common/photoswipe';
 @import 'partials/common/slider';
+@import 'partials/common/table';
+@import 'partials/common/paragraph';
 
 .wf-amatic {
   @extend %webfont-amatic;
@@ -294,12 +296,6 @@ body {
     .entry-author {
       opacity: 0;
       display: none;
-    }
-
-    table {
-      th {
-        width: 30%;
-      }
     }
 
     h2,
@@ -724,15 +720,6 @@ body {
           top: 50%;
         }
       }
-    }
-  }
-
-  // Tableデザイン変更
-  table {
-    thead th,
-    th.pink {
-      background: #666;
-      color: #fff;
     }
   }
 }
