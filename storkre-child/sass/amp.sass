@@ -162,9 +162,21 @@
       margin: 2em 0 1em;
       font-weight: bold;
 
+    .table
+      &__scroll
+        overflow: auto
+        white-space: nowrap
+        -webkit-overflow-scrolling: touch
+
+        &__description
+          line-height: 1
+          font-size: .7rem
+          text-align: center
+          margin: -.5em 0 0 0
+          color: #999
+
     table
       width: 100%
-      table-layout: fixed
       font-size: 14px
       border: 1px solid #efefef
       border-collapse: collapse
@@ -173,7 +185,7 @@
       caption
         font-size: 12px
         padding-bottom: 5px
-        color: #888
+        color: #999
 
       th
         width: 30%
