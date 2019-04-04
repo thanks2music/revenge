@@ -25,7 +25,12 @@
         ?>
         <h1 class="archive-title h2">
           <?php if (is_category() || is_tax()) {?>
-            <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span> <?php single_cat_title(); ?>
+            <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span>
+            <?php single_cat_title();
+              if (is_tax('event-venue')) {
+                echo 'の店舗の開催一覧';
+              }
+            ?>
           <?php } elseif (is_post_type_archive()) { ?>
             <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span> <?php echo $cat_name; ?>
           <?php } ?>
