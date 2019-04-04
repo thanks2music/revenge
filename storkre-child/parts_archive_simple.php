@@ -37,6 +37,8 @@
         $taxonomy_name = 'event-category';
       } elseif (is_tax('event-tag')) {
         $taxonomy_name = 'event-tag';
+      } elseif (is_tax('event-venue')) {
+        $taxonomy_name = 'event-venue';
       } else {
         $taxonomy_name = 'event-category';
       }
