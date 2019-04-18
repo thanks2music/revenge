@@ -40,6 +40,16 @@ function theme_register_sidebars_child() {
     'before_title' => '<h4 class="widgettitle">',
     'after_title' => '</h4>',
   ));
+
+  register_sidebar(array(
+    'id' => 'common_copyright',
+    'name' => '共通: サイトのコピーライト',
+    'description' => 'フッターに表示されるコピーライト',
+    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<h4 class="widgettitle">',
+    'after_title' => '</h4>',
+  ));
 }
 
 // 人気記事

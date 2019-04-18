@@ -202,7 +202,9 @@ if ($amp_flag) {
           <div class="footer__widgets">
             <?php dynamic_sidebar('amp_footer_content'); ?>
           </div>
-          <p class="source-org copyright">&copy;Copyright<?php echo date('Y'); ?> <a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo( 'name' ); ?></a>.All Rights Reserved.</p>
+          <div class="footer__copyright">
+            &copy; <?php echo date('Y'); ?> <?php dynamic_sidebar('common_copyright'); ?>
+          </div>
         </div>
       </footer>
     </main>
