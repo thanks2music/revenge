@@ -23,6 +23,8 @@
 $args = array(
     'post_type' => array('post', 'event'),
     'posts_per_page' => 16,
+    'orderby'    => 'meta_value_num',
+    'order' => 'ASC',
     'tax_query' => array(
       'relation' => 'OR',
       array(
@@ -34,6 +36,11 @@ $args = array(
         'taxonomy' => 'event-tag',
         'terms' => 'pickup',
         'field' => 'slug',
+      ),
+    ),
+    'meta_query' => array(
+      array(
+        'key'     => 'pickup_order',
       ),
     ),
 );
