@@ -33,12 +33,48 @@
   <?php wp_head(); ?>
   <?php if (is_prod()) { ?>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://www.googletagservices.com/tag/js/gpt.js"></script>
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({
         google_ad_client: "ca-pub-7307810455044245",
         enable_page_level_ads: true
       });
     </script>
+    <script>
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+    </script>
+    <?php if ($is_sp) { ?>
+      <?php // NOTE: スマホ用のAd Exchange ?>
+      <script>
+        googletag.cmd.push(function() {
+          googletag.defineSlot('/9176203/1640159', [[300, 250], [336, 280]], 'div-gpt-ad-1554716893571-0')
+          .defineSizeMapping(googletag.sizeMapping()
+          .addSize([360, 0], [[336, 280],'fluid'])
+          .addSize([320, 0], [[300, 250],'fluid'])
+          .build())
+          .addService(googletag.pubads());
+          googletag.defineSlot('/9176203/1640161', [[300, 250], [336, 280]], 'div-gpt-ad-1554716961969-0')
+          .defineSizeMapping(googletag.sizeMapping()
+          .addSize([360, 0], [[336, 280],'fluid'])
+          .addSize([320, 0], [[300, 250],'fluid'])
+          .build())
+          .addService(googletag.pubads());
+          googletag.pubads().enableSingleRequest();
+          googletag.enableServices();
+        });
+      </script>
+    <?php } else if ($is_pc) { ?>
+      <?php // NOTE: PC用のAd Exchange ?>
+      <script>
+        googletag.cmd.push(function() {
+          googletag.defineSlot('/9176203/1642371', [[300, 250], [336, 280]], 'div-gpt-ad-1555894785454-0').addService(googletag.pubads());
+          googletag.defineSlot('/9176203/1642372', [[300, 250], [336, 280]], 'div-gpt-ad-1555894805858-0').addService(googletag.pubads());
+          googletag.pubads().enableSingleRequest();
+          googletag.enableServices();
+        });
+      </script>
+    <?php } ?>
   <?php } ?>
   </head>
   <?php

@@ -574,13 +574,9 @@ body {
     padding: 16px 10px;
     text-align: center;
     text-decoration: none;
-    margin: 2em 1em 2em;
+    margin: 2em auto 2em;
     letter-spacing: normal;
     max-width: 300px;
-
-    .pc & {
-      margin: 2em auto 2em;
-    }
   }
 
   // カテゴリタイトル

@@ -21,11 +21,14 @@ locate_template('config/variables.php', true);
 
 // Override WordPress Setting
 // if $amp_flag 内でネストするとremove_actionが動作しないのでどうにかする
-if ($_GET['amp'] === '1') {
-  remove_action('wp_head','rest_output_link_wp_head');
-  remove_action('wp_head','wp_oembed_add_discovery_links');
-  remove_action('wp_head','wp_oembed_add_host_js');
-  remove_filter('the_content', array($wp_embed, 'autoembed'), 8);
+
+if (! empty($_GET['amp'])) {
+  if ($_GET['amp'] === '1') {
+    remove_action('wp_head','rest_output_link_wp_head');
+    remove_action('wp_head','wp_oembed_add_discovery_links');
+    remove_action('wp_head','wp_oembed_add_host_js');
+    remove_filter('the_content', array($wp_embed, 'autoembed'), 8);
+  }
 }
 
 add_action( 'widgets_init', 'theme_register_sidebars_child' );
@@ -552,42 +555,44 @@ function replace_img_for_amp($the_content) {
 // デフォルトのプラグイン実行優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
 add_filter('the_content', 'replace_img_for_amp');
 
-if ($_GET['amp'] === '1') {
-  function replace_youtube_for_amp($the_content) {
-    $pattern = '/https:\/\/www\.youtube\.com\/watch\?v=([\w\-]+)/';
-    $get_youtube_url = preg_match_all($pattern, $the_content, $matches);
-    foreach($matches[1] as $key => $value) {
-      $search = 'https://www.youtube.com/watch?v=' . $value;
-      $replace = '<div class="amp__youtube"><amp-youtube width="480" height="270" layout="responsive" data-videoid="';
-      $replace .= $value . '"></amp-youtube></div>';
-      $the_content = str_replace($search, $replace, $the_content);
-    }
-
-    return $the_content;
-  }
-
-  function replace_video_for_amp($the_content) {
-    $pattern = '/<video.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?<\/video>/i';
-    $get_video_element = preg_match_all($pattern, $the_content, $matches);
-
-    if (! empty($matches[0])) {
-      foreach($matches[0] as $key => $value) {
-        $poster = preg_match('/poster\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $poster_path);
-        $video = preg_match('/src\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $video_path);
-        $search = $value;
-        $replace = '<div class="amp__video"><amp-video width="480" height="270" layout="responsive" src="';
-        $replace .= $video_path[1] . '" poster="' . $poster_path[1] . '" controls>';
-        $replace .= '<source type="video/mp4" src="' . $video_path[1] . '"></amp-video></div>';
+if (! empty($_GET['amp'])) {
+  if ($_GET['amp'] === '1') {
+    function replace_youtube_for_amp($the_content) {
+      $pattern = '/https:\/\/www\.youtube\.com\/watch\?v=([\w\-]+)/';
+      $get_youtube_url = preg_match_all($pattern, $the_content, $matches);
+      foreach($matches[1] as $key => $value) {
+        $search = 'https://www.youtube.com/watch?v=' . $value;
+        $replace = '<div class="amp__youtube"><amp-youtube width="480" height="270" layout="responsive" data-videoid="';
+        $replace .= $value . '"></amp-youtube></div>';
         $the_content = str_replace($search, $replace, $the_content);
       }
 
       return $the_content;
     }
-  }
-  add_filter('the_content', 'replace_youtube_for_amp');
 
-  if (strpos($_SERVER['REQUEST_URI'], 'usamaru-cafe2018-winter') !== false) {
-    add_filter('the_content', 'replace_video_for_amp');
+    function replace_video_for_amp($the_content) {
+      $pattern = '/<video.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?<\/video>/i';
+      $get_video_element = preg_match_all($pattern, $the_content, $matches);
+
+      if (! empty($matches[0])) {
+        foreach($matches[0] as $key => $value) {
+          $poster = preg_match('/poster\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $poster_path);
+          $video = preg_match('/src\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $video_path);
+          $search = $value;
+          $replace = '<div class="amp__video"><amp-video width="480" height="270" layout="responsive" src="';
+          $replace .= $video_path[1] . '" poster="' . $poster_path[1] . '" controls>';
+          $replace .= '<source type="video/mp4" src="' . $video_path[1] . '"></amp-video></div>';
+          $the_content = str_replace($search, $replace, $the_content);
+        }
+
+        return $the_content;
+      }
+    }
+    add_filter('the_content', 'replace_youtube_for_amp');
+
+    if (strpos($_SERVER['REQUEST_URI'], 'usamaru-cafe2018-winter') !== false) {
+      add_filter('the_content', 'replace_video_for_amp');
+    }
   }
 }
 
