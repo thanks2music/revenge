@@ -112,7 +112,6 @@ if ($amp_flag) {
           $post_class = 'amp__entry';
         ?>
           <article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?> role="article">
-            <?php dynamic_sidebar('addbanner-titletop'); // 記事上部のアドセンス ?>
             <header class="article-header entry-header amp__entry__header">
               <?php // 記事更新時間 ?>
               <p class="byline entry-meta cf">
@@ -154,14 +153,13 @@ if ($amp_flag) {
               <?php // NOTE: header閉じる前に get_template_part( 'parts_sns_short' ); でSNS類呼び出しているが、onclick=""など指定しているっぽいので一旦呼び出さないでおく ?>
             </header>
 
+            <?php // 記事上部のアドセンス ?>
             <div class="amp__ad--eyecatch-under">
-              <amp-ad
-                 layout="responsive"
-                 width=300
-                 height=250
-                 type="adsense"
-                 data-ad-client="ca-pub-7307810455044245"
-                 data-ad-slot="2805411615">
+              <amp-ad layout="fixed-height"
+                      height="280"
+                      type="doubleclick"
+                      data-slot="/9176203/1640160"
+                      data-multi-size="300x250,336x280">
               </amp-ad>
             </div>
 
