@@ -18,24 +18,26 @@
   $cat_len = count($category);
   // 特定のTermページか分岐
   for($i = 0; $i < $cat_len; $i++) {
-    if (is_tax($taxonomy_name, $category[$i]->slug)) {
-      $cat_slug[$i] = $category[$i]->slug;
+    if (isset($category[$i]->slug)) {
+      if (is_tax($taxonomy_name, $category[$i]->slug)) {
+        $cat_slug[$i] = $category[$i]->slug;
 
-      // スラッグをトリガーにクエリーを分岐させる
-      if ($category[$i]->slug === 'collabo-period') {
-        // Taxonomyページの場合、開催期間別一覧にだけ表示させない
-        $show_period_flag = false;
-        break;
-        // 親カテゴリがあったら
-      } elseif ($category[$i]->parent !== 0) {
-        $cat_parent_id = $category[$i]->parent;
-        $cat_parent = get_term($cat_parent_id, $taxonomy_name);
-
-        if (! empty($cat_parent->description) && $cat_parent->slug === 'collabo-period') {
+        // スラッグをトリガーにクエリーを分岐させる
+        if ($category[$i]->slug === 'collabo-period') {
+          // Taxonomyページの場合、開催期間別一覧にだけ表示させない
           $show_period_flag = false;
-        }
+          break;
+          // 親カテゴリがあったら
+        } elseif ($category[$i]->parent !== 0) {
+          $cat_parent_id = $category[$i]->parent;
+          $cat_parent = get_term($cat_parent_id, $taxonomy_name);
 
-        break;
+          if (! empty($cat_parent->description) && $cat_parent->slug === 'collabo-period') {
+            $show_period_flag = false;
+          }
+
+          break;
+        }
       }
     }
   }
