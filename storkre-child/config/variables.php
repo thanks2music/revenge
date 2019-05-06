@@ -18,7 +18,9 @@
   $url['current'] = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
   $url['home'] = esc_url(home_url());
 
-  if (is_single() && $_GET['amp'] === '1') {
-    $amp_flag = true;
+  if (! empty($_GET['amp'])) {
+    if ($_GET['amp'] === '1') {
+      $amp_flag = true;
+    }
   }
 ?>
