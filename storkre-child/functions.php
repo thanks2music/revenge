@@ -49,6 +49,7 @@ global $is_sp, $amp_flag;
 $adTagResponsive = '';
 $adTagText = '';
 
+if (! empty($_GET['amp'])) {
 if ($_GET['amp'] === '1') {
 $adTagResponsive = <<< EOF
 
@@ -81,8 +82,10 @@ $adTagResponsive = <<< EOF
 
 EOF;
 }
+}
 
 // moreads広告
+if (! empty($_GET['amp'])) {
 if ($_GET['amp'] === '1') {
 $adTagText = <<< EOF
 
@@ -113,6 +116,7 @@ $adTagText = <<< EOF
 </div>
 
 EOF;
+}
 }
 
 // レスポンシブ広告
