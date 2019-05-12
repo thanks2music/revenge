@@ -26,7 +26,7 @@ $query = new WP_Query($args); ?>
 	        <?php if(has_post_thumbnail()) { ?>
 	                <?php the_post_thumbnail('post-thum'); ?>
 	        <?php } else { ?>
-	                <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png" />
+	                <img src="<?php echo get_theme_file_uri('/library/images/noimg.png'); ?>" />
 	        <?php } ?>
 	        		<span class="cat-name"><?php $cat = get_the_category(); ?><?php $cat = $cat[0]; ?><?php echo get_cat_name($cat->term_id); ?></span>
 		            </figure>

@@ -1,34 +1,56 @@
-@import url(../../style.css);
-body.mceContentBody {
-	font-size: 15px!important;
-    padding: 0.7em 1em!important;
-    background: #fff!important;
+@charset "utf-8";
+
+body#tinymce.mce-content-body{
+	margin-left: 3%;
+	margin-right: 3%;
 }
- 
-body.mceContentBody .editor-area {
+.editor-rich-text__tinymce.mce-content-body,
+.mce-content-body {
+	font-family: sans-serif;
+}
+.mce-content-body h2,
+.mce-content-body h3,
+.wp-block-heading h2.editor-rich-text__tinymce,
+.wp-block-heading h3.editor-rich-text__tinymce {
+	padding: 0.5em;
+	margin-top: 4%;
+}
+.mce-content-body h2,
+.wp-block-heading h2.editor-rich-text__tinymce{
+	font-size: 140%;
+	background: #eee;
+}
+.mce-content-body h3,
+.wp-block-heading h3.editor-rich-text__tinymce{
+	border-left: 3px solid;
+}
+.mce-content-body .editor-area {
     margin: 0px 20px 0.5em 20px;
     font-size:15px!important;
     line-height:150%;
 }
-body.mceContentBody p{
+.mce-content-body p{
 	margin-bottom: 2em;
+	line-height: 1.75;
 }
-body.mceContentBody ul{
+.mce-content-body ul{
 	list-style-type: disc!important;
 	padding-left: 2em!important;
 }
-body.mceContentBody ol{
+.mce-content-body ol{
 	list-style-type: decimal!important;
 	padding-left: 2em!important;
 }
-body.mceContentBody blockquote {
+.mce-content-body blockquote,
+.wp-block-quote:not(.is-large):not(.is-style-large) {
 	border: 1px solid #ddd;
 	padding: 0.4em 1em;
 	margin: 0;
 }
-body.mceContentBody pre{
-	background:#333;
-	color:#fff;
+.mce-content-body pre,
+.wp-block-preformatted pre {
+	background:#444;
+	color:#d5d5d5!important;
 	padding:1em;
 	margin-bottom:1em;
 	font-size:0.9em;

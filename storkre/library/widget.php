@@ -1,5 +1,5 @@
 <?php
-// ウィジェット
+add_action( 'widgets_init', 'theme_register_sidebars' );
 function theme_register_sidebars() {
 	register_sidebar(array(
 		'id' => 'sidebar1',
@@ -125,7 +125,7 @@ function theme_register_sidebars() {
 	register_sidebar(array(
 		'id' => 'home-bottom_mobile',
 		'name' => __( 'SP：トップページ下部', 'storktheme' ),
-		'description' => __( 'トップページ（スマートフォン）のフッター上', 'storktheme' ),
+		'description' => __( 'トップページ（スマートフォン）の記事一覧下', 'storktheme' ),
 		'before_widget' => '<div id="%1$s" class="widget homewidget %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="widgettitle"><span>',
@@ -182,6 +182,7 @@ function theme_register_sidebars() {
 		'before_title' => '',
 		'after_title' => '',
 	));
+
 }
 
 
@@ -262,25 +263,18 @@ class NewEntryImageWidget extends WP_Widget {
             }
             ?></span></h4>
 			<ul>
-      <?php
-        // グローバル変数の呼び出し
-        global $g_entry_count;
-        $args = array(
-          'post_type' => array('post', 'event'),
-          'posts_per_page' => $g_entry_count,
-        );
-      ?>
-			<?php query_posts($args); //クエリの作成?>
+			<?php global $g_entry_count; ?>
+			<?php query_posts('posts_per_page='.$g_entry_count); ?>
 			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			<li>
 			<a class="cf" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-			<?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
+			<?php if ( has_post_thumbnail()) : ?>
 			<figure class="eyecatch">
 			<?php the_post_thumbnail('home-thum'); ?>
 			</figure>
 			<?php else: ?>
 			<figure class="eyecatch noimg">
-			<img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+			<img src="<?php echo get_theme_file_uri('/library/images/noimg.png'); ?>">
 			</figure>
 			<?php endif; ?>
 			<?php the_title(); ?>
@@ -306,14 +300,12 @@ class NewEntryImageWidget extends WP_Widget {
         $title_new = esc_attr($instance['title_new']);
         $entry_count = esc_attr($instance['entry_count']);
         ?>
-        <?php //タイトル入力フォーム ?>
         <p>
           <label for="<?php echo $this->get_field_id('title_new'); ?>">
           <?php _e('新着エントリーのタイトル'); ?>
           </label>
           <input class="widefat" id="<?php echo $this->get_field_id('title_new'); ?>" name="<?php echo $this->get_field_name('title_new'); ?>" type="text" value="<?php echo $title_new; ?>" />
         </p>
-        <?php //表示数入力フォーム ?>
         <p>
           <label for="<?php echo $this->get_field_id('entry_count'); ?>">
           <?php _e('表示数（半角数字）'); ?>
@@ -323,4 +315,4 @@ class NewEntryImageWidget extends WP_Widget {
         <?php
     }
 }
-add_action('widgets_init', create_function('', 'return register_widget("NewEntryImageWidget");'));
+add_action('widgets_init', function(){ register_widget('NewEntryImageWidget'); });

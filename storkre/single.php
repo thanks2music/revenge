@@ -17,15 +17,21 @@
 <?php dynamic_sidebar( 'addbanner-titletop' ); ?>
 <header class="article-header entry-header">
 <p class="byline entry-meta vcard cf">
-<?php if(is_singular('post')):
+<?php 
+	if(is_singular('post')){
+
 	$cat = get_the_category();
 	$cat = $cat[0];
-endif;?>
+	$catid = $cat->cat_ID;
+	$catname = $cat->name;
+	echo '<span class="cat-name cat-id-' . $catid . '">' . $catname . '</span>';
 
-<?php if(is_singular('post')):?><span class="cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span><?php endif;?>
-
+	}
+?>
+<?php $post_options_date = get_option('post_options_date'); if ( $post_options_date !== "date_off" ) : ?>
 <time class="date gf entry-date updated"<?php if ( get_the_date('Ymd') >= get_the_modified_date('Ymd') ) : ?>  datetime="<?php echo get_the_date('Y-m-d') ?>"<?php endif; ?>><?php echo get_the_date('Y.m.d'); ?></time>
 <?php if ( get_the_date('Ymd') < get_the_modified_date('Ymd') ) : ?><time class="date gf entry-date undo updated" datetime="<?php echo get_the_modified_date( 'Y-m-d' ) ?>"><?php echo get_the_modified_date('Y.m.d') ?></time><?php endif; ?>
+<?php endif; ?>
 
 <span class="writer name author"><span class="fn"><?php the_author(); ?></span></span>
 </p>
@@ -61,17 +67,17 @@ endif;?>
 
 <?php the_content();
 wp_link_pages( array(
-'before'      => '<div class="page-links cf"><ul>',
-'after'       => '</ul></div>',
-'link_before' => '<li><span>',
-'link_after'  => '</span></li>',
+'before'      => '<div class="page-links cf">',
+'after'       => '</div>',
+'link_before' => '<span>',
+'link_after'  => '</span>',
 'next_or_number'   => 'next',
 'nextpagelink'     => __('次のページへ ≫'),
 'previouspagelink' => __('≪ 前のページへ'),
 ) );    
 ?>
 
-<?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !is_mobile() ) : ?>
+<?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !wp_is_mobile() ) : ?>
 <div class="add">
 <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
 </div>
@@ -79,7 +85,7 @@ wp_link_pages( array(
 
 </section>
 
-<?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>
+<?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && wp_is_mobile() ) : ?>
 <div class="add">
 <?php dynamic_sidebar( 'addbanner-sp-contentfoot' ); ?>
 </div>
@@ -108,7 +114,7 @@ fjs.parentNode.insertBefore(js, fjs);
 <?php if ( has_post_thumbnail() ): ?>
 <?php the_post_thumbnail('home-thum'); ?>
 <?php else: ?>
-<img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+<img src="<?php echo get_theme_file_uri('/library/images/noimg.png'); ?>">
 <?php endif; ?>
 </figure>
 <div class="rightbox"><div class="fb-like fb-button" data-href="<?php echo $fburl;?>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div><div class="like_text"><p>この記事が気に入ったら<br><i class="fa fa-thumbs-up"></i> いいねしよう！</p>
@@ -144,5 +150,5 @@ fjs.parentNode.insertBefore(js, fjs);
 <?php get_sidebar(); ?>
 </div>
 </div>
-<?php endif; wp_reset_query(); //ワンカラム条件分岐END ?>
+<?php endif; wp_reset_query(); ?>
 <?php get_footer(); ?>
