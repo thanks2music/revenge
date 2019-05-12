@@ -8,7 +8,7 @@
 </a>
 <?php else:?>
 <div class="home_link">
-<a href="<?php echo home_url(); ?>"><figure class="eyecatch"><i class="fa fa-home"></i></figure><span class="ttl">トップページへ</span></a>
+<a href="<?php echo esc_url(home_url()); ?>"><figure class="eyecatch"><i class="fa fa-home"></i></figure><span class="ttl">トップページへ</span></a>
 </div>
 <?php endif; ?>
 </div>
@@ -21,7 +21,7 @@
 </a>
 <?php else:?>
 <div class="home_link">
-<a href="<?php echo home_url(); ?>"><span class="ttl">トップページへ</span><figure class="eyecatch"><i class="fa fa-home"></i></figure></a>
+<a href="<?php echo esc_url(home_url()); ?>"><span class="ttl">トップページへ</span><figure class="eyecatch"><i class="fa fa-home"></i></figure></a>
 </div>
 <?php endif; ?>
 </div>
@@ -44,20 +44,27 @@
 <div class="profile_description">
 <?php the_author_meta("description" ); ?>
 </div>
-<div class="author_sns gf">
+<div class="author_sns">
 <ul>
 <?php if(get_the_author_meta('user_url')) : ?>
-<li><a href="<?php the_author_meta( 'user_url' ); ?>" target="_blank"><i class="fa fa-globe"></i>WebSite</a></li>
+<li class="author-site"><a href="<?php the_author_meta( 'user_url' ); ?>" target="_blank">WebSite</a></li>
 <?php endif ;?>
 <?php if(get_the_author_meta('twitter')) : ?>
-<li><a href="<?php the_author_meta( 'twitter' ); ?>" rel="nofollow" target="_blank"><i class="fa fa-twitter fa-lg"></i>Twitter</a></li>
+<li class="author-twitter"><a href="<?php the_author_meta( 'twitter' ); ?>" rel="nofollow" target="_blank">Twitter</a></li>
 <?php endif ;?>
 <?php if(get_the_author_meta('facebook')) : ?>
-<li><a href="<?php the_author_meta( 'facebook' ); ?>" rel="nofollow" target="_blank"><i class="fa fa-facebook fa-lg"></i>Facebook</a></li>
+<li class="author-facebook"><a href="<?php the_author_meta( 'facebook' ); ?>" rel="nofollow" target="_blank">Facebook</a></li>
 <?php endif ;?>
 <?php if(get_the_author_meta('googleplus')) : ?>
-<li><a href="<?php the_author_meta( 'googleplus' ); ?>" rel="nofollow" target="_blank"><i class="fa fa-google-plus fa-lg"></i>Google+</a></li>
+<li class="author-google"><a href="<?php the_author_meta( 'googleplus' ); ?>" rel="nofollow" target="_blank">Google+</a></li>
 <?php endif ;?>
+<?php if(get_the_author_meta('instagram')) : ?>
+<li class="author-instagram"><a href="<?php the_author_meta( 'instagram' ); ?>" rel="nofollow" target="_blank">Instagram</a></li>
+<?php endif ;?>
+<?php if(get_the_author_meta('youtube')) : ?>
+<li class="author-youtube"><a href="<?php the_author_meta( 'youtube' ); ?>" rel="nofollow" target="_blank">YouTube</a></li>
+<?php endif ;?>
+
 </ul>
 </div>
 </div>
@@ -80,7 +87,7 @@
 <?php if(has_post_thumbnail()) { ?>
 <?php the_post_thumbnail('post-thum'); ?>
 <?php } else { ?>
-<img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png" />
+<img src="<?php echo get_theme_file_uri('/library/images/noimg.png'); ?>" />
 <?php } ?>
 <span class="cat-name"><?php $cat = get_the_category(); ?><?php $cat = $cat[0]; ?><?php echo get_cat_name($cat->term_id); ?></span>
 </figure>

@@ -1,7 +1,6 @@
 <?php
 
 function opencage_customize_register($wp_customize) {
-	
     $wp_customize->add_section( 'colors', array(
     'title' => __( '> サイトカラー設定', 'opencage' ),
     'priority' => 30,
@@ -178,15 +177,14 @@ function opencage_customize_register($wp_customize) {
     ?>
 <style type="text/css">
 body{color: <?php echo $maintext; ?>;}
-a,#breadcrumb li a i{color: <?php echo $mainlink; ?>;}
+a, #breadcrumb li.bc_homelink a::before, .authorbox .author_sns li a::before{color: <?php echo $mainlink; ?>;}
 a:hover{color: <?php echo $mainlinkhover; ?>;}
 .article-footer .post-categories li a,.article-footer .tags a{  background: <?php echo $mainlink; ?>;  border:1px solid <?php echo $mainlink; ?>;}
 .article-footer .tags a{color:<?php echo $mainlink; ?>; background: none;}
 .article-footer .post-categories li a:hover,.article-footer .tags a:hover{ background:<?php echo $mainlinkhover; ?>;  border-color:<?php echo $mainlinkhover; ?>;}
 input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],select,textarea,.field { background-color: <?php echo $mainformbg; ?>;}
-/*ヘッダー*/
 .header{color: <?php echo $headertext; ?>;}
-.header.bg,.header #inner-header,.menu-sp{background: <?php echo $headerbg; ?>;}
+.bgfull .header,.header.bg,.header #inner-header,.menu-sp{background: <?php echo $headerbg; ?>;}
 #logo a{color: <?php echo $headerlogo; ?>;}
 #g_nav .nav li a,.nav_btn,.menu-sp a,.menu-sp a,.menu-sp > ul:after{color: <?php echo $headerlink; ?>;}
 #logo a:hover,#g_nav .nav li a:hover,.nav_btn:hover{color:<?php echo $headerlinkhover; ?>;}
@@ -196,49 +194,35 @@ input[type="text"],input[type="password"],input[type="datetime"],input[type="dat
 #g_nav .nav li ul.sub-menu li a{color: <?php echo $footerlink; ?>;}
 }
 @media only screen and (max-width: 1165px) {
-.site_description{
-background: <?php echo $headerbg; ?>;
-color: <?php echo $headertext; ?>;
+.site_description{background: <?php echo $headerbg; ?>; color: <?php echo $headertext; ?>;}
 }
-}
-/*メインエリア*/
-#inner-content{background: <?php echo $contentbg; ?>}
+#inner-content, #breadcrumb, .entry-content blockquote:before, .entry-content blockquote:after{background: <?php echo $contentbg; ?>}
 .top-post-list .post-list:before{background: <?php echo $mainlink; ?>;}
 .widget li a:after{color: <?php echo $mainlink; ?>;}
-/* 投稿ページ見出し */
 .entry-content h2,.widgettitle{background: <?php echo $mainttlbg; ?>; color: <?php echo $mainttltext; ?>;}
 .entry-content h3{border-color: <?php echo $mainttlbg; ?>;}
 .h_boader .entry-content h2{border-color: <?php echo $mainttlbg; ?>; color: <?php echo $maintext; ?>;}
 .h_balloon .entry-content h2:after{border-top-color: <?php echo $mainttlbg; ?>;}
-/* リスト要素 */
 .entry-content ul li:before{ background: <?php echo $mainttlbg; ?>;}
 .entry-content ol li:before{ background: <?php echo $mainttlbg; ?>;}
-/* カテゴリーラベル */
 .post-list-card .post-list .eyecatch .cat-name,.top-post-list .post-list .eyecatch .cat-name,.byline .cat-name,.single .authorbox .author-newpost li .cat-name,.related-box li .cat-name,.carouselwrap .cat-name,.eyecatch .cat-name{background: <?php echo $labelbg; ?>; color:  <?php echo $labeltext; ?>;}
-/* ランキングバッジ */
 ul.wpp-list li a:before{background: <?php echo $mainttlbg; ?>; color: <?php echo $mainttltext; ?>;}
-/* アーカイブのボタン */
 .readmore a{border:1px solid <?php echo $mainlink; ?>;color:<?php echo $mainlink; ?>;}
 .readmore a:hover{background:<?php echo $mainlink; ?>;color:#fff;}
-/* ボタンの色 */
 .btn-wrap a{background: <?php echo $mainlink; ?>;border: 1px solid <?php echo $mainlink; ?>;}
 .btn-wrap a:hover{background: <?php echo $mainlinkhover; ?>;border-color: <?php echo $mainlinkhover; ?>;}
 .btn-wrap.simple a{border:1px solid <?php echo $mainlink; ?>;color:<?php echo $mainlink; ?>;}
 .btn-wrap.simple a:hover{background:<?php echo $mainlink; ?>;}
-/* コメント */
 .blue-btn, .comment-reply-link, #submit { background-color: <?php echo $mainlink; ?>; }
 .blue-btn:hover, .comment-reply-link:hover, #submit:hover, .blue-btn:focus, .comment-reply-link:focus, #submit:focus {background-color: <?php echo $mainlinkhover; ?>; }
-/* サイドバー */
 #sidebar1{color: <?php echo $sidetext; ?>;}
-.widget a{text-decoration:none; color:<?php echo $sidelink; ?>;}
-.widget a:hover{color:<?php echo $sidelinkhover; ?>;}
-/*フッター*/
-#footer-top.bg,#footer-top .inner,.cta-inner{background-color: <?php echo $footerbg; ?>; color: <?php echo $footertext; ?>;}
+.widget:not(.widget_text) a{color:<?php echo $sidelink; ?>;}
+.widget:not(.widget_text) a:hover{color:<?php echo $sidelinkhover; ?>;}
+.bgfull #footer-top,#footer-top .inner,.cta-inner{background-color: <?php echo $footerbg; ?>; color: <?php echo $footertext; ?>;}
 .footer a,#footer-top a{color: <?php echo $footerlink; ?>;}
 #footer-top .widgettitle{color: <?php echo $footertext; ?>;}
-.footer.bg,.footer .inner {background-color: <?php echo $footerbg; ?>;color: <?php echo $footertext; ?>;}
+.bgfull .footer,.footer.bg,.footer .inner {background-color: <?php echo $footerbg; ?>;color: <?php echo $footertext; ?>;}
 .footer-links li a:before{ color: <?php echo $headerbg; ?>;}
-/* ページネーション */
 .pagination a, .pagination span,.page-links a{border-color: <?php echo $mainlink; ?>; color: <?php echo $mainlink; ?>;}
 .pagination .current,.pagination .current:hover,.page-links ul > li > span{background-color: <?php echo $mainlink; ?>; border-color: <?php echo $mainlink; ?>;}
 .pagination a:hover, .pagination a:focus,.page-links a:hover, .page-links a:focus{background-color: <?php echo $mainlink; ?>; color: #fff;}
@@ -248,37 +232,6 @@ ul.wpp-list li a:before{background: <?php echo $mainttlbg; ?>; color: <?php echo
     add_action( 'wp_head', 'opencage_customize_css');
 
 
-function opencage_theme_support() {
-
-	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'custom-background',
-	    array(
-	    'default-color' => 'f7f7f7',
-	    'wp-head-callback' => '_custom_background_cb',
-	    'admin-head-callback' => '',
-	    'admin-preview-callback' => ''
-	    )
-	);
-	add_theme_support('automatic-feed-links');
-	add_theme_support( 'menus' );
-	register_nav_menus(
-		array(
-			'main-nav' => __( 'グローバルナビ' ),
-			'main-nav-sp' => __( 'グローバルナビ（スマートフォン）' ),
-			'footer-links' => __( 'フッターナビ' )
-		)
-	);
-
-	// Enable support for HTML5 markup.
-	add_theme_support( 'html5', array(
-		'comment-list',
-		'search-form',
-		'comment-form'
-	) );
-
-}
-
-
 
 //カスタムロゴ
 function opencage_logo_theme_customizer( $wp_customize ) {
@@ -286,14 +239,16 @@ function opencage_logo_theme_customizer( $wp_customize ) {
     $wp_customize->add_section( 'opencage_logo_section' , array(
 	    'title'       => __( '> サイトロゴ・アイコン', 'opencage_logo' ),
 	    'priority'    => 30,
-	) );
+	));
+	
 	$wp_customize->add_setting( 'opencage_logo' );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'opencage_logo', array(
 		'label'        => __( 'ロゴ画像をアップロード', 'opencage_logo' ),
 		'description' => '<span style="font-size:10px;">ロゴ画像を利用する場合はこちらからアップロードしてください。画像の推奨サイズはロゴのレイアウトにより異なります。</span>',
 		'section'    => 'opencage_logo_section',
 		'settings'   => 'opencage_logo',
-	) ) );
+		)
+	));
 
 	$wp_customize->add_setting( 'opencage_favicon' );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'opencage_favicon', array(
@@ -301,21 +256,27 @@ function opencage_logo_theme_customizer( $wp_customize ) {
 		'description' => '<span style="font-size:10px;">推奨：32×32px</span>',
 		'section'    => 'opencage_logo_section',
 		'settings'   => 'opencage_favicon',
-	) ) );
+		)
+	));
+
 	$wp_customize->add_setting( 'opencage_favicon_ie' );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'opencage_favicon_ie', array(
 		'label'        => __( 'IE用ファビコン（.ico）をアップロード', 'opencage_favicon_ie' ),
 		'description' => '<span style="font-size:10px;">推奨：16×16px</span>',
 		'section'    => 'opencage_logo_section',
 		'settings'   => 'opencage_favicon_ie',
-	) ) );
+		)
+	));
+	
 	$wp_customize->add_setting( 'opencage_appleicon' );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'opencage_appleicon', array(
 		'label'        => __( 'アップルタッチアイコンをアップロード', 'opencage_appleicon' ),
 		'description' => '<span style="font-size:10px;">推奨：144 x 144px</span>',
 		'section'    => 'opencage_logo_section',
 		'settings'   => 'opencage_appleicon',
-	) ) );
+		)
+	));
+	
 }
 add_action('customize_register', 'opencage_logo_theme_customizer');
 
@@ -346,6 +307,14 @@ function opencage_global_customizer($wp_customize) {
 	    'settings' => 'other_options_headerunderlink',
 	    'section' => 'global_section',
 	));
+	$wp_customize->add_setting( 'other_options_headerunderlink_bgcolor', array(
+		'default' => '#f55e5e', 
+	));
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'other_options_headerunderlink_bgcolor', array(
+	    'label' => __( 'お知らせ背景色', 'opencage' ),
+	    'section' => 'global_section',
+	    'settings' => 'other_options_headerunderlink_bgcolor',
+    )));
     $wp_customize->add_setting('other_options_headerunderlink_target', array(
 	   'type'  => 'option',
 	));
@@ -423,7 +392,7 @@ function opencage_global_customizer($wp_customize) {
 	    'type' => 'radio',
 	    'choices' => array(
             'bgnormal' => 'コンテンツ幅',
-            'bg' => 'フルサイズ（横幅いっぱい）',
+            'bgfull' => 'フルサイズ（横幅いっぱい）',
         ),
 	));
 
@@ -460,87 +429,40 @@ function opencage_global_customizer($wp_customize) {
 
     $wp_customize->add_setting('side_options_pannavi', array(
 	   'type'  => 'option',
+	   'default' => 'pannavi_on',
 	));
 	$wp_customize->add_control( 'side_options_pannavi', array(
 	    'settings' => 'side_options_pannavi',
-	    'label' =>'[全体]パンくずナビを表示しない',
-		'description' => '<span style="font-size:10px;">チェックをいれるとパンくずナビを非表示にすることができます。</span>',
-	    'section' => 'global_section',
-	    'type' => 'checkbox',
-	));
-
-    $wp_customize->add_setting('opencage_toppage_archivelayout', array(
-	   'type'  => 'option',
-	   'default' => 'toplayout-simple',
-	));
-	$wp_customize->add_control( 'opencage_toppage_archivelayout', array(
-	    'settings' => 'opencage_toppage_archivelayout',
-	    'label' =>'[PC]トップページ記事レイアウト',
+	    'label' =>'パンくずナビ表示設定',
+		'description' => '<span style="font-size:10px;">パンくずナビの表示位置のコントロールができます。</span>',
 	    'section' => 'global_section',
 	    'type' => 'radio',
 	    'choices' => array(
-            'toplayout-simple' => 'シンプル',
-            'toplayout-card' => 'カード型',
-            'toplayout-magazine' => 'マガジン型',
-            'toplayout-big' => 'ビッグ',
+            'pannavi_on' => 'パンくずナビを「サイト上部」に表示する',
+            'pannavi_on_bottom' => 'パンくずナビを「サイト下部」に表示する',
+            'pannavi_off' => 'パンくずナビを表示しない',
         ),
 	));
 
-    $wp_customize->add_setting('opencage_toppage_sp_archivelayout', array(
+    $wp_customize->add_setting('side_options_fontawesomeinclude', array(
 	   'type'  => 'option',
-	   'default' => 'toplayout-card',
+	   'default' => 'fonta_cdn',
 	));
-	$wp_customize->add_control( 'opencage_toppage_sp_archivelayout', array(
-	    'settings' => 'opencage_toppage_sp_archivelayout',
-	    'label' =>'[SP]トップページ記事レイアウト',
-		'description' => '<span style="font-size:10px;">※PC画面では確認できません。実機にてご確認ください。</span>',
+	$wp_customize->add_control( 'side_options_fontawesomeinclude', array(
+	    'settings' => 'side_options_fontawesomeinclude',
+	    'label' =>'アイコンフォント（Fontawesome）の読み込み設定',
+		'description' => '<span style="font-size:10px;"><b style="color:red;">※1</b>「Fontawesomeを読み込まない」を選択するとアイコンが表示されなくなる可能性がございます。プラグインや独自にファイルを読み込んている場合のみ選択してください。</span>',
 	    'section' => 'global_section',
 	    'type' => 'radio',
 	    'choices' => array(
-            'toplayout-simple' => 'シンプル',
-            'toplayout-card' => 'カード型',
-            'toplayout-magazine' => 'マガジン型',
-            'toplayout-big' => 'ビッグ',
+            'fonta_cdn' => 'CDN版（デフォルト）',
+            'fonta_download' => 'ダウンロード版',
+            'fonta_off' => 'Fontawesomeを読み込まない（※1）',
         ),
 	));
 
-    $wp_customize->add_setting('opencage_archivelayout', array(
-	   'type'  => 'option',
-	   'default' => 'toplayout-simple',
-	));
-	$wp_customize->add_control( 'opencage_archivelayout', array(
-	    'settings' => 'opencage_archivelayout',
-	    'label' =>'[PC]その他一覧ページ記事レイアウト',
-	    'section' => 'global_section',
-	    'type' => 'radio',
-	    'choices' => array(
-            'toplayout-simple' => 'シンプル',
-            'toplayout-card' => 'カード型',
-            'toplayout-magazine' => 'マガジン型',
-            'toplayout-big' => 'ビッグ',
-        ),
-	));
-
-    $wp_customize->add_setting('opencage_sp_archivelayout', array(
-	   'type'  => 'option',
-	   'default' => 'toplayout-card',
-	));
-	$wp_customize->add_control( 'opencage_sp_archivelayout', array(
-	    'settings' => 'opencage_sp_archivelayout',
-	    'label' =>'[SP]その他一覧ページ記事レイアウト',
-		'description' => '<span style="font-size:10px;">※PC画面では確認できません。実機にてご確認ください。</span>',
-	    'section' => 'global_section',
-	    'type' => 'radio',
-	    'choices' => array(
-            'toplayout-simple' => 'シンプル',
-            'toplayout-card' => 'カード型',
-            'toplayout-magazine' => 'マガジン型',
-            'toplayout-big' => 'ビッグ',
-        ),
-	));
 }
 add_action( 'customize_register', 'opencage_global_customizer' );
-
 
 
 
@@ -685,6 +607,93 @@ function opencage_toppage_theme_customizer( $wp_customize ) {
 }
 add_action('customize_register', 'opencage_toppage_theme_customizer');
 
+
+
+// 記事一覧
+function opencage_layout_customizer($wp_customize) {
+    $wp_customize->add_section( 'archiveslayout_section', array(
+        'title'          =>'> 記事一覧ページ設定',
+        'priority'       => 30,
+	    'description' => '記事一覧ページ（トップページ・カテゴリー・タグのページ等）のレイアウトを変更可能です。',
+    ));
+
+
+    $wp_customize->add_setting('opencage_toppage_archivelayout', array(
+	   'type'  => 'option',
+	   'default' => 'toplayout-simple',
+	));
+	$wp_customize->add_control( 'opencage_toppage_archivelayout', array(
+	    'settings' => 'opencage_toppage_archivelayout',
+	    'label' =>'[PC]トップページ記事レイアウト',
+	    'section' => 'archiveslayout_section',
+	    'type' => 'radio',
+	    'choices' => array(
+            'toplayout-simple' => 'シンプル',
+            'toplayout-card' => 'カード型',
+            'toplayout-magazine' => 'マガジン型',
+            'toplayout-big' => 'ビッグ',
+        ),
+	));
+
+    $wp_customize->add_setting('opencage_toppage_sp_archivelayout', array(
+	   'type'  => 'option',
+	   'default' => 'toplayout-card',
+	));
+	$wp_customize->add_control( 'opencage_toppage_sp_archivelayout', array(
+	    'settings' => 'opencage_toppage_sp_archivelayout',
+	    'label' =>'[SP]トップページ記事レイアウト',
+		'description' => '<span style="font-size:10px;">※PC画面では確認できません。実機にてご確認ください。</span>',
+	    'section' => 'archiveslayout_section',
+	    'type' => 'radio',
+	    'choices' => array(
+            'toplayout-simple' => 'シンプル',
+            'toplayout-card' => 'カード型',
+            'toplayout-magazine' => 'マガジン型',
+            'toplayout-big' => 'ビッグ',
+        ),
+	));
+
+    $wp_customize->add_setting('opencage_archivelayout', array(
+	   'type'  => 'option',
+	   'default' => 'toplayout-simple',
+	));
+	$wp_customize->add_control( 'opencage_archivelayout', array(
+	    'settings' => 'opencage_archivelayout',
+	    'label' =>'[PC]その他一覧ページ記事レイアウト',
+	    'section' => 'archiveslayout_section',
+	    'type' => 'radio',
+	    'choices' => array(
+            'toplayout-simple' => 'シンプル',
+            'toplayout-card' => 'カード型',
+            'toplayout-magazine' => 'マガジン型',
+            'toplayout-big' => 'ビッグ',
+        ),
+	));
+
+    $wp_customize->add_setting('opencage_sp_archivelayout', array(
+	   'type'  => 'option',
+	   'default' => 'toplayout-card',
+	));
+	$wp_customize->add_control( 'opencage_sp_archivelayout', array(
+	    'settings' => 'opencage_sp_archivelayout',
+	    'label' =>'[SP]その他一覧ページ記事レイアウト',
+		'description' => '<span style="font-size:10px;">※PC画面では確認できません。実機にてご確認ください。</span>',
+	    'section' => 'archiveslayout_section',
+	    'type' => 'radio',
+	    'choices' => array(
+            'toplayout-simple' => 'シンプル',
+            'toplayout-card' => 'カード型',
+            'toplayout-magazine' => 'マガジン型',
+            'toplayout-big' => 'ビッグ',
+        ),
+	));
+
+}
+add_action( 'customize_register', 'opencage_layout_customizer' );
+
+
+
+
 function opencage_postpage_customizer($wp_customize) {
     $wp_customize->add_section( 'postpage_section', array(
         'title'          =>'> 投稿・固定ページ設定',
@@ -827,5 +836,3 @@ function theme_customize_register($wp_customize) {
 	));
 }
 add_action( 'customize_register', 'theme_customize_register' );
-
-?>

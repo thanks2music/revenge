@@ -1,8 +1,6 @@
 <?php
 
-/*********************
-include function file
-*********************/
+// include function file
 require_once( 'library/customizer.php' );
 require_once( 'library/shortcode.php' );
 require_once( 'library/widget.php' );
@@ -10,10 +8,9 @@ require_once( 'library/custom-post-type.php' );
 require_once( 'library/admin.php' );
 
 
-/*********************
-title tags
-*********************/
+// title tags
 if (!function_exists('rw_title')) {
+	add_filter( 'wp_title', 'rw_title', 10, 3 );
 	function rw_title( $title, $sep, $seplocation ) {
 	  global $page, $paged;
 	
@@ -38,7 +35,10 @@ if (!function_exists('rw_title')) {
 	}
 }
 
-function opencage_rss_version() { return ''; }
+add_filter( 'the_generator', 'opencage_rss_version' );
+function opencage_rss_version() {
+	return '';
+}
 
 function opencage_remove_wp_ver_css_js( $src ) {
 	if ( strpos( $src, 'ver=' ) )
@@ -46,12 +46,14 @@ function opencage_remove_wp_ver_css_js( $src ) {
 	return $src;
 }
 
+add_filter( 'wp_head', 'opencage_remove_wp_widget_recent_comments_style', 1 );
 function opencage_remove_wp_widget_recent_comments_style() {
 	if ( has_filter( 'wp_head', 'wp_widget_recent_comments_style' ) ) {
 		remove_filter( 'wp_head', 'wp_widget_recent_comments_style' );
 	}
 }
 
+add_action( 'wp_head', 'opencage_remove_recent_comments_style', 1 );
 function opencage_remove_recent_comments_style() {
 	global $wp_widget_factory;
 	if (isset($wp_widget_factory->widgets['WP_Widget_Recent_Comments'])) {
@@ -60,79 +62,86 @@ function opencage_remove_recent_comments_style() {
 }
 
 
-/*********************
-SCRIPTS読み込み
-*********************/
+
+// SCRIPTS Include
 if (!is_admin()) {
 	function register_script(){
 	//IE判定
 	$ieua = $_SERVER['HTTP_USER_AGENT'];
 		wp_deregister_script( 'jquery' );
-		wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js', array(), '1.12.2' );
-		wp_register_script( 'remodal', get_bloginfo('template_directory'). '/library/js/libs/remodal.js', array('jquery'), '1.0.0', true );
-		wp_register_script( 'masonry.pkgd.min', get_bloginfo('template_directory'). '/library/js/libs/masonry.pkgd.min.js', array('jquery'), '4.0.0', true );
-		wp_register_script( 'imagesloaded', get_bloginfo('template_directory'). '/library/js/libs/imagesloaded.js', array('jquery'), '4.1.0', true );
+		wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '1.12.4' );
+		wp_register_script( 'css-modernizr', get_theme_file_uri('/library/js/libs/modernizr.custom.min.js'), array(), '2.5.3', true );
+		wp_register_script( 'slick', get_theme_file_uri('/library/js/libs/slick.min.js'), array('jquery'), '1.5.9', true );
+		wp_register_script( 'remodal', get_theme_file_uri('/library/js/libs/remodal.js'), array('jquery'), '1.0.0', true );
+		wp_register_script( 'masonry.pkgd.min', get_theme_file_uri('/library/js/libs/masonry.pkgd.min.js'), array('jquery'), '4.0.0', true );
+		wp_register_script( 'imagesloaded', get_theme_file_uri('/library/js/libs/imagesloaded.js'), array('jquery'), '4.1.0', true );
 		if(!wp_is_mobile() && !strstr($ieua, 'Trident') && !strstr($ieua, 'MSIE') && (get_option('side_options_animatenone') == "ani_on")){
-			wp_register_script( 'wow', get_bloginfo('template_directory'). '/library/js/libs/wow.min.js', array('jquery'), '', true );
+			wp_register_script( 'wow', get_theme_file_uri('/library/js/libs/wow.min.js'), array('jquery'), '', true );
 		}
-		wp_register_script( 'main-js', get_bloginfo('template_directory'). '/library/js/scripts.js', array( 'jquery' ), '', true );
+		wp_register_script( 'main-js', get_theme_file_uri('/library/js/scripts.js'), array( 'jquery' ), '', true );
 	}
 	function add_script() {
 		register_script();
 			wp_enqueue_script('jquery');
 			wp_enqueue_script( 'wow' );
+			wp_enqueue_script( 'slick' );
 			wp_enqueue_script( 'remodal' );
 			wp_enqueue_script( 'masonry.pkgd.min' );
 			wp_enqueue_script( 'imagesloaded' );
 			wp_enqueue_script( 'main-js' );
-		if(is_front_page() || is_home()) {
-		}
-		else {
-		}
+			wp_enqueue_script( 'css-modernizr' );
 	}
 	add_action('wp_enqueue_scripts', 'add_script');
 }
 
-/*********************
-CSS読み込み
-*********************/
+
+// CSS Include
 function register_style() {
 	wp_register_style('style', get_bloginfo('template_directory').'/style.css');
-	wp_register_style('shortcode', get_bloginfo('template_directory').'/library/css/shortcode.css');
-	wp_register_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css');
+	wp_register_style('shortcode', get_theme_file_uri('/library/css/shortcode.css'));
 	wp_register_style('gf_Concert', '//fonts.googleapis.com/css?family=Concert+One');
 	wp_register_style('gf_Lato', '//fonts.googleapis.com/css?family=Lato');
-	wp_register_style('remodal', get_bloginfo('template_directory').'/library/css/remodal.css');
-	wp_register_style('animate', get_bloginfo('template_directory').'/library/css/animate.min.css');
-	wp_register_style('lp_css', get_bloginfo('template_directory').'/library/css/lp.css');
+	if((get_option('side_options_fontawesomeinclude', 'fonta_cdn') == "fonta_cdn")){
+		wp_register_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+	} elseif((get_option('side_options_fontawesomeinclude') == "fonta_download")) {
+		wp_register_style('fontawesome', get_theme_file_uri('/library/css/font-awesome.min.css'));
+	} else {
+		null;
+	}
+	wp_register_style('fontawesome', get_theme_file_uri('/library/css/font-awesome.min.css'));
+	wp_register_style('slick', get_theme_file_uri('/library/css/slick.css'));
+	wp_register_style('remodal', get_theme_file_uri('/library/css/remodal.css'));
+	wp_register_style('animate', get_theme_file_uri('/library/css/animate.min.css'));
+	wp_register_style('lp_css', get_theme_file_uri('/library/css/lp.css'));
 }
 	function add_stylesheet() {
 		register_style();
 			wp_enqueue_style('style');
+			wp_enqueue_style('slick');
 			wp_enqueue_style('shortcode');
 			wp_enqueue_style('gf_Concert');
 			wp_enqueue_style('gf_Lato');
+		if(!(get_option('side_options_fontawesomeinclude') == "fonta_off")){
 			wp_enqueue_style('fontawesome');
+		}
 			wp_enqueue_style('remodal');
-		if((get_option('side_options_animatenone') == "ani_on")){
+		if((get_option('side_options_animatenone', 'ani_on') == "ani_on")){
 			wp_enqueue_style('animate');
 		}
-		if(is_singular( 'post_lp' )) {
+		if(is_page_template( 'page-lp.php' ) || is_singular( 'post_lp' )) {
 			wp_enqueue_style('lp_css');
-		}
-		elseif (is_home() || is_front_page()) {
 		}
 	}
 add_action('wp_enqueue_scripts', 'add_stylesheet');
 
-/*********************
-パンくずナビ
-*********************/
+
+// breadcrumb
 if (!function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")){
+		global $wp_query;
 	    global $post;
 	    $str ='';
-	    if(!get_option('side_options_pannavi')){
+	    if(get_option('side_options_pannavi', 'pannavi_on') !== 'pannavi_off'){
 		    if(!is_home()&&!is_front_page()&&!is_admin() ){
 		        $tagAttribute = '';
 		        foreach($divOption as $attrName => $attrValue){
@@ -140,7 +149,7 @@ if (!function_exists('breadcrumb')) {
 		        }
 		        $str.= '<div'. $tagAttribute .'>';
 		        $str.= '<ul>';
-		        $str.= '<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. home_url() .'/" itemprop="url"><i class="fa fa-home"></i><span itemprop="title"> HOME</span></a></li>';
+		        $str.= '<li itemscope itemtype="//data-vocabulary.org/Breadcrumb" class="bc_homelink"><a href="'. esc_url(home_url( '/' )) .'" itemprop="url"><span itemprop="title"> HOME</span></a></li>';
 		 
 		        if(is_category()) {
 		            $cat = get_queried_object();
@@ -151,17 +160,47 @@ if (!function_exists('breadcrumb')) {
 		                }
 		            }
 		            $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><span itemprop="title">'. $cat -> name . '</span></li>';
+		        } elseif ( is_post_type_archive() ) {
+			        $cpt = get_query_var( 'post_type' );
+			        $str.= '<li>' . get_post_type_object( $cpt )->label . '</li>';
+			    } elseif ( is_tax() ) {
+				    //taxonomy
+				    $query_obj = get_queried_object();
+					$post_types = get_taxonomy( $query_obj->taxonomy )->object_type;
+					$cpt = $post_types[0];
+					$str.= '<li><a href="'. get_post_type_archive_link( $cpt ) . '" itemprop="url"><span itemprop="title">'. get_post_type_object( $cpt )->label .'</span></a></li>';
+					$taxonomy = get_query_var( 'taxonomy' );
+					$term = get_term_by( 'slug', get_query_var( 'term' ), $taxonomy );
+					if ( is_taxonomy_hierarchical( $taxonomy ) && $term->parent != 0 ) {
+						$ancestors = array_reverse( get_ancestors( $term->term_id, $taxonomy ) );
+						foreach ( $ancestors as $ancestor_id ) {
+							$ancestor = get_term( $ancestor_id, $taxonomy );
+							$str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_term_link( $ancestor, $term->slug ) .'" itemprop="url"><span itemprop="title">'. $ancestor->name .'</span></a></li>';
+						}
+					}
+					$str.='<li>'. $term->name .'</li>';
 		        } elseif(is_single()){
-		            $categories = get_the_category($post->ID);
-		            $cat = $categories[0];
-		            if($cat -> parent != 0){
-		                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, 'category' ));
-		                foreach($ancestors as $ancestor){
-		                    $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($ancestor).'" itemprop="url"><span itemprop="title">'. get_cat_name($ancestor). '</span></a></li>';
-		                }
-		            }
-		            $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($cat -> term_id). '" itemprop="url"><span itemprop="title">'. $cat-> cat_name . '</span></a></li>';
-		            $str.= '<li>'. $post -> post_title .'</li>';
+			        $post_type = get_post_type( $post->ID );
+			        if ( $post_type == 'post' ) {
+				        // normal post
+			            $categories = get_the_category($post->ID);
+			            $cat = $categories[0];
+			            if($cat -> parent != 0){
+			                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, 'category' ));
+			                foreach($ancestors as $ancestor){
+			                    $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($ancestor).'" itemprop="url"><span itemprop="title">'. get_cat_name($ancestor). '</span></a></li>';
+			                }
+			            }
+			            $str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($cat -> term_id). '" itemprop="url"><span itemprop="title">'. $cat-> cat_name . '</span></a></li>';
+			            $str.= '<li>'. $post -> post_title .'</li>';
+			        } else {
+						// custom post type
+						$post_type_object = get_post_type_object( $post->post_type );
+						if($post_type_object->has_archive !== false){
+							$str.='<li itemscope itemtype="//data-vocabulary.org/Breadcrumb"><a href="'. get_post_type_archive_link(get_post_type()) .'" itemprop="url"><span itemprop="title">'. $post_type_object->labels->name .'</a></span></li>';
+						}
+						$str.= '<li>'. $post -> post_title .'</li>';
+				    }
 		        } elseif(is_page()){
 		            if($post -> post_parent != 0 ){
 		                $ancestors = array_reverse(get_post_ancestors( $post->ID ));
@@ -205,16 +244,14 @@ if (!function_exists('breadcrumb')) {
 	}
 }
 
-/*********************
-ページネーション
-*********************/
+// Pagination
 if (!function_exists('pagination')) {
 	function pagination($pages = '', $range = 2){
 	     global $wp_query, $paged;
 	
 		$big = 999999999;
 	
-		echo "<nav class=\"pagination cf\">\n";
+		echo "<nav class=\"pagination cf\">";
 	 	echo paginate_links( array(
 			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'current' => max( 1, get_query_var('paged') ),
@@ -227,10 +264,10 @@ if (!function_exists('pagination')) {
 	}
 }
 
-// サーチフォームのソースコード
+// Search Form
 if (!function_exists('my_search_form')) {
 	function my_search_form( $form ) {
-		$form = '<form role="search" method="get" id="searchform" class="searchform cf" action="' . home_url( '/' ) . '" >
+		$form = '<form role="search" method="get" id="searchform" class="searchform cf" action="' . esc_url(home_url( '/' )) . '" >
 		<input type="search" placeholder="検索する" value="' . get_search_query() . '" name="s" id="s" />
 		<button type="submit" id="searchsubmit" ><i class="fa fa-search"></i></button>
 		</form>';
@@ -240,7 +277,7 @@ if (!function_exists('my_search_form')) {
 }
 
 
-// 独自アイキャッチ画像
+// Thumbnail Size
 if (!function_exists('add_mythumbnail_size')) {
 	function add_mythumbnail_size() {
 	add_theme_support('post-thumbnails');
@@ -250,16 +287,16 @@ if (!function_exists('add_mythumbnail_size')) {
 	add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }
 
-// 固定ページでタグを使用可能にする
+// Page inset Tags
 function add_tag_to_page() {
  register_taxonomy_for_object_type('post_tag', 'page');
 }
 add_action('init', 'add_tag_to_page');
 
-//カテゴリー説明文でHTMLタグを使う
+// Archives HTML
 remove_filter( 'pre_term_description', 'wp_filter_kses' );
 
-// 更新日を表示する
+// Update Post date
 function get_mtime($format) {
     $mtime = get_the_modified_time('Ymd');
     $ptime = get_the_time('Ymd');
@@ -272,16 +309,14 @@ function get_mtime($format) {
     }
 }
 
-
-// 埋め込みコンテンツサイズ
+// iframe
 if ( ! isset( $content_width ) ) {
 	$content_width = 728;
 }
 
-//iframeのレスポンシブ対応
 function wrap_iframe_in_div($the_content) {
 if ( is_singular() ) {
-//YouTube
+// YouTube
 $the_content = preg_replace('/<iframe[^>]+?youtube\.com[^<]+?<\/iframe>/is', '<div class="youtube-container">${0}</div>', $the_content);
 }
 return $the_content;
@@ -289,7 +324,7 @@ return $the_content;
 add_filter('the_content','wrap_iframe_in_div');
 
 
-//サイト内検索で固定ページを省く
+// Site Search Page unset
 if (!function_exists('SearchFilter')) {
 	function SearchFilter($query) {
 	if ($query->is_search && !is_admin()) {
@@ -300,10 +335,10 @@ if (!function_exists('SearchFilter')) {
 	add_filter('pre_get_posts','SearchFilter');
 }
 
-//ユーザーページでHTMLを保存可能にする
+// UserPage HTML
 remove_filter('pre_user_description', 'wp_filter_kses');
 
-//ユーザー項目の追加と削除
+// User Profile set_unset
 if (!function_exists('update_profile_fields')) {
 	function update_profile_fields( $contactmethods ) {
 	    //項目の削除
@@ -314,13 +349,15 @@ if (!function_exists('update_profile_fields')) {
 	    $contactmethods['twitter'] = 'Twitter';
 	    $contactmethods['facebook'] = 'Facebook';
 	    $contactmethods['googleplus'] = 'Google+';
+	    $contactmethods['instagram'] = 'Instagram';
+	    $contactmethods['youtube'] = 'YouTube';
 	     
 	    return $contactmethods;
 	}
 	add_filter('user_contactmethods','update_profile_fields',10,1);
 }
 
-//セルフピンバック禁止
+// Self Pingback
 function no_self_pingst( &$links ) {
     $home = home_url();
     foreach ( $links as $l => $link )
@@ -330,54 +367,56 @@ function no_self_pingst( &$links ) {
 add_action( 'pre_ping', 'no_self_pingst' );
 
 
-// 一覧ページの抜粋のPを削除
+// Archives P Tags
+add_filter( 'the_content', 'opencage_filter_ptags_on_images' );
 function opencage_filter_ptags_on_images($content){
 	return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
 }
 // more
 if (!function_exists('opencage_excerpt_more')) {
+	add_filter( 'excerpt_more', 'opencage_excerpt_more' );
 	function opencage_excerpt_more($more) {
 		global $post;
 		return '...';
 	}
 }
 
-// is_mobile追加
+// is_mobile
 function is_mobile(){
 $useragents = array(
-'iPhone', // iPhone
-'iPod', // iPod touch
-'Android.*Mobile', // 1.5+ Android *** Only mobile
-'Windows.*Phone', // *** Windows Phone
-'dream', // Pre 1.5 Android
-'CUPCAKE', // 1.5+ Android
-'blackberry9500', // Storm
-'blackberry9530', // Storm
-'blackberry9520', // Storm v2
-'blackberry9550', // Storm v2
-'blackberry9800', // Torch
-'webOS', // Palm Pre Experimental
-'incognito', // Other iPhone browser
-'webmate' // Other iPhone browser
+'iPhone',
+'iPod',
+'Android.*Mobile',
+'Windows.*Phone',
+'dream',
+'CUPCAKE',
+'blackberry9500',
+'blackberry9530',
+'blackberry9520',
+'blackberry9550',
+'blackberry9800',
+'webOS',
+'incognito',
+'webmate'
 );
 $pattern = '/'.implode('|', $useragents).'/i';
 return preg_match($pattern, $_SERVER['HTTP_USER_AGENT']);
 }
 
 
-//カスタムメニューに「説明」を追加（ナビゲーションの英語テキストに使用）
-add_filter('walker_nav_menu_start_el', 'description_in_nav_menu', 10, 4);
-function description_in_nav_menu($item_output, $item){
-	return preg_replace('/(<a.*?>[^<]*?)</', '$1' . "<span class=\"gf\">{$item->description}</span><", $item_output);
+// Custom Menu
+if (!function_exists('description_in_nav_menu')) {
+	add_filter('walker_nav_menu_start_el', 'description_in_nav_menu', 10, 4);
+	function description_in_nav_menu($item_output, $item){
+		if ( !empty( $item->description ) ) {
+			$item_output = preg_replace('/(<a.*?>[^<]*?)</', '$1' . "<span class=\"gf\">{$item->description}</span><", $item_output);
+		}
+		return $item_output;
+	}
 }
 
 
-
-/*********************
-THEME SUPPORT
-*********************/
-
-//UPDATE CHECK
+// THEME SUPPORT
 require 'library/theme-update-checker.php';
 $example_update_checker = new ThemeUpdateChecker(
 'jstork',
@@ -385,21 +424,28 @@ $example_update_checker = new ThemeUpdateChecker(
 );
 
 
-function opencage_ahoy() {
+// add_theme_support
+add_theme_support( 'post-thumbnails' );
+add_theme_support( 'custom-background',
+    array(
+    'default-color' => 'f7f7f7',
+    'wp-head-callback' => '_custom_background_cb',
+    'admin-head-callback' => '',
+    'admin-preview-callback' => ''
+    )
+);
+add_theme_support('automatic-feed-links');
+add_theme_support( 'menus' );
+register_nav_menus(
+	array(
+		'main-nav' => 'グローバルナビ' ,
+		'main-nav-sp' => 'グローバルナビ（スマートフォン）' ,
+		'footer-links' => 'フッターナビ',
+	)
+);
 
-// THEME CSS EDITOR INCLUDE
-add_editor_style( get_bloginfo('template_url') . '/library/css/editor-style.css' );
-
-  add_filter( 'wp_title', 'rw_title', 10, 3 );
-  add_filter( 'the_generator', 'opencage_rss_version' );
-  add_filter( 'wp_head', 'opencage_remove_wp_widget_recent_comments_style', 1 );
-  add_action( 'wp_head', 'opencage_remove_recent_comments_style', 1 );
-
-  // launching this stuff after theme setup
-  opencage_theme_support();
-
-  add_action( 'widgets_init', 'theme_register_sidebars' );
-  add_filter( 'the_content', 'opencage_filter_ptags_on_images' );
-  add_filter( 'excerpt_more', 'opencage_excerpt_more' );
-}
-add_action( 'after_setup_theme', 'opencage_ahoy' );
+add_theme_support( 'html5', array(
+	'comment-list',
+	'search-form',
+	'comment-form'
+) );

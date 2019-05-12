@@ -31,34 +31,34 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="container" class="<?php echo esc_html(get_option('post_options_ttl'));?> <?php echo esc_html(get_option('side_options_sidebarlayout'));?> <?php echo esc_html(get_option('post_options_date'));?>">
-<?php if(!is_singular( 'post_lp' ) ): ?>
+<div id="container">
+<?php if(!is_page_template( 'page-lp.php' ) && !is_singular( 'post_lp' )): ?>
 
 <?php if ( get_option( 'side_options_description' ) ) : ?><p class="site_description"><?php bloginfo('description'); ?></p><?php endif; ?>
-<header class="header animated fadeIn <?php echo esc_html(get_option('side_options_headerbg'));?> <?php if ( wp_is_mobile() ) : ?>headercenter<?php else:?><?php echo get_option( 'side_options_headercenter' ); ?><?php endif; ?>" role="banner">
+<header class="header animated fadeIn <?php if ( wp_is_mobile() ) : ?>headercenter<?php else:?><?php echo get_option( 'side_options_headercenter' ); ?><?php endif; ?>" role="banner">
 <div id="inner-header" class="wrap cf">
 <div id="logo" class="gf <?php echo esc_html(get_option('opencage_logo_size'));?>">
 <?php if ( is_home() || is_front_page() ) : ?>
 <?php if ( get_theme_mod( 'opencage_logo' ) ) : ?>
-<h1 class="h1 img"><a href="<?php echo home_url(); ?>" rel="nofollow"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></h1>
+<h1 class="h1 img"><a href="<?php echo esc_url(home_url()); ?>" rel="nofollow"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></h1>
 <?php else : ?>
-<h1 class="h1 text"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></h1>
+<h1 class="h1 text"><a href="<?php echo esc_url(home_url()); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></h1>
 <?php endif; ?>
 <?php else: ?>
 <?php if ( get_theme_mod( 'opencage_logo' ) ) : ?>
-<p class="h1 img"><a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></p>
+<p class="h1 img"><a href="<?php echo esc_url(home_url()); ?>"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></p>
 <?php else : ?>
-<p class="h1 text"><a href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a></p>
+<p class="h1 text"><a href="<?php echo esc_url(home_url()); ?>"><?php bloginfo('name'); ?></a></p>
 <?php endif; ?>
 <?php endif; ?>
 </div>
 
-<?php if (!is_mobile()):?>
-<nav id="g_nav" role="navigation">
 <?php if(!get_option('side_options_header_search')):?>
 <a href="#searchbox" data-remodal-target="searchbox" class="nav_btn search_btn"><span class="text gf">search</span></a>
 <?php endif;?>
 
+<?php if (!is_mobile() && has_nav_menu('main-nav')):?>
+<nav id="g_nav" role="navigation">
 <?php wp_nav_menu(array(
      'container' => false,
      'container_class' => 'menu cf',
@@ -73,11 +73,29 @@
      'fallback_cb' => ''
 )); ?>
 </nav>
-<?php elseif(!get_option('side_options_header_search')):?>
-<a href="#searchbox" data-remodal-target="searchbox" class="nav_btn search_btn"><span class="text gf">search</span></a>
 <?php endif;?>
 
+<?php if (is_active_sidebar('sidebar-sp') || has_nav_menu('main-nav')) :?>
 <a href="#spnavi" data-remodal-target="spnavi" class="nav_btn"><span class="text gf">menu</span></a>
+<?php endif;?>
+
+<?php if(is_mobile() && has_nav_menu('main-nav-sp')):?>
+<div class="g_nav-sp animated fadeIn">
+<?php wp_nav_menu(array(
+     'container' => 'nav',
+     'container_class' => 'menu-sp cf',
+     'menu' => __( 'グローバルナビ（スマートフォン）' ),
+     'menu_class' => 'top-nav',
+     'theme_location' => 'main-nav-sp',
+     'before' => '',
+     'after' => '',
+     'link_before' => '',
+     'link_after' => '',
+     'depth' => 0,
+     'fallback_cb' => ''
+)); ?>
+</div>
+<?php endif;?>
 
 
 </div>
@@ -113,6 +131,7 @@
 <?php endif; ?>
 
 
+
 <?php if(!get_option('side_options_header_search')):?>
 <div class="remodal searchbox" data-remodal-id="searchbox" data-remodal-options="hashTracking:false">
 <div class="search cf"><dl><dt>キーワードで記事を検索</dt><dd><?php get_search_form(); ?></dd></dl></div>
@@ -121,31 +140,16 @@
 <?php endif;?>
 
 
-
-<?php if(is_mobile()):?>
-<div class="g_nav-sp animated fadeIn">
-<?php wp_nav_menu(array(
-     'container' => 'nav',
-     'container_class' => 'menu-sp cf',
-     'menu' => __( 'グローバルナビ（スマートフォン）' ),
-     'menu_class' => 'top-nav',
-     'theme_location' => 'main-nav-sp',
-     'before' => '',
-     'after' => '',
-     'link_before' => '',
-     'link_after' => '',
-     'depth' => 0,
-     'fallback_cb' => ''
-)); ?>
-</div>
-<?php endif;?>
-
 <?php if ( get_option('other_options_headerunderlink') && get_option('other_options_headerundertext') ) : ?>
-<div class="header-info <?php echo esc_html(get_option('side_options_headerbg'));?>"><a<?php if(get_option('other_options_headerunderlink_target')):?> target="_blank"<?php endif;?> href="<?php echo esc_html(get_option('other_options_headerunderlink'));?>"><?php echo esc_html(get_option('other_options_headerundertext'));?></a></div>
+<div class="header-info"><a<?php if(get_option('other_options_headerunderlink_target')):?> target="_blank"<?php endif;?>  style="background-color: <?php echo get_theme_mod( 'other_options_headerunderlink_bgcolor'); ?>;" href="<?php echo esc_html(get_option('other_options_headerunderlink'));?>"><?php echo esc_html(get_option('other_options_headerundertext'));?></a></div>
 <?php endif;?>
 
 
 <?php get_template_part( 'parts_homeheader' ); ?>
 
-<?php breadcrumb(); ?>
+<?php
+	if(get_option('side_options_pannavi', 'pannavi_on') == 'pannavi_on' || !get_option('side_options_pannavi')){
+		breadcrumb();
+	}
+?>
 <?php endif; ?>

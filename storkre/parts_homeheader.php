@@ -1,5 +1,6 @@
-<?php if ( get_option( 'opencage_toppage_headeregtext' ) || get_option( 'opencage_toppage_headerjptext' ) ) : ?>
-<?php if ( is_front_page() && !is_paged() ) : ?>
+<?php
+	if ( is_front_page() && !is_paged() ) :
+		if ( get_option( 'opencage_toppage_headeregtext' ) || get_option( 'opencage_toppage_headerjptext' ) ) : ?>
 
 <div id="custom_header" class="<?php echo esc_html(get_option('opencage_toppage_textlayout')); ?>" style="color:<?php echo get_theme_mod('opencage_toppage_textcolor');?>; background-image: url(<?php if ( get_theme_mod('opencage_toppage_headerbgsp') && is_mobile()):?><?php echo get_theme_mod('opencage_toppage_headerbgsp');?><?php else:?><?php echo get_theme_mod('opencage_toppage_headerbg');?><?php endif;?>); background-position: center center; background-repeat:<?php echo get_option('opencage_toppage_headerbgrepeat');?>; background-size:<?php echo get_option('opencage_toppage_headerbgsize');?>;">
 <script type="text/javascript">
@@ -19,13 +20,15 @@ jQuery(function( $ ) {
 			<p class="ja wow animated fadeInUp" data-wow-delay="0.8s"><?php echo get_option( 'opencage_toppage_headerjptext' ); ?></p>
 			<?php endif; ?>
 			<?php if ( get_option( 'opencage_toppage_headerlink' )) : ?>
-			<p class="btn-wrap simple maru wow animated fadeInUp" data-wow-delay="1s"><a style="color:<?php echo get_theme_mod( 'opencage_toppage_btncolor' ); ?>;background:<?php echo get_theme_mod( 'opencage_toppage_btnbgcolor' ); ?>;" href="<?php echo get_option( 'opencage_toppage_headerlink' ); ?>"><?php if ( get_option( 'opencage_toppage_headerlinktext' )) : ?><?php echo get_option( 'opencage_toppage_headerlinktext' ); ?><?php else:?>詳しくはこちら<?php endif;?></a></p>
+			<div class="btn-wrap simple maru wow animated fadeInUp" data-wow-delay="1s"><a style="color:<?php echo get_theme_mod( 'opencage_toppage_btncolor' ); ?>;background:<?php echo get_theme_mod( 'opencage_toppage_btnbgcolor' ); ?>;" href="<?php echo esc_url(get_option( 'opencage_toppage_headerlink' )); ?>"><?php if ( get_option( 'opencage_toppage_headerlinktext' )) : ?><?php echo get_option( 'opencage_toppage_headerlinktext' ); ?><?php else:?>詳しくはこちら<?php endif;?></a></div>
 			<?php endif; ?>
 		</div>
 	</div>
 </div>
-<?php endif; ?>
-<?php endif; ?>
+<?php
+	endif;
+endif;
+?>
 
 <?php if ( is_front_page() || is_home() ) : ?>
 <?php		  
@@ -84,7 +87,7 @@ jQuery(function( $ ) {
 		}
 		}]
 	});
-	$(window).load(function(){
+	$(window).ready(function(){
 	    $(".slickcar").css("opacity", "1.0");
 	});
 });
@@ -97,21 +100,25 @@ jQuery(function( $ ) {
 $the_query->the_post();
 ?>
 <li><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-<?php
-$cat = get_the_category();
-$cat = $cat[0];
-?>
+<figure class="eyecatch<?php if ( !has_post_thumbnail()) : echo ' noimg'; endif; ?>">
 <?php if ( has_post_thumbnail()) : ?>
-<figure class="eyecatch">
 <?php the_post_thumbnail('home-thum'); ?>
-<span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
-</figure>
-<?php else: ?>
-<figure class="eyecatch noimg">
-<img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-<span class="osusume-label cat-name cat-id-<?php echo $cat->cat_ID;?>"><?php echo $cat->name; ?></span>
-</figure>
+<?php else : ?>
+<img src="<?php echo get_theme_file_uri('/library/images/noimg.png'); ?>">
 <?php endif; ?>
+
+<?php
+	if(get_post_type() == 'post'):
+	$cat = get_the_category();
+	$cat = $cat[0];
+	$catid = $cat->cat_ID;
+	$catname = $cat->name;
+	echo '<span class="osusume-label cat-name cat-id-' . $catid . '">' . $catname . '</span>';
+	else:
+	echo '<span class="osusume-label cat-name cat-id-page"></span>';
+	endif;
+?>
+</figure>
 <h2 class="h2 entry-title"><?php the_title(); ?></h2>
 </a></li>
 <?php } ; ?>
@@ -121,4 +128,3 @@ $cat = $cat[0];
 wp_reset_postdata();
 ?>
 <?php endif; ?>
-

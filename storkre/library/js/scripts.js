@@ -55,7 +55,7 @@ $(function() {
         if ($(this).scrollTop() > 400) {
             if (showFlag == false) {
                 showFlag = true;
-                topBtn.stop().animate({'bottom' : '80px'}, 200); 
+                topBtn.stop().animate({'bottom' : '10px'}, 200); 
             }
         } else {
             if (showFlag) {
