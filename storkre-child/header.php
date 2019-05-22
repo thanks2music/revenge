@@ -32,13 +32,6 @@
 
   <?php wp_head(); ?>
   <?php if (is_prod()) { ?>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-7307810455044245",
-        enable_page_level_ads: true
-      });
-    </script>
     <?php if ($is_sp) { // YDN Tag ?>
       <script src="//cdn.gmossp-sp.jp/ads/loader.js?space_id=g908845" charset="utf-8" language="JavaScript"></script>
       <script language='javascript'>
