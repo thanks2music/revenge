@@ -46,6 +46,13 @@
   }
 }
 
+%font-awesome4 {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
 // 記号
 %mark-kome {
   content: '\203b'; // ※ の8進数
