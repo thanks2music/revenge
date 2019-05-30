@@ -9,11 +9,25 @@
   border-bottom: 1px dotted rgba(0,0,0,.2)
 
 .ad
-  &__in-post--more
-    @extend %__ad
+  // 記事内
+  &__in-post
+    // SP
+    &--more
+      @extend %__ad
 
-  &__in-post--moreads
-    @extend %__ad
+    &--moreads
+      @extend %__ad
+
+    // PC
+    &__pc-moreads
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+      position: relative
+
+      &--left,
+      &--right
+        flex-basis: 50%
 
   &__title-under
     @extend %__ad

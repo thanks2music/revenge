@@ -98,7 +98,7 @@ $adTagText = <<< EOF
 </div>
 
 EOF;
-} else {
+} elseif ($is_sp) {
 $adTagText = <<< EOF
 
 <div class="ad__in-post--moreads">
@@ -110,6 +110,27 @@ $adTagText = <<< EOF
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
+</div>
+
+EOF;
+} else {
+$adTagText = <<< EOF
+
+<div class="ad__in-post__pc-moreads">
+  <div class="ad__in-post__pc-moreads--left">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:336px;height:280px"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="8844530410"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ad__in-post__pc-moreads--right">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:336px;height:280px"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="8844530410"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
 </div>
 
 EOF;
