@@ -65,6 +65,7 @@ if ($amp_flag) {
     <script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
     <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+    <script async custom-element="amp-sticky-ad" src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Concert+One|Lato" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="icon" href="<?php echo $url['home']; ?>/wp-content/uploads/favicon_64.png">
@@ -195,6 +196,14 @@ if ($amp_flag) {
           <?php get_template_part( 'parts_singlefoot' ); ?>
           <?php } ?>
         </div>
+
+        <amp-sticky-ad layout="nodisplay">
+          <amp-ad width="320"
+              height="100"
+              type="gmossp"
+              data-id="g908890">
+          </amp-ad>
+        </amp-sticky-ad>
       </div>
       <?php // footerのスタイリング ?>
       <footer id="footer" class="footer" role="contentinfo">
