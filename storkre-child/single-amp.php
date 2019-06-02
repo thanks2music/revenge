@@ -113,6 +113,13 @@ if ($amp_flag) {
           $post_class = 'amp__entry';
         ?>
           <article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?> role="article">
+            <amp-sticky-ad layout="nodisplay">
+              <amp-ad width="320"
+                  height="100"
+                  type="gmossp"
+                  data-id="g908890">
+              </amp-ad>
+            </amp-sticky-ad>
             <header class="article-header entry-header amp__entry__header">
               <?php // 記事更新時間 ?>
               <p class="byline entry-meta cf">
@@ -196,14 +203,6 @@ if ($amp_flag) {
           <?php get_template_part( 'parts_singlefoot' ); ?>
           <?php } ?>
         </div>
-
-        <amp-sticky-ad layout="nodisplay">
-          <amp-ad width="320"
-              height="100"
-              type="gmossp"
-              data-id="g908890">
-          </amp-ad>
-        </amp-sticky-ad>
       </div>
       <?php // footerのスタイリング ?>
       <footer id="footer" class="footer" role="contentinfo">
