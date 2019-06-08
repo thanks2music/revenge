@@ -16,6 +16,7 @@
 @import 'partials/common/table';
 @import 'partials/common/paragraph';
 @import 'partials/common/footer';
+@import 'partials/common/atomic';
 
 .wf-amatic {
   @extend %webfont-amatic;
@@ -412,9 +413,6 @@ body {
           font-family: $font-family;
           letter-spacing: normal;
           padding: 5px 7px;
-        }
-
-        .event-date {
         }
 
         .event-cat {
