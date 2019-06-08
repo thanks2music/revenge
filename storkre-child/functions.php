@@ -371,6 +371,18 @@ function home_posts_type($wp_query) {
   }
 }
 
+function custom_wp_kses_allowed_html($tags, $context) {
+  if ($context === 'event' || $context === 'post') {
+    $tags['moreads'] = true;
+    $tags['ruby'] = true;
+    $tags['rp'] = true;
+    $tags['rt'] = true;
+  }
+  return $tags;
+}
+
+add_filter('wp_kses_allowed_html', 'custom_wp_kses_allowed_html', 10, 2);
+
 function get_the_thumbnail_image_array($post_id) {
   $image_id = get_post_thumbnail_id($post_id);
   $image_array = wp_get_attachment_image_src($image_id, 'full');
