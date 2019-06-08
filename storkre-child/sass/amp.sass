@@ -8,6 +8,7 @@
 @import 'partials/common/event-detail'
 @import 'partials/common/photo-swipe'
 @import 'partials/common/footer'
+@import 'partials/common/atomic'
 
 \:root
   --key-color: #ff5dab
@@ -268,6 +269,7 @@
       &__content
         overflow: auto;
         position: fixed;
+        top: 0
         z-index: 100;
         width: 90%;
         max-width: 330px;
@@ -353,16 +355,8 @@
 
             li
               flex-basis: 50%
-
-              &:first-child
-                border-right: 1px solid #F0F0F0;
-                border-bottom: 1px solid #F0F0F0;
-
-              &:nth-child(2)
-                border-bottom: 1px solid #F0F0F0;
-
-              &:nth-child(3)
-                border-right: 1px solid #F0F0F0;
+              border-right: 1px solid #F0F0F0;
+              border-bottom: 1px solid #F0F0F0;
 
             a
               display: block
