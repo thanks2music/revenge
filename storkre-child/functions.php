@@ -417,7 +417,7 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
 }
 add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
-function get_the_work_term_name($terms) {
+function get_the_work_term_name($terms, $value = 'name') {
   $length = count($terms);
   $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke'];
   $term_name = [];
@@ -434,7 +434,11 @@ function get_the_work_term_name($terms) {
 
   for($i = 0; $i < $length; $i++) {
     if ($terms[$i]->slug === $result[0]) {
-      $work_name = $terms[$i]->name;
+      if ($value === 'slug') {
+        $work_name = $terms[$i]->slug;
+      } else {
+        $work_name = $terms[$i]->name;
+      }
     }
   }
 
@@ -664,16 +668,31 @@ function is_prod() {
   }
 }
 
+function get_slug_by_path() {
+  $url = $_SERVER['REQUEST_URI'];
+  $path_arr = explode('/', $url);
+  $path_count = count($path_arr);
+  $cat_slug = '';
+
+  if ($path_count >= 2) {
+    if (array_values($path_arr) === $path_arr) {
+      $cat_slug = $path_arr[$path_count - 2];
+    }
+  }
+
+  return $cat_slug;
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {
-	function add_mythumbnail_size() {
-	add_theme_support('post-thumbnails');
-	add_image_size('period-thum', 672, 416, true);
-	add_image_size('home-thum', 486, 290, true);
-	add_image_size('post-thum', 300, 200, true);
-	}
-	add_action( 'after_setup_theme', 'add_mythumbnail_size' );
+  function add_mythumbnail_size() {
+    add_theme_support('post-thumbnails');
+    add_image_size('period-thum', 672, 416, true);
+    add_image_size('home-thum', 486, 290, true);
+    add_image_size('post-thum', 300, 200, true);
+  }
+  add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }
 
 function minify_css($data) {

@@ -20,6 +20,7 @@ const is_sp = () => {
 const body = document.getElementsByTagName('body'),
     wrap = document.getElementById('container'),
     selectCategory = $(wrap).find('.eo__event_categories select'),
+    closeWorkDetail = $(wrap).find('#js__close__work__detail'),
     header = $(wrap).find('.header'),
     modal = $(wrap).find('.js__modal--mail'),
     des = $(wrap).find('.site_description');
@@ -77,6 +78,23 @@ $(window).on('scroll', (e) => {
     initPos = currentPos;
   }, 200);
 });
+
+if (closeWorkDetail.length) {
+  closeWorkDetail.on('click', (e) => {
+    const parentElement = $(e.currentTarget).parents('.work__detail'),
+          iconElement = parentElement.find('.fa'),
+          toggleElement = parentElement.find('.work__detail__inner');
+
+    if (iconElement.hasClass('fa-plus-circle')) {
+      iconElement.removeClass('fa-plus-circle').addClass('fa-minus-circle');
+    } else {
+      iconElement.removeClass('fa-minus-circle').addClass('fa-plus-circle');
+    }
+    toggleElement.slideToggle(300, () => {
+      parentElement.toggleClass('work__detail--toggle');
+    });
+  });
+}
 
 selectCategory.on('change', function() {
   const categoryPath = $(this).val(),

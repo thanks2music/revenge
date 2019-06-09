@@ -1,6 +1,13 @@
+%__hr__gradient
+  background: linear-gradient(to right, var(--key-color) 0%, var(--sub-color) 100%)
+  padding: 0
+  border: 0
+
 .hr
   &__gradient
-    background: linear-gradient(to right,#ff5dab 0%,#00b5fa 100%)
+    @extend %__hr__gradient
     height: 3px
-    padding: 0
-    border: 0
+
+    &--small
+      @extend %__hr__gradient
+      height: 1px
