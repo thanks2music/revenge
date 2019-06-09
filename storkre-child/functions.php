@@ -417,6 +417,60 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
 }
 add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
+function get_the_genre_name($terms) {
+  $length = count($terms);
+  $target_genre  = ['restaurant', 'cafe', 'event', 'news', 'karaoke', '25stage'];
+  $term_slug = [];
+  $genre_name = '';
+
+  for($i = 0; $i < $length; $i++) {
+    // 親カテゴリがあるカテゴリを除外
+    $term_slug[] .= $terms[$i]->slug;
+  }
+
+  $result = array_intersect($term_slug, $target_genre);
+  $result = array_values($result);
+  $result_length = count($result);
+
+  if ($result_length > 1) {
+    foreach($result as $genre) {
+      switch($genre) {
+        case $genre === 'restaurant':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'cafe':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'event':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'karaoke':
+          $genre_name = $genre;
+          break;
+
+        case $genre === '25stage':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'news':
+          $genre_name = $genr;
+          break;
+
+        default:
+          $genre_name = '';
+          break;
+      }
+    }
+  } else {
+    $genre_name = $result[0];
+  }
+
+  return $genre_name;
+}
+
 function get_the_work_term_name($terms, $value = 'name') {
   $length = count($terms);
   $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke'];

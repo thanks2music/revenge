@@ -329,11 +329,11 @@
         $event_cat_slug = '';
         $cat = get_the_terms($post->ID, $taxonomy_name);
         $the_cat_length = count($cat);
+        $event_cat_slug = get_the_genre_name($cat);
 
         for ($i = 0; $i < $the_cat_length; $i++) {
-          if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news' || $cat[$i]->slug === 'karaoke' || $cat[$i]->slug === '25stage') {
+          if ($event_cat_slug === $cat[$i]->slug) {
             $cat_name .= $cat[$i]->name;
-            $event_cat_slug .= $cat[$i]->slug;
             break;
           }
         }
