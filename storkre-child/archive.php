@@ -23,8 +23,6 @@
           if ($post_type === 'event') {
             if (is_tax('event-category')) {
               $taxonomy_name = 'event-category';
-              $work_slug = get_slug_by_path();
-              $work_term = get_term_by('slug', $work_slug, $taxonomy_name);
             } elseif (is_tax('event-tag')) {
               $taxonomy_name = 'event-tag';
             }
