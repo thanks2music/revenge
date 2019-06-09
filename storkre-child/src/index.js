@@ -1,6 +1,6 @@
 import Raven from 'raven-js';
 import Layzr from 'layzr.js';
-// import {TweenMax, TimelineLite} from "gsap/TweenMax";
+import Cookies from 'js-cookie';
 const Flickity = require('flickity-fade');;
 
 Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
@@ -85,6 +85,10 @@ if (closeWorkDetail.length) {
           iconElement = parentElement.find('.fa'),
           toggleElement = parentElement.find('.work__detail__inner');
 
+    if (! Cookies.get('closeWork')) {
+      Cookies.set('closeWork', 'true', { expires: 14, path: '/' });
+    }
+
     if (iconElement.hasClass('fa-plus-circle')) {
       iconElement.removeClass('fa-plus-circle').addClass('fa-minus-circle');
     } else {
@@ -94,6 +98,12 @@ if (closeWorkDetail.length) {
       parentElement.toggleClass('work__detail--toggle');
     });
   });
+}
+
+
+if (Cookies.get('closeWork') && closeWorkDetail.length) {
+  closeWorkDetail.parents('.work__detail').addClass('work__detail--setcookie');
+  closeWorkDetail.find('i').removeClass('fa-minus-circle').addClass('fa-plus-circle');
 }
 
 selectCategory.on('change', function() {

@@ -9,7 +9,11 @@
 .work__detail
   position: relative
 
-  &--toggle
+  .pc &
+    display: none
+
+  &--toggle,
+  &--setcookie
     margin-bottom: 15px
 
   &__title
@@ -22,7 +26,8 @@
     align-items: center
     justify-content: flex-start
 
-    .work__detail--toggle &
+    .work__detail--toggle &,
+    .work__detail--setcookie &
       border-radius: 5px
 
     &__name
@@ -166,6 +171,9 @@
 
     .pc &
       margin: 0 auto 1.5em
+
+    .work__detail--setcookie &
+      display: none
 
     &__box
       border: 1px solid #ddd
