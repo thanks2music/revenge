@@ -233,7 +233,7 @@
 
             <p class="byline entry-meta vcard">
               <?php if (! empty($date_dom)) { ?>
-                <span class="event-date gf">開催期間 : <?php echo $date_dom; ?></span>
+                <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
               <?php } ?>
               <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
             </p>
@@ -441,7 +441,7 @@
 
                 <p class="byline entry-meta vcard">
                   <?php if ($post_type === 'event') { ?>
-                    <span class="event-date gf">開催期間 : <?php echo $date_dom; ?></span>
+                    <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
                   <?php } ?>
                   <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
                   <span class="author name entry-author">

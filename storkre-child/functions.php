@@ -473,7 +473,7 @@ function get_the_genre_name($terms) {
 
 function get_the_work_term_name($terms, $value = 'name') {
   $length = count($terms);
-  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke'];
+  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke', 'restaurant'];
   $term_name = [];
   for($i = 0; $i < $length; $i++) {
     // 親カテゴリがあるカテゴリを除外
