@@ -178,6 +178,7 @@ if ($amp_flag) {
                 // フィルターを通してthe_contentを呼び出す
                 $the_content = apply_filters('the_content', get_the_content());
                 echo $the_content;
+                page_nav_singular();
               ?>
               <amp-image-lightbox id="lightbox2" layout="nodisplay"></amp-image-lightbox>
               <p class="entry-author vcard author sr-only">

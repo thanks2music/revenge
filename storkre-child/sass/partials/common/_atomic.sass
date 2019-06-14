@@ -14,6 +14,7 @@
 
 .nav
   &__page__partial
+    padding-top: 1.5rem
     margin-bottom: 1.5rem
 
     &__counter
@@ -25,6 +26,7 @@
       display: flex
       align-items: center
       justify-content: center
+      flex-wrap: wrap
       position: relative
       padding-top: 60px
       margin-bottom: 5px
@@ -37,7 +39,7 @@
         display: block
         padding: 10px 3px
         font-size: 16px
-        margin: 0 5px
+        margin: 0 5px 5px
         text-align: center
         min-width: 44px
         height: 44px
@@ -49,14 +51,18 @@
 
       a
         border: 1px solid var(--key-color)
-        color: var(--key-color)
-        text-decoration: none
+
+        .entry-content &
+          color: var(--key-color)
+          text-decoration: none
 
         &:hover,
         &:active,
         &:focus,
         &:visited
-          color: var(--key-color)
+          .entry-content &
+            color: var(--key-color)
+            text-decoration: none
 
         &.next
           position: absolute
@@ -83,7 +89,7 @@
         display: block
         font-size: 16px
         padding: 10px 3px
-        margin: 0 5px
+        margin: 0 5px 5px
         background: #f4f4f4
         color: #999
         text-align: center

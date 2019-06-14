@@ -81,9 +81,7 @@
       $the_content = apply_filters('the_content', get_the_content());
       echo $the_content;
 
-      echo '<div class="button__page__partial">';
       page_nav_singular();
-      echo '</div>';
       ?>
 
       <div class="entry__detail">
