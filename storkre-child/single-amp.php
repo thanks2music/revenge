@@ -197,6 +197,7 @@ if ($amp_flag) {
                  data-ad-slot="4944211218">
               </amp-ad>
             </div>
+            <hr class="hr__gradient">
           </article>
           <div class="amp__entry__bottom">
             <div class="amp__ad__taxel__gmo-recommend">
