@@ -737,6 +737,57 @@ function get_slug_by_path() {
   return $cat_slug;
 }
 
+function page_nav_singular() {
+  global $pages, $page, $numpages;
+  // ページ分割されていなければ処理を抜ける
+  if( $numpages == 1 ) {
+    return;
+  }
+
+  // 現在何ページ目かを取得
+  $paged = (get_query_var('page')) ? get_query_var('page') : 1;
+
+  // パーマリンクがデフォルトかどうか調べる。それによってformatを返る必要がある
+  if ( get_option('permalink_structure') == '' ) {
+    $format = '&page=%#%';
+  } else {
+    $format = '/%#%/';
+  }
+
+  // paginate_linksでつかうパラメータを設定
+  $arg = array(
+    'base' => rtrim(get_permalink(),'/').'%_%',
+    'format' =>$format,
+    'total' => $numpages,
+    'current' => $paged,
+    'show_all' => true,
+    'prev_text' => __('<i class="fa fa-chevron-left"></i>'),
+    'next_text' => __('次のページ'),
+  );
+  // paginate_links( $arg )
+
+  //最初と最後の記事では前後の記事へのリンクの片方が表示されないが、それを表示させるための処理
+  $prev_tag = '';
+  $next_tag = '';
+
+  if ($paged === 1 ) {
+    $prev_tag = '<div class="nav__page__partial__links__prev--disable">前</div>'.PHP_EOL;
+  }
+  if ($paged === $numpages) {
+    $next_tag = PHP_EOL.'<div class="nav__page__partial__links__next--disable">次</div>';
+  }
+?>
+  <div class="nav__page__partial">
+    <div class="nav__page__partial__links">
+      <?php echo $prev_tag . paginate_links( $arg ) .$next_tag; ?>
+    </div>
+    <div class="nav__page__partial__counter">
+      <?php echo $paged ?><span> / <?php echo $numpages;?> ページ</span>
+    </div>
+  </div>
+<?php
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {

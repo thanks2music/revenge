@@ -81,15 +81,9 @@
       $the_content = apply_filters('the_content', get_the_content());
       echo $the_content;
 
-      wp_link_pages( array(
-      'before'      => '<div class="page-links cf"><ul>',
-      'after'       => '</ul></div>',
-      'link_before' => '<li><span>',
-      'link_after'  => '</span></li>',
-      'next_or_number'   => 'next',
-      'nextpagelink'     => __('次のページへ ≫'),
-      'previouspagelink' => __('≪ 前のページへ'),
-      ) );
+      echo '<div class="button__page__partial">';
+      page_nav_singular();
+      echo '</div>';
       ?>
 
       <div class="entry__detail">
