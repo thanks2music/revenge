@@ -50,13 +50,14 @@
         margin-right: .6em;
         display: inline-block;
         font-size: .85em;
-        color: #ff7376;
+        color: var(--key-color);
+        font-family: $font-family;
 
         &:before {
           font-family: 'fontawesome';
           content: '\f274';
           margin-right: .2em;
-          color: #ff7376;
+          color: var(--key-color);
         }
       }
 

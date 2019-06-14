@@ -371,6 +371,18 @@ function home_posts_type($wp_query) {
   }
 }
 
+function custom_wp_kses_allowed_html($tags, $context) {
+  if ($context === 'event' || $context === 'post') {
+    $tags['moreads'] = true;
+    $tags['ruby'] = true;
+    $tags['rp'] = true;
+    $tags['rt'] = true;
+  }
+  return $tags;
+}
+
+add_filter('wp_kses_allowed_html', 'custom_wp_kses_allowed_html', 10, 2);
+
 function get_the_thumbnail_image_array($post_id) {
   $image_id = get_post_thumbnail_id($post_id);
   $image_array = wp_get_attachment_image_src($image_id, 'full');
@@ -405,9 +417,63 @@ function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, 
 }
 add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
-function get_the_work_term_name($terms) {
+function get_the_genre_name($terms) {
   $length = count($terms);
-  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke'];
+  $target_genre  = ['restaurant', 'cafe', 'event', 'news', 'karaoke', '25stage'];
+  $term_slug = [];
+  $genre_name = '';
+
+  for($i = 0; $i < $length; $i++) {
+    // 親カテゴリがあるカテゴリを除外
+    $term_slug[] .= $terms[$i]->slug;
+  }
+
+  $result = array_intersect($term_slug, $target_genre);
+  $result = array_values($result);
+  $result_length = count($result);
+
+  if ($result_length > 1) {
+    foreach($result as $genre) {
+      switch($genre) {
+        case $genre === 'restaurant':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'cafe':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'event':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'karaoke':
+          $genre_name = $genre;
+          break;
+
+        case $genre === '25stage':
+          $genre_name = $genre;
+          break;
+
+        case $genre === 'news':
+          $genre_name = $genr;
+          break;
+
+        default:
+          $genre_name = '';
+          break;
+      }
+    }
+  } else {
+    $genre_name = $result[0];
+  }
+
+  return $genre_name;
+}
+
+function get_the_work_term_name($terms, $value = 'name') {
+  $length = count($terms);
+  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke', 'restaurant'];
   $term_name = [];
   for($i = 0; $i < $length; $i++) {
     // 親カテゴリがあるカテゴリを除外
@@ -422,7 +488,11 @@ function get_the_work_term_name($terms) {
 
   for($i = 0; $i < $length; $i++) {
     if ($terms[$i]->slug === $result[0]) {
-      $work_name = $terms[$i]->name;
+      if ($value === 'slug') {
+        $work_name = $terms[$i]->slug;
+      } else {
+        $work_name = $terms[$i]->name;
+      }
     }
   }
 
@@ -652,16 +722,82 @@ function is_prod() {
   }
 }
 
+function get_slug_by_path() {
+  $url = $_SERVER['REQUEST_URI'];
+  $path_arr = explode('/', $url);
+  $path_count = count($path_arr);
+  $cat_slug = '';
+
+  if ($path_count >= 2) {
+    if (array_values($path_arr) === $path_arr) {
+      $cat_slug = $path_arr[$path_count - 2];
+    }
+  }
+
+  return $cat_slug;
+}
+
+function page_nav_singular() {
+  global $pages, $page, $numpages;
+  // ページ分割されていなければ処理を抜ける
+  if( $numpages == 1 ) {
+    return;
+  }
+
+  // 現在何ページ目かを取得
+  $paged = (get_query_var('page')) ? get_query_var('page') : 1;
+
+  // パーマリンクがデフォルトかどうか調べる。それによってformatを返る必要がある
+  if ( get_option('permalink_structure') == '' ) {
+    $format = '&page=%#%';
+  } else {
+    $format = '/%#%/';
+  }
+
+  // paginate_linksでつかうパラメータを設定
+  $arg = array(
+    'base' => rtrim(get_permalink(),'/').'%_%',
+    'format' =>$format,
+    'total' => $numpages,
+    'current' => $paged,
+    'show_all' => true,
+    'prev_text' => __('<i class="fa fa-chevron-left"></i>'),
+    'next_text' => __('次のページ'),
+  );
+  // paginate_links( $arg )
+
+  //最初と最後の記事では前後の記事へのリンクの片方が表示されないが、それを表示させるための処理
+  $prev_tag = '';
+  $next_tag = '';
+
+  if ($paged === 1 ) {
+    $prev_tag = '<div class="nav__page__partial__links__prev--disable">前</div>'.PHP_EOL;
+  }
+  if ($paged === $numpages) {
+    $next_tag = PHP_EOL.'<div class="nav__page__partial__links__next--disable">次</div>';
+  }
+?>
+  <div class="nav__page__partial">
+    <div class="nav__page__partial__links">
+      <?php echo $prev_tag . paginate_links( $arg ) .$next_tag; ?>
+    </div>
+    <div class="nav__page__partial__counter">
+      <?php echo $paged ?><span> / <?php echo $numpages;?> ページ</span>
+    </div>
+  </div>
+<?php
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {
-	function add_mythumbnail_size() {
-	add_theme_support('post-thumbnails');
-	add_image_size('period-thum', 672, 416, true);
-	add_image_size('home-thum', 486, 290, true);
-	add_image_size('post-thum', 300, 200, true);
-	}
-	add_action( 'after_setup_theme', 'add_mythumbnail_size' );
+  function add_mythumbnail_size() {
+    add_theme_support('post-thumbnails');
+    add_image_size('period-thum', 672, 416, true);
+    add_image_size('home-thum', 486, 290, true);
+    add_image_size('post-thum', 300, 200, true);
+  }
+  add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }
 
 function minify_css($data) {

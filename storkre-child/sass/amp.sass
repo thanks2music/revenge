@@ -8,6 +8,7 @@
 @import 'partials/common/event-detail'
 @import 'partials/common/photo-swipe'
 @import 'partials/common/footer'
+@import 'partials/common/atomic'
 
 \:root
   --key-color: #ff5dab
@@ -80,6 +81,10 @@
     &__title
       font-size: 1.1rem
       margin-bottom: 10px
+
+    &__bottom
+      padding-top: 1.5rem
+      margin-bottom: 1.5rem
 
   &__eyecatch
     margin: 0 -10px
@@ -268,6 +273,7 @@
       &__content
         overflow: auto;
         position: fixed;
+        top: 0
         z-index: 100;
         width: 90%;
         max-width: 330px;
@@ -353,16 +359,8 @@
 
             li
               flex-basis: 50%
-
-              &:first-child
-                border-right: 1px solid #F0F0F0;
-                border-bottom: 1px solid #F0F0F0;
-
-              &:nth-child(2)
-                border-bottom: 1px solid #F0F0F0;
-
-              &:nth-child(3)
-                border-right: 1px solid #F0F0F0;
+              border-right: 1px solid #F0F0F0;
+              border-bottom: 1px solid #F0F0F0;
 
             a
               display: block
@@ -558,3 +556,16 @@
     font-size: 10px
     text-align: center
     letter-spacing: 0.5px
+
+// AMP専用Ad
+.amp-sticky-ad
+  // ☓ボタン
+  &-close-button
+
+  // 上部の余白
+  &-top-padding
+    padding: 0
+
+#taxel-readmore
+  background-color: rgba(#fff, .8)
+  text-align: center

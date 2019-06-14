@@ -171,9 +171,9 @@
         $the_query->the_post();
         $cf = get_post_custom();
         $endless_flag = get_post_meta($post->ID, 'endless_event_flag', true);
+        $ambiguous_period = get_post_meta($post->ID, 'ambiguous_ period', true);
         $post_type = get_post_type();
         $taxonomy_name = 'category';
-
 
         if ($post_type === 'event') {
           $start_date = '';
@@ -206,6 +206,9 @@
             }
           }
 
+          if ($ambiguous_period) {
+            $date_dom = $ambiguous_period;
+          }
 
           $terms = get_the_terms($post->ID, $taxonomy_name);
           $cat_name = get_the_work_term_name($terms);
@@ -230,7 +233,7 @@
 
             <p class="byline entry-meta vcard">
               <?php if (! empty($date_dom)) { ?>
-                <span class="event-date gf">開催期間 : <?php echo $date_dom; ?></span>
+                <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
               <?php } ?>
               <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
             </p>
@@ -281,6 +284,8 @@
         $the_query->the_post();
         $cf = get_post_custom();
         $endless_flag = get_post_meta($post->ID, 'endless_event_flag', true);
+        $ambiguous_period = get_post_meta($post->ID, 'ambiguous_ period', true);
+
         $post_type = get_post_type();
         $taxonomy_name = 'category';
 
@@ -316,15 +321,19 @@
           }
         }
 
+        if ($ambiguous_period) {
+          $date_dom = $ambiguous_period;
+        }
+
         $cat_name = '';
         $event_cat_slug = '';
         $cat = get_the_terms($post->ID, $taxonomy_name);
         $the_cat_length = count($cat);
+        $event_cat_slug = get_the_genre_name($cat);
 
         for ($i = 0; $i < $the_cat_length; $i++) {
-          if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news' || $cat[$i]->slug === 'karaoke') {
+          if ($event_cat_slug === $cat[$i]->slug) {
             $cat_name .= $cat[$i]->name;
-            $event_cat_slug .= $cat[$i]->slug;
             break;
           }
         }
@@ -432,7 +441,7 @@
 
                 <p class="byline entry-meta vcard">
                   <?php if ($post_type === 'event') { ?>
-                    <span class="event-date gf">開催期間 : <?php echo $date_dom; ?></span>
+                    <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
                   <?php } ?>
                   <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
                   <span class="author name entry-author">

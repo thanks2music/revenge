@@ -99,3 +99,49 @@
         background-color: rgba(255,255,255,0.3);
         opacity: 0;
         transition: opacity 150ms linear;
+
+.widget__cafe__list
+  $primary: var(--key-color)
+  $accent: var(--sub-color)
+
+  &__title
+    color: #fff
+    background: $primary
+    font-size: 1em
+    border-radius: 3px 3px 0 0
+    margin: 0
+    padding: .75em .8em
+
+  &__ul
+    margin-top: -1px
+    border: 1px solid #ddd
+    border-top: 0
+    border-radius: 0 0 3px 3px
+
+    li
+      border-bottom: 1px dotted #ddd
+
+      .pc &
+        margin: 0
+
+      &:last-child
+        margin-bottom: 0
+        border-bottom: 0
+
+      a
+        color: #333
+        display: block
+        padding: 1em
+        // padding-bottom: 10px
+
+        // .sp &
+        //   padding-top: 10px
+
+        &:hover
+          transition: all 300ms ease-out
+          padding-left: .7em
+          color: $accent
+
+    i
+      color: $accent
+      margin-right: .2em

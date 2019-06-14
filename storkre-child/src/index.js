@@ -1,6 +1,6 @@
 import Raven from 'raven-js';
 import Layzr from 'layzr.js';
-// import {TweenMax, TimelineLite} from "gsap/TweenMax";
+import Cookies from 'js-cookie';
 const Flickity = require('flickity-fade');;
 
 Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
@@ -17,12 +17,13 @@ const is_sp = () => {
 };
 
 // Common
-const body = document.getElementsByTagName('body'),
-    wrap = document.getElementById('container'),
-    selectCategory = $(wrap).find('.eo__event_categories select'),
-    header = $(wrap).find('.header'),
-    modal = $(wrap).find('.js__modal--mail'),
-    des = $(wrap).find('.site_description');
+const body            = document.getElementsByTagName('body'),
+      wrap            = document.getElementById('container'),
+      selectCategory  = $(wrap).find('.eo__event_categories select'),
+      closeWorkDetail = $(wrap).find('#js__close__work__detail'),
+      header          = $(wrap).find('.header'),
+      modal           = $(wrap).find('.js__modal--mail'),
+      des             = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 // @description img data-srcがあり、class="lazy" があるimg要素は遅延読み込みさせる
 const lazyLoadInstance = Layzr({
@@ -78,6 +79,33 @@ $(window).on('scroll', (e) => {
   }, 200);
 });
 
+if (closeWorkDetail.length) {
+  closeWorkDetail.on('click', (e) => {
+    const parentElement = $(e.currentTarget).parents('.work__detail'),
+          iconElement = parentElement.find('.fa'),
+          toggleElement = parentElement.find('.work__detail__inner');
+
+    if (! Cookies.get('closeWork')) {
+      Cookies.set('closeWork', 'true', { expires: 14, path: '/' });
+    }
+
+    if (iconElement.hasClass('fa-plus-circle')) {
+      iconElement.removeClass('fa-plus-circle').addClass('fa-minus-circle');
+    } else {
+      iconElement.removeClass('fa-minus-circle').addClass('fa-plus-circle');
+    }
+    toggleElement.slideToggle(300, () => {
+      parentElement.toggleClass('work__detail--toggle');
+    });
+  });
+}
+
+
+if (Cookies.get('closeWork') && closeWorkDetail.length) {
+  closeWorkDetail.parents('.work__detail').addClass('work__detail--setcookie');
+  closeWorkDetail.find('i').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+}
+
 selectCategory.on('change', function() {
   const categoryPath = $(this).val(),
         redirectPath = '/events/category/' + categoryPath;
@@ -87,9 +115,20 @@ selectCategory.on('change', function() {
   }, 100);
 });
 
+// Load後
 document.addEventListener('DOMContentLoaded', () => {
   $(body).addClass('loaded');
+
+  // for Ad
+  const head    = document.querySelector('head');
+  // Taxel by gmo recommend が重いのでドキュメント読み込み後に実行させる
+  const adTaxel = document.createElement('script');
+  adTaxel.setAttribute('src', 'https://taxel.jp/rw.js?m=703');
+  adTaxel.setAttribute('charset', 'utf-8');
+
+  head.appendChild(adTaxel);
 });
+
 
 // for Single
 if (body[0].className.indexOf('single') > -1) {

@@ -1,4 +1,4 @@
-<?php global $amp_flag;
+<?php global $amp_flag, $is_sp, $is_pc;
   if ($amp_flag) {
     get_template_part('single-amp');
   } else { ?>
@@ -81,15 +81,9 @@
       $the_content = apply_filters('the_content', get_the_content());
       echo $the_content;
 
-      wp_link_pages( array(
-      'before'      => '<div class="page-links cf"><ul>',
-      'after'       => '</ul></div>',
-      'link_before' => '<li><span>',
-      'link_after'  => '</span></li>',
-      'next_or_number'   => 'next',
-      'nextpagelink'     => __('次のページへ ≫'),
-      'previouspagelink' => __('≪ 前のページへ'),
-      ) );
+      echo '<div class="button__page__partial">';
+      page_nav_singular();
+      echo '</div>';
       ?>
 
       <div class="entry__detail">
@@ -143,6 +137,11 @@
       <?php if( !is_mobile() ): ?><p class="small">最新記事をお届けします。</p><?php endif; ?></div></div></div>
     <?php endif; ?>
 
+    <?php if ($is_sp) { ?>
+      <div class="ad__taxel__gmo-recommend">
+        <div id="gmo_rw_12370" data-gmoad="rw"></div>
+      </div>
+    <?php } ?>
 
     <?php if ( !get_option( 'sns_options_hide' ) ) : ?>
     <div class="sharewrap wow animated fadeIn" data-wow-delay="0.5s">

@@ -1,5 +1,16 @@
 <?php get_header(); ?>
 <div id="content">
+  <?php
+    if (is_tax('event-category')) {
+      $work_slug = get_slug_by_path();
+      $work_term = get_term_by('slug', $work_slug, $taxonomy);
+
+      if (! is_wp_error($work_term) && strpos($work_term->description, 'work__detail') !== false) {
+        echo $work_term->description;
+      }
+    }
+  ?>
+
   <div id="inner-content" class="wrap cf">
     <main id="main" class="m-all t-all d-5of7 cf" role="main">
       <div class="archivettl">

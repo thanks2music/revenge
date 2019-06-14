@@ -113,6 +113,13 @@ if ($amp_flag) {
           $post_class = 'amp__entry';
         ?>
           <article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?> role="article">
+            <amp-sticky-ad layout="nodisplay">
+              <amp-ad width="320"
+                  height="100"
+                  type="gmossp"
+                  data-id="g908890">
+              </amp-ad>
+            </amp-sticky-ad>
             <header class="article-header entry-header amp__entry__header">
               <?php // 記事更新時間 ?>
               <p class="byline entry-meta cf">
@@ -190,20 +197,23 @@ if ($amp_flag) {
                  data-ad-slot="4944211218">
               </amp-ad>
             </div>
+            <hr class="hr__gradient">
           </article>
           <div class="amp__entry__bottom">
+            <div class="amp__ad__taxel__gmo-recommend">
+              <amp-iframe width=300 height=300
+                sandbox="allow-scripts allow-same-origin allow-top-navigation allow-popups"
+                layout="responsive"
+                resizable
+                frameborder="0"
+                src='https://taxel.jp/amp/sponsor.html#{"media": 703, "widget": 12376, "protocol": "https"}'>
+                <div overflow="" tabindex="0" role="button" id="taxel-readmore" aria-label="Read more">続きを読む</div>
+              </amp-iframe>
+            </div>
           </div>
           <?php get_template_part( 'parts_singlefoot' ); ?>
           <?php } ?>
         </div>
-
-        <amp-sticky-ad layout="nodisplay">
-          <amp-ad width="320"
-              height="100"
-              type="gmossp"
-              data-id="g908890">
-          </amp-ad>
-        </amp-sticky-ad>
       </div>
       <?php // footerのスタイリング ?>
       <footer id="footer" class="footer" role="contentinfo">
