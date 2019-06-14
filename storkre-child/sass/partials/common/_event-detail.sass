@@ -94,8 +94,11 @@
   %__list__flex
     display: flex
     flex-wrap: wrap
-    justify-content: space-around
+    justify-content: space-between
     margin: 0
+
+    &:not(:only-child):first-child
+      margin: 0 0 15px
 
   %__list__flex__li
     border-radius: 3px
@@ -145,8 +148,10 @@
     th
       background: #efefef
       border-right: 1px solid #c1c1c1
+      width: 30%
 
     td
+      width: 70%
 
   &__description
     font-size: .8rem

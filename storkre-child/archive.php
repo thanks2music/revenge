@@ -5,7 +5,7 @@
       $work_slug = get_slug_by_path();
       $work_term = get_term_by('slug', $work_slug, $taxonomy);
 
-      if (! is_wp_error($work_term)) {
+      if (! is_wp_error($work_term) && strpos($work_term->description, 'work__detail') !== false) {
         echo $work_term->description;
       }
     }

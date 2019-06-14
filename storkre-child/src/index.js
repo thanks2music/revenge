@@ -17,13 +17,13 @@ const is_sp = () => {
 };
 
 // Common
-const body = document.getElementsByTagName('body'),
-    wrap = document.getElementById('container'),
-    selectCategory = $(wrap).find('.eo__event_categories select'),
-    closeWorkDetail = $(wrap).find('#js__close__work__detail'),
-    header = $(wrap).find('.header'),
-    modal = $(wrap).find('.js__modal--mail'),
-    des = $(wrap).find('.site_description');
+const body            = document.getElementsByTagName('body'),
+      wrap            = document.getElementById('container'),
+      selectCategory  = $(wrap).find('.eo__event_categories select'),
+      closeWorkDetail = $(wrap).find('#js__close__work__detail'),
+      header          = $(wrap).find('.header'),
+      modal           = $(wrap).find('.js__modal--mail'),
+      des             = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 // @description img data-srcがあり、class="lazy" があるimg要素は遅延読み込みさせる
 const lazyLoadInstance = Layzr({
@@ -115,9 +115,20 @@ selectCategory.on('change', function() {
   }, 100);
 });
 
+// Load後
 document.addEventListener('DOMContentLoaded', () => {
   $(body).addClass('loaded');
+
+  // for Ad
+  const head    = document.querySelector('head');
+  // Taxel by gmo recommend が重いのでドキュメント読み込み後に実行させる
+  const adTaxel = document.createElement('script');
+  adTaxel.setAttribute('src', 'https://taxel.jp/rw.js?m=703');
+  adTaxel.setAttribute('charset', 'utf-8');
+
+  head.appendChild(adTaxel);
 });
+
 
 // for Single
 if (body[0].className.indexOf('single') > -1) {

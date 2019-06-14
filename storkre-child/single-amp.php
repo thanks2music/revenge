@@ -197,8 +197,19 @@ if ($amp_flag) {
                  data-ad-slot="4944211218">
               </amp-ad>
             </div>
+            <hr class="hr__gradient">
           </article>
           <div class="amp__entry__bottom">
+            <div class="amp__ad__taxel__gmo-recommend">
+              <amp-iframe width=300 height=300
+                sandbox="allow-scripts allow-same-origin allow-top-navigation allow-popups"
+                layout="responsive"
+                resizable
+                frameborder="0"
+                src='https://taxel.jp/amp/sponsor.html#{"media": 703, "widget": 12376, "protocol": "https"}'>
+                <div overflow="" tabindex="0" role="button" id="taxel-readmore" aria-label="Read more">続きを読む</div>
+              </amp-iframe>
+            </div>
           </div>
           <?php get_template_part( 'parts_singlefoot' ); ?>
           <?php } ?>

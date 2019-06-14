@@ -29,8 +29,8 @@
   <![endif]-->
 
   <?php get_template_part( 'head' ); ?>
-
   <?php wp_head(); ?>
+
   <?php if (is_prod()) { ?>
     <?php if ($is_sp) { // YDN Tag ?>
       <script src="//cdn.gmossp-sp.jp/ads/loader.js?space_id=g908845" charset="utf-8" language="JavaScript"></script>
