@@ -32,9 +32,6 @@
   <?php wp_head(); ?>
 
   <?php if (is_prod()) { ?>
-    <?php // GMO Recommend ?>
-    <script src="//taxel.jp/rw.js?m=703" async="" charset="utf-8"></script>
-
     <?php if ($is_sp) { // YDN Tag ?>
       <script src="//cdn.gmossp-sp.jp/ads/loader.js?space_id=g908845" charset="utf-8" language="JavaScript"></script>
       <script language='javascript'>
