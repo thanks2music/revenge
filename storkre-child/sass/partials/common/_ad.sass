@@ -68,9 +68,13 @@
       text-align: center
 
   &__footer
+    &__sp
+      letter-spacing: normal
+
     &__pc
       display: flex
       justify-content: space-evenly
+      letter-spacing: normal
 
       &__left,
       &__right
@@ -82,6 +86,8 @@
 
 .amp
   &__ad
+    @extend %__amp__ad
+
     &--responsive
       @extend %__amp__ad
 
@@ -89,11 +95,13 @@
       @extend %__amp__ad
       padding: 10px 20px 20px
 
-  &__ad
-    @extend %__amp__ad
-
     &--eyecatch-under
       @extend %__amp__ad
 
     &--content-under
       @extend %__amp__ad
+
+    &__footer
+      @extend %__amp__ad
+      background: #fff
+      padding: 10px
