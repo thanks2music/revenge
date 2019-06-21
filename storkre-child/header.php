@@ -42,17 +42,17 @@
     <?php if ($is_sp) { ?>
       <?php // ADX ?>
       <script>
-        // googletag.cmd.push(function() {
-        //   googletag.defineSlot('/21153358/68387', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874403648-0').addService(googletag.pubads());
-        //   googletag.defineSlot('/21153358/68388', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874452687-0').addService(googletag.pubads());
-        //   googletag.defineSlot('/21153358/68389', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874477418-0').addService(googletag.pubads());
-        //   googletag.defineSlot('/21153358/68390', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874513753-0').addService(googletag.pubads());
-        //   // 以下は後日 googletag.defineSlot('/21153358/68391', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874542554-0').addService(googletag.pubads());
-        //   // googletag.defineSlot('/21153358/68392', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874567407-0').addService(googletag.pubads());
-        //   // googletag.defineSlot('/21153358/68393', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874589795-0').addService(googletag.pubads());
-        //   googletag.pubads().enableSingleRequest();
-        //   googletag.enableServices();
-        // });
+        googletag.cmd.push(function() {
+          googletag.defineSlot('/21153358/68387', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874403648-0').addService(googletag.pubads());
+          googletag.defineSlot('/21153358/68388', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874452687-0').addService(googletag.pubads());
+          googletag.defineSlot('/21153358/68389', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874477418-0').addService(googletag.pubads());
+          googletag.defineSlot('/21153358/68390', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874513753-0').addService(googletag.pubads());
+          // 以下は後日 googletag.defineSlot('/21153358/68391', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874542554-0').addService(googletag.pubads());
+          // googletag.defineSlot('/21153358/68392', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874567407-0').addService(googletag.pubads());
+          // googletag.defineSlot('/21153358/68393', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874589795-0').addService(googletag.pubads());
+          googletag.pubads().enableSingleRequest();
+          googletag.enableServices();
+        });
       </script>
 
       <?php // GMO YDN Tag ?>
