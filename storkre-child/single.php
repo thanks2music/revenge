@@ -100,7 +100,7 @@
 
     <?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>
     <div class="ad__sp-content">
-    <?php dynamic_sidebar( 'addbanner-sp-contentfoot' ); ?>
+      <?php dynamic_sidebar( 'addbanner-sp-contentfoot' ); ?>
     </div>
     <?php endif; ?>
 
@@ -124,19 +124,13 @@
            (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
       </div>
+
+      <hr class="hr__gradient">
+
       <div class="ad__taxel__gmo-recommend">
         <div id="gmo_rw_12370" data-gmoad="rw"></div>
       </div>
     <?php } else { ?>
-      <div class="ad__google-recommend--pc">
-        <ins class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-7307810455044245"
-          data-ad-slot="2987528412"
-          data-matched-content-rows-num="5" data-matched-content-columns-num="1"
-          data-matched-content-ui-type="image_sidebyside" data-ad-format="autorelaxed"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
     <?php } ?>
 
     <?php if (get_option('fbbox_options_url')) : ?>
