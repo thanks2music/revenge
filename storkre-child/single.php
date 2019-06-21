@@ -123,6 +123,10 @@
         <script>
            (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
+      </div>
+      <div class="ad__taxel__gmo-recommend">
+        <div id="gmo_rw_12370" data-gmoad="rw"></div>
+      </div>
     <?php } else { ?>
       <div class="ad__google-recommend--pc">
         <ins class="adsbygoogle"
@@ -132,11 +136,6 @@
           data-matched-content-rows-num="5" data-matched-content-columns-num="1"
           data-matched-content-ui-type="image_sidebyside" data-ad-format="autorelaxed"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-    <?php } ?>
-    <?php if ($is_sp) { ?>
-      <div class="ad__taxel__gmo-recommend">
-        <div id="gmo_rw_12370" data-gmoad="rw"></div>
       </div>
     <?php } ?>
 
