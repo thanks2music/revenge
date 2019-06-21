@@ -47,7 +47,7 @@
           googletag.defineSlot('/21153358/68388', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874452687-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68389', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874477418-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68390', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874513753-0').addService(googletag.pubads());
-          // 以下は後日 googletag.defineSlot('/21153358/68391', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874542554-0').addService(googletag.pubads());
+          googletag.defineSlot('/21153358/68391', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874542554-0').addService(googletag.pubads());
           // googletag.defineSlot('/21153358/68392', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874567407-0').addService(googletag.pubads());
           // googletag.defineSlot('/21153358/68393', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874589795-0').addService(googletag.pubads());
           googletag.pubads().enableSingleRequest();
@@ -72,8 +72,8 @@
           googletag.defineSlot('/21153358/68407', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874921601-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68408', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874949947-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68409', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874975970-0').addService(googletag.pubads());
-          // googletag.defineSlot('/21153358/68410', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874997358-0').addService(googletag.pubads());
-          // googletag.defineSlot('/21153358/68411', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559875016379-0').addService(googletag.pubads());
+          googletag.defineSlot('/21153358/68410', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874997358-0').addService(googletag.pubads());
+          googletag.defineSlot('/21153358/68411', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559875016379-0').addService(googletag.pubads());
           // googletag.defineSlot('/21153358/68412', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559875036306-0').addService(googletag.pubads());
           // googletag.defineSlot('/21153358/68413', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559875056083-0').addService(googletag.pubads());
           // googletag.defineSlot('/21153358/68414', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559875079881-0').addService(googletag.pubads());
