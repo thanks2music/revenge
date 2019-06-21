@@ -63,7 +63,7 @@
     <?php } else { ?>
       <script>
         googletag.cmd.push(function() {
-          googletag.defineSlot('/21153358/68401', [[1, 1], [728, 90], [970, 250]], 'div-gpt-ad-1559874783955-0').addService(googletag.pubads());
+          // googletag.defineSlot('/21153358/68401', [[1, 1], [728, 90], [970, 250]], 'div-gpt-ad-1559874783955-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68402', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1560820920472-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68403', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1560820977467-0').addService(googletag.pubads());
           googletag.defineSlot('/21153358/68404', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1560821018461-0').addService(googletag.pubads());
