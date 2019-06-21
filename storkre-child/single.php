@@ -112,6 +112,16 @@
     </footer>
     <?php endif; ?>
 
+    <?php // Google Recommend ?>
+    <div class="ad__google-recommend">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-7307810455044245"
+        data-ad-slot="2987528412"
+        data-matched-content-rows-num="5" data-matched-content-columns-num="1"
+        data-matched-content-ui-type="image_sidebyside" data-ad-format="autorelaxed"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
     <?php if ($is_sp) { ?>
       <div class="ad__taxel__gmo-recommend">
         <div id="gmo_rw_12370" data-gmoad="rw"></div>
