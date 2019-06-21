@@ -112,6 +112,11 @@
     </footer>
     <?php endif; ?>
 
+    <?php if ($is_sp) { ?>
+      <div class="ad__taxel__gmo-recommend">
+        <div id="gmo_rw_12370" data-gmoad="rw"></div>
+      </div>
+    <?php } ?>
 
     <?php if (get_option('fbbox_options_url')) : ?>
       <div class="fb-likebtn wow animated fadeIn cf" data-wow-delay="0.5s">
@@ -134,12 +139,6 @@
       <div class="rightbox"><div class="fb-like fb-button" data-href="<?php echo $fburl;?>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div><div class="like_text"><p>この記事が気に入ったら<br><i class="fa fa-thumbs-up"></i> いいねしよう！</p>
       <?php if( !is_mobile() ): ?><p class="small">最新記事をお届けします。</p><?php endif; ?></div></div></div>
     <?php endif; ?>
-
-    <?php if ($is_sp) { ?>
-      <div class="ad__taxel__gmo-recommend">
-        <div id="gmo_rw_12370" data-gmoad="rw"></div>
-      </div>
-    <?php } ?>
 
     <?php if ( !get_option( 'sns_options_hide' ) ) : ?>
     <div class="sharewrap wow animated fadeIn" data-wow-delay="0.5s">
