@@ -208,6 +208,29 @@
       $more_dom = '<a href="/events/category/collabo-period/" class="more-read-period">';
       $more_dom .= '終了間近の一覧' . '</a>';
       echo $more_dom;
+
+      if ($is_pc) { ?>
+      <div class="ad__footer__pc">
+        <div class="ad__footer__pc__left">
+          <!-- /21153358/68408 : CoCafe_PC_article_1st_left_68408 -->
+          <div id="div-gpt-ad-1559874949947-0">
+          <script>
+          googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874949947-0'); });
+          </script>
+          </div>
+        </div>
+        <div class="ad__footer__pc__right">
+          <!-- /21153358/68409 : CoCafe_PC_article_1st_right_68409-->
+          <div id="div-gpt-ad-1559874975970-0">
+          <script>
+          googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874975970-0'); });
+          </script>
+          </div>
+        </div>
+      </div>
+      <?php
+      }
+
       echo '</div>'; // end .period-container
     } // end if
   }
