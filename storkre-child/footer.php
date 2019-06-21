@@ -229,7 +229,16 @@
         </div>
       </div>
       <?php
-      }
+      } else { ?>
+        <div class="ad__adx__sp">
+          <!-- /21153358/68389 : CoCafe_SP_all_footer_68389 -->
+          <div id="div-gpt-ad-1559874477418-0">
+            <script>
+              googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874477418-0'); });
+            </script>
+          </div>
+        </div>
+      <?php }
 
       echo '</div>'; // end .period-container
     } // end if
