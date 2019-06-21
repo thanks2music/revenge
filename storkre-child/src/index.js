@@ -85,9 +85,9 @@ if (closeWorkDetail.length) {
           iconElement = parentElement.find('.fa'),
           toggleElement = parentElement.find('.work__detail__inner');
 
-    if (! Cookies.get('closeWork')) {
-      Cookies.set('closeWork', 'true', { expires: 14, path: '/' });
-    }
+    // if (! Cookies.get('closeWork')) {
+    //   Cookies.set('closeWork', 'true', { expires: 14, path: '/' });
+    // }
 
     if (iconElement.hasClass('fa-plus-circle')) {
       iconElement.removeClass('fa-plus-circle').addClass('fa-minus-circle');
@@ -98,12 +98,6 @@ if (closeWorkDetail.length) {
       parentElement.toggleClass('work__detail--toggle');
     });
   });
-}
-
-
-if (Cookies.get('closeWork') && closeWorkDetail.length) {
-  closeWorkDetail.parents('.work__detail').addClass('work__detail--setcookie');
-  closeWorkDetail.find('i').removeClass('fa-minus-circle').addClass('fa-plus-circle');
 }
 
 selectCategory.on('change', function() {

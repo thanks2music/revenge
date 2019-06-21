@@ -8,9 +8,7 @@
 
 .work__detail
   position: relative
-
-  .pc &
-    display: none
+  margin-bottom: 15px
 
   &--toggle,
   &--setcookie
@@ -18,17 +16,16 @@
 
   &__title
     background: var(--key-color)
-    border-radius: 5px 5px 0 0
     padding: 10px
     margin: 0 10px
     display: flex
     position: relative
     align-items: center
     justify-content: flex-start
+    border-radius: 5px
 
-    .work__detail--toggle &,
-    .work__detail--setcookie &
-      border-radius: 5px
+    .work__detail--toggle &
+      border-radius: 5px 5px 0 0
 
     &__name
       font-size: 1.2rem
@@ -45,17 +42,20 @@
 
   &__toggle
     display: block
-    width: 25px
-    height: 25px
+    width: 40px
+    height: 40px
     position: absolute
     top: 50%
     transform: translateY(-50%)
     right: 10px
     cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: flex-end
 
     i
       color: #fff
-      font-size: 25px
+      font-size: 30px
 
   &__sub-title
     padding: 0 0 3px 13px
@@ -173,9 +173,7 @@
     max-width: var(--max-width)
     margin: 0 10px 1.5em
     border-radius: 0 0 5px 5px
-
-    .pc &
-      margin: 0 auto 1.5em
+    display: none
 
     .work__detail--setcookie &
       display: none

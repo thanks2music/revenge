@@ -1,7 +1,8 @@
+<?php global $is_sp, $is_pc; ?>
 <?php get_header(); ?>
 <div id="content">
   <?php
-    if (is_tax('event-category')) {
+    if (is_tax('event-category') && $is_sp) {
       $work_slug = get_slug_by_path();
       $work_term = get_term_by('slug', $work_slug, $taxonomy);
 
@@ -67,15 +68,6 @@
         <?php } ?>
       </div>
 
-      <?php
-        // $event_taxonomy_cat = 'event-category';
-
-        // if (is_tax($event_taxonomy_cat, 'collabo-period')) {
-        // }
-      ?>
-      <?php if (category_description() && !is_paged()) : ?>
-        <!-- <div class="taxonomy-description entry-content"><?php echo category_description(); ?></div> -->
-      <?php endif; ?>
       <?php
         $toplayout = get_option('opencage_archivelayout');
         $toplayoutsp = get_option('opencage_sp_archivelayout');
