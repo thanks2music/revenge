@@ -102,14 +102,11 @@ EOF;
 $adTagText = <<< EOF
 
 <div class="ad__in-post--moreads">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="9384949215"
-       data-ad-format="auto"></ins>
+  <div id="div-gpt-ad-1559874542554-0">
   <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874542554-0'); });
   </script>
+  </div>
 </div>
 
 EOF;
@@ -118,18 +115,18 @@ $adTagText = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
   <div class="ad__in-post__pc-moreads--left">
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:336px;height:280px"
-         data-ad-client="ca-pub-7307810455044245"
-         data-ad-slot="8844530410"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div id="div-gpt-ad-1559874997358-0">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874997358-0'); });
+    </script>
+    </div>
   </div>
   <div class="ad__in-post__pc-moreads--right">
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:336px;height:280px"
-         data-ad-client="ca-pub-7307810455044245"
-         data-ad-slot="8844530410"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div id="div-gpt-ad-1559875016379-0">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875016379-0'); });
+    </script>
+    </div>
   </div>
 </div>
 
