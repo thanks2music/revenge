@@ -358,6 +358,16 @@ $the_content = str_replace('<p><br />', '<p>', $the_content);
 
 return $the_content;
 }
+
+function convert_kana_content($data) {
+  $convert_fields = array('post_title', 'post_content');
+  foreach ($convert_fields as $convert_field) {
+    $data[$convert_field] = mb_convert_kana( $data[$convert_field], 'asKV', 'UTF-8' );
+  }
+  return $data;
+}
+add_filter('wp_insert_post_data', 'convert_kana_content');
+
 add_filter('the_content', 'cosmetic_change_the_content');
 
 function get_html_attr($search_text, $content) {
