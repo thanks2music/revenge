@@ -50,15 +50,14 @@ $moretags = [];
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-  amp0
-<amp-ad
-   layout="responsive"
-   width=300
-   height=250
-   type="adsense"
-   data-ad-client="ca-pub-7307810455044245"
-   data-ad-slot="9384949215">
-</amp-ad>
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="8171999950"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
+  </amp-ad>
 </div>
 
 EOF;
@@ -66,15 +65,14 @@ EOF;
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-  amp1
-<amp-ad
-   layout="responsive"
-   width=300
-   height=250
-   type="adsense"
-   data-ad-client="ca-pub-7307810455044245"
-   data-ad-slot="9384949215">
-</amp-ad>
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="8171999950"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
+  </amp-ad>
 </div>
 
 EOF;
@@ -82,15 +80,14 @@ EOF;
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-  amp2
-<amp-ad
-   layout="responsive"
-   width=300
-   height=250
-   type="adsense"
-   data-ad-client="ca-pub-7307810455044245"
-   data-ad-slot="9384949215">
-</amp-ad>
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="8171999950"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
+  </amp-ad>
 </div>
 
 EOF;
@@ -99,15 +96,14 @@ EOF;
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-  amp3
-<amp-ad width="100vw" height=320
-     type="adsense"
-     data-ad-client="ca-pub-7307810455044245"
-     data-ad-slot="8171999950"
-     data-auto-format="rspv"
-     data-full-width>
-  <div overflow></div>
-</amp-ad>
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="8171999950"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
+  </amp-ad>
 </div>
 
 EOF;
@@ -116,7 +112,6 @@ EOF;
 $moretags['sp'][] = <<< EOF
 
 <div class="ad__adx__sp">
-  sp0
   <!-- /21153358/68391 : CoCafe_SP_article_2nd_68391-->
   <div id="div-gpt-ad-1559874542554-0">
     <script>
@@ -130,7 +125,6 @@ EOF;
 $moretags['sp'][] = <<< EOF
 
 <div class="ad__adx__sp">
-  sp1
   <!-- /21153358/68392 : CoCafe_SP_article_3rd_68392-->
   <div id="div-gpt-ad-1559874567407-0">
     <script>
@@ -144,7 +138,6 @@ EOF;
 $moretags['sp'][] = <<< EOF
 
 <div class="ad__adx__sp">
-  sp2
   <!-- /21153358/68393 : CoCafe_SP_article_4th_68393 -->
   <div id="div-gpt-ad-1559874589795-0">
     <script>
@@ -159,7 +152,6 @@ EOF;
 $moretags['sp'][] = <<< EOF
 
 <div class="ad__adx__sp">
-  sp3
   <!-- CC_SP_Article5 -->
   <ins class="adsbygoogle"
        style="display:block"
@@ -178,7 +170,6 @@ EOF;
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
-  pc0
   <div class="ad__in-post__pc-moreads--left">
     <div id="div-gpt-ad-1559874997358-0">
     <script>
@@ -200,7 +191,6 @@ EOF;
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
-  pc1
   <div class="ad__in-post__pc-moreads--left">
     <div id="div-gpt-ad-1559875036306-0">
       <script>
@@ -222,7 +212,6 @@ EOF;
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
-  pc2
   <div class="ad__in-post__pc-moreads--left">
     <div id="div-gpt-ad-1559875079881-0">
       <script>
@@ -245,7 +234,6 @@ EOF;
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
-  pc3
   <div class="ad__in-post__pc-moreads--left">
     <ins class="adsbygoogle"
          style="display:block"
