@@ -164,21 +164,21 @@ if ($amp_flag) {
             <?php // 記事上部のアドセンス ?>
             <div class="amp__ad--eyecatch-under">
               <?php /* ADX バージョン */ ?>
-              <amp-ad
+              <?php /* <amp-ad
                 layout="fluid"
                 height="fluid"
                 type="doubleclick"
                 data-slot="/21153358/68397"
                 data-multi-size="336x280,320x180,320x100,320x50,300x250,1x1">
-              </amp-ad>
+              </amp-ad> */ ?>
               <?php /* Adsense バージョン */ ?>
-              <?php /* <amp-ad layout="responsive"
+              <amp-ad layout="responsive"
                       width=300
                       height=250
                       type="adsense"
                       data-ad-client="ca-pub-7307810455044245"
                       data-ad-slot="2805411615">
-              </amp-ad> */ ?>
+              </amp-ad>
             </div>
 
             <section class="entry-content cf amp__entry__content">
