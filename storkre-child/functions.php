@@ -1,4 +1,4 @@
-<?php global $amp_flag;
+<?php
 require_once( 'library/widget.php' );
 require_once( 'library/customizer.php' );
 // 子テーマのstyle.cssを後から読み込む
@@ -18,10 +18,9 @@ function theme_enqueue_styles() {
 
 // Global Variable
 locate_template('config/variables.php', true);
+global $amp_flag, $is_sp, $is_pc;
 
 // Override WordPress Setting
-// if $amp_flag 内でネストするとremove_actionが動作しないのでどうにかする
-
 if (! empty($_GET['amp'])) {
   if ($_GET['amp'] === '1') {
     remove_action('wp_head','rest_output_link_wp_head');
@@ -41,52 +40,17 @@ function add_javascripts() {
   wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?' . $time_stamp);
 }
 
-// MOREタグの下に広告を表示
-add_filter('the_content', 'adMoreReplace');
+// <moreads>をADXとアドセンスに置き換える
+// add_filter('the_content', 'adMoreReplace');
 
-function adMoreReplace($contentData) {
-global $is_sp, $amp_flag;
-$adTagResponsive = '';
-$adTagText = '';
-
-if ($_GET['amp'] === '1') {
-$adTagResponsive = <<< EOF
+function get_moreads_tags($device) {
+$moretags = [];
+// AMP
+// 1~3をADXにするが、現在は謎のエラーでADX広告が表示されないため、一時的にすべて個人アドセンスを適用する
+$moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-<amp-ad
-   layout="responsive"
-   width=300
-   height=250
-   type="adsense"
-   data-ad-client="ca-pub-7307810455044245"
-   data-ad-slot="2805411615">
-</amp-ad>
-</div>
-
-EOF;
-} else {
-$adTagResponsive = <<< EOF
-
-<div class="ad__in-post--more">
-  <ins class="adsbygoogle"
-       style="display:block; text-align:center;"
-       data-ad-format="fluid"
-       data-ad-layout="in-article"
-       data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="2805411615"></ins>
-  <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
-EOF;
-}
-
-// moreads広告
-if ($_GET['amp'] === '1') {
-$adTagText = <<< EOF
-
-<div class="amp__ad--responsive">
+  amp0
 <amp-ad
    layout="responsive"
    width=300
@@ -98,22 +62,123 @@ $adTagText = <<< EOF
 </div>
 
 EOF;
-} elseif ($is_sp) {
-$adTagText = <<< EOF
 
-<div class="ad__in-post--moreads">
+$moretags['amp'][] = <<< EOF
+
+<div class="amp__ad--responsive">
+  amp1
+<amp-ad
+   layout="responsive"
+   width=300
+   height=250
+   type="adsense"
+   data-ad-client="ca-pub-7307810455044245"
+   data-ad-slot="9384949215">
+</amp-ad>
+</div>
+
+EOF;
+
+$moretags['amp'][] = <<< EOF
+
+<div class="amp__ad--responsive">
+  amp2
+<amp-ad
+   layout="responsive"
+   width=300
+   height=250
+   type="adsense"
+   data-ad-client="ca-pub-7307810455044245"
+   data-ad-slot="9384949215">
+</amp-ad>
+</div>
+
+EOF;
+
+// 4つ目以降が個人アドセンス
+$moretags['amp'][] = <<< EOF
+
+<div class="amp__ad--responsive">
+  amp3
+<amp-ad width="100vw" height=320
+     type="adsense"
+     data-ad-client="ca-pub-7307810455044245"
+     data-ad-slot="8171999950"
+     data-auto-format="rspv"
+     data-full-width>
+  <div overflow></div>
+</amp-ad>
+</div>
+
+EOF;
+
+// SP
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  sp0
+  <!-- /21153358/68391 : CoCafe_SP_article_2nd_68391-->
   <div id="div-gpt-ad-1559874542554-0">
-  <script>
+    <script>
     googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874542554-0'); });
-  </script>
+    </script>
   </div>
 </div>
 
 EOF;
-} else {
-$adTagText = <<< EOF
+
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  sp1
+  <!-- /21153358/68392 : CoCafe_SP_article_3rd_68392-->
+  <div id="div-gpt-ad-1559874567407-0">
+    <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874567407-0'); });
+    </script>
+  </div>
+</div>
+
+EOF;
+
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  sp2
+  <!-- /21153358/68393 : CoCafe_SP_article_4th_68393 -->
+  <div id="div-gpt-ad-1559874589795-0">
+    <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874589795-0'); });
+    </script>
+  </div>
+</div>
+
+EOF;
+
+// 4つ目以降が個人アドセンス
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  sp3
+  <!-- CC_SP_Article5 -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="9345480828"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+EOF;
+
+// PC
+$moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
+  pc0
   <div class="ad__in-post__pc-moreads--left">
     <div id="div-gpt-ad-1559874997358-0">
     <script>
@@ -131,17 +196,181 @@ $adTagText = <<< EOF
 </div>
 
 EOF;
+
+$moretags['pc'][] = <<< EOF
+
+<div class="ad__in-post__pc-moreads">
+  pc1
+  <div class="ad__in-post__pc-moreads--left">
+    <div id="div-gpt-ad-1559875036306-0">
+      <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875036306-0'); });
+      </script>
+    </div>
+  </div>
+  <div class="ad__in-post__pc-moreads--right">
+    <div id="div-gpt-ad-1559875056083-0">
+      <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875056083-0'); });
+      </script>
+    </div>
+  </div>
+</div>
+
+EOF;
+
+$moretags['pc'][] = <<< EOF
+
+<div class="ad__in-post__pc-moreads">
+  pc2
+  <div class="ad__in-post__pc-moreads--left">
+    <div id="div-gpt-ad-1559875079881-0">
+      <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875079881-0'); });
+      </script>
+    </div>
+  </div>
+  <div class="ad__in-post__pc-moreads--right">
+    <div id="div-gpt-ad-1559875105432-0">
+      <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875105432-0'); });
+      </script>
+    </div>
+  </div>
+</div>
+
+EOF;
+
+// 4つ目以降が個人アドセンス
+$moretags['pc'][] = <<< EOF
+
+<div class="ad__in-post__pc-moreads">
+  pc3
+  <div class="ad__in-post__pc-moreads--left">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="4413127464"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+  <div class="ad__in-post__pc-moreads--right">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="1595392432"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+</div>
+
+EOF;
+
+if ($device === 'pc') {
+  return $moretags['pc'];
+} else if ($device === 'sp') {
+  return $moretags['sp'];
+} else if ($device === 'amp') {
+  return $moretags['amp'];
+} else {
+  return $moretags;
+}
 }
 
-// レスポンシブ広告
-$contentData = preg_replace('/<p><span id="more-([0-9]+?)"><\/span>(.*?)<\/p>/i', $adTagResponsive, $contentData);
-// テキスト広告
-$contentData = str_replace('<p><moreads></moreads></p>', $adTagText, $contentData);
-$contentData = str_replace('<p></p>', '', $contentData);
-$contentData = str_replace('<p><br />', '<p>', $contentData);
+// AMPだけ実行
+if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
+  function replace_amp_moreads($the_content) {
+    $pattern = '/<p><moreads><\/moreads><\/p>/is';
+    $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
+    $moreads_count_inpost = count($moreads_content[0]);
+    $moreads = get_moreads_tags('amp');
+    $moreads_tag_count = count($moreads);
 
-return $contentData;
+    if ($moreads_tag_count < $moreads_count_inpost) {
+      $diff_count = $moreads_count_inpost - $moreads_tag_count;
+      $end_tags = end($moreads);
+
+      for($i = 0; $i < $diff_count; $i++){
+        $moreads[] = $end_tags;
+      }
+    }
+
+    foreach ($moreads as $index => $value) {
+      $the_content = preg_replace($pattern, $moreads[$index], $the_content, 1);
+    }
+
+    return $the_content;
+  }
+
+  add_filter('the_content', 'replace_amp_moreads');
+  // SPだけ実行
+} else if ($is_sp) {
+  function replace_sp_moreads($the_content) {
+    $pattern = '/<p><moreads><\/moreads><\/p>/is';
+    $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
+    $moreads_count_inpost = count($moreads_content[0]);
+    $moreads = get_moreads_tags('sp');
+    $moreads_tag_count = count($moreads);
+
+    if ($moreads_tag_count < $moreads_count_inpost) {
+      $diff_count = $moreads_count_inpost - $moreads_tag_count;
+      $end_tags = end($moreads);
+
+      for($i = 0; $i < $diff_count; $i++){
+        $moreads[] = $end_tags;
+      }
+    }
+
+    foreach ($moreads as $index => $value) {
+      $the_content = preg_replace($pattern, $moreads[$index], $the_content, 1);
+    }
+
+    return $the_content;
+  }
+
+  add_filter('the_content', 'replace_sp_moreads');
+  // PCだけ実行
+} else if ($is_pc) {
+  function replace_pc_moreads($the_content) {
+    $pattern = '/<p><moreads><\/moreads><\/p>/is';
+    $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
+    $moreads_count_inpost = count($moreads_content[0]);
+    $moreads = get_moreads_tags('pc');
+    $moreads_tag_count = count($moreads);
+
+    if ($moreads_tag_count < $moreads_count_inpost) {
+      $diff_count = $moreads_count_inpost - $moreads_tag_count;
+      $end_tags = end($moreads);
+
+      for($i = 0; $i < $diff_count; $i++){
+        $moreads[] = $end_tags;
+      }
+    }
+
+    foreach ($moreads as $index => $value) {
+      $the_content = preg_replace($pattern, $moreads[$index], $the_content, 1);
+    }
+
+    return $the_content;
+  }
+
+  add_filter('the_content', 'replace_pc_moreads');
 }
+
+function cosmetic_change_the_content($the_content) {
+// 不要なタグを除去
+$the_content = str_replace('<p></p>', '', $the_content);
+$the_content = str_replace('<p><br />', '<p>', $the_content);
+
+return $the_content;
+}
+add_filter('the_content', 'cosmetic_change_the_content');
 
 function get_html_attr($search_text, $content) {
   $_array = explode($search_text, $content);
@@ -643,6 +872,7 @@ function replace_img_for_amp($the_content) {
 // デフォルトのプラグイン実行優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
 add_filter('the_content', 'replace_img_for_amp');
 
+// AMPだけ実行
 if (! empty($_GET['amp'])) {
   if ($_GET['amp'] === '1') {
     function replace_youtube_for_amp($the_content) {
