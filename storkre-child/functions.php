@@ -50,13 +50,13 @@ $moretags = [];
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-  <amp-ad width="100vw" height=320
-       type="adsense"
-       data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="8171999950"
-       data-auto-format="rspv"
-       data-full-width>
-    <div overflow></div>
+  <amp-ad
+   layout="responsive"
+     width=300
+     height=250
+     type="adsense"
+     data-ad-client="ca-pub-7307810455044245"
+     data-ad-slot="9384949215">
   </amp-ad>
 </div>
 
