@@ -641,16 +641,16 @@ body {
         display: none;
       }
 
+      .header__inner {
+        width: 1166px;
+        margin: auto;
+      }
+
       #inner-header {
         background: rgba(#ff5dab, .9);
         transition: all 400ms ease-in-out;
         padding: 0;
         width: 100%;
-
-        .pc & {
-          display: flex;
-          justify-content: center;
-        }
 
         .nav_btn {
           transition: all 400ms ease-in-out;
