@@ -21,17 +21,20 @@
     // PC
     &__pc-moreads
       display: flex
-      justify-content: space-around
+      justify-content: space-between
       flex-wrap: wrap
       position: relative
 
       &--left,
       &--right
-        flex-basis: 50%
+        flex-basis: 336px
 
   &__title-under
     @extend %__ad
     padding: 1em
+
+    .pc &
+      padding: 0
 
   &__pc-content
     @extend %__ad
