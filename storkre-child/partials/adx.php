@@ -13,7 +13,6 @@
         googletag.defineSlot('/21153358/68387', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874403648-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68388', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874452687-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68389', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874477418-0').addService(googletag.pubads());
-        // 以下はトップで呼ばれない
         googletag.defineSlot('/21153358/68390', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874513753-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68391', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874542554-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68392', [[1, 1], [320, 50], [320, 100], [320, 180], [300, 250], [336, 280], 'fluid'], 'div-gpt-ad-1559874567407-0').addService(googletag.pubads());
@@ -50,7 +49,6 @@
         googletag.defineSlot('/21153358/68405', [[1, 1], [300, 250], [336, 280], [300, 600]], 'div-gpt-ad-1560821057988-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68406', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874898957-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68407', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874921601-0').addService(googletag.pubads());
-        // 以下はトップで呼ばれていない
         googletag.defineSlot('/21153358/68408', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874949947-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68409', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874975970-0').addService(googletag.pubads());
         googletag.defineSlot('/21153358/68410', [[1, 1], [300, 250], [336, 280]], 'div-gpt-ad-1559874997358-0').addService(googletag.pubads());
