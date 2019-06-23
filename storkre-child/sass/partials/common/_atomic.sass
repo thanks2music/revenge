@@ -95,3 +95,50 @@
         text-align: center
         min-width: 44px
         height: 44px
+
+.entry
+  &__author
+    border: 1px solid #dbdbdb
+    border-radius: 5px
+    padding: .5rem 1rem 1rem 1rem
+    margin-bottom: 2rem
+
+    &__overview
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      margin-bottom: .5rem
+      padding-top: .5rem
+
+    &__image
+      width: 50px
+      height: 50px
+      margin-right: 10px
+
+      img
+        .entry-content &
+          border-radius: 50%
+          // Override
+          margin: 0
+
+    &__names
+      flex-basis: calc(100% - 60px)
+
+      p
+        align-self: center
+        margin: 0
+
+      &__name,
+      &__position
+        font-size: .9rem
+
+      &__name
+        font-weight: bold
+
+    &__description
+      p
+        font-size: 1rem
+        margin: 0
+
+
+

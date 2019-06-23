@@ -84,6 +84,10 @@
       page_nav_singular();
       ?>
 
+      <div class="entry__author">
+        <?php get_template_part('partials/author'); ?>
+      </div>
+
       <div class="entry__detail">
         <?php get_template_part( 'event-meta-event-single' ); ?>
       </div>
