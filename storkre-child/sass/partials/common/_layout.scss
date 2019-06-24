@@ -642,8 +642,11 @@ body {
       }
 
       .header__inner {
-        width: 1166px;
-        margin: auto;
+
+        .pc & {
+          width: 1166px;
+          margin: auto;
+        }
       }
 
       #inner-header {
