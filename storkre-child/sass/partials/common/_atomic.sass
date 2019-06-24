@@ -96,6 +96,7 @@
         min-width: 44px
         height: 44px
 
+// 記事下部の著者欄
 .entry
   &__author
     border: 1px solid #dbdbdb
@@ -140,5 +141,25 @@
         font-size: 1rem
         margin: 0
 
+// 著者が書いた記事一覧
+.archive
+  &__title
+    &__author
+      display: flex;
+      justify-content: flex-start
+      align-items: center
+      flex-wrap: wrap
 
+    &__author-icon
+      margin-bottom: 10px
 
+      img
+        border-radius: 50%
+        width: 80px
+        border: 2px solid #fff
+        box-shadow: 0 0 5px #ddd
+        margin: 0
+
+    &__author-text
+      margin: 0 0 10px
+      padding: 0 0 0 10px
