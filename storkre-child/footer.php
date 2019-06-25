@@ -1,5 +1,5 @@
 <?php
-  global $amp_flag;
+  global $amp_flag, $is_sp, $is_pc;
   // 開催期間別一覧をフッター下部に追加
   $show_period_flag = true;
   $post_type = get_post_type();
@@ -42,7 +42,6 @@
 
   // 開催期間別
   if (isset($show_period_flag) && $show_period_flag === true) {
-    global $is_pc;
     // Local タイム取得
     $current_date = date('Y-m-d');
     // 文字に変換
@@ -208,6 +207,38 @@
       $more_dom = '<a href="/events/category/collabo-period/" class="more-read-period">';
       $more_dom .= '終了間近の一覧' . '</a>';
       echo $more_dom;
+
+      if ($is_pc) { ?>
+      <div class="ad__footer__pc">
+        <div class="ad__footer__pc__left">
+          <!-- /21153358/68408 : CoCafe_PC_all_footer_left_68406 -->
+          <div id='div-gpt-ad-1559874898957-0'>
+          <script>
+            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874898957-0'); });
+          </script>
+          </div>
+        </div>
+        <div class="ad__footer__pc__right">
+          <!-- /21153358/68409 : CoCafe_PC_all_footer_right_68407 -->
+          <div id='div-gpt-ad-1559874921601-0'>
+          <script>
+            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874921601-0'); });
+          </script>
+          </div>
+        </div>
+      </div>
+      <?php
+      } else { ?>
+        <div class="ad__footer__sp">
+          <!-- /21153358/68389 : CoCafe_SP_all_footer_68389 -->
+          <div id="div-gpt-ad-1559874477418-0">
+            <script>
+              googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874477418-0'); });
+            </script>
+          </div>
+        </div>
+      <?php }
+
       echo '</div>'; // end .period-container
     } // end if
   }
