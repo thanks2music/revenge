@@ -7,13 +7,13 @@
         <?php
           $archive_title = 'archive__title__author';
           $author_name = get_the_author_meta('display_name', $author);
-          $author_posts_count = get_the_author_posts();
+          // TODO 正しい数を取得出来ていない
+          // $author_posts_count = get_the_author_posts();
         ?>
         <h1 class="archive-title h2 <?php echo $archive_title; ?>">
           <span class="archive__title__author-icon"><?php echo get_avatar($author); ?></span>
           <p class="archive__title__author-text">
             <span class="archive__title__author-text__title"><?php echo $author_name; ?>さんが書いた記事一覧</span>
-            <span class="archive__title__author-text__count">- 全<?php echo $author_posts_count; ?>件</span>
           </p>
         </h1>
       </div>
