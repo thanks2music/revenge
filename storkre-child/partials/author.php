@@ -15,6 +15,7 @@
         </a>
       </figure>
       <div class="entry__author__names">
+        <p class="entry__author__names__caption">この記事を書いた人</p>
         <p class="entry__author__names__name">
           <a href="<?php echo $author_url; ?>"><?php echo $author_name; ?></a>
           <?php /* <span class="entry__author__names__post-count">(記事投稿数: <?php echo $author_posts_count; ?>)</span> */ ?>
