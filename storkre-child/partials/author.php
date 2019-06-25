@@ -19,7 +19,7 @@
             $avatar_icon .= '</amp-img>';
             echo $avatar_icon;
           } else {
-            $avatar_icon .= '<img src="' . $avatar_icon_url .'" alt="';
+            $avatar_icon .= '<img src="/wp-content/uploads/dummy.png" data-src="' . $avatar_icon_url .'" alt="';
             $avatar_icon .= $author_name . '" class="entry__author__image__icon" />';
             echo $avatar_icon;
           } ?>
