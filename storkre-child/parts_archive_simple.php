@@ -136,22 +136,35 @@
         );
       }
     } else {
-      $args = array(
-        'post_type' => array('post', 'event'),
-        'posts_per_page' => 16,
-        'order' => 'DESC',
-        'orderby' => 'date modified',
-        'post_status' => 'publish',
-        'paged' => $paged,
-        'tax_query' => array(
-          array(
-            'taxonomy' => $taxonomy_name,
-            'terms' => $cat_slug,
-            'field' => 'slug',
-            'operator'=>'IN',
+
+      if (is_author()) {
+        $args = array(
+          'post_type' => array('post', 'event'),
+          'author' => $author,
+          'posts_per_page' => 16,
+          'order' => 'DESC',
+          'orderby' => 'date modified',
+          'post_status' => 'publish',
+          'paged' => $paged,
+        );
+      } else {
+        $args = array(
+          'post_type' => array('post', 'event'),
+          'posts_per_page' => 16,
+          'order' => 'DESC',
+          'orderby' => 'date modified',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          'tax_query' => array(
+            array(
+              'taxonomy' => $taxonomy_name,
+              'terms' => $cat_slug,
+              'field' => 'slug',
+              'operator'=>'IN',
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
   } elseif (is_search()) {
     $s = $_GET['s'];

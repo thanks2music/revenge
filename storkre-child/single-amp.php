@@ -189,9 +189,11 @@ if ($amp_flag) {
                 page_nav_singular();
               ?>
               <amp-image-lightbox id="lightbox2" layout="nodisplay"></amp-image-lightbox>
-              <p class="entry-author vcard author sr-only">
-                <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
-              </p>
+
+              <div class="entry__author">
+                <?php get_template_part('partials/author'); ?>
+              </div>
+
               <div class="amp__entry__detail">
                 <?php get_template_part( 'event-meta-event-single' ); ?>
               </div>

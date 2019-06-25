@@ -95,3 +95,98 @@
         text-align: center
         min-width: 44px
         height: 44px
+
+// 記事下部の著者欄
+.entry
+  &__author
+    border: 1px solid #dbdbdb
+    border-radius: 5px
+    padding: .5rem 1rem 1rem 1rem
+    margin-bottom: 2rem
+
+    .entry__author__description
+      p
+        margin: 0
+
+
+    &__overview
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      margin-bottom: .5rem
+      padding-top: .5rem
+
+      .entry__author__names
+        .entry__author__names__name
+          margin-bottom: -5px
+
+        .entry__author__names__position
+          margin: 0
+
+        .entry__author__names__caption
+          font-size: .7rem
+          color: #999
+          line-height: 1.2
+          margin: 0
+
+    &__image
+      width: 50px
+      height: 50px
+      margin-right: 10px
+
+      img
+        .entry-content &
+          border-radius: 50%
+          // Override
+          margin: 0
+
+    &__names
+      flex-basis: calc(100% - 60px)
+
+      p
+        align-self: center
+
+      &__name,
+      &__position
+        font-size: .9rem
+
+      &__name
+        font-weight: bold
+
+    &__description
+      p
+        font-size: 1rem
+
+// 著者が書いた記事一覧
+.archive
+  &__title
+    &__author
+      display: flex;
+      justify-content: flex-start
+      align-items: center
+      flex-wrap: wrap
+
+    &__author-icon
+      margin-bottom: 10px
+
+      img
+        border-radius: 50%
+        width: 80px
+        border: 2px solid #fff
+        box-shadow: 0 0 5px #ddd
+        margin: 0
+
+    &__author-text
+      margin: 0 0 10px
+      padding: 0 0 0 10px
+      width: calc(100% - 90px)
+
+      &__title
+        .archivettl .archive__title__author &
+          font-size: 1rem
+          font-weight: bold
+          margin-bottom: 5px
+
+      &__count
+        .archivettl .archive__title__author &
+          font-size: .8rem

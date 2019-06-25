@@ -1013,6 +1013,31 @@ function page_nav_singular() {
 <?php
 }
 
+//ユーザー情報追加
+add_action('show_user_profile', 'add_user_profile');
+add_action('edit_user_profile', 'add_user_profile');
+function add_user_profile($user) { ?>
+<h3>役職</h3>
+<table class="form-table">
+<tr>
+ <th>
+ <label for="position">役職名</label>
+ </th>
+ <td>
+ <input type="text" name="position" id="position" value="<?php echo esc_attr( get_the_author_meta( 'position', $user->ID ) ); ?>" class="regular-text" />
+ <p><span class="description">例: ライター、WEBデザイナー、編集者など</p>
+ </td>
+</tr>
+</table>
+<?php }
+
+//入力した値を保存する
+add_action('personal_options_update', 'update_user_profile');
+function update_user_profile($user_id) {
+ if ( current_user_can('edit_user',$user_id) )
+ update_user_meta($user_id, 'position', $_POST['position']);
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {

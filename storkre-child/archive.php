@@ -20,11 +20,15 @@
           $post_type = get_post_type();
           $taxonomy_name = 'category';
           $cat_name = '';
+          $archive_title = '';
 
           if ($post_type === 'event') {
+            $archive_title = 'archive__title__event-post';
             if (is_tax('event-category')) {
+              $archive_title = 'archive__title__event-category';
               $taxonomy_name = 'event-category';
             } elseif (is_tax('event-tag')) {
+              $archive_title = 'archive__title__event-tag';
               $taxonomy_name = 'event-tag';
             }
 
@@ -35,8 +39,8 @@
             $cat_name .= 'コラボカテゴリー';
           }
         ?>
-        <h1 class="archive-title h2">
-          <?php if (is_category() || is_tax()) {?>
+        <h1 class="archive-title h2 <?php echo $archive_title; ?>">
+          <?php if (is_category() || is_tax()) { ?>
             <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span>
             <?php single_cat_title();
               if (is_tax('event-venue')) {
@@ -50,14 +54,6 @@
         <?php } elseif (is_tag()) { ?>
         <h1 class="archive-title h2">
           <span class="gf"><?php _e( 'TAG', 'moaretrotheme' ); ?></span> <?php single_tag_title(); ?>
-        </h1>
-        <?php } elseif (is_author()) {
-          global $post;
-          $author_id = $post->post_author;
-        ?>
-        <h1 class="archive-title h2">
-          <span class="author-icon"><?php echo get_avatar(get_the_author_id(), 150); ?></span>
-          「<?php the_author_meta('display_name', $author_id); ?>」の記事
         </h1>
         <?php } elseif (is_day()) { ?>
           <h1 class="archive-title h2"><?php the_time('Y年n月j日'); ?></h1>
