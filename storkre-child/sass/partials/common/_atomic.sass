@@ -104,12 +104,30 @@
     padding: .5rem 1rem 1rem 1rem
     margin-bottom: 2rem
 
+    .entry__author__description
+      p
+        margin: 0
+
+
     &__overview
       display: flex
       align-items: center
       justify-content: flex-start
       margin-bottom: .5rem
       padding-top: .5rem
+
+      .entry__author__names
+        .entry__author__names__name
+          margin-bottom: -5px
+
+        .entry__author__names__position
+          margin: 0
+
+        .entry__author__names__caption
+          font-size: .7rem
+          color: #999
+          line-height: 1.2
+          margin: 0
 
     &__image
       width: 50px
@@ -127,11 +145,6 @@
 
       p
         align-self: center
-        margin: 0
-
-      &__caption
-        font-size: .7rem
-        color: #999
 
       &__name,
       &__position
@@ -143,7 +156,6 @@
     &__description
       p
         font-size: 1rem
-        margin: 0
 
 // 著者が書いた記事一覧
 .archive
