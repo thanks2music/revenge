@@ -29,7 +29,7 @@
         <p class="entry__author__names__caption">この記事を書いた人</p>
         <p class="entry__author__names__name">
           <a href="<?php echo $author_url; ?>"><?php echo $author_name; ?></a>
-          <?php /* <span class="entry__author__names__post-count">(記事投稿数: <?php echo $author_posts_count; ?>)</span> */ ?>
+          <span class="entry__author__names__post-count">(全<?php echo $author_posts_count; ?>件)</span>
         </p>
         <p class="entry__author__names__position"><?php echo $author_position; ?></p>
       </div>
