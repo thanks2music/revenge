@@ -596,11 +596,25 @@ function home_posts_type($wp_query) {
 }
 
 function custom_wp_kses_allowed_html($tags, $context) {
-  if ($context === 'event' || $context === 'post') {
+  if ($context === 'event' || $context === 'post' || $context === 'page') {
     $tags['moreads'] = true;
     $tags['ruby'] = true;
     $tags['rp'] = true;
     $tags['rt'] = true;
+    // iframe
+    $tags['iframe']=array(
+      'class'=>array(),
+      'src'=>array(),
+      'data-layzr'=>array(),
+      'data-src'=>array(),
+      'width'=>array(),
+      'height'=>array(),
+      'frameborder'=>array(),
+      'allow'=>array(),
+      'allowfullscreen'=>array(),
+      'scrolling'=>array(),
+      'allowtransparency'=>array(),
+    );
   }
   return $tags;
 }
