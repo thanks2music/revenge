@@ -342,6 +342,12 @@
         $event_cat_slug = '';
         $cat = get_the_terms($post->ID, $taxonomy_name);
         $the_cat_length = count($cat);
+
+        // タグページではカテゴリを表示する
+        if (is_tax('event-tag')) {
+          $cat = get_the_terms($post->ID, 'event-category');
+        }
+
         $event_cat_slug = get_the_genre_name($cat);
 
         for ($i = 0; $i < $the_cat_length; $i++) {
