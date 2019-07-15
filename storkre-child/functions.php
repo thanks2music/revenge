@@ -746,7 +746,9 @@ function get_the_genre_name($terms) {
       }
     }
   } else {
-    $genre_name = $result[0];
+    if (! empty($result[0])) {
+      $genre_name = $result[0];
+    }
   }
 
   return $genre_name;
