@@ -214,31 +214,41 @@
       if ($is_pc) { ?>
       <div class="ad__footer__pc">
         <div class="ad__footer__pc__left">
-          <!-- /21153358/68408 : CoCafe_PC_all_footer_left_68406 -->
-          <div id='div-gpt-ad-1559874898957-0'>
+          <!-- CC_PC_All_footer_Left_Responsive -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-7307810455044245"
+               data-ad-slot="5261223592"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
           <script>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874898957-0'); });
+               (adsbygoogle = window.adsbygoogle || []).push({});
           </script>
-          </div>
         </div>
         <div class="ad__footer__pc__right">
-          <!-- /21153358/68409 : CoCafe_PC_all_footer_right_68407 -->
-          <div id='div-gpt-ad-1559874921601-0'>
+          <!-- CC_PC_All_Footer_Right_Fixed -->
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:336px;height:280px"
+               data-ad-client="ca-pub-7307810455044245"
+               data-ad-slot="4311104003"></ins>
           <script>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874921601-0'); });
+               (adsbygoogle = window.adsbygoogle || []).push({});
           </script>
-          </div>
         </div>
       </div>
       <?php
       } else { ?>
         <div class="ad__footer__sp">
-          <!-- /21153358/68389 : CoCafe_SP_all_footer_68389 -->
-          <div id="div-gpt-ad-1559874477418-0">
-            <script>
-              googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874477418-0'); });
-            </script>
-          </div>
+          <!-- CC_SP_All_Footer -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-7307810455044245"
+               data-ad-slot="4953090075"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
         </div>
       <?php }
 

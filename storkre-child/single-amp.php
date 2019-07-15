@@ -163,14 +163,6 @@ if ($amp_flag) {
 
             <?php // 記事上部のアドセンス ?>
             <div class="amp__ad--eyecatch-under">
-              <?php /* ADX バージョン */ ?>
-              <?php /* <amp-ad
-                layout="fluid"
-                height="fluid"
-                type="doubleclick"
-                data-slot="/21153358/68397"
-                data-multi-size="336x280,320x180,320x100,320x50,300x250,1x1">
-              </amp-ad> */ ?>
               <?php /* Adsense バージョン */ ?>
               <amp-ad layout="responsive"
                       width=300
@@ -199,13 +191,13 @@ if ($amp_flag) {
               </div>
             </section>
             <div class="amp__ad--content-under">
-              <amp-ad
-                 layout="responsive"
-                 width=300
-                 height=250
-                 type="adsense"
-                 data-ad-client="ca-pub-7307810455044245"
-                 data-ad-slot="4944211218">
+              <amp-ad width="100vw" height=320
+                   type="adsense"
+                   data-ad-client="ca-pub-7307810455044245"
+                   data-ad-slot="9938351076"
+                   data-auto-format="rspv"
+                   data-full-width>
+                <div overflow></div>
               </amp-ad>
             </div>
             <hr class="hr__gradient">
