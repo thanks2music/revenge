@@ -45,23 +45,55 @@ function add_javascripts() {
 
 function get_moreads_tags($device) {
 $moretags = [];
-// AMP
-// 1~3をADXにするが、現在は謎のエラーでADX広告が表示されないため、一時的にすべて個人アドセンスを適用する
+// AMP - CC_AMP_Article1_Responsive
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
-  <amp-ad
-   layout="responsive"
-     width=300
-     height=250
-     type="adsense"
-     data-ad-client="ca-pub-7307810455044245"
-     data-ad-slot="9384949215">
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="9384949215"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
   </amp-ad>
 </div>
 
 EOF;
 
+// AMP - CC_AMP_Article2_Responsive
+$moretags['amp'][] = <<< EOF
+
+<div class="amp__ad--responsive">
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="9550504112"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
+  </amp-ad>
+</div>
+
+EOF;
+
+// AMP - CC_AMP_Article3_Responsive
+$moretags['amp'][] = <<< EOF
+
+<div class="amp__ad--responsive">
+  <amp-ad width="100vw" height=320
+       type="adsense"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="8217187247"
+       data-auto-format="rspv"
+       data-full-width>
+    <div overflow></div>
+  </amp-ad>
+</div>
+
+EOF;
+
+// AMP - CC_AMP_Article4_Responsive
 $moretags['amp'][] = <<< EOF
 
 <div class="amp__ad--responsive">
@@ -77,160 +109,171 @@ $moretags['amp'][] = <<< EOF
 
 EOF;
 
-$moretags['amp'][] = <<< EOF
-
-<div class="amp__ad--responsive">
-  <amp-ad width="100vw" height=320
-       type="adsense"
-       data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="8171999950"
-       data-auto-format="rspv"
-       data-full-width>
-    <div overflow></div>
-  </amp-ad>
-</div>
-
-EOF;
-
-// 4つ目以降が個人アドセンス
-$moretags['amp'][] = <<< EOF
-
-<div class="amp__ad--responsive">
-  <amp-ad width="100vw" height=320
-       type="adsense"
-       data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="8171999950"
-       data-auto-format="rspv"
-       data-full-width>
-    <div overflow></div>
-  </amp-ad>
-</div>
-
-EOF;
-
-// SP
+// SP - CC_SP_Article2_Responsive
+// NOTE: 1はウィジェットで記事アイキャッチ下に入れている
 $moretags['sp'][] = <<< EOF
 
 <div class="ad__adx__sp">
-  <!-- /21153358/68391 : CoCafe_SP_article_2nd_68391-->
-  <div id="div-gpt-ad-1559874542554-0">
-    <script>
-    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874542554-0'); });
-    </script>
-  </div>
-</div>
-
-EOF;
-
-$moretags['sp'][] = <<< EOF
-
-<div class="ad__adx__sp">
-  <!-- /21153358/68392 : CoCafe_SP_article_3rd_68392-->
-  <div id="div-gpt-ad-1559874567407-0">
-    <script>
-    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874567407-0'); });
-    </script>
-  </div>
-</div>
-
-EOF;
-
-$moretags['sp'][] = <<< EOF
-
-<div class="ad__adx__sp">
-  <!-- /21153358/68393 : CoCafe_SP_article_4th_68393 -->
-  <div id="div-gpt-ad-1559874589795-0">
-    <script>
-    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874589795-0'); });
-    </script>
-  </div>
-</div>
-
-EOF;
-
-// 4つ目以降が個人アドセンス
-$moretags['sp'][] = <<< EOF
-
-<div class="ad__adx__sp">
-  <!-- CC_SP_Article5 -->
+  <!-- CC_SP_Article2_Responsive -->
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-7307810455044245"
-       data-ad-slot="9345480828"
+       data-ad-slot="3970395448"
        data-ad-format="auto"
        data-full-width-responsive="true"></ins>
   <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
+       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 
 EOF;
 
-// PC
+// SP - CC_SP_Article3_Responsive
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  <!-- CC_SP_Article3_Responsive -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="6876185418"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+EOF;
+
+// SP - CC_SP_Article4_Responsive
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  <!-- CC_SP_Article4_Responsive -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="7718068766"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+EOF;
+
+// SP - CC_SP_Article5_Responsive
+$moretags['sp'][] = <<< EOF
+
+<div class="ad__adx__sp">
+  <!-- CC_SP_Article5_Responsive -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-7307810455044245"
+       data-ad-slot="1839056121"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+EOF;
+
+// PC - CC_PC_Article_2
+// NOTE: 1はウィジェットで記事アイキャッチ下に入れている
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
   <div class="ad__in-post__pc-moreads--left">
-    <div id="div-gpt-ad-1559874997358-0">
+    <!-- CC_PC_Article_2_Left_Responsive -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="4422607039"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
     <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559874997358-0'); });
+         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-    </div>
   </div>
   <div class="ad__in-post__pc-moreads--right">
-    <div id="div-gpt-ad-1559875016379-0">
+    <!-- CC_PC_Article_2_Right_Fixed -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:336px;height:280px"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="8039430178"></ins>
     <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875016379-0'); });
+         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-    </div>
   </div>
 </div>
 
 EOF;
 
+// PC - CC_PC_Article_3
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
   <div class="ad__in-post__pc-moreads--left">
-    <div id="div-gpt-ad-1559875036306-0">
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875036306-0'); });
-      </script>
-    </div>
+    <!-- CC_PC_Article_3_Left_Responsive -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="8809586366"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
   <div class="ad__in-post__pc-moreads--right">
-    <div id="div-gpt-ad-1559875056083-0">
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875056083-0'); });
-      </script>
-    </div>
+    <!-- CC_PC_Article_3_Right_Fixed -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:336px;height:280px"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="5274376475"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 </div>
 
 EOF;
 
+// PC - CC_PC_Article_4
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">
   <div class="ad__in-post__pc-moreads--left">
-    <div id="div-gpt-ad-1559875079881-0">
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875079881-0'); });
-      </script>
-    </div>
+    <!-- CC_PC_Article_4_Left_Responsive -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="2648213136"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
   <div class="ad__in-post__pc-moreads--right">
-    <div id="div-gpt-ad-1559875105432-0">
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559875105432-0'); });
-      </script>
-    </div>
+    <!-- CC_PC_Article_4_Right_Fixed -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:336px;height:280px"
+         data-ad-client="ca-pub-7307810455044245"
+         data-ad-slot="1234348675"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 </div>
 
 EOF;
 
-// 4つ目以降が個人アドセンス
+// PC - CC_PC_Article_5
 $moretags['pc'][] = <<< EOF
 
 <div class="ad__in-post__pc-moreads">

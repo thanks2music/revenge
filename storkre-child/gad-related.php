@@ -83,8 +83,6 @@
       </div>
       <div class="ad__related-post--google">
         <?php if (! $amp_flag) { ?>
-          <?php if (is_prod()) { ?>
-          <?php } ?>
         <?php } else { ?>
           <amp-ad
             layout="fixed-height"
