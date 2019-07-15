@@ -29,11 +29,10 @@
   <![endif]-->
 
   <?php get_template_part('head'); ?>
-  <?php wp_head(); ?>
-
   <?php if (is_prod()) { ?>
     <?php get_template_part('partials/adx'); ?>
   <?php } ?>
+  <?php wp_head(); ?>
 
   </head>
   <?php
