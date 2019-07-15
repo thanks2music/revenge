@@ -17,6 +17,9 @@
 @import 'partials/common/paragraph';
 @import 'partials/common/footer';
 @import 'partials/common/atomic';
+// SP Only
+@import 'partials/sp/drawer';
+@import 'partials/sp/widget';
 
 .wf-amatic {
   @extend %webfont-amatic;

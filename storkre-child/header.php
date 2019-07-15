@@ -87,6 +87,10 @@
     <header class="header animated fadeIn <?php echo esc_html(get_option('side_options_headerbg'));?> <?php if ( wp_is_mobile() ) : ?>headercenter<?php else:?><?php echo get_option( 'side_options_headercenter' ); ?><?php endif; ?>" role="banner">
       <div id="inner-header" class="wrap cf">
         <div class="header__inner">
+          <?php if ($is_sp) {
+            get_template_part('partials/global-menu-drawer');
+          } ?>
+
           <div id="logo" class="wf-amatic <?php echo esc_html(get_option('opencage_logo_size'));?>">
             <?php if (is_home() || is_front_page()) : ?>
               <?php if (get_theme_mod( 'opencage_logo')) : ?>
