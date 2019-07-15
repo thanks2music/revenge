@@ -233,7 +233,7 @@ class NewEntryImageWidgetChild extends WP_Widget {
     <a class="cf" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
     <?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
     <figure class="eyecatch">
-      <?php if ($_GET['amp'] === '1') {
+      <?php if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
         $amp_img = '';
         $image_array = get_the_thumbnail_image_array($post->ID);
         $title = get_the_title();
