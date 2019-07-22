@@ -33,45 +33,48 @@
     }
 
     if ($post_type === 'event') {
-      if (is_tax('event-category')) {
-        $taxonomy_name = 'event-category';
-      } elseif (is_tax('event-tag')) {
-        $taxonomy_name = 'event-tag';
-      } elseif (is_tax('event-venue')) {
-        $taxonomy_name = 'event-venue';
-      } else {
-        $taxonomy_name = 'event-category';
-      }
+      $taxonomy_name = 'event-category';
+    }
+
+    if (is_tax('event-category')) {
+      $taxonomy_name = 'event-category';
+    } elseif (is_tax('event-tag')) {
+      $taxonomy_name = 'event-tag';
+    } elseif (is_tax('event-venue')) {
+      $taxonomy_name = 'event-venue';
     }
 
     $category = get_the_terms($post->ID, $taxonomy_name);
-    $cat_len = count($category);
 
-    if (is_category()) {
-      for($i = 0; $i < $cat_len; $i++) {
-        if (is_category($category[$i]->slug)) {
-          $cat_slug[$i] = $category[$i]->slug;
-          break;
+    if (! empty($category)) {
+      $cat_len = count($category);
+
+      if (is_category()) {
+        for($i = 0; $i < $cat_len; $i++) {
+          if (is_category($category[$i]->slug)) {
+            $cat_slug[$i] = $category[$i]->slug;
+            break;
+          }
         }
-      }
-    } elseif (is_tax()) {
-      for($i = 0; $i < $cat_len; $i++) {
-        if (is_tax($taxonomy_name, $category[$i]->slug)) {
-          $cat_slug[$i] = $category[$i]->slug;
+      } elseif (is_tax()) {
+        for($i = 0; $i < $cat_len; $i++) {
+          if (is_tax($taxonomy_name, $category[$i]->slug)) {
+            $cat_slug[$i] = $category[$i]->slug;
 
-          // スラッグをトリガーにクエリーを分岐させる
-          if ($category[$i]->slug === 'collabo-period') {
-            $period_flag = true;
-            break;
-          } elseif ($category[$i]->parent !== 0) {
-            $cat_parent_id = $category[$i]->parent;
-            $cat_parent = get_term($cat_parent_id, $taxonomy_name);
-
-            if (! empty($cat_parent->description) && $cat_parent->slug === 'collabo-period') {
+            // スラッグをトリガーにクエリーを分岐させる
+            if ($category[$i]->slug === 'collabo-period') {
               $period_flag = true;
-            }
+              break;
+            } elseif ($category[$i]->parent !== 0) {
+              $cat_parent_id = $category[$i]->parent;
+              $cat_parent = get_term($cat_parent_id, $taxonomy_name);
 
-            break;
+              if (! empty($cat_parent->description) && $cat_parent->slug === 'collabo-period') {
+                $period_flag = true;
+              }
+
+              break;
+            }
           }
         }
       }
