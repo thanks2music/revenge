@@ -1,6 +1,7 @@
 <?php
-require_once( 'library/widget.php' );
-require_once( 'library/customizer.php' );
+require_once('library/widget.php');
+require_once('library/customizer.php');
+
 // 子テーマのstyle.cssを後から読み込む
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
@@ -19,6 +20,9 @@ function theme_enqueue_styles() {
 // Global Variable
 locate_template('config/variables.php', true);
 global $amp_flag, $is_sp, $is_pc;
+
+// Cleanup unused meta tags
+locate_template('config/cleanup.php', true);
 
 // Override WordPress Setting
 if (! empty($_GET['amp'])) {
@@ -1121,12 +1125,6 @@ function mail_for_pending( $new_status, $old_status, $post ) {
   }
 }
 add_action( 'transition_post_status', 'mail_for_pending', 10, 3 );
-
-// Feedを停止
-remove_action('do_feed_rdf', 'do_feed_rdf');
-remove_action('do_feed_rss', 'do_feed_rss');
-remove_action('do_feed_rss2', 'do_feed_rss2');
-remove_action('do_feed_atom', 'do_feed_atom');
 
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
