@@ -1,6 +1,7 @@
 <?php
-require_once( 'library/widget.php' );
-require_once( 'library/customizer.php' );
+require_once('library/widget.php');
+require_once('library/customizer.php');
+
 // 子テーマのstyle.cssを後から読み込む
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
@@ -19,6 +20,9 @@ function theme_enqueue_styles() {
 // Global Variable
 locate_template('config/variables.php', true);
 global $amp_flag, $is_sp, $is_pc;
+
+// Cleanup unused meta tags
+locate_template('config/cleanup.php', true);
 
 // Override WordPress Setting
 if (! empty($_GET['amp'])) {
@@ -1096,6 +1100,31 @@ function update_user_profile($user_id) {
  if ( current_user_can('edit_user',$user_id) )
  update_user_meta($user_id, 'position', $_POST['position']);
 }
+
+// レビュー待ちの投稿がされた場合に管理者にメールを送信します。
+function mail_for_pending( $new_status, $old_status, $post ) {
+  // 投稿がレビュー待ち以外からレビュー待ちに変わった(新規の場合は$old_statusが'new'、$new_statusが'pending')
+  if ( $old_status !== 'pending' && $new_status === 'pending' ) {
+    // サイト名
+    $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+    // 投稿名
+    $post_title = wp_specialchars_decode($post->post_title, ENT_QUOTES);
+
+    // 送信先(管理者)
+    $to = get_option('admin_email');
+    // 件名
+    $subject = "[{$blogname}] レビュー待ちの記事「{$post_title}」が送信されました";
+    // 本文
+    $message = "レビュー待ちの記事「{$post_title}」が投稿されました。確認をお願いします。\r\n";
+    $message .= "\r\n";
+    $message .= "編集および公開: \r\n";
+    $message .= wp_specialchars_decode(get_edit_post_link( $post->ID ), ENT_QUOTES) . "\r\n";
+
+    // メールを送信
+    $r = wp_mail($to, $subject, $message);
+  }
+}
+add_action( 'transition_post_status', 'mail_for_pending', 10, 3 );
 
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
