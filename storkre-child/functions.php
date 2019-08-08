@@ -969,7 +969,7 @@ if (! empty($_GET['amp'])) {
     }
     add_filter('the_content', 'replace_youtube_for_amp');
 
-    if (strpos($_SERVER['REQUEST_URI'], 'usamaru-cafe2018-winter') !== false) {
+    if (strpos($_SERVER['REQUEST_URI'], 'usamaru-cafe2018-winter') !== false || strpos($_SERVER['REQUEST_URI'], 'ojamajodoremi-20th-anniversary-cafe2019') !== false) {
       add_filter('the_content', 'replace_video_for_amp');
     }
   }
