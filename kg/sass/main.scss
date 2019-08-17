@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+@import 'modules/base';
+
+// 共通レイアウト
+@import 'partials/common/layout';
+
+// トップページ
+@import 'partials/common/home';
+
+// SP
+@import 'partials/sp/footer';

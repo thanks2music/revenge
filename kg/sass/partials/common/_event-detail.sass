@@ -1,0 +1,279 @@
+\:root
+  --key-color: #ff5dab
+  --sub-color: #00b5fa
+  --key-color-light: #fcedf4
+  --sub-color-light: #c7f0ff
+  --margin: 10px
+  --max-width: 1166px
+
+.work__detail
+  position: relative
+  margin-bottom: 15px
+
+  &--toggle,
+  &--setcookie
+    margin-bottom: 15px
+
+  &__title
+    background: var(--key-color)
+    padding: 10px
+    margin: 0 10px
+    display: flex
+    position: relative
+    align-items: center
+    justify-content: flex-start
+    border-radius: 5px
+
+    .work__detail--toggle &
+      border-radius: 5px 5px 0 0
+
+    &__name
+      font-size: 1.2rem
+      color: #fff
+      margin: 0
+      margin-right: .3em
+
+    &__genre
+      border: 1px solid var(--sub-color)
+      background: #fff
+      padding: 2px 3px
+      font-size: .7rem
+      color: var(--sub-color)
+
+  &__toggle
+    display: block
+    width: 40px
+    height: 40px
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+    right: 10px
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: flex-end
+
+    i
+      color: #fff
+      font-size: 30px
+
+  &__sub-title
+    padding: 0 0 3px 13px
+    border-bottom: 3px solid var(--key-color)
+    color: #222
+    font-size: 16px
+    font-weight: bold
+    line-height: 1.5
+    position: relative
+
+    &:before
+      content: ''
+      position: absolute
+      width: 5px
+      height: 80%
+      background: var(--key-color)
+      border-radius: 5px
+      top: 0
+      left: 0
+
+  &__video
+    position: relative
+    padding-top: 56.25%
+
+    iframe
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+
+  &__bg-keyvisual
+    position: relative
+    margin-bottom: 1rem
+
+  %__list__flex
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    margin: 0
+
+    &:not(:only-child):first-child
+      margin: 0 0 15px
+
+  %__list__flex__li
+    border-radius: 3px
+    font-size: .7rem
+    color: #333
+    padding: 3px 5px
+    margin: 0 0 5px 0
+    flex-basis: 30%
+    text-align: center
+
+  &__list
+    &__flex__blue
+      @extend %__list__flex
+
+      li
+        @extend %__list__flex__li
+        background: var(--sub-color-light)
+
+    &__flex__pink
+      @extend %__list__flex
+
+      li
+        @extend %__list__flex__li
+        background: var(--key-color-light)
+
+  &__table
+    width: 100%
+    margin: 0 0 15px 0
+    border-radius: 5px
+    border-collapse: collapse
+    border: 1px solid #c1c1c1
+    font-size: 12px
+
+    tr
+      &:last-child
+        th,
+        td
+          border-bottom: 0
+    th,
+    td
+      text-align: center
+      vertical-align: middle
+      border-width: 1px 1px 0 0
+      padding: 10px
+      border-bottom: 1px solid #c1c1c1
+
+    th
+      background: #efefef
+      border-right: 1px solid #c1c1c1
+      width: 30%
+
+    td
+      width: 70%
+
+  &__description
+    font-size: .8rem
+    color: #222
+    line-height: 1.8
+    margin: 0 .5rem 1rem
+
+  %__inner-title
+    font-size: .9rem
+    padding: .5rem .5rem .5rem 1rem
+    margin: 0
+    font-weight: bold
+    border-radius: 5px 5px 0 0
+
+  &__inner
+    background: #fff
+    padding: 1em
+    box-shadow: 0 0 1px #ddd
+    max-width: var(--max-width)
+    margin: 0 10px 1.5em
+    border-radius: 0 0 5px 5px
+    display: none
+
+    .work__detail--setcookie &
+      display: none
+
+    &__box
+      border: 1px solid #ddd
+      border-radius: 0 0 5px 5px
+      padding: 15px 10px 10px
+      margin: 0 0 1rem
+
+    &__title__pink
+      @extend %__inner-title
+      background: var(--key-color)
+      color: #fff
+
+    &__title__pink--light
+      @extend %__inner-title
+      background: var(--key-color-light)
+
+    &__title__blue
+      @extend %__inner-title
+      background: var(--sub-color)
+      color: #fff
+
+    &__title__blue--light
+      @extend %__inner-title
+      background: var(--sub-color-light)
+
+main
+  .eventorganiser-event-meta
+    .pc &
+      @extend %clearfix
+      margin-bottom: 1em
+
+  .eo-event-venue-map
+    .eo-venue-map
+      z-index: 0
+
+  .eo-event-meta
+    margin-bottom: 1em
+    font-size: 14px
+
+    %__button-link
+      a
+        display: inline-block
+        font-size: 12px;
+        border-radius: 20px;
+        background: var(--sub-color)
+        color: #fff
+        text-decoration: none
+        padding: 3px 7px
+        margin-bottom: 5px
+
+        &:visited
+          color: #fff
+
+    %__tag-link
+      strong
+        &:before
+          +font-awesome("\f02b")
+
+      a
+        color: var(--sub-color)
+        text-decoration: none
+        margin-right: .7em
+
+        &:before
+          content: '#'
+          margin-right: .1em
+
+    .eo__event
+      &__date
+        display: none
+
+      &__venue
+        @extend %__button-link
+
+        strong
+          &:before
+            +font-awesome("\f291")
+
+      &__category
+        @extend %__button-link
+
+        strong
+          &:before
+            +font-awesome("\f0f4")
+
+      &__tags
+        @extend %__tag-link
+
+    li
+      padding: 0
+      margin: 0
+
+      &:before
+        display: none
+
+      &:not(:last-child)
+        margin-bottom: var(--margin)
+
+        a
+          margin-right: .5em

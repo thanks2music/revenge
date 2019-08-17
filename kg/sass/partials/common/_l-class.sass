@@ -1,0 +1,123 @@
+// Prefix "l-" はレイアウトという意味。
+// 記事で使う装飾用スタイル
+.l
+  &-center
+    text-align: center
+    margin: auto
+
+  &-left
+    text-align: left
+
+  &-right
+    text-align: right
+
+  &-font-size0
+    font-size: 0
+
+  &-di-va-b
+    display: inline-block
+    vertical-align: bottom
+
+  &-sp-only
+    .pc &
+      display: none
+
+    .sp &
+      display: block
+
+  &-pc-only
+    .sp &
+      display: none
+
+    .pc &
+      display: block
+
+  &-amp-only
+    .sp &
+      display: none
+
+    .pc &
+      display: none
+
+    .sp.amp &
+      display: block
+
+  &-pc-and-sp-only
+    .pc &,
+    .sp &
+      display: block
+
+    .sp.amp &
+      display: none
+
+  &-box
+    $light-blue: #c9eefd
+
+    &__gradient
+      margin: 2em 0
+      padding: 1.3em
+      background: linear-gradient(to left,#ff5dab 0%,#00b5fa 100%)
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.13)
+      color: #fff
+      font-weight: bold
+      font-size: 107%
+
+    &__stitch
+      margin: 2em 10px
+      padding: 1.5em 1em
+      border: dashed 2px white
+      background: $light-blue
+      box-shadow: 0 0 0 10px $light-blue
+      font-size: 100%
+
+    &__with-heading
+      $light-blue: #62d4ff
+      margin: 2em 0
+      border: solid 3px $light-blue
+      border-radius: 8px
+
+      &__title
+        display: inline-block
+        position: relative
+        top: -14px
+        left: 10px
+        padding: 0 9px
+        margin: 0 7px
+        background: #fff
+        color: $light-blue
+        font-size: 19px
+        line-height: 1.4
+        font-weight: bold
+
+        &:before
+          @extend %font-awesome4
+          padding-right: 4px
+          content: "\f0f4"
+
+      &__content
+        padding: 0 1.2em 1.2em
+
+        p
+          margin: 0
+          padding: 0
+
+  @for $i from 1 through 11
+    $tenCount: 1#{$i - 1}
+
+    html body main section &
+      &-width-#{$i}0percent
+        width: #{$i}0%
+        margin: auto auto 1rem
+
+    &-margin-b-#{$i}em
+      margin-bottom: #{$i}em
+      margin-bottom: #{$i}rem
+
+    &-padding-t-#{$i}em
+      padding-top: #{$i}em
+
+    &-font-size#{$tenCount}px
+      font-size: #{$tenCount}px
+
+.single .f-size12px
+  font-size: 12px

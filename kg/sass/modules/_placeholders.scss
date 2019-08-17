@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+// Detail -> https://fonts.google.com/specimen/Amatic+SC
+%webfont-amatic {
+  font-family: 'Amatic SC', cursive;
+}
+
+// Font Awesome
+%webfont-fa {
+  font-family: 'fontawesome';
+  display: inline-block;
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// 要素幅を超える場合はテキストを「・・・」と省略する
+%ellipsis-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+%gradient-hr {
+  position: relative;
+  margin: 20px 0 20px;
+
+  .single.pc & {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
+  &:before {
+    background: linear-gradient(to right, #ff5dab 0%, #00b5fa 100%);
+    content: "";
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+%font-awesome4 {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+// 記号
+%mark-kome {
+  content: '\203b'; // ※ の8進数
+}
+
+%mark-square {
+  content: '\25a0'; // ■の8進数
+}
+
+// WebFont
+%webfont-init {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+}

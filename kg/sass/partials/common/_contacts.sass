@@ -1,0 +1,192 @@
+// Contact Form7のWrapper
+.wpcf7-form-control-wrap
+  // Recaptcha
+  .wpcf7-recaptcha
+    > div
+      margin: auto
+
+// カスタマイズ
+.contact-form
+  $label-bg: #f5f5f5
+  $pink: var(--key-color)
+  $required: $pink
+  $border: rgb(194, 194, 194)
+  $light-gray: rgb(240, 240, 240)
+  $gray: rgb(171, 170, 171)
+
+  &__question
+    .pc &
+      display: flex
+
+    // 性別
+    &--gender
+      .pc &
+        display: flex
+
+      // .wpcf7-list-itemの親
+      .wpcf7-radio
+        display: flex
+
+        label
+          display: block
+
+          input
+            display: none
+
+            &:checked
+              + span
+                background: $pink
+                color: #fff
+
+                &:before
+                  border: 3px solid #fff
+                  background: $pink
+
+          span
+            display: block
+            font-size: 14px
+            padding: 10px 7px 10px 0
+            text-align: center
+            border-radius: 6px
+            position: relative
+            background: $light-gray
+
+            &:before
+              content: ''
+              position: absolute
+              top: 50%
+              left: 5px
+              transform: translateY(-50%)
+              width: 15px
+              height: 15px
+              border: 3px solid $gray
+              background: #fff
+              border-radius: 15px
+
+      // labelの親
+      .wpcf7-list-item
+        width: 47%
+        display: block
+        margin: 0
+
+        &:first-child
+          margin-right: 6%
+
+    // 年齢
+    &--age
+      .pc &
+        display: flex
+
+      .contact-form__input
+        display: flex
+        align-items: center
+
+        span
+          display: inline-block
+
+          &.your-age
+            width: 90%
+
+    // 最後の質問
+    &--omega
+      margin-bottom: 40px
+
+      .pc &
+        display: flex
+
+      .contact-form__input
+        border-bottom: 1px solid $border
+
+
+    &:first-of-type
+      label
+        border-radius: 5px 5px 0 0
+
+        .pc &
+          border-radius: 5px 0 0 0
+
+    // 質問事項の見出し
+    &__label
+      background: $label-bg
+      border: 1px solid $border
+      display: block
+      padding: 18px 12px
+      line-height: 1.3
+      font-size: 15px
+      font-weight: bold
+      color: #222
+
+      .pc &
+        width: 30%
+        border-right: 0
+        border-bottom: 0
+        padding: 27px 14px
+
+      ~ p:empty
+        display: none
+
+  // 必須
+  &__require
+    display: inline-block
+    margin: -2px 0px 0px 10px
+    padding: 3px 4px
+    border-radius: 3px
+    border: 1px solid $required
+    color: $required
+    line-height: 1
+    font-size: 12px
+
+  %__input-text
+    color: #333
+    display: block
+    width: 100% !important
+    margin-bottom: 0
+
+  // 回答欄
+  &__input
+    background: #fff
+    border-left: 1px solid $border
+    border-right: 1px solid $border
+    padding: 16px 20px
+    line-height: 1.6
+
+    .pc &
+      width: 70%
+      padding: 16px 20px
+      border-top: 1px solid $border
+
+    &__text
+      font-size: 12px
+      margin: 0 0 10px
+      display: block
+
+    textarea
+      @extend %__input-text
+
+    input
+      @extend %__input-text
+
+    // エラー
+    .wpcf7-not-valid-tip
+      display: block
+      width: 100%
+      font-size: 13px
+      padding-top: .5em
+
+      &:before
+        @extend %mark-kome
+
+  // 送信ボタン
+  &__submit
+    text-align: center
+
+    input
+      display: inline-block
+      color: #fff
+      font-size: 16px
+      font-weight: bold
+      width: 60%
+      background: $pink
+      padding: 15px
+      text-align: center
+

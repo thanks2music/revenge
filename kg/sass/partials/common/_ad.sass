@@ -1,0 +1,110 @@
+%__ad
+  text-align: center
+  display: block
+  position: relative
+
+%__puread__sp
+  padding: 0 .7em .7em
+  margin: -.3em 0 .7em 0
+  border-bottom: 1px dotted rgba(0,0,0,.2)
+
+.ad
+  // 記事内
+  &__in-post
+    // SP
+    &--more
+      @extend %__ad
+
+    &--moreads
+      @extend %__ad
+
+    // PC
+    &__pc-moreads
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+      position: relative
+
+      &--left,
+      &--right
+        flex-basis: 336px
+
+  &__title-under
+    @extend %__ad
+    padding: 1em
+
+    .pc &
+      padding: 0
+
+  &__pc-content
+    @extend %__ad
+    margin-bottom: 1em
+
+    #text-26.widget.widget_text
+      margin: 0
+
+  &__sp-content
+    @extend %__ad
+
+  // 純広告
+  &__puread
+    .pc &
+      display: none
+
+    .pc.home &
+      display: block
+
+    &__pc
+      &--sidebar
+        margin-bottom: -.8em
+
+    &__sp
+      &--large
+        @extend %__puread__sp
+
+      &--small
+        @extend %__puread__sp
+
+  // PC
+  &__sidebar
+    &__adx
+      text-align: center
+
+  &__footer
+    &__sp
+      letter-spacing: normal
+
+    &__pc
+      display: flex
+      justify-content: space-evenly
+      letter-spacing: normal
+
+      &__left,
+      &__right
+        flex-basis: 336px
+
+%__amp__ad
+  position: relative
+  display: block
+
+.amp
+  &__ad
+    @extend %__amp__ad
+
+    &--responsive
+      @extend %__amp__ad
+
+    &--eyecatch-under
+      @extend %__amp__ad
+      padding: 10px 20px 20px
+
+    &--eyecatch-under
+      @extend %__amp__ad
+
+    &--content-under
+      @extend %__amp__ad
+
+    &__footer
+      @extend %__amp__ad
+      background: #fff
+      padding: 10px

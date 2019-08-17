@@ -1,0 +1,196 @@
+%__hr__gradient
+  background: linear-gradient(to right, var(--key-color) 0%, var(--sub-color) 100%)
+  padding: 0
+  border: 0
+
+.hr
+  &__gradient
+    @extend %__hr__gradient
+    height: 3px
+
+    .amp &
+      margin-top: 2rem
+      margin-bottom: .5rem
+
+    &--small
+      @extend %__hr__gradient
+      height: 1px
+
+.nav
+  &__page__partial
+    padding-top: 1.5rem
+    margin-bottom: 1.5rem
+
+    &__counter
+      text-align: center
+      font-size: 12px
+      color: #999
+
+    &__links
+      display: flex
+      align-items: center
+      justify-content: center
+      flex-wrap: wrap
+      position: relative
+      padding-top: 60px
+      margin-bottom: 5px
+
+      .pc &
+        padding-top: 86px
+
+      span,
+      a
+        display: block
+        padding: 10px 3px
+        font-size: 16px
+        margin: 0 5px 5px
+        text-align: center
+        min-width: 44px
+        height: 44px
+        border-radius: 3px
+
+      span
+        background: var(--key-color)
+        color: #fff
+
+      a
+        border: 1px solid var(--key-color)
+
+        .entry-content &
+          color: var(--key-color)
+          text-decoration: none
+
+        &:hover,
+        &:active,
+        &:focus,
+        &:visited
+          .entry-content &
+            color: var(--key-color)
+            text-decoration: none
+
+        &.next
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+
+          .pc &
+            left: 50%
+            transform: translate(-50%, 50%)
+
+          &:after
+            @extend %webfont-fa
+            content: '\f054'
+            display: block
+            position: absolute
+            font-size: 16px
+            right: 7px
+            top: 50%
+            transform: translateY(-50%)
+
+      &__prev--disable,
+      &__next--disable
+        display: block
+        font-size: 16px
+        padding: 10px 3px
+        margin: 0 5px 5px
+        background: #f4f4f4
+        color: #999
+        text-align: center
+        min-width: 44px
+        height: 44px
+
+// 記事下部の著者欄
+.entry
+  &__author
+    border: 1px solid #dbdbdb
+    border-radius: 5px
+    padding: .5rem 1rem 1rem 1rem
+    margin-bottom: 2rem
+
+    .entry__author__description
+      p
+        margin: 0
+
+
+    &__overview
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      margin-bottom: .5rem
+      padding-top: .5rem
+
+      .entry__author__names
+        .entry__author__names__name
+          margin-bottom: -5px
+
+        .entry__author__names__position
+          margin: 0
+
+        .entry__author__names__caption
+          font-size: .7rem
+          color: #999
+          line-height: 1.2
+          margin: 0
+
+    &__image
+      width: 50px
+      height: 50px
+      margin-right: 10px
+
+      img
+        .entry-content &
+          border-radius: 50%
+          // Override
+          margin: 0
+
+    &__names
+      flex-basis: calc(100% - 60px)
+
+      p
+        align-self: center
+
+      &__name,
+      &__position
+        font-size: .9rem
+
+      &__name
+        font-weight: bold
+
+    &__description
+      p
+        font-size: 1rem
+
+// 著者が書いた記事一覧
+.archive
+  &__title
+    &__author
+      display: flex;
+      justify-content: flex-start
+      align-items: center
+      flex-wrap: wrap
+
+    &__author-icon
+      margin-bottom: 10px
+
+      img
+        border-radius: 50%
+        width: 80px
+        border: 2px solid #fff
+        box-shadow: 0 0 5px #ddd
+        margin: 0
+
+    &__author-text
+      margin: 0 0 10px
+      padding: 0 0 0 10px
+      width: calc(100% - 90px)
+
+      &__title
+        .archivettl .archive__title__author &
+          font-size: 1rem
+          font-weight: bold
+          margin-bottom: 5px
+
+      &__count
+        .archivettl .archive__title__author &
+          font-size: .8rem
