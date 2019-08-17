@@ -363,6 +363,7 @@
         // Infeed広告
         if ($ads_infeed_count === $ads_infeed) { ?>
           <?php if (is_prod()) { ?>
+            <?php /* TODO アナリティクス出来たら差し替える
             <div class="cc-infeed">
               <ins class="adsbygoogle"
                    style="display:block"
@@ -374,7 +375,7 @@
               <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
               </script>
-            </div>
+            </div> */ ?>
           <?php } ?>
         <?php }
           $ads_infeed_count++;

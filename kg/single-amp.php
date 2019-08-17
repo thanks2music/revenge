@@ -58,7 +58,7 @@ if ($amp_flag) {
     </script>
     <link rel="amphtml" href="<?php echo $canonical_url . '?amp=1'; ?>">
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    <?php // <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> ?>
     <script async custom-element="amp-twitter" src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"></script>
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
     <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
@@ -147,14 +147,14 @@ if ($amp_flag) {
 
             <?php // 記事上部のアドセンス ?>
             <div class="amp__ad--eyecatch-under">
-              <?php /* Adsense バージョン */ ?>
+              <?php /* TODO アドセンス出来たら差し替える
               <amp-ad layout="responsive"
                       width=300
                       height=250
                       type="adsense"
                       data-ad-client="ca-pub-7307810455044245"
                       data-ad-slot="2805411615">
-              </amp-ad>
+              </amp-ad> */ ?>
             </div>
 
             <section class="entry-content cf amp__entry__content">
@@ -174,6 +174,8 @@ if ($amp_flag) {
                 <?php get_template_part( 'event-meta-event-single' ); ?>
               </div>
             </section>
+
+            <?php /* TODO アドセンス出来たら差し替える
             <div class="amp__ad--content-under">
               <amp-ad width="100vw" height=320
                    type="adsense"
@@ -184,6 +186,7 @@ if ($amp_flag) {
                 <div overflow></div>
               </amp-ad>
             </div>
+            */ ?>
             <hr class="hr__gradient">
           </article>
           <div class="amp__entry__bottom">
