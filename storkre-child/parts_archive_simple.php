@@ -44,7 +44,9 @@
       $taxonomy_name = 'event-venue';
     }
 
-    $category = get_the_terms($post->ID, $taxonomy_name);
+    if (isset($post->ID)) {
+      $category = get_the_terms($post->ID, $taxonomy_name);
+    }
 
     if (! empty($category)) {
       $cat_len = count($category);
@@ -442,6 +444,12 @@
             </div>
           </article>
         <?php } else { ?>
+          <?php
+            // 期間限定イベント時のみタグ名を出す
+            if ($event_cat_slug === 'event') {
+              $cat_name = get_the_event_detail_name($post->ID, $cat);
+            }
+          ?>
           <article <?php post_class('post-list animated fadeIn'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
@@ -449,12 +457,12 @@
                 <figure class="eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
                   <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
-                  <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                  <span class="cat-name"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } else { ?>
                 <figure class="eyecatch noimg">
                   <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-                  <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                  <span class="cat-name"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } ?>
 

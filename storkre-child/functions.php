@@ -786,6 +786,88 @@ function get_the_work_term_name($terms, $value = 'name') {
   return $work_name;
 }
 
+function get_the_event_detail_name($post_id, $terms) {
+  $tags = get_the_terms($post_id, 'event-tag');
+  $target_event_genre  = ['popup-store', 'gengaten', 'fashion', 'konbini', 'stamp-rally', 'onlyshop', 'nazotoki', 'escape-game'];
+  $len = count($target_event_genre);
+  $term_slug = [];
+  $event_name = '';
+
+  foreach($tags as $tag) {
+    $term_slug[] .= $tag->slug;
+  }
+
+  $result = array_intersect($term_slug, $target_event_genre);
+  $result_length = count($result);
+
+  if ($result_length > 1) {
+    foreach($result as $genre) {
+      switch($genre) {
+        case $genre === $target_event_genre[0]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[1]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[2]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[3]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[4]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[5]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[6]:
+          $event_name = $genre;
+          break;
+
+        case $genre === $target_event_genre[7]:
+          $event_name = $genre;
+          break;
+
+        default:
+          $event_name = '';
+          break;
+      }
+    }
+  } elseif ($result_length === 1) {
+    $event_name = array_values($result);
+  }
+
+  var_dump($event_name);
+
+  foreach($tags as $tag) {
+    if (is_string($event_name)) {
+      if ($tag->slug === $event_name) {
+        $event_name = $tag->name;
+      }
+    } else if (is_array($event_name)) {
+      if ($tag->slug === $event_name[0]) {
+        $event_name = $tag->name;
+      }
+    }
+  }
+
+  var_dump($event_name);
+
+  if (empty($event_name)) {
+    $event_name = 'アニメ・漫画の期間限定イベント';
+  }
+  var_dump($event_name);
+
+  return $event_name;
+}
+
 function custom_embed_content($code) {
   global $amp_flag;
   if ($amp_flag) {
