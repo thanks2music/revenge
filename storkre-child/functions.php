@@ -844,8 +844,6 @@ function get_the_event_detail_name($post_id, $terms) {
     $event_name = array_values($result);
   }
 
-  var_dump($event_name);
-
   foreach($tags as $tag) {
     if (is_string($event_name)) {
       if ($tag->slug === $event_name) {
@@ -858,12 +856,9 @@ function get_the_event_detail_name($post_id, $terms) {
     }
   }
 
-  var_dump($event_name);
-
   if (empty($event_name)) {
     $event_name = 'アニメ・漫画の期間限定イベント';
   }
-  var_dump($event_name);
 
   return $event_name;
 }

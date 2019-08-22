@@ -360,6 +360,10 @@ body {
       right: inherit;
       left: 0;
     }
+
+    .post__search .cat-name {
+      background: var(--sub-color);
+    }
   }
 
   article.period-list {

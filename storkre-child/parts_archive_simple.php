@@ -232,7 +232,7 @@
           $cat_name = get_the_work_term_name($terms);
         }
       ?>
-        <article <?php post_class('post-list animated fadeIn search-container'); ?> role="article">
+        <article <?php post_class('post-list animated fadeIn search-container post__search'); ?> role="article">
           <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
             <?php if ( has_post_thumbnail()) { ?>
