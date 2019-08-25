@@ -351,10 +351,9 @@
           $cat = get_the_terms($post->ID, 'event-category');
         }
 
-        $event_cat_slug = get_the_genre_name($cat);
-
+        // 親カテゴリがあるカテゴリを除外
         for ($i = 0; $i < $the_cat_length; $i++) {
-          if ($event_cat_slug === $cat[$i]->slug) {
+          if ($cat[$i]->parent === 0) {
             $cat_name .= $cat[$i]->name;
             break;
           }
@@ -363,7 +362,7 @@
         // Infeed広告
         if ($ads_infeed_count === $ads_infeed) { ?>
           <?php if (is_prod()) { ?>
-            <?php /* TODO アナリティクス出来たら差し替える
+            <?php /* TODO アドセンス出来たら差し替える
             <div class="cc-infeed">
               <ins class="adsbygoogle"
                    style="display:block"
@@ -450,12 +449,12 @@
                 <figure class="eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
                   <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
-                  <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                  <span class="cat-name cat__name"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } else { ?>
                 <figure class="eyecatch noimg">
                   <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-                  <span class="cat-name cat-id-<?php echo $cat[0]->cat_ID;?>"><?php echo $cat_name; ?></span>
+                  <span class="cat-name cat__name"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } ?>
 
