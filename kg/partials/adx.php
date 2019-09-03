@@ -1,5 +1,6 @@
 <?php global $is_sp, $is_pc ?>
 <?php // Google Adsense ?>
+<script data-ad-client="ca-pub-7307810455044245" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <?php /* TODO : アドセンス作ったら差し替える
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
