@@ -100,48 +100,81 @@
         opacity: 0;
         transition: opacity 150ms linear;
 
-.widget__cafe__list
+// ウィジェット用
+.widget
   $primary: var(--key-color)
   $accent: var(--sub-color)
+  // 店舗一覧
+  &__cafe__list
 
-  &__title
-    color: #fff
-    background: $primary
-    font-size: 1em
-    border-radius: 3px 3px 0 0
-    margin: 0
-    padding: .75em .8em
+    &__title
+      color: #fff
+      background: $primary
+      font-size: 1em
+      border-radius: 3px 3px 0 0
+      margin: 0
+      padding: .75em .8em
 
-  &__ul
-    margin-top: -1px
-    border: 1px solid #ddd
-    border-top: 0
-    border-radius: 0 0 3px 3px
+    &__ul
+      margin-top: -1px
+      border: 1px solid #ddd
+      border-top: 0
+      border-radius: 0 0 3px 3px
 
-    li
-      border-bottom: 1px dotted #ddd
+      li
+        border-bottom: 1px dotted #ddd
 
-      .pc &
-        margin: 0
+        .pc &
+          margin: 0
 
-      &:last-child
-        margin-bottom: 0
-        border-bottom: 0
+        &:last-child
+          margin-bottom: 0
+          border-bottom: 0
 
-      a
-        color: #333
-        display: block
-        padding: 1em
-        // padding-bottom: 10px
+        a
+          color: #333
+          display: block
+          padding: 1em
+          // padding-bottom: 10px
 
-        // .sp &
-        //   padding-top: 10px
+          // .sp &
+          //   padding-top: 10px
 
-        &:hover
-          transition: all 300ms ease-out
-          padding-left: .7em
-          color: $accent
+          &:hover
+            transition: all 300ms ease-out
+            padding-left: .7em
+            color: $accent
 
-    i
-      color: $accent
-      margin-right: .2em
+      i
+        color: $accent
+        margin-right: .2em
+
+  &__kikan-gentei
+    display: block
+
+    &__text
+      background: $accent
+      box-shadow: 0 4px 0 darken(#00b5fa, 5%)
+      border-radius: 5px
+      padding: 15px 5px
+      margin: 0 auto 1.5em
+      text-align: center
+      width: 90%
+
+      &:hover
+        transition: all 300ms ease-in-out
+        transform: translate3d(0px, 3px, 1px)
+        box-shadow: 0 1px 0 darken(#00b5fa, 10%)
+        background: darken(#00b5fa, 5%)
+
+    &__catch
+      font-size: 14px
+      color: #fff
+      margin: 0 0 5px
+
+    &__title
+      color: #fff
+      font-size: 24px
+      font-weight: bold
+      margin: 0
+      line-height: 1
