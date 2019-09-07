@@ -595,6 +595,41 @@ if (! function_exists('breadcrumb')) {
 	}
 }
 
+// Simple GA Ranking
+if (function_exists('sga_ranking_get_date')) {
+  //サムネイル生成
+  function sga_ranking_thumbnail_image($thumbnail, $id) {
+   $post_url = get_permalink($id);
+   $title = get_the_title($id);
+   $thumbnail = '';
+
+   if (has_post_thumbnail($id)) {
+   $post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'home-thum');
+   $post_thumb_url = $post_thumb[0];
+   $post_thumb_width = $post_thumb[1];
+   $post_thumb_height = $post_thumb[2];
+   $thumbnail = '<figure class="sga-ranking__thumbnail"><a href="'.$post_url.'" title="'.$title.'"><img src="'.$post_thumb_url.'" alt="'.$title.'" width="'.$post_thumb_width.'" height="'.$post_thumb_height.'"></a></figure>';
+   }
+   return $thumbnail;
+  }
+  add_filter('sga_ranking_before_title', 'sga_ranking_thumbnail_image', 10, 2);
+}
+
+
+// if (function_exists('sga_ranking_get_date')) {
+//   $args = array(
+//     'display_count'           => 10,
+//     'period'                  => 30,
+//     'post_type'               => 'post', 'event',
+//     'exclude_post_type'       => '',
+//     '`taxonomy_slug`__in'     => '',
+//     '`taxonomy_slug`__not_in' => '',
+//     'filter'                  => ''
+//   );
+// 
+//   $ranking_data = sga_ranking_get_date($args);
+// }
+
 // サーチフォームのDOM
 if (! function_exists('my_search_form')) {
   function my_search_form( $form ) {
