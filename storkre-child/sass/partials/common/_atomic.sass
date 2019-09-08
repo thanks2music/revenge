@@ -16,6 +16,76 @@
       @extend %__hr__gradient
       height: 1px
 
+// Simple Google Analytics Ranking
+.custom-html-widget .sga-ranking
+  // li
+  &-list
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 10px
+    padding-bottom: 10px
+    border-bottom: 1px dashed #ddd
+    counter-increment: ranking
+    position: relative
+    overflow: hidden
+
+    &:last-child
+      border: 0
+
+    &:before
+      content: counter(ranking)
+      background: var(--key-color)
+      color: #fff
+      width: 1.5em
+      height: 1.5em
+      font-size: .75em
+      font-weight: bold
+      font-family: 'Lato',sans-serif
+      display: block
+      text-align: center
+      line-height: 1.5em
+      position: absolute
+      left: 0
+      top: 0
+      z-index: 1
+
+    p
+      margin: 0
+
+      .sidebar &
+        display: none
+
+      .homewidget &
+        position: absolute
+        width: calc(100% - 156px)
+        left: 166px
+        top: 70px
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
+
+    // figure
+    .sga-ranking__thumbnail
+      flex-basis: 154px
+      height: 92px
+      overflow: hidden
+      position: relative
+      margin-right: 10px
+
+    > a
+      flex-basis: calc(100% - 164px)
+      font-weight: bold
+      color: #444
+
+      &:visited
+        color: #444
+
+      .sidebar &
+        font-size: 14px
+
+      .homewidget &
+        font-size: 1.2rem
+
 .nav
   &__page__partial
     padding-top: 1.5rem

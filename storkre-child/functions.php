@@ -604,15 +604,31 @@ if (function_exists('sga_ranking_get_date')) {
    $thumbnail = '';
 
    if (has_post_thumbnail($id)) {
-   $post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'home-thum');
-   $post_thumb_url = $post_thumb[0];
-   $post_thumb_width = $post_thumb[1];
-   $post_thumb_height = $post_thumb[2];
-   $thumbnail = '<figure class="sga-ranking__thumbnail"><a href="'.$post_url.'" title="'.$title.'"><img src="'.$post_thumb_url.'" alt="'.$title.'" width="'.$post_thumb_width.'" height="'.$post_thumb_height.'"></a></figure>';
+     $post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'home-thum');
+     $post_thumb_url = $post_thumb[0];
+     $post_thumb_width = $post_thumb[1];
+     $post_thumb_height = $post_thumb[2];
+     $thumbnail = '<figure class="sga-ranking__thumbnail"><a href="'.$post_url.'" title="'.$title.'"><img src="'.$post_thumb_url.'" alt="'.$title.'" width="'.$post_thumb_width.'" height="'.$post_thumb_height.'"></a></figure>';
    }
+
    return $thumbnail;
   }
+
   add_filter('sga_ranking_before_title', 'sga_ranking_thumbnail_image', 10, 2);
+
+  function sga_ranking_description($description, $id) {
+   $post = get_post($id);
+   $description = wp_trim_words(strip_shortcodes($post->post_content), 120);
+   $html = '';
+
+   if (isset($description)) {
+     $html .= '<p class="sga-ranking__excerpt">' . $description . '</p>';
+   }
+
+   return $html;
+  }
+
+  add_filter('sga_ranking_after_title', 'sga_ranking_description', 10, 2);
 }
 
 
