@@ -755,7 +755,7 @@ add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
 function get_the_genre_name($terms) {
   $length = count($terms);
-  $target_genre  = ['restaurant', 'cafe', 'event', 'news', 'karaoke', '25stage'];
+  $target_genre  = ['restaurant', 'cafe', 'news', 'karaoke', '25stage', 'gengaten-tenjikai', 'feature', 'stamp-rally', 'amusement', 'fashion', 'theme-park', 'pop-up-store', 'only-shop', 'kuji', 'convenience-store'];
   $term_slug = [];
   $genre_name = '';
 
@@ -769,37 +769,7 @@ function get_the_genre_name($terms) {
   $result_length = count($result);
 
   if ($result_length > 1) {
-    foreach($result as $genre) {
-      switch($genre) {
-        case $genre === 'restaurant':
-          $genre_name = $genre;
-          break;
-
-        case $genre === 'cafe':
-          $genre_name = $genre;
-          break;
-
-        case $genre === 'event':
-          $genre_name = $genre;
-          break;
-
-        case $genre === 'karaoke':
-          $genre_name = $genre;
-          break;
-
-        case $genre === '25stage':
-          $genre_name = $genre;
-          break;
-
-        case $genre === 'news':
-          $genre_name = $genr;
-          break;
-
-        default:
-          $genre_name = '';
-          break;
-      }
-    }
+    $genre_name = $result[0];
   } else {
     if (! empty($result[0])) {
       $genre_name = $result[0];

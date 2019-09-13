@@ -131,13 +131,17 @@
         $cat = get_the_terms($post->ID, $taxonomy_name);
         $the_cat_length = count($cat);
 
-        // カテゴリ名とスラッグを保存
+        $event_cat_slug = get_the_genre_name($cat);
+
         for ($i = 0; $i < $the_cat_length; $i++) {
-          if ($cat[$i]->slug === 'cafe' || $cat[$i]->slug === 'event' || $cat[$i]->slug === 'news' || $cat[$i]->slug === 'karaoke') {
+          if ($event_cat_slug === $cat[$i]->slug) {
             $cat_name .= $cat[$i]->name;
-            $event_cat_slug .= $cat[$i]->slug;
             break;
           }
+        }
+
+        if (empty($event_cat_slug)) {
+          $event_cat_slug .= 'other';
         }
 
         // Just do it ?>
@@ -146,7 +150,7 @@
               <div class="byline entry-meta vcard">
                 <?php if ($post_type === 'event') { ?>
                   <div class="event-date-parent">
-                    <span class="event-cat cat-name term-slug-<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
+                    <span class="event-cat cat-name term-slug__<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
                     <span class="event-date gf"><?php echo $date_dom; ?></span>
                   </div>
                 <?php } ?>
@@ -168,14 +172,6 @@
 
               <section class="entry-content remix">
                 <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
-
-                  <?php if (! is_mobile()) {
-                    $excerpt = get_the_excerpt();
-
-                    if ($excerpt !== '' && ! empty($excerpt)) { ?>
-                      <div class="description"><?php the_excerpt(); ?></div>
-                    <?php }
-                  } ?>
               </section>
             </a>
             <div class="enrty-tags">

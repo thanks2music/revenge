@@ -362,6 +362,10 @@
           }
         }
 
+        if (empty($cat_name) && $post_type === 'post') {
+          $cat_name .= $cat[0]->name;
+        }
+
         // Infeed広告
         if ($ads_infeed_count === $ads_infeed) { ?>
           <?php if (is_prod()) { ?>
@@ -388,7 +392,7 @@
               <div class="byline entry-meta vcard">
                 <?php if ($post_type === 'event') { ?>
                   <div class="event-date-parent">
-                    <span class="event-cat cat-name term-slug-<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
+                    <span class="event-cat cat-name term-slug__<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
                     <span class="event-date gf"><?php echo $date_dom; ?></span>
                   </div>
                 <?php } ?>
@@ -444,12 +448,6 @@
             </div>
           </article>
         <?php } else { ?>
-          <?php
-            // 期間限定イベント時のみタグ名を出す
-            if ($event_cat_slug === 'event') {
-              $cat_name = get_the_event_detail_name($post->ID, $cat);
-            }
-          ?>
           <article <?php post_class('post-list animated fadeIn'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
@@ -457,12 +455,12 @@
                 <figure class="eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
                   <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
-                  <span class="cat-name"><?php echo $cat_name; ?></span>
+                  <span class="cat-name cat__name__home"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } else { ?>
                 <figure class="eyecatch noimg">
                   <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
-                  <span class="cat-name"><?php echo $cat_name; ?></span>
+                  <span class="cat-name cat__name__none"><?php echo $cat_name; ?></span>
                 </figure>
               <?php } ?>
 
