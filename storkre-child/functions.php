@@ -537,7 +537,7 @@ if (! function_exists('breadcrumb')) {
 
             // Category
             if ($post_type === 'post') {
-              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($cat->term_id) .'" itemprop="item"><span itemprop="name">'. get_cat_name($cat->term_id) .'</span></a>';
               $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
               $itemLength++;
               // Taxonomy
