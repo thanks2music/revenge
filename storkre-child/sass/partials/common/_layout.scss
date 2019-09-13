@@ -440,25 +440,31 @@ body {
             margin-right: .3em;
           }
 
-          &.term-slug-cafe {
+          &.term-slug__cafe {
             &:before {
               content: '\f0f4'; // Coffee
             }
           }
 
-          &.term-slug-news {
+          &.term-slug__news {
             &:before {
               content: '\f02d'; // Book
             }
           }
 
-          &.term-slug-event {
+          &.term-slug__event {
             &:before {
               content: '\f073'; // Calender
             }
           }
 
-          &.term-slug-karaoke {
+          &.term-slug__other {
+            &:before {
+              content: '\f073'; // Calender
+            }
+          }
+
+          &.term-slug__karaoke {
             &:before {
               content: '\f028'; // Volume
             }

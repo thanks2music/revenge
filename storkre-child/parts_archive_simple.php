@@ -392,7 +392,7 @@
               <div class="byline entry-meta vcard">
                 <?php if ($post_type === 'event') { ?>
                   <div class="event-date-parent">
-                    <span class="event-cat cat-name term-slug-<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
+                    <span class="event-cat cat-name term-slug__<?php echo $event_cat_slug; ?>"><?php echo $cat_name; ?></span>
                     <span class="event-date gf"><?php echo $date_dom; ?></span>
                   </div>
                 <?php } ?>
