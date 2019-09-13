@@ -140,6 +140,10 @@
           }
         }
 
+        if (empty($event_cat_slug)) {
+          $event_cat_slug .= 'other';
+        }
+
         // Just do it ?>
           <article <?php post_class('post-list period-list footer-period-list animated fadeIn'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
