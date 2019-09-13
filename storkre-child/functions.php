@@ -460,6 +460,79 @@ function single_photoswipe_shortcode($atts, $content = null) {
 }
 add_shortcode('single_photoswipe', 'single_photoswipe_shortcode');
 
+// カスタムタクソノミーに独自入力欄を追加
+add_action('category_edit_form_fields','add_taxonomy_fields'); //カテゴリー
+add_action('post_tag_edit_form_fields','add_taxonomy_fields'); //タグ
+add_action('event-category_edit_form_fields','add_taxonomy_fields');
+
+function add_taxonomy_fields($term) {
+ $term_id = $term->term_id; //タームID
+ $taxonomy = $term->taxonomy; //タームIDに所属しているタクソノミー名
+ //すでにデータが保存されている場合はDBから取得する
+ $term_meta = get_option( $term->taxonomy . '_' . $term_id );
+?>
+ <tr class="form-field">
+  <th scope="row"><label for="term_meta[app_flag]">作品から探すフラグ</label></th>
+  <td><textarea name="term_meta[app_flag]" id="term_meta[app_flag]" rows="5" cols="50" class="large-text"><?php echo isset($term_meta['app_flag']) ? esc_attr( $term_meta['app_flag'] ) : ''; ?></textarea>
+  <p class="description">「true」と書いたらアプリ側から取得されます。</p></td>
+ </tr>
+<?php
+}
+
+// カスタムタクソノミーの入力欄の保存
+add_action( 'edited_term', 'save_taxonomy_fileds' );
+
+function save_taxonomy_fileds( $term_id ) {
+ global $taxonomy; //タクソノミー名を取得
+ if ( isset( $_POST['term_meta'] ) ) { //自由入力欄に値が入っていたら処理する
+  $term_meta = get_option( $taxonomy . '_' . $term_id );
+  $term_keys = array_keys($_POST['term_meta']);
+  foreach ($term_keys as $key){
+   if (isset($_POST['term_meta'][$key])){
+    $term_meta[$key] = stripslashes_deep( $_POST['term_meta'][$key] );
+   }
+  }
+  update_option( $taxonomy . '_' . $term_id, $term_meta ); //保存
+ }
+}
+
+add_action('rest_api_init', 'add_custom_fields_to_rest' );
+function add_custom_fields_to_rest() {
+  register_rest_field(
+    'event', 
+    'custom_fields',
+    [
+      'get_callback'    => 'get_custom_fields_value', // カスタム関数名指定 
+      'update_callback' => null,
+      'schema'          => null,
+    ]
+  );
+
+  register_rest_field(
+    'event-category', 
+    'term_fields',
+    [
+      'get_callback'    => 'get_meta_fields_value', // カスタム関数名指定 
+      'update_callback' => null,
+      'schema'          => null,
+    ]
+  );
+}
+
+function get_custom_fields_value() {
+  return get_post_custom();
+}
+
+function get_meta_fields_value() {
+  $fields = array();
+  $fields['title_image'] = '画像のURL';
+  return $fields;
+  // return get_queried_object();
+  // return get_post_custom();
+  // return get_term_by('id', 1843, 'event-category');
+  // return get_term_meta($post->ID, '');
+}
+
 // パンくず
 if (! function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {
