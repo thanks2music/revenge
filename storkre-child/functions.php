@@ -470,9 +470,9 @@ function add_taxonomy_fields($term) {
  $term_meta = get_option( $term->taxonomy . '_' . $term_id );
 ?>
  <tr class="form-field">
-  <th scope="row"><label for="term_meta[app_flag]">作品から探すフラグ</label></th>
-  <td><textarea name="term_meta[app_flag]" id="term_meta[app_flag]" rows="5" cols="50" class="large-text"><?php echo isset($term_meta['app_flag']) ? esc_attr( $term_meta['app_flag'] ) : ''; ?></textarea>
-  <p class="description">「true」と書いたらアプリ側から取得されます。</p></td>
+  <th scope="row"><label for="term_meta[app_search_title_image]">作品から探す用画像</label></th>
+  <td><textarea name="term_meta[app_search_title_image]" id="term_meta[app_search_title_image]" rows="5" cols="50" class="large-text"><?php echo isset($term_meta['app_search_title_image']) ? esc_attr( $term_meta['app_search_title_image'] ) : ''; ?></textarea>
+  <p class="description">画像のURLを設定します。</p></td>
  </tr>
 <?php
 }
@@ -524,6 +524,28 @@ function add_custom_fields_to_rest() {
 
 function get_custom_fields_value() {
   return get_post_custom();
+}
+
+function is_app($key = 'layout') {
+  if (isset($_GET[$key])) {
+    $query = $_GET[$key];
+
+    if ($query === 'app') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+function is_web() {
+  if (! is_app()) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 // パンくず
