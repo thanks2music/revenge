@@ -526,6 +526,28 @@ function get_custom_fields_value() {
   return get_post_custom();
 }
 
+function is_app($key = 'layout') {
+  if (isset($_GET[$key])) {
+    $query = $_GET[$key];
+
+    if ($query === 'app') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+function is_web() {
+  if (! is_app()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // パンくず
 if (! function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {
