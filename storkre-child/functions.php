@@ -508,36 +508,51 @@ if (! function_exists('breadcrumb')) {
           } elseif (is_single()) {
             $post_type = get_post_type();
             $taxonomy_name = 'category';
+            $ignore_terms  = ['restaurant', 'cafe', 'news', 'karaoke', '25stage', 'gengaten-tenjikai', 'feature', 'stamp-rally', 'amusement', 'fashion', 'theme-park', 'pop-up-store', 'only-shop', 'kuji', 'convenience-store', 'collabo-period'];
+
             if ($post_type === 'event') {
               $taxonomy_name = 'event-category';
             }
 
             $categories = get_the_terms($post->ID, $taxonomy_name);
-            $cat_len = count($categories);
-            $ignore_parent = '';
 
-            for ($i= 0; $i < $cat_len; $i++) {
-              $slug = $categories[$i]->slug;
-              $des = $categories[$i]->description;
+            if ($post_type === 'post') {
+              $cat = $categories[0];
+              // イベント時のみ複数カテゴリ選択に合わせる
+            } else if ($post_type === 'event') {
+              $cat_len = count($categories);
+              $_slug = [];
 
-              if ($categories[$i]->parent === 0 && $slug !== 'collabo-period' && $slug !== 'cafe') {
-                $cat = $categories[$i];
-                break;
+              for ($i= 0; $i < $cat_len; $i++) {
+                $_slug[] .= $categories[$i]->slug;
+              }
+
+              $target_terms = array_diff($_slug, $ignore_terms);
+
+              for ($i= 0; $i < count($target_terms); $i++) {
+                $_cats = get_term_by('slug', $target_terms[$i], 'event-category');
+
+                if ($_cats->parent !== 381) {
+                  $cat = $_cats;
+                }
               }
             }
 
-            if (isset($cat)) {
-                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, $taxonomy_name));
-                foreach($ancestors as $ancestor){
-                  $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
-                  $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
-                  $itemLength++;
-                }
+            // 1階層目
+            if (! empty($cat)) {
+              $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, $taxonomy_name));
+
+              foreach($ancestors as $ancestor) {
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $itemLength++;
+              }
             }
 
+            // 2階層目
             // Category
             if ($post_type === 'post') {
-              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($cat->term_id) .'" itemprop="item"><span itemprop="name">'. get_cat_name($cat->term_id) .'</span></a>';
               $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
               $itemLength++;
               // Taxonomy
@@ -781,11 +796,16 @@ function get_the_genre_name($terms) {
 
 function get_the_work_term_name($terms, $value = 'name') {
   $length = count($terms);
-  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke', 'restaurant'];
+  $ignore_terms  = ['restaurant', 'cafe', 'news', 'karaoke', '25stage', 'gengaten-tenjikai', 'feature', 'stamp-rally', 'amusement', 'fashion', 'theme-park', 'pop-up-store', 'only-shop', 'kuji', 'convenience-store', 'collabo-period'];
   $term_name = [];
   for($i = 0; $i < $length; $i++) {
+    // 「作品」の親カテゴリを指定している場合
+    if ($terms[$i]->parent === 2769) {
+      $term_name[] .= $terms[$i]->slug;
+    }
+
     // 親カテゴリがあるカテゴリを除外
-    if ($terms[$i]->parent === 0) {
+    else if ($terms[$i]->parent === 0) {
       $term_name[] .= $terms[$i]->slug;
     }
   }
