@@ -532,6 +532,7 @@ if (! function_exists('breadcrumb')) {
               for ($i= 0; $i < count($target_terms); $i++) {
                 $_cats = get_term_by('slug', $target_terms[$i], 'event-category');
 
+                // 381 = 開催期間別
                 if ($_cats->parent !== 381) {
                   $cat = $_cats;
                 }
