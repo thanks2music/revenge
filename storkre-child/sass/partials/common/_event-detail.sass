@@ -258,12 +258,21 @@ main
       &__category
         @extend %__button-link
 
+        // Viewに表示しないカテゴリ
+        [href$='/collabo-period/']
+          display: none
+
+
         strong
           &:before
             +font-awesome("\f0f4")
 
       &__tags
         @extend %__tag-link
+
+        // Viewに表示しないタグ
+        [href$='/app-pickup/']
+          display: none
 
     li
       padding: 0
