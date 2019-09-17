@@ -17,6 +17,7 @@
 @import 'partials/common/paragraph';
 @import 'partials/common/footer';
 @import 'partials/common/atomic';
+@import 'partials/common/full-layout';
 // SP Only
 @import 'partials/sp/drawer';
 @import 'partials/sp/widget';
@@ -359,8 +360,10 @@ body {
     }
 
     .cat-name {
-      right: inherit;
-      left: 0;
+      right: 0;
+      left: inherit;
+      transform: none;
+      top: 5px;
     }
 
     .post__search .cat-name {
