@@ -596,6 +596,7 @@ if (! function_exists('breadcrumb')) {
           } elseif (is_single()) {
             $post_type = get_post_type();
             $taxonomy_name = 'category';
+
             if ($post_type === 'event') {
               $taxonomy_name = 'event-category';
             }
@@ -614,18 +615,23 @@ if (! function_exists('breadcrumb')) {
               }
             }
 
+              if (! empty($cat) && $post_type === 'post') {
+                $cat = $categories[0];
+              }
+
             if (isset($cat)) {
-                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, $taxonomy_name));
-                foreach($ancestors as $ancestor){
-                  $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
-                  $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
-                  $itemLength++;
-                }
+              $ancestors = array_reverse(get_ancestors($cat->term_id, $taxonomy_name));
+
+              foreach($ancestors as $ancestor) {
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $itemLength++;
+              }
             }
 
             // Category
             if ($post_type === 'post') {
-              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a>';
+              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($cat->term_id) .'" itemprop="item"><span itemprop="name">'. get_cat_name($cat->term_id) .'</span></a>';
               $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
               $itemLength++;
               // Taxonomy
