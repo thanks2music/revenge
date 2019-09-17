@@ -360,10 +360,15 @@ body {
     }
 
     .cat-name {
-      right: 0;
-      left: inherit;
-      transform: none;
-      top: 5px;
+      right: inherit;
+      left: 0;
+
+      .single.pc & {
+        right: 0;
+        left: inherit;
+        transform: none;
+        top: 5px;
+      }
     }
 
     .post__search .cat-name {
