@@ -522,6 +522,18 @@ function add_custom_fields_to_rest() {
   );
 }
 
+
+function my_filter_rest_endpoints($endpoints) {
+  if (isset($endpoints['/wp/v2/users'])) {
+    unset($endpoints['/wp/v2/users']);
+  }
+  if (isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)']) ) {
+    unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+  }
+  return $endpoints;
+}
+add_filter('rest_endpoints', 'my_filter_rest_endpoints', 10, 1);
+
 function get_custom_fields_value() {
   return get_post_custom();
 }
