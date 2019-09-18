@@ -95,24 +95,6 @@ $post_class = 'app__single'
           <?php endif; ?>
 
           <?php // Google Recommend ?>
-          <?php if ($is_sp) { ?>
-            <div class="ad__google-recommend--sp">
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-format="autorelaxed"
-                   data-ad-client="ca-pub-7307810455044245"
-                   data-ad-slot="7735657787"></ins>
-              <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
-            </div>
-
-            <hr class="hr__gradient">
-
-            <div class="ad__taxel__gmo-recommend">
-              <div id="gmo_rw_12370" data-gmoad="rw"></div>
-            </div>
-          <?php } ?>
           </article>
           <?php
           }

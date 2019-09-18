@@ -2,7 +2,7 @@
 <?php
   global $is_sp, $is_pc, $amp_flag;
 ?>
-  <html lang="ja">
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
