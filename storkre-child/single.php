@@ -1,6 +1,8 @@
 <?php global $amp_flag, $is_sp, $is_pc;
   if ($amp_flag) {
     get_template_part('single-amp');
+  } elseif (is_app()) {
+    get_template_part('single-app');
   } else { ?>
     <?php get_header(); ?>
     <?php
