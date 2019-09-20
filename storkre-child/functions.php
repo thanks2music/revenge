@@ -593,8 +593,17 @@ if (! function_exists('breadcrumb')) {
               }
 
               foreach($ancestors as $ancestor) {
-                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">'. get_cat_name($ancestor) .'</span></a></li>';
-                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $cat_name = get_cat_name($ancestor);
+
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_category_link($ancestor) .'" itemprop="item"><span itemprop="name">';
+
+                if (empty($cat_name)) {
+                  $str .= get_the_category_by_ID($ancestor);
+                } else {
+                  $str.= $cat_name;
+                }
+
+                $str.= '</span><meta itemprop="position" content="' . $itemLength . '" /></a></li>';
                 $itemLength++;
               }
             }
