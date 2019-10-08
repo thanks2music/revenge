@@ -470,9 +470,14 @@ function add_taxonomy_fields($term) {
  $term_meta = get_option( $term->taxonomy . '_' . $term_id );
 ?>
  <tr class="form-field">
-  <th scope="row"><label for="term_meta[app_search_title_image]">作品から探す用画像</label></th>
-  <td><textarea name="term_meta[app_search_title_image]" id="term_meta[app_search_title_image]" rows="5" cols="50" class="large-text"><?php echo isset($term_meta['app_search_title_image']) ? esc_attr( $term_meta['app_search_title_image'] ) : ''; ?></textarea>
+  <th scope="row"><label for="term_meta[]">作品から探す用画像</label></th>
+  <td><textarea name="term_meta[title_image]" id="term_meta[title_image]" rows="5" cols="50" class="large-text"><?php echo isset($term_meta['title_image']) ? esc_attr( $term_meta['title_image'] ) : ''; ?></textarea>
   <p class="description">画像のURLを設定します。</p></td>
+ </tr>
+ <tr class="form-field">
+  <th scope="row"><label for="term_meta[]">作品から探す欄の順序制御</label></th>
+  <td><textarea type="text" name="term_meta[title_order]" id="term_meta[title_order]" rows="1" cols="50" class="large-text"><?php echo isset($term_meta['title_order']) ? esc_attr( $term_meta['title_order'] ) : ''; ?></textarea>
+  <p class="description">半角数字で整数を指定してください</p></td>
  </tr>
 <?php
 }
