@@ -45,7 +45,8 @@
   // Override Class
   &.remix {
     .entry-meta {
-      .event-date {
+      .event-date,
+      .event-icon {
         opacity: 1;
         margin-right: .6em;
         display: inline-block;
@@ -53,6 +54,14 @@
         color: var(--key-color);
         font-family: $font-family;
 
+        i {
+          font-size: 1em;
+          margin-right: .2em;
+          color: var(--key-color);
+        }
+      }
+
+      .event-date {
         &:before {
           font-family: 'fontawesome';
           content: '\f274';

@@ -190,6 +190,7 @@
         $cf = get_post_custom();
         $endless_flag = get_post_meta($post->ID, 'endless_event_flag', true);
         $ambiguous_period = get_post_meta($post->ID, 'ambiguous_ period', true);
+        $other_period = get_post_meta($post->ID, 'other_period_text', true);
         $post_type = get_post_type();
         $taxonomy_name = 'category';
 
@@ -224,6 +225,7 @@
             }
           }
 
+          // 期間が曖昧な時は上書き
           if ($ambiguous_period) {
             $date_dom = $ambiguous_period;
           }
@@ -250,7 +252,9 @@
             <h1 class="h2 entry-title"><?php the_title(); ?></h1>
 
             <p class="byline entry-meta vcard">
-              <?php if (! empty($date_dom)) { ?>
+              <?php if (! empty($other_period)) { ?>
+                <span class="event-date gf"><?php echo $other_period; ?></span>
+              <?php } elseif (! empty($date_dom)) { ?>
                 <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
               <?php } ?>
               <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
@@ -303,6 +307,7 @@
         $cf = get_post_custom();
         $endless_flag = get_post_meta($post->ID, 'endless_event_flag', true);
         $ambiguous_period = get_post_meta($post->ID, 'ambiguous_ period', true);
+        $other_period = get_post_meta($post->ID, 'other_period_text', true);
 
         $post_type = get_post_type();
         $taxonomy_name = 'category';
@@ -469,7 +474,11 @@
 
                 <p class="byline entry-meta vcard">
                   <?php if ($post_type === 'event') { ?>
-                    <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
+                    <?php if (! empty($other_period)) { ?>
+                      <span class="event-icon gf"><?php echo $other_period; ?></span>
+                    <?php } elseif (! empty($date_dom)) { ?>
+                      <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
+                    <?php } ?>
                   <?php } ?>
                   <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
                   <span class="author name entry-author">
