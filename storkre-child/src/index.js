@@ -155,6 +155,17 @@ if (body[0].className.indexOf('single') > -1) {
   }
 }
 
+if (body[0].className.indexOf('app') > -1) {
+  const questions = $(body).find('.app__faq__questions__list__question');
+
+  if (questions.length) {
+    questions.on('click', function(e) {
+      $(this).toggleClass('app__faq__questions__list--question');
+      $(this).next('dd').slideToggle(200);
+    });
+  }
+}
+
 // Toppage only
 if (window.location.pathname === '/') {
   if (window.location.search.indexOf('preview') === -1) {

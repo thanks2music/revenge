@@ -22,6 +22,9 @@
 @import 'partials/sp/drawer';
 @import 'partials/sp/widget';
 
+// App Only
+@import 'partials/app/faq';
+
 .wf-amatic {
   @extend %webfont-amatic;
 }

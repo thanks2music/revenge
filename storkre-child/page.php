@@ -13,7 +13,13 @@
 
   if (is_app() && ! empty($app_body)) {
     get_header('app');
-    echo nl2br($app_body);
+
+    if (is_page('faq')) {
+      echo $app_body;
+    } else {
+      echo nl2br($app_body);
+    }
+
     get_footer('app');
     // is_web
   } elseif ($app_only_flag) {

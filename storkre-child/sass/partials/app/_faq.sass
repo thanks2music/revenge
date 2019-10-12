@@ -1,0 +1,81 @@
+.app__faq
+  padding: 1rem .5rem
+
+  &__title
+    margin: 0 0 1rem
+    padding: 0
+    font-size: 1.2rem
+    color: var(--key-color)
+
+  &__questions
+    margin-bottom: 1.5rem
+
+    // dl
+    &__list
+      margin: 0
+      padding: 0
+      border: 1px solid #c1c1c1
+      border-bottom-left-radius: 5px
+      border-bottom-right-radius: 5px
+
+      // dt
+      &__question
+        padding: 10px 40px
+        font-size: 13px
+        color: #222
+        position: relative
+        border-bottom: 1px solid #c1c1c1
+
+        // is-open
+        &.app__faq__questions__list--question
+          border-bottom: 0
+
+          &:after
+            content: '\f106'
+
+        &:last-child
+          border-bottom: 0
+
+          &:after
+
+        &:before
+          width: 20px
+          height: 20px
+          border: 1px solid var(--key-color)
+          border-radius: 50%
+          position: absolute
+          left: 10px
+          top: 50%
+          transform: translateY(-50%)
+          color: var(--key-color)
+          font-family: Arial
+          text-align: center
+          content: 'Q'
+
+        &:after
+          @extend %webfont-fa
+          content: '\f107';
+          position: absolute
+          right: 10px
+          top: 50%
+          transform: translateY(-50%)
+          font-size: 16px
+
+      // dd
+      &__answer
+        padding: 15px 30px 15px 40px
+        font-size: 13px
+        line-height: 1.7
+        position: relative
+        display: none
+
+    &__title
+      border-top-left-radius: 5px
+      border-top-right-radius: 5px
+      background: var(--key-color)
+      font-size: 14px
+      margin: 0
+      padding: .5rem 0
+      color: #fff
+      text-align: center
+
