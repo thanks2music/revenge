@@ -1,7 +1,7 @@
 <?php global $is_sp, $is_pc ?>
 <?php // Google Adsense ?>
 <script data-ad-client="ca-pub-7307810455044245" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<?php /* TODO : アドセンス作ったら差し替える
+<?php /*
   <?php if ($is_sp) { ?>
     <?php // GMO YDN Tag ?>
     <script src="//cdn.gmossp-sp.jp/ads/loader.js?space_id=g908845" charset="utf-8" language="JavaScript"></script>
