@@ -212,14 +212,13 @@
       echo $more_dom;
 
       if ($is_pc) { ?>
-      <?php /* TODO : アドセンス作ったら差し替える
         <div class="ad__footer__pc">
           <div class="ad__footer__pc__left">
-            <!-- CC_PC_All_footer_Left_Responsive -->
+            <!-- KG_PC_All_footer_Left_Responsive -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-7307810455044245"
-                 data-ad-slot="5261223592"
+                 data-ad-slot="8548660391"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -227,33 +226,32 @@
             </script>
           </div>
           <div class="ad__footer__pc__right">
-            <!-- CC_PC_All_Footer_Right_Fixed -->
+            <!-- KG_PC_All_footer_Right_Responsive -->
             <ins class="adsbygoogle"
-                 style="display:inline-block;width:336px;height:280px"
+                 style="display:block"
                  data-ad-client="ca-pub-7307810455044245"
-                 data-ad-slot="4311104003"></ins>
+                 data-ad-slot="9389106955"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
           </div>
         </div>
-      */ ?>
       <?php
       } else { ?>
-      <?php /* TODO : アドセンス作ったら差し替える
         <div class="ad__footer__sp">
-          <!-- CC_SP_All_Footer -->
+          <!-- KG_SP_All_Footer -->
           <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-7307810455044245"
-               data-ad-slot="4953090075"
+               data-ad-slot="6397494992"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>
                (adsbygoogle = window.adsbygoogle || []).push({});
           </script>
         </div>
-      */ ?>
       <?php }
 
       echo '</div>'; // end .period-container
