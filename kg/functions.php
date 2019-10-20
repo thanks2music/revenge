@@ -321,7 +321,7 @@ if ($device === 'pc') {
 // AMPだけ実行
 if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
   function replace_amp_moreads($the_content) {
-    $pattern = '/<p><moreads><\/moreads><\/p>/is';
+    $pattern = '/<moreads><\/moreads>/is';
     $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
     $moreads_count_inpost = count($moreads_content[0]);
     $moreads = get_moreads_tags('amp');
@@ -347,7 +347,7 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
   // SPだけ実行
 } else if ($is_sp) {
   function replace_sp_moreads($the_content) {
-    $pattern = '/<p><moreads><\/moreads><\/p>/is';
+    $pattern = '/<moreads><\/moreads>/is';
     $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
     $moreads_count_inpost = count($moreads_content[0]);
     $moreads = get_moreads_tags('sp');
@@ -373,7 +373,7 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
   // PCだけ実行
 } else if ($is_pc) {
   function replace_pc_moreads($the_content) {
-    $pattern = '/<p><moreads><\/moreads><\/p>/is';
+    $pattern = '/<moreads><\/moreads>/is';
     $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
     $moreads_count_inpost = count($moreads_content[0]);
     $moreads = get_moreads_tags('pc');
