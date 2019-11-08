@@ -1,0 +1,57 @@
+.app__smart__dl
+  position: fixed
+  z-index: 999999
+  top: 0
+  width: 100%
+  height: 60px
+  border-bottom: 1px solid #f1e0e7
+  background-color: #faf5f6
+
+  &__anchor
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    width: 100%
+    height: 60px
+    text-decoration: none
+    padding: 13px 10px
+
+  &__image
+    flex-basis: 44px
+
+    img
+      border-radius: 12px
+
+  &__text
+    padding-left: 10px
+
+  &__title
+    line-height: 1
+    margin: 0 0 5px
+    padding: 0
+    font-size:  16px
+    font-weight: bold
+    color: var(--key-color)
+
+  &__description
+    line-height: 1
+    margin: 0
+    padding: 0
+    font-size: 11px
+    color: #333
+
+  &__button
+    font-size: 12px
+    font-weight: bold
+    background: var(--sub-color)
+    color: white
+    padding: 5px 10px
+    text-align: center
+    border-radius: 5px
+    width: 130px
+    position: absolute
+    right: 10px
+
+    +mediaquery('max', 360px)
+      position: static
+

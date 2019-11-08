@@ -565,6 +565,31 @@ function is_web() {
   }
 }
 
+function is_ios() {
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+  $ua = mb_strtolower($ua);
+  $iphone = strpos($ua, 'iphone');
+  $ipod = strpos($ua, 'ipod');
+  $ipad = strpos($ua, 'ipad');
+
+  if ($iphone !== false || $ipod !== false || $ipad !== false) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function is_android() {
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+  $ua = mb_strtolower($ua);
+
+  if (strpos($ua, 'android') !== false) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // パンくず
 if (! function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {

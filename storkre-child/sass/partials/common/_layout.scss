@@ -21,6 +21,7 @@
 // SP Only
 @import 'partials/sp/drawer';
 @import 'partials/sp/widget';
+@import 'partials/app/smartdl';
 
 // App Only
 @import 'partials/app/faq';
@@ -335,6 +336,10 @@ body {
         }
       }
     }
+  }
+
+  &.android {
+    padding-top: 60px;
   }
 }
 
