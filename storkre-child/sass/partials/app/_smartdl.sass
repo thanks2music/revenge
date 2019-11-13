@@ -1,7 +1,4 @@
 .app__smart__dl
-  position: fixed
-  z-index: 999999
-  top: 0
   width: 100%
   height: 60px
   border-bottom: 1px solid #f1e0e7
@@ -15,6 +12,7 @@
     height: 60px
     text-decoration: none
     padding: 13px 10px
+    position: relative
 
   &__image
     flex-basis: 44px
@@ -24,12 +22,13 @@
 
   &__text
     padding-left: 10px
+    margin-right: 10px
 
   &__title
     line-height: 1
     margin: 0 0 5px
     padding: 0
-    font-size:  16px
+    font-size:  14px
     font-weight: bold
     color: var(--key-color)
 
@@ -39,6 +38,9 @@
     padding: 0
     font-size: 11px
     color: #333
+
+    +mediaquery('max', 360px)
+      font-size: 10px
 
   &__button
     font-size: 12px
