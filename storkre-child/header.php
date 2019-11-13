@@ -11,6 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
+  <meta name="apple-itunes-app" content="app-id=1481548251">
   <?php if (is_single()) { ?>
     <link rel="amphtml" href="<?php echo get_permalink() .'?amp=1'; ?>">
   <?php } ?>
@@ -38,10 +39,15 @@
   <?php
     $body_class = '';
     $event_taxonomy_cat = 'event-category';
+
     if ($is_sp) {
       $body_class .= 'sp no-amp';
     } else {
       $body_class .= 'pc';
+    }
+
+    if (is_android()) {
+      $body_class .= ' android';
     }
 
     if (is_tax($event_taxonomy_cat, 'collabo-period')) {
@@ -77,6 +83,9 @@
   ?>
   <body <?php body_class($body_class); ?>>
     <?php get_template_part('partials/meta/gtm'); ?>
+    <?php if (is_android()) {
+      get_template_part('partials/app/smart_banner');
+    } ?>
     <div id="container" class="<?php echo esc_html(get_option('post_options_ttl'));?> <?php echo esc_html(get_option('side_options_sidebarlayout'));?> <?php echo esc_html(get_option('post_options_date'));?>">
     <?php if ( !is_singular( 'post_lp')): ?>
 
