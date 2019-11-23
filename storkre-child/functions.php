@@ -543,6 +543,24 @@ function get_custom_fields_value() {
   return get_post_custom();
 }
 
+function is_dev() {
+  $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+
+  if (strpos($url, '.dev') !== false || strpos($url, '.net') !== false) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function is_prod() {
+  if (! is_dev()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function is_app($key = 'layout') {
   if (isset($_GET[$key])) {
     $query = $_GET[$key];
@@ -1218,16 +1236,6 @@ if (! empty($_GET['amp'])) {
   }
 }
 
-function is_dev() {
-  $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-
-  if (strpos($url, '.dev') !== false || strpos($url, '.net') !== false) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function get_event_date($cf) {
   $date = '';
   $start = $cf['_eventorganiser_schedule_start_start'][0];
@@ -1243,14 +1251,6 @@ function get_event_date($cf) {
   }
 
   return $date;
-}
-
-function is_prod() {
-  if (! is_dev()) {
-    return true;
-  } else {
-    return false;
-  }
 }
 
 function get_slug_by_path() {

@@ -50,6 +50,10 @@
       $body_class .= ' android';
     }
 
+    if (is_ios()) {
+      $body_class .= ' ios';
+    }
+
     if (is_tax($event_taxonomy_cat, 'collabo-period')) {
       $terms = get_the_terms($post->ID, $event_taxonomy_cat);
       $term_len = count($terms);
@@ -83,9 +87,7 @@
   ?>
   <body <?php body_class($body_class); ?>>
     <?php get_template_part('partials/meta/gtm'); ?>
-    <?php if (is_android()) {
-      get_template_part('partials/app/smart_banner');
-    } ?>
+    <?php get_template_part('partials/app/smart_banner'); ?>
     <div id="container" class="<?php echo esc_html(get_option('post_options_ttl'));?> <?php echo esc_html(get_option('side_options_sidebarlayout'));?> <?php echo esc_html(get_option('post_options_date'));?>">
     <?php if ( !is_singular( 'post_lp')): ?>
 
