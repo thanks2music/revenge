@@ -1,5 +1,8 @@
 <?php global $is_sp, $is_pc; ?>
 <?php get_header(); ?>
+<?php if (is_tax('event-tag', array('box-cafe', 'oh-my-cafe'))) {
+  get_template_part('partials/special/tag_archive');
+} ?>
 <div id="content">
   <?php
     if (is_tax('event-category') && $is_sp) {
