@@ -55,13 +55,6 @@ $post_class = 'app__single'
           <?php endif; ?>
 
           <section class="entry-content cf">
-
-          <?php if (is_active_sidebar('addbanner-pc-titleunder') && !wp_is_mobile()) { ?>
-            <div class="ad__title-under">
-              <?php dynamic_sidebar( 'addbanner-pc-titleunder' ); ?>
-            </div>
-          <?php } ?>
-
           <?php
             // フィルターを通してthe_contentを呼び出す
             $the_content = apply_filters('the_content', get_the_content());
@@ -78,19 +71,14 @@ $post_class = 'app__single'
               <?php get_template_part( 'event-meta-event-single' ); ?>
             </div>
 
-            <?php if ( is_active_sidebar( 'addbanner-pc-contentfoot' ) && !is_mobile() ) : ?>
-              <div class="ad__pc-content">
-                <?php dynamic_sidebar( 'addbanner-pc-contentfoot' ); ?>
-              </div>
-            <?php endif; ?>
             <p class="entry-author vcard author">
               <span class="writer name fn"><?php the_author_meta('nickname'); ?></span>
             </p>
           </section>
 
-          <?php if ( is_active_sidebar( 'addbanner-sp-contentfoot' ) && is_mobile() ) : ?>
+          <?php if (is_active_sidebar('addbanner-sp-contentfoot') && is_mobile()) : ?>
           <div class="ad__sp-content">
-            <?php dynamic_sidebar( 'addbanner-sp-contentfoot' ); ?>
+            <?php dynamic_sidebar('addbanner-sp-contentfoot'); ?>
           </div>
           <?php endif; ?>
 
@@ -99,6 +87,7 @@ $post_class = 'app__single'
           <?php
           }
         ?>
+        <hr class="hr__gradient">
       </main>
     </div>
   </div>

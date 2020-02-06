@@ -50,6 +50,16 @@ function theme_register_sidebars_child() {
     'before_title' => '<h4 class="widgettitle">',
     'after_title' => '</h4>',
   ));
+
+  register_sidebar(array(
+    'id' => 'addbanner-sp-contentfoot',
+    'name' => __( 'SP：[広告]記事コンテンツ下', 'storktheme' ),
+    'description' => __( '記事コンテンツ下にAdsenseなどの広告を表示します。テキストウィジェットを追加して広告コードを貼り付けて下さい。こちらはスマートフォン用！【推奨サイズ】300×250', 'storktheme' ),
+    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<h4 class="widgettitle"><span>',
+    'after_title' => '</span></h4>',
+  ));
 }
 
 // 人気記事
