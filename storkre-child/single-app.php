@@ -5,7 +5,7 @@ $post_class = 'app__single'
 
 <?php get_header('app'); ?>
 <div id="single__container" class="single__container">
-  <div id="content">
+  <div id="content" class="app__single__container">
     <div id="inner-content" class="wrap cf">
       <main id="main" class="m-all t-all d-5of7 cf" role="main">
         <?php while (have_posts()) {
@@ -77,17 +77,27 @@ $post_class = 'app__single'
           </section>
 
           <?php if (is_active_sidebar('addbanner-sp-contentfoot') && is_mobile()) : ?>
-          <div class="ad__sp-content">
-            <?php dynamic_sidebar('addbanner-sp-contentfoot'); ?>
-          </div>
+            <div class="ad__sp-content">
+              <?php dynamic_sidebar('addbanner-sp-contentfoot'); ?>
+            </div>
           <?php endif; ?>
-
-          <?php // Google Recommend ?>
           </article>
+
+          <div class="app__single__after">
+            <div class="widget_text widget widget_custom_html">
+              <h4 class="widgettitle">人気ランキング</h4>
+              <div class="textwidget custom-html-widget">
+                <?php echo do_shortcode('[wpp range="last3days" order_by="views" post_type="event" limit="10" thumbnail_width="140" thumbnail_height="80" stats_views="0"]'); ?>
+              </div>
+            </div>
+
+            <?php get_template_part('gad-related'); ?>
+
+            <?php // TODO 新着一覧もつける ?>
+          </div>
           <?php
-          }
+          } // end while
         ?>
-        <hr class="hr__gradient">
       </main>
     </div>
   </div>
