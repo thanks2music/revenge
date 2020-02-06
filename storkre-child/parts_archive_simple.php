@@ -21,14 +21,6 @@
       'orderby' => 'date modified',
       'post_status' => 'publish',
       'paged' => $paged,
-      'tax_query' => array(
-        array(
-          'taxonomy' => 'event-category',
-          'terms' => 'movie',
-          'field' => 'slug',
-          'operator'=>'NOT IN',
-        ),
-      ),
     );
   } elseif (is_archive()) {
     $post_type = get_post_type();
