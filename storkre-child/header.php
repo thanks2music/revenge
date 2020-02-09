@@ -11,7 +11,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="apple-itunes-app" content="app-id=1481548251">
   <?php if (is_single()) { ?>
     <link rel="amphtml" href="<?php echo get_permalink() .'?amp=1'; ?>">
   <?php } ?>
