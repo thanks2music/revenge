@@ -463,8 +463,8 @@ add_shortcode('single_photoswipe', 'single_photoswipe_shortcode');
 function add_app_banner_on_widget($atts, $content = null) {
   global $url;
   $html  = '';
-  $html .= '<div class="ad__official__app" id="app__banner">';
-  $html .= '<a href="';
+  $html .= '<div class="app__official__banner" id="app__banner">';
+  $html .= '<a class="app__official__banner__anchor" href="';
 
   if (is_android()) {
     $html .= $url['googleplay'];

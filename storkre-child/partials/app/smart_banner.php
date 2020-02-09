@@ -8,7 +8,7 @@
   }
 ?>
 <div class="app__smart__dl">
-  <a class="app__smart__dl__anchor" href="<?php echo $app_url; ?>">
+  <a class="app__smart__dl__anchor app__official__banner__anchor" href="https://play.google.com/store/apps/details?id=com.collabo_cafe.app">
     <div class="app__smart__dl__image"><img src="/wp-content/uploads/dummy.png" data-src="/wp-content/uploads/collabo-cafe-app-icon.png" alt="コラボカフェ - アニメ・漫画の期間限定イベント情報アプリ" width="44" height="44"></div>
     <div class="app__smart__dl__text">
       <p class="app__smart__dl__title">コラボカフェアプリ</p>
