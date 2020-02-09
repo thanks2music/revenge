@@ -460,6 +460,28 @@ function single_photoswipe_shortcode($atts, $content = null) {
 }
 add_shortcode('single_photoswipe', 'single_photoswipe_shortcode');
 
+function add_app_banner_on_widget($atts, $content = null) {
+  global $url;
+  $html  = '';
+  $html .= '<div class="ad__official__app" id="app__banner">';
+  $html .= '<a href="';
+
+  if (is_android()) {
+    $html .= $url['googleplay'];
+  } else {
+    $html .= $url['appstore'];
+  }
+
+  $html .= '" target="_blank">';
+
+  $html .= '<img src="/wp-content/uploads/52f4836aa0476bed0d46ef08df832d3b.jpg" width="750" height="600" alt="';
+  $html .= get_bloginfo('name', 'display') . '公式アプリ">';
+  $html .= '</a></div>';
+
+  return $html;
+}
+add_shortcode('add_app_banner', 'add_app_banner_on_widget');
+
 function add_event_post_thumbnails_shortcode($atts, $content = null) {
   extract(shortcode_atts(array(
     'post' => 'event',
