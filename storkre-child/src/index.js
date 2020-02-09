@@ -23,12 +23,27 @@ const body            = document.getElementsByTagName('body'),
       closeWorkDetail = $(wrap).find('#js__close__work__detail'),
       header          = $(wrap).find('.header'),
       modal           = $(wrap).find('.js__modal--mail'),
+      appBanner       = $(body).find('.app__official__banner__anchor'),
       des             = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 
 // for Design
 let customHeader = $(wrap).find('#custom_header .wrap'),
     initPos = 0;
+
+function setAppUrl(dom) {
+  if (ua.indexOf('Android') > 0) {
+    // uaがAndroidなのにGoogle PlayのURLになっていない場合の対応
+    if (dom.attr('href').indexOf('google') > -1) {
+      dom.attr('href', 'https://play.google.com/store/apps/details?id=com.collabo_cafe.app');
+    }
+    // uaがiPhoneなのにAppStoreのURLになっていない場合の対応
+  } else {
+    if (dom.attr('href').indexOf('apple') > -1) {
+      dom.attr('href', 'https://apps.apple.com/jp/app/id1481548251/');
+    }
+  }
+}
 
 modal.on('click', function(e) {
   let target = $(this).attr('href'),
@@ -122,6 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
   adTaxel.setAttribute('charset', 'utf-8');
 
   head.appendChild(adTaxel);
+
+  setAppUrl(appBanner);
 });
 
 
