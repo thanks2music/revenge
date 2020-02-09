@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   head.appendChild(adTaxel);
 
-  console.log(appBanner);
+  setAppUrl(appBanner);
 });
 
 
