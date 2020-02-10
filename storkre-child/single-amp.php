@@ -78,6 +78,7 @@ if ($amp_flag) {
   ?>
   <body <?php body_class($body_class); ?>>
     <?php get_template_part('partials/meta/gtm'); ?>
+    <?php get_template_part('partials/app/smart_banner'); ?>
     <main class="amp__container" id="single__container">
       <header class="amp__header">
         <?php if (get_option('side_options_description')) { ?>
