@@ -186,6 +186,8 @@ if ($amp_flag) {
               </amp-ad>
             </div>
             <hr class="hr__gradient">
+
+            <div class="amp__ad--eyecatch-under"><?php echo do_shortcode('[add_app_banner]'); ?></div>
           </article>
           <div class="amp__entry__bottom">
             <div class="amp__ad__taxel__gmo-recommend">

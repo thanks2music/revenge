@@ -474,8 +474,13 @@ function add_app_banner_on_widget($atts, $content = null) {
 
   $html .= '" target="_blank">';
 
-  $html .= '<img src="/wp-content/uploads/52f4836aa0476bed0d46ef08df832d3b.jpg" width="750" height="600" alt="';
-  $html .= get_bloginfo('name', 'display') . '公式アプリ">';
+  if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
+    $html .= '<amp-img src="/wp-content/uploads/52f4836aa0476bed0d46ef08df832d3b.jpg" width="750" height="600" alt="';
+    $html .= get_bloginfo('name', 'display') . '公式アプリ" layout="responsive"></amp-img>';
+  } else {
+    $html .= '<img src="/wp-content/uploads/52f4836aa0476bed0d46ef08df832d3b.jpg" width="750" height="600" alt="';
+    $html .= get_bloginfo('name', 'display') . '公式アプリ">';
+  }
   $html .= '</a></div>';
 
   return $html;
