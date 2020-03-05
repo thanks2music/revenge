@@ -264,3 +264,85 @@
       &__count
         .archivettl .archive__title__author &
           font-size: .8rem
+
+// for Amazonjs
+.l-amazonjs
+  > div
+    border: 1px solid #e6e6e6
+    padding: 15px 15px 10px
+    position: relative
+
+    .sp &
+      padding: 15px 15px 0
+
+    &:after
+      content: ''
+      display: block
+      width: 1px
+      height: 100%
+      background: #e6e6e6
+      position: absolute
+      right: 50%
+      top: 50%
+      transform: translateY(-50%)
+
+      .sp &
+        display: none
+
+.entry-content
+  // AMP
+  .amazonjs_indicator
+    position: relative
+    font-size: 14px
+    padding: 0 0 45px
+
+    &:after
+      display: block
+      border: 1px solid #9c7e31
+      border-radius: 3px
+      background: linear-gradient(to bottom, #f7dea1, #f0c24d)
+      box-shadow: 0 1px 0 #faecc8 inset
+      text-align: center
+      color: #111
+      font-size: 14px
+      padding: 3px 15px
+      content: 'Amazon.co.jp\3067\898B\308B'
+      position: absolute
+      bottom: 0
+      left: 0
+
+  // WEB
+  .amazonjs_item
+    border: 0
+    margin: 0
+    padding: 0
+
+    .amazonjs_info
+      h4
+        background: none
+        font-size: 14px
+
+    a
+      color: var(--sub-color)
+
+      &:hover
+        color: var(--key-color)
+
+    .amazonjs_info
+      ul
+        margin-top: 0
+        position: relative
+
+        li
+          line-height: 1.4
+          font-size: 12px
+
+          &:nth-child(2)
+            display: none
+
+          &:nth-child(n + 4)
+            display: none
+
+          &.amazonjs_price
+            color: var(--key-color)
+            display: block
