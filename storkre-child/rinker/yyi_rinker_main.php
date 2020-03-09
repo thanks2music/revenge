@@ -2555,7 +2555,11 @@ ORDER BY {$wpdb->posts}.ID ASC", $values));
 				$html .= '<a href="' . esc_url( $title_image_url ) . '" ' . $rel_target_text . ' class="yyi-rinker-tracking"  data-click-tracking="' . $click_tracking_data . '" data-vars-click-id="' . $click_tracking_data . '">';
 				$html .= '<img src="' . esc_url( $image_path ) . '" ' . $size . ' class="yyi-rinker-main-img" style="border: none;"></a>';
 			} else {
-				$html .= '<a href="' . esc_url( $title_image_url ) . '" ' . $rel_target_text . '><img src="' . esc_url( $image_path ) . '"' .  $size . ' class="yyi-rinker-main-img" style="border: none;"></a>';
+        if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
+           $html .= '<a href="' . esc_url( $title_image_url ) . '" ' . $rel_target_text . '><amp-img src="' . esc_url( $image_path ) . '"' .  $size . ' class="yyi-rinker-main-img" layout="responsive"></amp-img></a>';
+        } else {
+          $html .= '<a href="' . esc_url( $title_image_url ) . '" ' . $rel_target_text . '><img src="' . esc_url( $image_path ) . '"' .  $size . ' class="yyi-rinker-main-img"></a>';
+        }
 			}
 			if ( $this->is_moshimo( $shop_type ) ) {
 				$html .= $this->add_tracking_img( $shop_type );

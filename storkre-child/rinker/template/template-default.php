@@ -5,7 +5,7 @@ $image_class = $this->getImageClass( $atts[ 'size' ] );
 ?>
 <div id="rinkerid<?php echo esc_attr( $post_id )?>" class="yyi-rinker-contents yyi-rinker-postid-<?php echo esc_attr( $post_id )?> <?php echo esc_attr( $image_class ) ?> <?php foreach($category_classes AS $category_class ) { echo esc_attr( $category_class ) . ' '; } ?>">
 	<div class="yyi-rinker-box">
-		<div class="yyi-rinker-image">
+		<div class="yyi-rinker-image hoge">
 			<?php if ( $is_rakuten ) { ?>
 				<?php echo  isset( $rakuten_image_link ) ? $rakuten_image_link : '';?>
 			<?php } else { ?>
