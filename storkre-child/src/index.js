@@ -1,9 +1,9 @@
-import Raven from 'raven-js';
+// import Raven from 'raven-js';
 import Layzr from 'layzr.js/dist/layzr.min.js';
 import Cookies from 'js-cookie';
 const Flickity = require('flickity-fade');;
 
-Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
+// Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 
 const ua = navigator.userAgent;
 const is_sp = () => {
@@ -32,16 +32,12 @@ let customHeader = $(wrap).find('#custom_header .wrap'),
     initPos = 0;
 
 function setAppUrl(dom) {
-  if (ua.indexOf('Android') > 0) {
-    // uaがAndroidなのにGoogle PlayのURLになっていない場合の対応
-    if (dom.attr('href').indexOf('google') > -1) {
-      dom.attr('href', 'https://play.google.com/store/apps/details?id=com.collabo_cafe.app');
-    }
-    // uaがiPhoneなのにAppStoreのURLになっていない場合の対応
-  } else {
-    if (dom.attr('href').indexOf('apple') > -1) {
-      dom.attr('href', 'https://apps.apple.com/jp/app/id1481548251/');
-    }
+  const url = dom.attr('href');
+
+  if (ua.indexOf('Android') > 0 && url.indexOf('google') > -1) {
+    dom.attr('href', 'https://play.google.com/store/apps/details?id=com.collabo_cafe.app');
+  } else if (url.indexOf('apple') > -1) {
+    dom.attr('href', 'https://apps.apple.com/jp/app/id1481548251/');
   }
 }
 
@@ -138,7 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   head.appendChild(adTaxel);
 
-  setAppUrl(appBanner);
+  if (appBanner[0]) {
+    setAppUrl(appBanner);
+  }
 });
 
 
