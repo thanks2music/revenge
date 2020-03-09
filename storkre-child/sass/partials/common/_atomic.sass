@@ -265,96 +265,95 @@
         .archivettl .archive__title__author &
           font-size: .8rem
 
-// for Amazonjs
-.l-amazonjs
-  > div
-    border: 1px solid #e6e6e6
-    padding: 15px 15px 10px
-    position: relative
+// for Rinker
+.l-rinker
+  .m-all
+    margin-bottom: 0
 
-    .sp &
-      padding: 15px 15px 0
+  .yyi-rinker-contents
+    margin: 1em 0
+    border: solid 1px #dbdbdb
+    background-color: #fff
+    box-shadow: 2px 3px 8px -5px rgba(0,0,0,.25)
 
-    &:after
-      content: ''
-      display: block
-      width: 1px
-      height: 100%
-      background: #e6e6e6
-      position: absolute
-      right: 50%
-      top: 50%
-      transform: translateY(-50%)
+    .yyi-rinker-box
+      display: flex
+      padding: 12px
 
-      .sp &
-        display: none
+    .yyi-rinker-image
+      padding: 0 12px 0 0
+      vertical-align: middle
+      width: 125px
+      min-width: 125px
 
-.entry-content
-  // AMP
-  .amazonjs_indicator
-    a
-      font-size: 14px
-      display: block
-      position: relative
-      padding: 0 0 45px
+    .yyi-rinker-info
+      width: calc(100% - 125px)
 
-      &:hover
-        &:after
-          background: linear-gradient(to bottom,#f5d78e,#eeb933)
-          border-color: #a88734 #9c7e31 #846a29
-          transition: .3s ease-in-out
+      .yyi-rinker-title
+        font-size: 16px
+        font-weight: bold
 
-      &:after
-        display: block
-        border: 1px solid #9c7e31
-        border-radius: 3px
-        background: linear-gradient(to bottom, #f7dea1, #f0c24d)
-        box-shadow: 0 1px 0 #faecc8 inset
-        text-align: center
-        color: #111
-        font-size: 14px
-        padding: 3px 15px
-        content: 'Amazon.co.jp\3067\898B\308B'
-        position: absolute
-        bottom: 0
-        left: 0
+        .sp &
+          font-size: 14px
 
-  // WEB
-  .amazonjs_item
-    border: 0
-    margin: 0
-    padding: 0
+        a
+          color: var(--sub-color)
 
-    .amazonjs_info
-      h4
-        background: none
-        font-size: 14px
+          &:hover
+            color: var(--key-color)
 
-    .amazonjs_indicator
-      .amazonjs_indicator_img
-        display: none
+      .yyi-rinker-detail
+        padding-left: 0
+        font-size: 10px
+        color: #999
 
-    a
-      color: var(--sub-color)
-
-      &:hover
-        color: var(--key-color)
-
-    .amazonjs_info
-      ul
-        margin-top: 0
-        position: relative
+      .yyi-rinker-links
+        display: inline-flex
+        flex-wrap: wrap
+        margin: 10px auto 0
+        padding: 0
+        width: 100%
 
         li
-          line-height: 1.4
-          font-size: 12px
+          margin: 0 0 10px 0
 
-          &:nth-child(2)
-            display: none
+          .amp &
+            height: auto
+            line-height: 1
 
-          &:nth-child(n + 4)
-            display: none
-
-          &.amazonjs_price
-            color: var(--key-color)
+          a
             display: block
+            font-size: 14px
+            font-weight: normal
+            border-radius: 3px
+
+            .amp &
+              padding: 7px 15px
+
+        .rakutenlink
+          a
+            border: 1px solid #cf4944
+            background: #cf4944
+            color: #fff
+            text-decoration: none
+
+            &:visited
+              color: #fff
+              text-decoration: none
+
+        .amazonlink
+          a
+            border: 1px solid #9c7e31
+            background: linear-gradient(to bottom, #f7dea1, #f0c24d)
+            box-shadow: 0 1px 0 #faecc8 inset
+            color: #111
+            text-decoration: none
+
+            &:visited
+              color: #111
+              text-decoration: none
+
+            &:hover
+              background: linear-gradient(to bottom,#f5d78e,#eeb933)
+              border-color: #a88734 #9c7e31 #846a29
+              transition: .3s ease-in-out

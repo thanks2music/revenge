@@ -680,6 +680,30 @@ function is_android() {
   }
 }
 
+// Rinker
+function yyi_rinker_delete_credit_html_data($meta_datas) {
+  $meta_datas['credit'] = '';
+  return $meta_datas;
+}
+add_filter('yyi_rinker_meta_data_update',  'yyi_rinker_delete_credit_html_data', 200);
+
+function yyi_rinker_custom_shop_labels( $attr ) {
+  if ( $attr[ 'alabel' ] === '' ) {
+    $attr[ 'alabel' ]	= 'Amazonで探す';
+  }
+  if ( $attr[ 'rlabel' ] === '' ) {
+    $attr[ 'rlabel' ]	= '楽天市場で探す';
+  }
+  if ( $attr[ 'ylabel' ] === '' ) {
+    $attr[ 'ylabel' ]	= 'Yahooで探す';
+  }
+  if ( $attr[ 'klabel' ] === '' ) {
+    $attr[ 'klabel' ]	= 'Kindleで探す';
+  }
+  return $attr;
+}
+add_action( 'yyi_rinker_update_attribute', 'yyi_rinker_custom_shop_labels' );
+
 // パンくず
 if (! function_exists('breadcrumb')) {
 	function breadcrumb($divOption = array("id" => "breadcrumb", "class" => "breadcrumb inner wrap cf")) {
