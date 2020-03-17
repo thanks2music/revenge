@@ -13,23 +13,33 @@
   if (! empty($author_description)) { ?>
     <div class="entry__author__overview">
       <figure class="entry__author__image">
-        <a href="<?php echo $author_url; ?>">
-          <?php if ($amp_flag) {
+        <?php if ($author_id == 1) {
+          $avatar_icon .= '<a href="' . $author_url . '">';
+        }
+          if ($amp_flag) {
             $avatar_icon .= '<amp-img src="' . $avatar_icon_url .'" alt="' . $author_name . '" width="80" height="80" layout="responsive">';
             $avatar_icon .= '</amp-img>';
-            echo $avatar_icon;
           } else {
             $avatar_icon .= '<img src="/wp-content/uploads/dummy.png" data-src="' . $avatar_icon_url .'" alt="';
             $avatar_icon .= $author_name . '" class="entry__author__image__icon" />';
-            echo $avatar_icon;
-          } ?>
-        </a>
+          }
+
+          if ($author_id == 1) {
+            $avatar_icon .= '</a>';
+          }
+
+          echo $avatar_icon;
+        ?>
       </figure>
       <div class="entry__author__names">
         <p class="entry__author__names__caption">この記事を書いた人</p>
         <p class="entry__author__names__name">
-          <a href="<?php echo $author_url; ?>"><?php echo $author_name; ?></a>
-          <?php /* <span class="entry__author__names__post-count">(記事投稿数: <?php echo $author_posts_count; ?>)</span> */ ?>
+          <?php if ($author_id == 1) { ?>
+            <a href="<?php echo $author_url; ?>"><?php echo $author_name; ?></a>
+          <?php } else { ?>
+            <?php echo $author_name; ?>
+          <?php } ?>
+          <span class="entry__author__names__post-count">(全<?php echo $author_posts_count; ?>件)</span>
         </p>
         <p class="entry__author__names__position"><?php echo $author_position; ?></p>
       </div>
