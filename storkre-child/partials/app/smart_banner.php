@@ -1,14 +1,9 @@
 <?php
   $app_point = ['記事のお気に入りなど<br>アプリ専用機能も！', '好きな作品を登録して<br>自分だけの記事一覧！', 'アプリならジャンル別で<br>読みやすい！', '気になる記事に<br>コメントしてみよう！'];
   $rand_keys = array_rand($app_point, 1);
-  $app_url = 'https://apps.apple.com/jp/app/id1481548251/';
-
-  if (is_android()) {
-    $app_url = 'https://play.google.com/store/apps/details?id=com.collabo_cafe.app';
-  }
 ?>
 <div class="app__smart__dl">
-  <a class="app__smart__dl__anchor app__official__banner__anchor" href="<?php echo $app_url; ?>">
+  <a class="app__smart__dl__anchor app__official__banner__anchor" href="/app-download/">
     <div class="app__smart__dl__image">
       <?php if (! empty($_GET['amp']) && $_GET['amp'] === '1') { ?>
       <?php } else { ?>
