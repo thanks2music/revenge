@@ -44,6 +44,24 @@ function add_javascripts() {
   wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?' . $time_stamp);
 }
 
+// 管理画面の情報を変更
+function my_custom_logo() {
+  $background_style = '<style type="text/css">#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before { content: ""; display: block; width: 18px; height: 18px; background: url(/wp-content/uploads/favicon_64.png) no-repeat; background-size: cover;}</style>';
+  echo $background_style;
+}
+add_action('admin_head', 'my_custom_logo');
+
+function admin_favicon() {
+  $favicon_meta = '<link rel="icon" href="/wp-content/uploads/favicon_64.png" />';
+  echo $favicon_meta;
+}
+add_action('admin_head', 'admin_favicon');
+
+function remove_footer_admin () {
+  echo 'この管理画面は新サーバーを読み込んでいます。';
+}
+add_filter('admin_footer_text', 'remove_footer_admin');
+
 // <moreads>をADXとアドセンスに置き換える
 // add_filter('the_content', 'adMoreReplace');
 
