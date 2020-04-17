@@ -532,6 +532,52 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
 }
 add_shortcode('add_event_post', 'add_event_post_thumbnails_shortcode');
 
+function show_carousel_post_thumbnails_shortcode($atts, $content = null) {
+  extract(shortcode_atts(array(
+    'post' => 'event',
+    'num' => 10,
+    'tax' => 'event-category',
+    'slug' => '',
+    'class' => '',
+  ), $atts));
+
+  $str  = '';
+  $str .= '<div class="widget__posts__carousel__list">';
+  global $post;
+
+  $args = array(
+    'post_type' => $atts['post'],
+    'posts_per_page' => $atts['num'],
+    'order'          => 'DESC',
+    'post_status'      => 'publish',
+    'tax_query' => array(
+      array(
+        'taxonomy' => $atts['tax'],
+        'terms' => $atts['slug'],
+        'field' => 'slug',
+        'operator'=>'IN',
+      ),
+    ),
+  );
+
+  $posts = get_posts($args);
+
+  foreach($posts as $post) {
+    setup_postdata($post);
+    $str .= '<article class="widget__posts__carousel__list__article">';
+    $str .= '<a href="'.get_permalink().'" class="widget__posts__carousel__list__anchor">';
+    $str .= '<figure class="widget__posts__carousel__list__figure">' . get_the_post_thumbnail($post->ID, 'home-thum', array('class' => 'lazy attachment-home-thum')) . '</figure>';
+    $str .= '<p class="widget__posts__carousel__list__p">' . the_title('','',false) . '</p>';
+    $str .= '</a>';
+    $str .= '</article>';
+  }
+  $str.='</div>';
+
+  wp_reset_postdata();
+  return $str;
+}
+add_shortcode('show_carousel_post', 'show_carousel_post_thumbnails_shortcode');
+
 // カスタムタクソノミーに独自入力欄を追加
 add_action('event-category_edit_form_fields','add_taxonomy_fields');
 

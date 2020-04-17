@@ -211,3 +211,22 @@
       font-weight: bold
       margin: 0
       line-height: 1
+
+  &__posts__carousel__list
+    position: relative
+    transition: transform 0.54s cubic-bezier(0.5, 0, 0.1, 1) 0s, -webkit-transform 0.54s cubic-bezier(0.5, 0, 0.1, 1) 0s, -moz-transform 0.54s cubic-bezier(0.5, 0, 0.1, 1) 0s, -o-transform 0.54s cubic-bezier(0.5, 0, 0.1, 1) 0s
+    overflow-x: auto
+    white-space: nowrap
+    z-index: 0
+    // -webkit-overflow-scrolling: touch
+
+    &__article
+      position: relative
+      margin: 0
+      padding: 0 4%
+      touch-action: pan-y
+      width: 16.66666667%
+      display: inline-block
+      vertical-align: top
+      padding: 0 2px
+      z-index: 1
