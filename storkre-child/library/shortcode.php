@@ -21,12 +21,12 @@ function kanrenFunc($atts) {
 		'mode' => null,'type' => null,'id' => null,
 		'y' => null,'m' => null,'d' => null,
 		'numberposts' => 5,'offset' => null,'order' => 'DESC','orderby' => 'post_date','meta_key' => null,
-		'postid' => null,'exclude' => null,
+		'id' => null,'exclude' => null,
 		'head' => null,'tail' => null,
 	),$atts));
 
 	if($mode != null) $mode = '&'.$mode.'='.$id;
-	$post = get_posts('post_status=publish&numberposts='.$numberposts.'&offset='.$offset.'&order='.$order.'&orderby='.$orderby.'&include='.$postid.'&year='.$y.'&monthnum='.$m.'&day='.$d.'&exclude='.get_the_ID().','.$exclude.'&meta_key='.$meta_key.$mode);
+	$post = get_posts('post_status=publish&numberposts='.$numberposts.'&offset='.$offset.'&order='.$order.'&orderby='.$orderby.'&include='.$id.'&year='.$y.'&monthnum='.$m.'&day='.$d.'&exclude='.get_the_ID().','.$exclude.'&meta_key='.$meta_key.$mode);
  
 	foreach ($post as $item){
 		$im = wp_get_attachment_image_src(get_post_thumbnail_id($item->ID),'home-thum',false);
@@ -46,12 +46,12 @@ function kanren2Func($atts) {
 		'mode' => null,'type' => null,'id' => null,
 		'y' => null,'m' => null,'d' => null,
 		'numberposts' => 5,'offset' => null,'order' => 'DESC','orderby' => 'post_date','meta_key' => null,
-		'postid' => null,'exclude' => null,
+		'id' => null,'exclude' => null,
 		'head' => null,'tail' => null,
 	),$atts));
  
 	if($mode != null) $mode = '&'.$mode.'='.$id;
-	$post = get_posts('post_status=publish&numberposts='.$numberposts.'&offset='.$offset.'&order='.$order.'&orderby='.$orderby.'&include='.$postid.'&year='.$y.'&monthnum='.$m.'&day='.$d.'&exclude='.get_the_ID().','.$exclude.'&meta_key='.$meta_key.$mode);
+	$post = get_posts('post_status=publish&numberposts='.$numberposts.'&offset='.$offset.'&order='.$order.'&orderby='.$orderby.'&include='.$id.'&year='.$y.'&monthnum='.$m.'&day='.$d.'&exclude='.get_the_ID().','.$exclude.'&meta_key='.$meta_key.$mode);
  
 	foreach ($post as $item){
 		$im = wp_get_attachment_image_src(get_post_thumbnail_id($item->ID),'home-thum',false);
