@@ -550,6 +550,36 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
 }
 add_shortcode('add_event_post', 'add_event_post_thumbnails_shortcode');
 
+
+function sng_entry_link($atts) {
+  $output = '';
+  $id = isset($atts['id']) ? esc_attr($atts['id']) : null;
+
+  if ($id) {
+    $ids = (explode(',',$id)); //一旦配列に
+  }
+  $target = isset($atts['target']) ? ' target="_blank"' : "";
+
+  if (isset($ids) ) {
+    foreach ($ids as $eachid) {
+      $img = (get_the_post_thumbnail($eachid)) ? get_the_post_thumbnail($eachid, 'thumb-160') : '<img src="'.featured_image_src('thumb-160').'">';
+      $url = esc_url(get_permalink($eachid)); //URL
+      $title = esc_attr(get_the_title($eachid));
+      if($url && $title) {
+        $output .= <<<EOF
+
+        <a class="linkto table" href="{$url}"{$target}><span class="tbcell tbimg">{$img}</span><span class="tbcell tbtext">{$title}</span></a>
+
+EOF;
+      }
+    }
+  }	else {
+    $output = '関連記事のIDを正しく入力してください';
+  }
+    return $output;
+}
+add_shortcode('kanren','sng_entry_link');
+
 // カスタムタクソノミーに独自入力欄を追加
 add_action('event-category_edit_form_fields','add_taxonomy_fields');
 
