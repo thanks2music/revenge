@@ -482,15 +482,7 @@ function add_app_banner_on_widget($atts, $content = null) {
   global $url;
   $html  = '';
   $html .= '<div class="app__official__banner" id="app__banner">';
-  $html .= '<a class="app__official__banner__anchor" href="';
-
-  if (is_android()) {
-    $html .= $url['googleplay'];
-  } else {
-    $html .= $url['appstore'];
-  }
-
-  $html .= '" target="_blank">';
+  $html .= '<a class="app__official__banner__anchor" href="/app-download/" target="_blank">';
 
   if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
     $html .= '<amp-img src="/wp-content/uploads/52f4836aa0476bed0d46ef08df832d3b.jpg" width="750" height="600" alt="';
@@ -550,35 +542,90 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
 }
 add_shortcode('add_event_post', 'add_event_post_thumbnails_shortcode');
 
+function get_thumb_img($id, $size = 'full', $return) {
+  $thumb_id = get_post_thumbnail_id($id);                         // アイキャッチ画像のIDを取得
+  $thumb_img = wp_get_attachment_image_src($thumb_id, $size);  // $sizeサイズの画像内容を取得
+  $thumb_src = $thumb_img[0];    // 画像のurlだけ取得
+  $thumb_alt = get_the_title();  //alt属性に入れるもの（記事のタイトルにしています）
+
+  if ($return == 'src') {
+    return $thumb_src;
+  } elseif ($return == 'alt') {
+    return $thumb_alt;
+  } else {
+    return '<img src="'.$thumb_src.'" alt="'.$thumb_alt.'">';
+  }
+}
+
+// サイズを指定して画像のURLを取得
+// if( ! function_exists( 'featured_image_src' ) ) {
+//
+//   function featured_image_src($size) {
+//     $registered = '';
+//     $output_src = '';
+//     if (has_post_thumbnail()){// 1)記事にサムネイル画像あり
+//       echo 'true';
+//       $output_src = imgurl($size);
+//     } elseif ($registered) {// 2)サムネイル画像なし&デフォルト画像登録済み
+//       echo 'elseif';
+// 
+//             if($size == 'post-thum') {//サムネイルサイズを取得
+//               $output_src = replace_thumbnail_src($registered,'post-thum');
+//             } elseif($size == 'home-thum') {//中サイズを取得
+//               $output_src = replace_thumbnail_src($registered,'home-thum');
+//             } else {
+//               $output_src = $registered;
+//             }
+// 
+//       } else {//3)その他の場合テンプレートフォルダから
+// 
+//             // if($size == 'thumb-160') {
+//             //   $output_src = get_template_directory_uri() . '/library/images/default_thumb.jpg';
+//             // } elseif($size == 'thumb-520') {
+//             //   $output_src = get_template_directory_uri() . '/library/images/default_small.jpg';
+//             // } else {
+//             //   $output_src = get_template_directory_uri() . '/library/images/default.jpg';
+//             // }
+//       }
+//       return $output_src;
+//   }
+// }
 
 function sng_entry_link($atts) {
   $output = '';
   $id = isset($atts['id']) ? esc_attr($atts['id']) : null;
 
   if ($id) {
-    $ids = (explode(',',$id)); //一旦配列に
+    $ids = explode(',',$id); //一旦配列に
   }
   $target = isset($atts['target']) ? ' target="_blank"' : "";
 
   if (isset($ids) ) {
     foreach ($ids as $eachid) {
-      $img = (get_the_post_thumbnail($eachid)) ? get_the_post_thumbnail($eachid, 'thumb-160') : '<img src="'.featured_image_src('thumb-160').'">';
+      $img = get_thumb_img($eachid, 'home-thum', 'src');
+
       $url = esc_url(get_permalink($eachid)); //URL
       $title = esc_attr(get_the_title($eachid));
       if($url && $title) {
-        $output .= <<<EOF
+        $output .= '<div class="kanren__box"><a class="kanren__box__anchor" href="' . $url . '"' . $target . '>';
+        $output .= '<p class="kanren__box__img">';
 
-        <a class="linkto table" href="{$url}"{$target}><span class="tbcell tbimg">{$img}</span><span class="tbcell tbtext">{$title}</span></a>
+        if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
+          $output .= '<amp-img src="' . $img . '" width="486" height="290" alt="" layout="responsive"></amp-img>';
+        } else {
+          $output .= '<img src="' . $img . '" alt="" >';
+        }
 
-EOF;
+        $output .= '</p><p class="kanren__box__title">' . $title . '</p></a></div>';
       }
     }
   }	else {
     $output = '関連記事のIDを正しく入力してください';
   }
-    return $output;
+
+  return $output;
 }
-add_shortcode('kanren','sng_entry_link');
+add_shortcode('kanren_rere','sng_entry_link');
 
 // カスタムタクソノミーに独自入力欄を追加
 add_action('event-category_edit_form_fields','add_taxonomy_fields');

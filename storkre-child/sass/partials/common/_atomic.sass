@@ -357,3 +357,36 @@
               background: linear-gradient(to bottom,#f5d78e,#eeb933)
               border-color: #a88734 #9c7e31 #846a29
               transition: .3s ease-in-out
+
+// 関連記事
+.kanren
+  &__box
+    width: 90%
+    margin: 2em auto
+
+    &__anchor
+      display: block
+      overflow: hidden
+      max-width: 486px
+      width: 100%
+      margin: auto
+      padding: 0
+      border-radius: 3px
+      box-shadow: 0 2px 4px rgba(#000, .25)
+      color: #333
+      font-weight: bold
+
+    &__img
+      .single__container .entry-content &
+        margin: 0 0 15px
+        line-height: 1
+
+      img
+        margin: 0
+
+    &__title
+      .single__container .entry-content &,
+      .amp &
+        margin: 0
+        padding: 0 13px 15px 13px
+        line-height: 1.6
