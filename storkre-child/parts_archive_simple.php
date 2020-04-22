@@ -20,6 +20,9 @@
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
+      'meta_key' => 'hidden_publish',
+      'meta_value' => '1',
+      'meta_compare' => '!=',
       'paged' => $paged,
     );
   } elseif (is_archive()) {
