@@ -64,6 +64,24 @@
     .sp.amp &
       display: none
 
+  &-app-only
+    .app.sp.no-amp &
+      display: block
+
+    .sp &,
+    .sp.amp &,
+    .pc &
+      display: none
+
+  &-hidden-app-only
+    .app &
+      display: none
+
+    .sp &,
+    .sp.amp &,
+    .pc &
+      display: block
+
   &-box
     $light-blue: #c9eefd
 
