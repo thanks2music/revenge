@@ -158,6 +158,19 @@
       <div class="header-info <?php echo esc_html(get_option('side_options_headerbg'));?>"><a<?php if(get_option('other_options_headerunderlink_target')):?> target="_blank"<?php endif;?> href="<?php echo esc_html(get_option('other_options_headerunderlink'));?>"><?php echo esc_html(get_option('other_options_headerundertext'));?></a></div>
     <?php } ?>
 
+    <div id="#ad__video__so">
+      <script language="JavaScript" type="text/javascript">
+      //<![CDATA[
+        (function() {
+          var random = new Date();
+          var so_src = ('https:' == document.location.protocol ? 'https://tg.socdm.com' : 'http://tg.socdm.com') +
+          '/adsv/v1?posall=test200511CCpv&id=114442&t=js&rnd='+ random.getTime() + '&tp=' + encodeURIComponent(document.location.href) + '&pp=' + encodeURIComponent(document.referrer);
+           document.write('<sc'+'ript language="JavaScript" type="text/javascript" src="'+so_src+'"></sc'+'ript>');
+        })();
+      //]]>
+      </script>
+    </div>
+
     <?php get_template_part('parts_homeheader'); ?>
 
     <?php breadcrumb(); ?>
