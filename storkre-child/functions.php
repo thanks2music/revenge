@@ -1483,6 +1483,133 @@ function mail_for_pending( $new_status, $old_status, $post ) {
 }
 add_action( 'transition_post_status', 'mail_for_pending', 10, 3 );
 
+
+function validate_permalink() {
+  global $pagenow, $post;
+  if ($pagenow == 'post.php') {
+    $categories = get_the_terms($post->ID, 'event-category');
+    $tags = get_the_terms($post->ID, 'event-tag');
+
+    // カテゴリのチェック
+    foreach ($categories as $category) {
+      $slug = $category->slug;
+      $name = $category->name;
+      $decoded = urldecode($slug);
+
+      if (preg_match( '/(%[0-9a-f]{2})+/', $slug)) {
+        echo 'このスラッグが日本語です', $name;
+        echo '<div class="message error"><p>カテゴリ「'. $name . '」スラッグ(URL)に日本語が含まれています！修正してから公開してください。</p></div>';
+      }
+    }
+
+    // タグのチェック
+    foreach ($tags as $tag) {
+      $slug = $tag->slug;
+      $name = $tag->name;
+      $decoded = urldecode($slug);
+
+      if (preg_match( '/(%[0-9a-f]{2})+/', $slug)) {
+        echo '<div class="message error"><p>タグ「'. $name . '」スラッグ(URL)に日本語が含まれています！修正してから公開してください。</p></div>';
+      }
+    }
+  }
+}
+
+// 管理画面のみ呼び出す
+if (is_admin()) {
+  // add_action('admin_head-post-new.php', 'slug_validation_check'); // 新規投稿画面でのみ関数を呼び出す
+  // add_action('admin_head-post.php', 'slug_validation_check'); // 投稿編集画面でのみ関数を呼び出す
+  // add_action('wp_ajax_my_pre_submit_validation', 'pre_submit_validation');
+  add_action('admin_notices', 'validate_permalink');
+}
+
+function slug_validation_check() {
+  global $post;
+  if (is_admin() && $post->post_type == 'event') {
+  ?>
+  <script language="javascript" type="text/javascript">
+    jQuery(document).ready(function() {
+      // カテゴリー選択をラジオボタンに
+      var checklist = jQuery('#categorychecklist');
+      checklist.each(function() {
+          jQuery(this).find('input').attr('type', 'radio');
+          if (jQuery(this).find('input').is(':checked') === false) {
+            jQuery( this ).children( 'li:first' ).find( 'input' ).prop('checked', true);
+          }
+      });
+      jQuery('#publish').click(function() {
+        if (jQuery(this).data("valid")) {
+            return true;
+        }
+        var form_data = jQuery('#post').serializeArray();
+        var data = {
+            action: 'slug_validation_check',
+            security: '<?php echo wp_create_nonce('pre_publish_validation'); ?>',
+            form_data: jQuery.param(form_data),
+        };
+        jQuery.post(ajaxurl, data, function(response) {
+            if (response.indexOf('true') > -1 || response == true) {
+                jQuery('#publish').data("valid", true).trigger('click');
+            } else {
+                alert("エラー: " + response);
+                jQuery("#publish").data("valid", false);
+            }
+            jQuery('#ajax-loading').hide();
+            jQuery('#publish').removeClass('button-primary-disabled');
+            jQuery('#save-post').removeClass('button-disabled');
+        });
+        return false;
+      });
+
+      // 親カテゴリー（お知らせ）を非表示にする
+      // jQuery('#in-category-1').parent().hide();
+      // jQuery('.children').css({'margin-left': 0});
+    });
+  </script>
+  <?php
+  }
+}
+
+function pre_submit_validation() {
+  // 簡単なセキュリティのチェック
+  check_ajax_referer('pre_publish_validation', 'security');
+  // フォームデータを取得
+  $form_data = $_POST['form_data'];
+  var_dump($form_data);
+  // 文字列を処理し、変数に代入する
+  parse_str($form_data);
+
+  $post_name = '';
+  $title_str = '';
+  $str = '';
+
+  // スラッグが英数字かチェック
+  // $str = preg_match('/\A[a-z0-9_-]++\z/ui', $post_name);
+  // // タイトルが英数字かチェック
+  // $title_str = preg_match('/\A[a-z0-9_-]++\z/ui', $post_title);
+
+  // 初回投稿時$post_nameが空なので切り分け
+  // $post_nameが空かつタイトルが英数字なら問題ないのでtrueを返す
+  if ($post_name === '' && $title_str === 1) {
+    // 問題が無い場合はtrueを返す
+    echo 'true';
+    die();
+  } elseif ($post_name === '') {
+    echo 'スラッグを入力してください';
+    die();
+  }
+
+  // 英数字じゃなかったらアラートを表示
+  if ($str === 0) {
+    echo 'スラッグを英数字で入力してください';
+    die();
+  }
+
+  // 問題が無い場合はtrueを返す
+  echo 'true';
+  die();
+}
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
 if (! function_exists('add_mythumbnail_size')) {
