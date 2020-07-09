@@ -6,6 +6,7 @@
   <html lang="ja">
   <head>
   <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php wp_title(''); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -28,9 +29,9 @@
   <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
   <![endif]-->
 
-  <?php get_template_part('head'); ?>
+  <?php // get_template_part('head'); ?>
   <?php if (is_prod()) { ?>
-    <?php get_template_part('partials/adx'); ?>
+    <?php // get_template_part('partials/adx'); ?>
   <?php } ?>
   <?php wp_head(); ?>
 
@@ -85,9 +86,9 @@
     }
   ?>
   <body <?php body_class($body_class); ?>>
-    <?php get_template_part('partials/meta/gtm'); ?>
+    <?php // get_template_part('partials/meta/gtm'); ?>
     <?php if ($is_sp) {
-      get_template_part('partials/app/smart_banner');
+      // get_template_part('partials/app/smart_banner');
     } ?>
     <div id="container" class="<?php echo esc_html(get_option('post_options_ttl'));?> <?php echo esc_html(get_option('side_options_sidebarlayout'));?> <?php echo esc_html(get_option('post_options_date'));?>">
     <?php if ( !is_singular( 'post_lp')): ?>
@@ -114,7 +115,7 @@
               <?php if ( get_theme_mod( 'opencage_logo' ) ) : ?>
                 <p class="h1 img"><a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_mod( 'opencage_logo' ); ?>" alt="<?php bloginfo('name'); ?>"></a></p>
               <?php else : ?>
-                <p class="h1 text"><a href="<?php echo home_url(); ?>">Collabo Cafe</a></p>
+                <p class="h1 text"><a href="<?php echo home_url(); ?>">Press Release</a></p>
               <?php endif; ?>
             <?php endif; ?>
           </div>
