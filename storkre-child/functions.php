@@ -819,9 +819,11 @@ if (! function_exists('breadcrumb')) {
               $itemLength++;
               // Taxonomy
             } else {
-              $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_term_link($cat->term_taxonomy_id, $taxonomy_name) .'" itemprop="item"><span itemprop="name">'. $cat->name .'</span></a>';
-              $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
-              $itemLength++;
+              if (isset($cat->term_taxonomy_id)) {
+                $str.='<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="'. get_term_link($cat->term_taxonomy_id, $taxonomy_name) .'" itemprop="item"><span itemprop="name">'. $cat->name .'</span></a>';
+                $str.= '<meta itemprop="position" content="' . $itemLength . '" /></li>';
+                $itemLength++;
+              }
             }
 
             $str.= '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="' . (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .'" itemprop="item"><span itemprop="name">'. $post -> post_title .'</span></a><meta itemprop="position" content="' . $itemLength . '" /></li>';
