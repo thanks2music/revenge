@@ -8,5 +8,7 @@
   <script language='javascript'>
       gmossp_forsp.ad('g908845');
   </script>
-<?php }
-
+  <script async src="https://l.logly.co.jp/lift_widget.js?adspot_id=4294347"></script>
+<?php } else if ($is_pc && is_web()) { ?>
+  <script async src="https://l.logly.co.jp/lift_widget.js?adspot_id=4294348"></script>
+<?php } ?>
