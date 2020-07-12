@@ -910,20 +910,89 @@ if (function_exists('sga_ranking_get_date')) {
   add_filter('sga_ranking_after_title', 'sga_ranking_description', 10, 2);
 }
 
+// 作品紹介用ポスト
+function add_work_post() {
+  $labels = array(
+    'name' => '作品',
+    'singular_name' => '作品一覧',
+    'menu_name' => '作品',
+    'all_items' => '一覧',
+    'add_new' => '新規追加',
+    'add_new_item' => '作品を追加',
+    'edit_item' => '作品の編集',
+    'new_item' => '新規投稿',
+    'view_item' => '作品を表示',
+    'search_items' => '作品を検索',
+    'not_found' =>  '作品が見つかりませんでした。',
+    'not_found_in_trash' => 'ゴミ箱内に作品が見つかりませんでした。',
+    'parent_item_colon' => '親投稿',
+  );
+  $args = array(
+    'labels' => $labels,
+    'public' => true,
+    'publicly_queryable' => true,
+    'exclude_from_search' => false,
+    'show_ui' => true,
+    'show_in_nav_menus' => true,
+    'has_archive' => true,
+    'hierarchical' => true,
+    'query_var' => true,
+    'can_export' => true,
+    'menu_position' => 6,
+    'menu_icon' => null,
+    'taxonomies' => array('works-category'),
+    'supports' => array( 'title','editor','custom-fields','revisions','page-attributes','post-formats','thumbnail' ),
+  );
+  register_post_type('work', $args);
 
-// if (function_exists('sga_ranking_get_date')) {
-//   $args = array(
-//     'display_count'           => 10,
-//     'period'                  => 30,
-//     'post_type'               => 'post', 'event',
-//     'exclude_post_type'       => '',
-//     '`taxonomy_slug`__in'     => '',
-//     '`taxonomy_slug`__not_in' => '',
-//     'filter'                  => ''
-//   );
-// 
-//   $ranking_data = sga_ranking_get_date($args);
-// }
+  $labels = array(
+    'name' => 'カテゴリー',
+    'singular_name' => 'カテゴリー',
+    'menu_name' => 'カテゴリー',
+    'all_items' => 'すべてのカテゴリ',
+    'edit_item' => 'カテゴリの編集',
+    'view_item' => 'カテゴリを表示',
+    'update_item' => 'カテゴリを更新',
+    'add_new_item' => '新規カテゴリを追加',
+    'new_item_name' => '新規カテゴリ名',
+    'parent_item' => '親カテゴリー',
+    'parent_item_colon' =>  '親カテゴリー',
+    'search_items' => 'カテゴリを検索',
+    'popular_items' => '人気のカテゴリ',
+    'separate_items_with_commas' => 'カテゴリが複数ある場合はコンマで区切ってください',
+    'add_or_remove_items' => 'カテゴリの追加もしくは削除',
+    'choose_from_most_used' => 'よく使われているカテゴリから選択',
+    'not_found' => 'カテゴリが見つかりませんでした。',
+  );
+  $args = array(
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_in_nav_menus' => true,
+    'show_tagcloud' => true,
+    'show_admin_column' => true,
+    'hierarchical' => true,
+    'query_var' => true,
+    'sort' => true,
+  );
+  register_taxonomy('works-category', array('work') , $args);
+
+  // カスタムタクソノミー、タグタイプ
+  register_taxonomy(
+    'works-tag',
+    'work',
+    array(
+      'hierarchical' => false,
+      'update_count_callback' => '_update_post_term_count',
+      'label' => 'タグ',
+      'singular_label' => 'タグ',
+      'public' => true,
+      'show_ui' => true
+    )
+  );
+}
+
+// 現在の対応状況を追加
+add_action('init', 'add_work_post');
 
 // サーチフォームのDOM
 if (! function_exists('my_search_form')) {
