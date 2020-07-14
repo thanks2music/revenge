@@ -16,6 +16,48 @@
       @extend %__hr__gradient
       height: 1px
 
+// CSS only toggle
+.accordion
+  &__box
+    label
+      display: block
+      margin: 1px 0
+      padding: 11px 12px
+      color: #fff
+      font-weight: bold
+      background: var(--sub-color)
+      cursor: pointer
+      transition: all 0.5s
+
+      &:before
+        content: '\f054'
+        font-family: 'FontAwesome'
+        padding-right: 8px
+
+      &:hover
+        background: var(--sub-color-light)
+        color: var(--sub-color)
+
+    input
+      display: none
+
+  &--hidden
+    height: 0
+    padding: 0
+    overflow: hidden
+    opacity: 0
+    transition: 0.8s
+
+  &__input:checked
+    + label + .accordion--hidden
+      height: auto
+      padding: 15px
+      background: #eaeaea
+      opacity: 1
+
+    + label:before
+      content: '\f078'
+
 // Simple Google Analytics Ranking
 .custom-html-widget .sga-ranking
   // li

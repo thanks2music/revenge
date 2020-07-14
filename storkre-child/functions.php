@@ -505,6 +505,25 @@ function add_app_banner_on_widget($atts, $content = null) {
 }
 add_shortcode('add_app_banner', 'add_app_banner_on_widget');
 
+function add_accordion_shortcode($atts, $content = null) {
+  extract(shortcode_atts(array(
+    'q' => '',
+    'a' => '',
+    'num' => '',
+  ), $atts));
+
+  $html  = '';
+  $html .= '<div class="accordion__box">';
+  $html .= '<input type="checkbox" id="label' . $atts['num'] . '" class="accordion__input" />';
+  $html .= '<label for="label' . $atts['num'] . '">' . $atts['q'] . '</label>';
+  $html .= '<div class="accordion--hidden">';
+  $html .= $atts['a'];
+  $html .= '</div></div>';
+
+  return $html;
+}
+add_shortcode('css_accordion', 'add_accordion_shortcode');
+
 function add_event_post_thumbnails_shortcode($atts, $content = null) {
   extract(shortcode_atts(array(
     'post' => 'event',
