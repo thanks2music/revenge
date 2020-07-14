@@ -379,6 +379,146 @@
   &-top-padding
     padding: 0
 
+.table
+  &__hikaku
+    %__icon
+      display: inline-block
+      vertical-align: middle
+      width: 64px
+      height: 24px
+      font-size: 11px
+      background: #fff
+      line-height: 24px
+      text-align: center
+
+    h3
+      position: relative
+      margin-bottom: 20px
+      padding: 0 0 0 16px
+      color: #2b2553
+      font-size: 22px
+      font-weight: bold
+      border: 0
+
+      .sp &
+        font-size: 15px;
+
+      &:before,
+      &:after
+        content: ''
+        display: block
+        position: absolute
+        left: 0
+
+      &:before
+        content: ''
+        display: block
+        top: 0
+        width: 6px
+        height: 100%
+        background-image: linear-gradient(180deg, var(--key-color),var(--sub-color))
+
+      &:after
+        bottom: -10px
+        width: 100%
+        border-bottom: 1px solid #bfbdcb
+
+    table
+      border: 0
+
+      tr,
+      th,
+      td
+        border: 0
+        text-align: center
+        font-size: 13px
+
+      th
+        color: #2b2553
+        font-weight: bold
+        background-color: var(--sub-color-light)
+        height: 56px
+        padding: 4px
+        border: 2px solid #fff
+        white-space: nowrap
+
+        .sp &
+          height: 30px
+          font-size: 11px
+
+        &.table__hikaku__store
+          width: 17%
+
+        &.table__hikaku__status
+          width: 17%
+
+        &.table__hikaku__fee
+          width: 35%
+
+        &.table__hikaku__official
+          width: 31%
+
+        // Logs
+        &.table__hikaku__brand-logo
+          a
+            display: block
+            width: 40px
+            height: 40px
+            margin: auto
+
+      td
+        background: #edf7fb
+        border: 2px solid #fff
+        font-size: 12px
+        width: auto
+
+        p
+          font-size: 13px
+          margin: 0
+          display: block
+
+          strong
+            color: var(--key-color)
+            display: block
+
+          span
+            display: block
+
+    // Icons
+    &__icon--blue
+      @extend %__icon
+      color: var(--key-color)
+      border: 1px solid var(--key-color)
+
+
+    // 外部リンク用ボタン
+    &__cv-button
+      .amp .entry-content &
+        display: inline-block
+        background: var(--key-color)
+        color: #fff
+        height: 44px
+        line-height: 44px
+        text-decoration: none
+        position: relative
+        font-weight: bold
+        font-size: 11px
+        width: 44px
+        border-radius: 44px
+
+        i
+          display: block
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          right: 4px
+
+        &:after
+          display: none
+
+        b
+          margin-right: 7px
+
 #taxel-readmore
   background-color: rgba(#fff, .8)
   text-align: center
