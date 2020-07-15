@@ -506,6 +506,8 @@ function add_app_banner_on_widget($atts, $content = null) {
 add_shortcode('add_app_banner', 'add_app_banner_on_widget');
 
 function add_accordion_shortcode($atts, $content = null) {
+  // echo 'hoge', $content, '/hoge';
+
   extract(shortcode_atts(array(
     'q' => '',
     'a' => '',
@@ -517,10 +519,17 @@ function add_accordion_shortcode($atts, $content = null) {
   $html .= '<input type="checkbox" id="label' . $atts['num'] . '" class="accordion__input" />';
   $html .= '<label for="label' . $atts['num'] . '">' . $atts['q'] . '</label>';
   $html .= '<div class="accordion--hidden">';
-  $html .= $atts['a'];
-  $html .= '</div></div>';
 
-  return $html;
+  if (empty($atts['a'])) {
+    $html .= $content;
+  } else {
+    $html .= $atts['a'];
+  }
+
+  $html .= '</div></div>';
+  $content = do_shortcode(shortcode_unautop($html));
+
+  return $content;
 }
 add_shortcode('css_accordion', 'add_accordion_shortcode');
 
