@@ -506,8 +506,6 @@ function add_app_banner_on_widget($atts, $content = null) {
 add_shortcode('add_app_banner', 'add_app_banner_on_widget');
 
 function add_accordion_shortcode($atts, $content = null) {
-  // echo 'hoge', $content, '/hoge';
-
   extract(shortcode_atts(array(
     'q' => '',
     'a' => '',
