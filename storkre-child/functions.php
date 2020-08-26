@@ -506,8 +506,6 @@ function add_app_banner_on_widget($atts, $content = null) {
 add_shortcode('add_app_banner', 'add_app_banner_on_widget');
 
 function add_accordion_shortcode($atts, $content = null) {
-  // echo 'hoge', $content, '/hoge';
-
   extract(shortcode_atts(array(
     'q' => '',
     'a' => '',
@@ -725,6 +723,65 @@ function is_android() {
     return false;
   }
 }
+
+// ライターの場合一部サブメニューを書き換え
+function hide_and_edit_event_submenu() {
+// ユーザー情報取得
+global $current_user, $menu;
+
+function customize_event_menus() {
+$css = <<< EOF
+
+<style type="text/css">
+  #toplevel_page_siteguard,
+  #menu-settings,
+  #menu-tools,
+  #toplevel_page_wpcf7,
+  #menu-posts-post_lp,
+  #menu-comments,
+  #menu-appearance,
+  #toplevel_page_ps-taxonomy-expander,
+  #toplevel_page_slack-notifications,
+  #toplevel_page_WP-Optimize,
+  #menu-posts-event .wp-submenu .wp-first-item,
+  #menu-posts-event .wp-submenu li:last-child
+  {
+    display: none;
+  }
+</style>
+
+EOF;
+
+echo $css;
+}
+
+function customize_event_script() {
+$js = <<< EOF
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  var event = document.querySelector('#menu-posts-event>a');
+  event.href = '/wp-admin/edit.php?post_status=draft&post_type=event';
+});
+</script>
+
+EOF;
+
+echo $js;
+}
+
+
+// 管理者以外は一部サブメニューを削除
+if ($current_user->user_level !== "10") {
+  add_action('admin_head', 'customize_event_menus');
+}
+
+// 全員リンクを書き換え
+add_action('admin_print_scripts', 'customize_event_script');
+}
+
+add_action('admin_menu', 'hide_and_edit_event_submenu', 100);
+
 
 // Rinker
 function yyi_rinker_delete_credit_html_data($meta_datas) {
