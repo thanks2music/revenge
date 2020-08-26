@@ -737,6 +737,10 @@ $css = <<< EOF
   #menu-settings,
   #menu-tools,
   #toplevel_page_wpcf7,
+  #menu-posts-post_lp,
+  #menu-comments,
+  #menu-appearance,
+  #toplevel_page_ps-taxonomy-expander,
   #toplevel_page_slack-notifications,
   #toplevel_page_WP-Optimize,
   #menu-posts-event .wp-submenu .wp-first-item,
@@ -766,8 +770,9 @@ EOF;
 echo $js;
 }
 
-// ライターなら一部サブメニューを削除
-if ($current_user->user_level === "1") {
+
+// 管理者以外は一部サブメニューを削除
+if ($current_user->user_level !== "10") {
   add_action('admin_head', 'customize_event_menus');
 }
 
