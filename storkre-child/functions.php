@@ -729,7 +729,7 @@ function hide_and_edit_event_submenu() {
 // ユーザー情報取得
 global $current_user, $menu;
 
-function customize_event_menus() {
+function customize_event_menus_for_writer() {
 $css = <<< EOF
 
 <style type="text/css">
@@ -741,8 +741,13 @@ $css = <<< EOF
   #menu-comments,
   #menu-appearance,
   #toplevel_page_ps-taxonomy-expander,
+  #menu-posts-elementor_library,
+  #toplevel_page_envato-elements,
+  #toplevel_page_elementor,
+  #toplevel_page_wo_manage_clients,
   #toplevel_page_slack-notifications,
   #toplevel_page_WP-Optimize,
+  .wrap .subsubsub li.all,
   #menu-posts-event .wp-submenu .wp-first-item,
   #menu-posts-event .wp-submenu li:last-child
   {
@@ -773,7 +778,7 @@ echo $js;
 
 // 管理者以外は一部サブメニューを削除
 if ($current_user->user_level !== "10") {
-  add_action('admin_head', 'customize_event_menus');
+  add_action('admin_head', 'customize_event_menus_for_writer');
 }
 
 // 全員リンクを書き換え
