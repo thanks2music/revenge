@@ -1,0 +1,55 @@
+# BEGIN Redirect to https
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{ENV:HTTPS} !on
+RewriteCond %{HTTP:X-Forwarded-Proto} http
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+# END Redirect to https
+
+#SITEGUARD_PLUGIN_SETTINGS_START
+#==== SITEGUARD_RENAME_LOGIN_SETTINGS_START
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+    RewriteRule ^wp-signup\.php 404-siteguard [L]
+    RewriteRule ^wp-activate\.php 404-siteguard [L]
+    RewriteRule ^rere-login(.*)$ wp-login.php$1 [L]
+</IfModule>
+#==== SITEGUARD_RENAME_LOGIN_SETTINGS_END
+#==== SITEGUARD_ADMIN_FILTER_SETTINGS_START
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+    RewriteRule ^404-siteguard - [L]
+    RewriteRule ^wp-admin/css - [L]
+    RewriteRule ^wp-admin/images - [L]
+    RewriteRule ^wp-admin/admin-ajax\.php - [L]
+    RewriteRule ^wp-admin/load-styles\.php - [L]
+    RewriteRule ^wp-admin/site-health\.php - [L]
+    RewriteCond %{REMOTE_ADDR} !^106\.161\.215\.8$
+    RewriteCond %{REMOTE_ADDR} !^118\.240\.154\.117$
+    RewriteCond %{REMOTE_ADDR} !^126\.99\.226\.103$
+    RewriteRule ^wp-admin 404-siteguard [L]
+</IfModule>
+#==== SITEGUARD_ADMIN_FILTER_SETTINGS_END
+#SITEGUARD_PLUGIN_SETTINGS_END
+
+# BEGIN WordPress
+# `BEGIN WordPress` から `END WordPress` までのディレクティブ (行) は
+# 動的に生成され、WordPress フィルターによってのみ修正が可能です。
+# これらのマーカー間にあるディレクティブへのいかなる変更も上書きされてしまいます。
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+SetEnvIf Request_URI ".*" AllowRestApi
+
+
