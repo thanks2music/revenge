@@ -2,6 +2,21 @@
 require_once('library/widget.php');
 require_once('library/customizer.php');
 
+// for CORS
+function my_customize_rest_cors() {
+  remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
+  add_filter( 'rest_pre_serve_request', function( $value ) {
+    header( 'Access-Control-Allow-Origin: *' );
+    header( 'Access-Control-Allow-Methods: GET' );
+    header( 'Access-Control-Allow-Credentials: true' );
+    header( 'Access-Control-Allow-Headers: *');
+    header( 'Access-Control-Expose-Headers: Link', false );
+
+    return $value;
+  });
+}
+
+
 // 子テーマのstyle.cssを後から読み込む
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {

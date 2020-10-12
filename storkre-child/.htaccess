@@ -42,6 +42,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
+RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -52,4 +53,4 @@ RewriteRule . /index.php [L]
 
 SetEnvIf Request_URI ".*" AllowRestApi
 
-
+SetEnvIf Request_URI ".*" AllowXmlrpc
