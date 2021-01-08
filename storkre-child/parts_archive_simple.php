@@ -175,10 +175,11 @@
     $s = $_GET['s'];
     $args = array(
       's' => $s,
-      'posts_per_page' => -1,
+      'posts_per_page' => 16,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
+      'paged' => $paged,
     );
     // Search Query
     $the_query = new WP_Query($args);
