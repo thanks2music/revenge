@@ -65,6 +65,23 @@ add_filter('admin_footer_text', 'remove_footer_admin');
 // <moreads>をADXとアドセンスに置き換える
 // add_filter('the_content', 'adMoreReplace');
 
+function is_amp(){
+  // AMPチェック
+  $is_amp = false;
+  if ( empty($_GET['amp']) ) {
+    return false;
+  }
+
+  //ampのパラメーターが1かつ投稿ページの
+  // かつsingleページのみ$is_ampをtrueにする
+  if (is_single() &&
+     $_GET['amp'] === '1'
+    ) {
+    $is_amp = true;
+  }
+  return $is_amp;
+}
+
 function get_moreads_tags($device) {
 $moretags = [];
 // AMP - CC_AMP_Article1_Responsive
@@ -1269,41 +1286,55 @@ function custom_embed_content($code) {
 add_filter('embed_handler_html', 'custom_embed_content');
 add_filter('embed_oembed_html', 'custom_embed_content');
 
-function replace_tweet_url_to_amp_html($the_content) {
-  global $amp_flag;
-
-  if ($amp_flag) {
-    if (strpos($the_content, 'twitter.com') !== false && strpos($the_content, '/status/') !== false) {
-      $_get_tweet_url = preg_match_all("#(?:https?://)?(?:mobile.)?(?:www.)?(?:twitter.com/)?(?:\#!/)?(?:\w+)/status(?:es)?/(\d+)#i", $the_content, $url_match);
-
-      if (! empty($url_match[0])) {
-        $search_url = [];
-        foreach($url_match[0] as $value) {
-          $search_url[] = $value;
-        }
-      }
-
-      if (! empty($url_match[1])) {
-        $tweet_id = [];
-        foreach($url_match[1] as $value) {
-          $tweet_id[] = $value;
-        }
-      }
-
-      if (! empty($tweet_id) && ! empty($search_url)) {
-        foreach($tweet_id as $value) {
-          $amp_html[] = '<amp-twitter width="375" height="472" layout="responsive" data-tweetid="' . $value . '"></amp-twitter>';
-        }
-      }
-
-      $the_content = str_replace($search_url, $amp_html, $the_content);
-    }
+function replace_html_to_amp_html($the_content) {
+  if ( !is_amp() ) {
+    return $the_content;
   }
+
+  // Twitter
+  if (strpos($the_content, 'twitter.com') !== false && strpos($the_content, '/status/') !== false) {
+    $_get_tweet_url = preg_match_all("#(?:https?://)?(?:mobile.)?(?:www.)?(?:twitter.com/)?(?:\#!/)?(?:\w+)/status(?:es)?/(\d+)#i", $the_content, $url_match);
+
+    if (! empty($url_match[0])) {
+      $search_url = [];
+      foreach($url_match[0] as $value) {
+        $search_url[] = $value;
+      }
+    }
+
+    if (! empty($url_match[1])) {
+      $tweet_id = [];
+      foreach($url_match[1] as $value) {
+        $tweet_id[] = $value;
+      }
+    }
+
+    if (! empty($tweet_id) && ! empty($search_url)) {
+      foreach($tweet_id as $value) {
+        $amp_html[] = '<amp-twitter width="375" height="472" layout="responsive" data-tweetid="' . $value . '"></amp-twitter>';
+      }
+    }
+
+    $the_content = str_replace($search_url, $amp_html, $the_content);
+  }
+
+  // Instagram
+  $pattern = '/<blockquote class="instagram-media".+?"https:\/\/www.instagram.com\/p\/(.+?)\/".+?<\/blockquote>/is';
+  $append = '<p><amp-instagram layout="responsive" data-shortcode="$1" width="592" height="592" ></amp-instagram></p>';
+  $the_content = preg_replace($pattern, $append, $the_content);
+
+  // iframe
+  $pattern = '/<iframe/i';
+  $append = '<amp-iframe layout="responsive"';
+  $the_content = preg_replace($pattern, $append, $the_content);
+  $pattern = '/<\/iframe>/i';
+  $append = '</amp-iframe>';
+  $the_content = preg_replace($pattern, $append, $the_content);
 
   return $the_content;
 }
 
-add_filter('the_content', 'replace_tweet_url_to_amp_html');
+add_filter('the_content', 'replace_html_to_amp_html', 999999999);
 
 function replace_img_for_amp($the_content) {
   global $amp_flag;
