@@ -1318,6 +1318,11 @@ function replace_html_to_amp_html($the_content) {
     $the_content = str_replace($search_url, $amp_html, $the_content);
   }
 
+  // Instagram
+  $pattern = '/<blockquote class="instagram-media".+?"https:\/\/www.instagram.com\/p\/(.+?)\/".+?<\/blockquote>/is';
+  $append = '<p><amp-instagram layout="responsive" data-shortcode="$1" width="592" height="592" ></amp-instagram></p>';
+  $the_content = preg_replace($pattern, $append, $the_content);
+
   // iframe
   $pattern = '/<iframe/i';
   $append = '<amp-iframe layout="responsive"';
