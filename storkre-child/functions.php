@@ -1286,11 +1286,12 @@ function custom_embed_content($code) {
 add_filter('embed_handler_html', 'custom_embed_content');
 add_filter('embed_oembed_html', 'custom_embed_content');
 
-function replace_tweet_url_to_amp_html($the_content) {
+function replace_html_to_amp_html($the_content) {
   if ( !is_amp() ) {
     return $the_content;
   }
 
+  // Twitter
   if (strpos($the_content, 'twitter.com') !== false && strpos($the_content, '/status/') !== false) {
     $_get_tweet_url = preg_match_all("#(?:https?://)?(?:mobile.)?(?:www.)?(?:twitter.com/)?(?:\#!/)?(?:\w+)/status(?:es)?/(\d+)#i", $the_content, $url_match);
 
@@ -1317,10 +1318,18 @@ function replace_tweet_url_to_amp_html($the_content) {
     $the_content = str_replace($search_url, $amp_html, $the_content);
   }
 
+  // iframe
+  $pattern = '/<iframe/i';
+  $append = '<amp-iframe layout="responsive"';
+  $the_content = preg_replace($pattern, $append, $the_content);
+  $pattern = '/<\/iframe>/i';
+  $append = '</amp-iframe>';
+  $the_content = preg_replace($pattern, $append, $the_content);
+
   return $the_content;
 }
 
-add_filter('the_content', 'replace_tweet_url_to_amp_html', 999999999);
+add_filter('the_content', 'replace_html_to_amp_html', 999999999);
 
 function replace_img_for_amp($the_content) {
   global $amp_flag;

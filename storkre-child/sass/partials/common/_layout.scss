@@ -27,6 +27,11 @@
 @import 'partials/app/faq';
 @import 'partials/app/single';
 
+// iframe
+iframe {
+  border: 0
+}
+
 .wf-amatic {
   @extend %webfont-amatic;
 }
