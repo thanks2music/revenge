@@ -102,6 +102,10 @@
           <?php get_template_part('header-globalmenus'); ?>
         </div>
       </div>
+
+      <?php if ($is_sp) {
+        get_template_part('partials/sp/header-category');
+      } ?>
     </header>
 
     <?php if (! get_option('side_options_header_search')) { ?>
