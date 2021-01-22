@@ -6,13 +6,12 @@ require_once('library/customizer.php');
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
   global $dir;
-  $time_stamp = time();
   wp_enqueue_style('style', get_template_directory_uri() . '/style.css' );
   wp_enqueue_style('fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
   wp_enqueue_style('webfont-amatic', 'https://fonts.googleapis.com/css?family=Amatic+SC');
 
   wp_enqueue_style('child-style',
-    $dir['theme'] . '/dist/css/main.css?' . $time_stamp,
+    $dir['theme'] . '/dist/css/main.css',
     array('style')
   );
 }
@@ -40,8 +39,7 @@ add_action( 'widgets_init', 'theme_register_sidebars_child' );
 add_action('wp_footer', 'add_javascripts');
 function add_javascripts() {
   global $dir;
-  $time_stamp = time();
-  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?' . $time_stamp);
+  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210115');
 }
 
 // 管理画面の情報を変更
