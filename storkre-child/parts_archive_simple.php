@@ -10,13 +10,13 @@
 <?php } ?>
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  $ads_infeed = 8;
+  $ads_infeed = 5;
   $ads_infeed_count = 0;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
-      'posts_per_page' => 16,
+      'posts_per_page' => 10,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
@@ -454,6 +454,9 @@
             </div>
           </article>
         <?php } else { ?>
+          <?php if (is_home() || is_front_page()) { ?>
+            <h2 class="cc-title__h2">最新ニュース</h2>
+          <?php } ?>
           <article <?php post_class('post-list animated fadeIn'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
