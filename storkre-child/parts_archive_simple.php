@@ -5,6 +5,7 @@
     <p class="cc-headline__h2__text">最新ニュース</p>
   </h2>
 <?php } ?>
+<div class="post__list post__list__recent">
 <?php // モバイルかつトップページの場合 ?>
 <?php if (! is_paged() && is_mobile() && is_home()) { ?>
   <?php dynamic_sidebar('widget_sp_puread_home'); ?>
@@ -240,7 +241,7 @@
           $cat_name = get_the_work_term_name($terms);
         }
       ?>
-        <article <?php post_class('post-list animated fadeIn search-container post__search'); ?> role="article">
+        <article <?php post_class('post-list animated fadeIn search-container post__search'); ?> role="article hoge">
           <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
             <?php if ( has_post_thumbnail()) { ?>
@@ -492,9 +493,6 @@
                   </span>
                 </p>
 
-                <?php if (! is_mobile()) { ?>
-                  <div class="description"><?php the_excerpt(); ?></div>
-                <?php } ?>
               </section>
             </a>
           </article>
@@ -510,8 +508,9 @@
         </section>
       </article>
   <?php } // end Main Loop
-  } // end ! is_search()
-  if (! function_exists('wp_pagenavi')) {
+  } // end ! is_search() ?>
+</div><?php // end div.posts__list ?>
+<?php if (! function_exists('wp_pagenavi')) {
     // Original Pagination
     pagination();
   } else {

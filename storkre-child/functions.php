@@ -1604,17 +1604,25 @@ function mail_for_pending( $new_status, $old_status, $post ) {
 }
 add_action( 'transition_post_status', 'mail_for_pending', 10, 3 );
 
+// 不要な画像生成を減らす
+function remove_image_sizes( $sizes ) {
+  unset( $sizes['thumbnail'] );
+  unset( $sizes['medium'] );
+  unset( $sizes['large'] );
+  return $sizes;
+}
+add_filter( 'intermediate_image_sizes_advanced', 'remove_image_sizes' );
+
 // 独自アイキャッチ画像
 // サーバーに負荷かかるがリクエストサイズがでかくなるので、サムネイルはトリミングする
-if (! function_exists('add_mythumbnail_size')) {
-  function add_mythumbnail_size() {
-    add_theme_support('post-thumbnails');
-    add_image_size('period-thum', 672, 416, true);
-    add_image_size('home-thum', 486, 290, true);
-    add_image_size('post-thum', 300, 200, true);
-  }
-  add_action( 'after_setup_theme', 'add_mythumbnail_size' );
+function add_mythumbnail_size() {
+  add_theme_support('post-thumbnails');
+  add_image_size('home-thum', 486, 290, true);
+  add_image_size('post-thum', 300, 200, true);
 }
+add_action( 'after_setup_theme', 'add_mythumbnail_size' );
+
+
 
 function minify_css($data) {
   // コメント削除

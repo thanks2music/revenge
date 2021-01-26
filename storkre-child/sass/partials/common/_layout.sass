@@ -35,7 +35,7 @@
     display: flex
     justify-content: space-between
     align-items: center
-    margin: 0
+    margin: 0 0 15px
     line-height: 1
     font-size: 21px
     padding: 0 0 15px
@@ -67,6 +67,46 @@
         width: 100%
         background-color: var(--key-color)
 
+// レイアウト
+.post__list
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+
+  &__recent
+    // article
+    .post-list
+      width: calc(50% - 17px)
+      height: calc(100% - 15px)
+      display: flex
+      -webkit-box-orient: vertical
+      -webkit-box-direction: normal
+      flex-direction: column
+      position: relative
+      margin-bottom: 15px
+
+      .cf
+        padding: 0
+        border: 0
+        border-bottom: 1px solid rgba(0,0,0,.2)
+        padding-bottom: 15px
+
+      .eyecatch
+        float: none
+        width: 100%
+
+      .entry-content
+        padding: 0
+        border-top: solid 1px transparent
+        -webkit-box-flex: 1
+        flex: 1 0 auto
+
+        .entry-title
+          font-size: 16px
+          padding: 15px 0 0
+
+        .entry-meta
+          margin: 0
 
 // iframe
 iframe

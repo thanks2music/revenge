@@ -21,4 +21,7 @@
   remove_action('wp_head','rest_output_link_wp_head');
   remove_action('wp_head','wp_oembed_add_discovery_links');
   remove_action('wp_head','wp_oembed_add_host_js');
+
+  // 不要な画像生成を減らす
+  update_option( 'medium_large_size_w', 0 );
 ?>
