@@ -1,5 +1,11 @@
 <?php global $url; ?>
 <div class="top-post-list">
+<?php if (is_home() || is_front_page()) { ?>
+  <h2 class="cc-headline__h2">
+    <p class="cc-headline__h2__text">最新ニュース</p>
+  </h2>
+<?php } ?>
+<div class="post__list post__list__recent">
 <?php // モバイルかつトップページの場合 ?>
 <?php if (! is_paged() && is_mobile() && is_home()) { ?>
   <?php dynamic_sidebar('widget_sp_puread_home'); ?>
@@ -10,13 +16,13 @@
 <?php } ?>
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  $ads_infeed = 8;
+  $ads_infeed = 5;
   $ads_infeed_count = 0;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
-      'posts_per_page' => 16,
+      'posts_per_page' => 10,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
@@ -235,7 +241,7 @@
           $cat_name = get_the_work_term_name($terms);
         }
       ?>
-        <article <?php post_class('post-list animated fadeIn search-container post__search'); ?> role="article">
+        <article <?php post_class('post-list animated fadeIn search-container post__search'); ?> role="article hoge">
           <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
             <?php if ( has_post_thumbnail()) { ?>
@@ -487,9 +493,6 @@
                   </span>
                 </p>
 
-                <?php if (! is_mobile()) { ?>
-                  <div class="description"><?php the_excerpt(); ?></div>
-                <?php } ?>
               </section>
             </a>
           </article>
@@ -505,8 +508,9 @@
         </section>
       </article>
   <?php } // end Main Loop
-  } // end ! is_search()
-  if (! function_exists('wp_pagenavi')) {
+  } // end ! is_search() ?>
+</div><?php // end div.posts__list ?>
+<?php if (! function_exists('wp_pagenavi')) {
     // Original Pagination
     pagination();
   } else {

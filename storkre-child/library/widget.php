@@ -303,6 +303,7 @@ class NewEntryImageWidgetChild extends WP_Widget {
       <?php
   }
 }
-add_action( 'widgets_init', function(){
+
+add_action('widgets_init', function(){
   return register_widget( "NewEntryImageWidgetChild" );
 });
