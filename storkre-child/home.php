@@ -41,7 +41,6 @@
     // wp_reset_postdata();
   }
 ?>
-<?php get_template_part( 'parts_add_bottom' ); ?>
 </main>
 <?php get_sidebar(); ?>
 </div>
