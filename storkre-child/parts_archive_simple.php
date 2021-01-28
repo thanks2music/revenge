@@ -453,7 +453,7 @@
               ?>
             </div>
           </article>
-        <?php } else { ?>
+        <?php } else { // トップページの新着一覧 ?>
           <article <?php post_class('post-list animated fadeIn'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
@@ -491,6 +491,13 @@
                   <div class="description"><?php the_excerpt(); ?></div>
                 <?php } ?>
               </section>
+              <?php
+                if (is_user_logged_in()) { ?>
+                <div class="cc-logged-user">
+                  <p class="cc-logged-user__panel">ログインユーザーのみ表示</p>
+                  <div class="cc-logged-user__information">記事公開時間: <?php the_time("Y年m月d日 H時i分s秒"); ?></div>
+                </div>
+              <?php } ?>
             </a>
           </article>
       <?php } ?>
