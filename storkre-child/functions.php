@@ -1581,7 +1581,6 @@ if (! function_exists('add_mythumbnail_size')) {
   function add_mythumbnail_size() {
     add_theme_support('post-thumbnails');
     add_image_size('home-thum', 486, 290, true);
-    add_image_size('post-thum', 300, 200, true);
   }
   add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }

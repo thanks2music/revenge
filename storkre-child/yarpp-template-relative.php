@@ -24,7 +24,7 @@
 		        <a href="<?php the_permalink(); ?>" rel=\"bookmark" title="<?php the_title_attribute(); ?>" class="title">
 		        	<figure class="eyecatch">
 	        <?php if(has_post_thumbnail()) { ?>
-	                <?php the_post_thumbnail('post-thum'); ?>
+	                <?php the_post_thumbnail('home-thum'); ?>
 	        <?php } else { ?>
 	                <img src="<?php echo get_stylesheet_directory_uri() ?>/library/images/noimg.png" />
 	        <?php } ?>
