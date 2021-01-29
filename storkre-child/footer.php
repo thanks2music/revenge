@@ -162,7 +162,7 @@
               <?php if ( has_post_thumbnail()) { ?>
                 <figure class="eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
-                  <?php the_post_thumbnail('period-thum', array('class' => 'lazy attachment-period-thum size-period-thum wp-post-image')); ?>
+                  <?php the_post_thumbnail('thumbnail', array('class' => 'lazy attachment-period-thum size-period-thum wp-post-image')); ?>
                 </figure>
               <?php } else { ?>
                 <figure class="eyecatch noimg">
