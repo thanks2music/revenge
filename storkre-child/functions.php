@@ -1587,10 +1587,9 @@ if (! function_exists('add_mythumbnail_size')) {
 
 function disable_image_sizes( $new_sizes ) {
   // thumbnail = 300px
-  // medium    = 500px
   // この2つに揃えたいので無効化しない
   // unset( $new_sizes['thumbnail'] );
-  // unset( $new_sizes['medium'] );
+  unset( $new_sizes['medium'] );
   unset( $new_sizes['large'] );
   unset( $new_sizes['medium_large'] );
   unset( $new_sizes['1536x1536'] );
