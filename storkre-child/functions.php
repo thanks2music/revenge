@@ -1585,6 +1585,22 @@ if (! function_exists('add_mythumbnail_size')) {
   add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }
 
+function disable_image_sizes( $new_sizes ) {
+  // thumbnail = 300px
+  // medium    = 500px
+  // この2つに揃えたいので無効化しない
+  // unset( $new_sizes['thumbnail'] );
+  // unset( $new_sizes['medium'] );
+  unset( $new_sizes['large'] );
+  unset( $new_sizes['medium_large'] );
+  unset( $new_sizes['1536x1536'] );
+  unset( $new_sizes['2048x2048'] );
+  return $new_sizes;
+}
+add_filter( 'intermediate_image_sizes_advanced', 'disable_image_sizes' );
+
+add_filter( 'big_image_size_threshold', '__return_false' );
+
 function minify_css($data) {
   // コメント削除
   $data = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $data);
