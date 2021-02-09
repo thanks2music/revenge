@@ -462,6 +462,15 @@
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
                   <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                   <span class="cat-name cat__name__home"><?php echo $cat_name; ?></span>
+
+                  <?php
+                    if (is_user_logged_in()) { ?>
+                    <div class="cc-logged-user">
+                      <div class="cc-logged-user__information">
+                        <p class="cc-logged-user__information-important">公開時間: <?php the_time("Y年m月d日 H時i分"); ?></p>
+                        <p>担当者: <?php  the_author(); ?></p>
+                    </div>
+                  <?php } ?>
                 </figure>
               <?php } else { ?>
                 <figure class="eyecatch noimg">
@@ -492,15 +501,6 @@
                 <?php } ?>
               </section>
             </a>
-            <?php
-              if (is_user_logged_in()) { ?>
-              <div class="cc-logged-user">
-                <p class="cc-logged-user__panel">ログインユーザーのみ表示</p>
-                <div class="cc-logged-user__information">
-                  <p class="cc-logged-user__information-important">記事公開時間: <?php the_time("Y年m月d日 H時i分"); ?></p>
-                  <p>担当者: <?php  the_author(); ?></p>
-              </div>
-            <?php } ?>
           </article>
       <?php } ?>
     <?php } // end while the_post();
