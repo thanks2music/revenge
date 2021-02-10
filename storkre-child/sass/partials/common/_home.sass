@@ -1,6 +1,68 @@
 @charset "utf-8"
 
-// ホーム
+// 横並びレイアウト
+.article__by-category
+  box-shadow: 0px -3px 0px var(--key-color)
+  border-radius: 3px
+  border-right: 1px solid #e6e6e6
+  border-left: 1px solid #e6e6e6
+  border-bottom: 1px solid #e6e6e6
+
+  &__post
+    padding: 0
+    border-bottom: 1px dashed rgba(0,0,0,.2)
+
+  &__anchor
+    padding: 15px
+    display: flex
+    text-decoration: none
+    position: relative
+
+  &__thumbnail
+    width: 150px
+    height: 84px // 16:9
+    background: #fefefe
+    border: 1px solid #e6e6e6
+    background: #f9f9f9
+    position: relative
+    overflow: hidden
+    margin: 0 15px 0 0
+
+    img
+      display: block
+      width: inherit;
+      height: inherit;
+      position: absolute
+      top: 50%
+      transform: translateY(-50%)
+      object-fit: contain
+      object-position: center center
+
+  &__title
+    color: rgb(60, 60, 60)
+    margin: 0
+    background: #f4f4fa
+    font-size: 1.2rem
+    padding: 10px 15px 10px 15px
+    position: relative
+
+    &:before
+      // content: ''
+      // width: 5px
+      // height: 75%
+      // position: absolute
+      // transform: translateY(-50%)
+      // top: 50%
+      // left: 7px
+      // background: linear-gradient(to bottom, var(--key-color) 0%, var(--sub-color) 100%)
+
+  &__post-info
+    width: calc(100% - 150px - 15px)
+
+    h3
+      font-size: 16px
+
+
 .home
   &.pc
     .homewidget.popular-posts
