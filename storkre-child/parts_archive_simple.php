@@ -1,5 +1,10 @@
 <?php global $url; ?>
 <div class="top-post-list">
+<?php if (is_home() || is_front_page()) { ?>
+  <h2 class="cc-headline__h2">
+    <p class="cc-headline__h2__text">最新ニュース</p>
+  </h2>
+<?php } ?>
 <?php // モバイルかつトップページの場合 ?>
 <?php if (! is_paged() && is_mobile() && is_home()) { ?>
   <?php dynamic_sidebar('widget_sp_puread_home'); ?>

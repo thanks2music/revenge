@@ -574,7 +574,8 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
       $str .= '<figure class="article__by-category__thumbnail">' . get_the_post_thumbnail($post->ID, 'photoswipe_thumbnails', array('class' => 'lazy attachment-home-thum no-crop')) . '</figure>';
       $str .= '<div class="article__by-category__post-info">';
       $str .= '<h3>' . the_title('','',false) . '</h3>';
-      $str .= '<p">' . $date . '</p>';
+      $str .= '<p class="article__by-category__excerpt">' . get_the_excerpt() . '</p>';
+      $str .= '<p class="article__by-category__event-time"><i class="fa fa-calendar-check-o"></i>期間 : ' . $date . '</p>';
       $str .= '</div>';
       $str .= '</a>';
       $str .= '</article>';

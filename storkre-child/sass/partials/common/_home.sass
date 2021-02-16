@@ -17,14 +17,14 @@
       border-bottom: none
 
   &__anchor
-    padding: 15px
+    padding: 10px
     display: flex
     text-decoration: none
     position: relative
 
   &__thumbnail
-    width: 150px
-    height: 84px // 16:9
+    width: 124px
+    height: 70px // 16:9
     background: #fefefe
     border: 1px solid #e6e6e6
     background: #f9f9f9
@@ -42,10 +42,40 @@
       object-fit: contain
       object-position: center center
 
+  &__event-time
+    color: var(--key-color)
+    font-size: .85em
+    margin: 0
+
+  &__excerpt
+    margin: 5px 0
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    font-size: 13px
+    color: #8c8c8c
+
+  &__post-list-button
+    text-align: center
+    margin: 20px 0
+
+    a
+      display: inline-block
+      color: #fff
+      text-decoration: none
+      border-radius: 3px
+      background: linear-gradient(to right, var(--key-color) 0%, var(--sub-color) 100%)
+      padding: 15px
+      font-size: 13px
+      font-weight: bold
+
+      &:visited
+        color: #fff
+
   &__title
     color: rgb(60, 60, 60)
     margin: 0
-    background: #f4f4fa
+    background: var(--key-color-light)
     font-size: 1.2rem
     padding: 10px 15px 10px 15px
     position: relative
@@ -73,9 +103,9 @@
     display: flex
     justify-content: space-between
     align-items: center
-    margin: 0 0 15px
+    margin: 0
     line-height: 1
-    font-size: 21px
+    font-size: 16px
     padding: 0 0 15px
     position: relative
 
