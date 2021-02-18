@@ -19,6 +19,7 @@
 // CSS only toggle
 .accordion
   &__box
+    text-align: left
     .entry__author &
       margin-top: 1em
 
@@ -52,11 +53,15 @@
     transition: 0.8s
 
   &__input:checked
-    + label + .accordion--hidden
+    + label + .accordion--hidden,
+    + label + p + .accordion--hidden
       height: auto
       padding: 15px
       background: #eaeaea
       opacity: 1
+
+    + label + p + .accordion--hidden
+      background: #fff
 
     + label:before
       content: '\f078'
