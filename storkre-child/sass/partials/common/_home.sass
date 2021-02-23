@@ -13,9 +13,6 @@
     padding: 0
     border-bottom: 1px dashed rgba(0,0,0,.2)
 
-    &:last-child
-      border-bottom: none
-
   &__anchor
     padding: 10px
     display: flex
@@ -59,12 +56,14 @@
     text-align: center
     margin: 20px 0
 
+
+  .article__by-category__post-list-button
     a
       display: inline-block
       color: #fff
       text-decoration: none
       border-radius: 3px
-      background: linear-gradient(to right, var(--key-color) 0%, var(--sub-color) 100%)
+      background: var(--sub-color)
       padding: 15px
       font-size: 13px
       font-weight: bold
@@ -79,16 +78,7 @@
     font-size: 1.2rem
     padding: 10px 15px 10px 15px
     position: relative
-
-    &:before
-      // content: ''
-      // width: 5px
-      // height: 75%
-      // position: absolute
-      // transform: translateY(-50%)
-      // top: 50%
-      // left: 7px
-      // background: linear-gradient(to bottom, var(--key-color) 0%, var(--sub-color) 100%)
+    border-bottom: 1px solid #e6e6e6
 
   &__post-info
     width: calc(100% - 150px - 15px)
