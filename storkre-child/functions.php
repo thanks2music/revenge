@@ -537,8 +537,8 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
   if ($atts['layout'] === 'vertical') {
     // ホームのカテゴリ別一覧
     $str .= '<div class="article__by-category--vertical">';
-  } else if ($atts['layout'] === 'grid') {
-    $str .= '<div class="article__by-category--grid">';
+  } else if ($atts['layout'] === 'horizontal') {
+    $str .= '<div class="article__by-category--horizontal">';
   } else {
     // デフォルトのサイドバー用
     $str .= '<div class="widget__post__list">';
@@ -564,7 +564,7 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
   $posts = get_posts($args);
 
   if ($atts['layout'] === 'vertical') {
-    // ホームのカテゴリ別一覧
+    // ホームの縦表示一覧
     foreach($posts as $post) {
       setup_postdata($post);
       $cf = get_post_custom();
@@ -576,6 +576,20 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
       $str .= '<h3>' . the_title('','',false) . '</h3>';
       $str .= '<p class="article__by-category__excerpt">' . get_the_excerpt() . '</p>';
       $str .= '<p class="article__by-category__event-time"><i class="fa fa-calendar-check-o"></i>期間 : ' . $date . '</p>';
+      $str .= '</div>';
+      $str .= '</a>';
+      $str .= '</article>';
+    }
+  } else if ($atts['layout'] === 'horizontal') {
+    // ホームの横表示一覧
+    foreach($posts as $post) {
+      setup_postdata($post);
+      $cf = get_post_custom();
+      $str .= '<article class="article__by-category__post">';
+      $str .= '<a href="'.get_permalink().'" class="article__by-category__anchor">';
+      $str .= '<figure class="article__by-category__thumbnail">' . get_the_post_thumbnail($post->ID, 'photoswipe_thumbnails', array('class' => 'lazy attachment-home-thum no-crop')) . '</figure>';
+      $str .= '<div class="article__by-category__post-info">';
+      $str .= '<h3>' . the_title('','',false) . '</h3>';
       $str .= '</div>';
       $str .= '</a>';
       $str .= '</article>';

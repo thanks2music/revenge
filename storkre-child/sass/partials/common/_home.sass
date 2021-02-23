@@ -9,25 +9,47 @@
   border-bottom: 1px solid #e6e6e6
   margin-bottom: 40px
 
+  &--horizontal
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+
   &__post
     padding: 0
-    border-bottom: 1px dashed rgba(0,0,0,.2)
+
+    .article__by-category--horizontal &
+      width: 144px
+      height: 100%
+      padding: 5px
+      position: relative
+
+    .article__by-category--vertical &
+      border-bottom: 1px dashed rgba(0,0,0,.2)
 
   &__anchor
-    padding: 10px
-    display: flex
     text-decoration: none
-    position: relative
+
+    .article__by-category--vertical &
+      display: flex
+      padding: 10px
+      position: relative
 
   &__thumbnail
-    width: 124px
-    height: 70px // 16:9
     background: #fefefe
     border: 1px solid #e6e6e6
     background: #f9f9f9
     position: relative
     overflow: hidden
-    margin: 0 15px 0 0
+
+    .article__by-category--vertical &
+      width: 124px
+      height: 70px // 16:9
+      margin: 0 15px 0 0
+
+    .article__by-category--horizontal &
+      width: 138px
+      height: 78px // 16:9
+      margin: 0 0 5px 0
 
     img
       display: block
@@ -54,7 +76,7 @@
 
   &__post-list-button
     text-align: center
-    margin: 20px 0
+    margin: 10px 0
 
 
   .article__by-category__post-list-button
@@ -64,9 +86,10 @@
       text-decoration: none
       border-radius: 3px
       background: var(--sub-color)
-      padding: 15px
-      font-size: 13px
+      padding: 10px 0
+      font-size: 14px
       font-weight: bold
+      width: 97%
 
       &:visited
         color: #fff
@@ -75,17 +98,32 @@
     color: rgb(60, 60, 60)
     margin: 0
     background: var(--key-color-light)
-    font-size: 1.2rem
-    padding: 10px 15px 10px 15px
+    font-size: 16px
+    padding: 7px 10px
     position: relative
     border-bottom: 1px solid #e6e6e6
 
   &__post-info
-    width: calc(100% - 150px - 15px)
 
-    h3
-      font-size: 16px
-      margin: 0
+    .article__by-category--vertical &
+      width: calc(100% - 150px - 15px)
+
+      h3
+        font-size: 16px
+        margin: 0
+
+    .article__by-category--horizontal &
+      h3
+        font-size: 12px
+        margin: 0 0 5px
+
+  // &__publish-time
+  //   margin: 0
+  //   color: #8c8c8c
+  //   font-size: 10px
+  //   position: absolute
+  //   bottom: 0
+  //   left: 0
 
 // Headlines
 .cc-headline
