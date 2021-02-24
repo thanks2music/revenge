@@ -641,7 +641,6 @@ function add_custom_fields_to_rest() {
   );
 }
 
-
 function my_filter_rest_endpoints($endpoints) {
   if (isset($endpoints['/wp/v2/users'])) {
     unset($endpoints['/wp/v2/users']);
