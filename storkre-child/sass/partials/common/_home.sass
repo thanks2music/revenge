@@ -1,6 +1,6 @@
 @charset "utf-8"
 
-// 横並びレイアウト
+// ホームレイアウト
 .article__by-category
   box-shadow: 0px -3px 0px var(--key-color)
   border-radius: 3px
@@ -164,6 +164,15 @@
         background-color: var(--key-color)
 
 .home
+  #main
+    &.cc__main
+      padding: 0
+
+      .top-post-list
+        .post-list
+          a
+            border-top: 0
+
   &.pc
     .homewidget.popular-posts
       .wpp-post-title
