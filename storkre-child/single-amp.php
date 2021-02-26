@@ -28,15 +28,19 @@ if ($amp_flag) {
     {
       "@context": "http://schema.org",
       "@type": "NewsArticle",
-      "headline": "<?php the_title(); ?>",
-      "image" : {
-          "@type" : "ImageObject",
-          "url" : "<?php echo $image_url[0]; ?>",
-          "width" : <?php echo $image_url[2]; ?>,
-          "height" : <?php echo $image_url[1]; ?>
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "<?php echo $canonical_url; ?>"
       },
-      "datePublished": "<?php the_time('Y/m/d') ?>",
-      "dateModified": "<?php the_modified_date('Y/m/d') ?>",
+      "headline": "<?php the_title(); ?>",
+      "image": {
+        "@type": "ImageObject",
+        "url": "<?php echo $image_url[0]; ?>",
+        "width": "<?php echo $image_url[1]; ?>",
+        "height": "<?php echo $image_url[2]; ?>"
+      },
+      "datePublished": "<?php the_time('c') ?>",
+      "dateModified": "<?php the_modified_date('c') ?>",
       "author": {
         "@type": "Person",
         "name": "<?php the_author_meta('nickname', $author_id); ?>"
@@ -46,12 +50,12 @@ if ($amp_flag) {
         "name": "<?php bloginfo('name'); ?>",
         "logo": {
           "@type": "ImageObject",
-            "url": "<?php echo $url['home']; ?>/wp-content/uploads/logo_og.png",
+          "url": "<?php echo $url['home']; ?>/wp-content/uploads/logo_og.png",
           "width": 750,
-          "height": 394,
+          "height": 394
         }
       },
-      "description": "<?php echo mb_substr(strip_tags($post->post_content), 0, 60); ?>",
+      "description": "<?php echo mb_substr(strip_tags($post->post_content), 0, 60); ?>"
     }
     </script>
     <link rel="amphtml" href="<?php echo $canonical_url . '?amp=1'; ?>">
