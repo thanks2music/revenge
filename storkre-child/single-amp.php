@@ -29,9 +29,12 @@ if ($amp_flag) {
       "@context": "http://schema.org",
       "@type": "NewsArticle",
       "headline": "<?php the_title(); ?>",
-      "image": [
-        "<?php echo $image_url[0]; ?>"
-      ],
+      "image" : {
+          "@type" : "ImageObject",
+          "url" : "<?php echo $image_url[0]; ?>",
+          "width" : <?php echo $image_url[2]; ?>,
+          "height" : <?php echo $image_url[1]; ?>
+      },
       "datePublished": "<?php the_time('Y/m/d') ?>",
       "dateModified": "<?php the_modified_date('Y/m/d') ?>",
       "author": {
@@ -46,11 +49,6 @@ if ($amp_flag) {
             "url": "<?php echo $url['home']; ?>/wp-content/uploads/logo_og.png",
           "width": 750,
           "height": 394,
-            /* NOTE: 記事ogなら以下
-              "url": "<?php echo $image_url[0]; ?>",
-              "width": <?php echo $image_url[1]; ?>,
-              "height": <?php echo $image_url[2]; ?>,
-             */
         }
       },
       "description": "<?php echo mb_substr(strip_tags($post->post_content), 0, 60); ?>",
@@ -77,6 +75,7 @@ if ($amp_flag) {
     $body_class = 'sp amp';
   ?>
   <body <?php body_class($body_class); ?>>
+    <?php print_r($image_url); ?>
     <?php get_template_part('partials/meta/gtm'); ?>
     <?php get_template_part('partials/app/smart_banner'); ?>
     <main class="amp__container" id="single__container">
