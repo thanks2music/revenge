@@ -75,7 +75,6 @@ if ($amp_flag) {
     $body_class = 'sp amp';
   ?>
   <body <?php body_class($body_class); ?>>
-    <?php print_r($image_url); ?>
     <?php get_template_part('partials/meta/gtm'); ?>
     <?php get_template_part('partials/app/smart_banner'); ?>
     <main class="amp__container" id="single__container">
