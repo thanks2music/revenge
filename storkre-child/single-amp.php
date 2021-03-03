@@ -35,9 +35,7 @@ if ($amp_flag) {
       "headline": "<?php the_title(); ?>",
       "image": {
         "@type": "ImageObject",
-        "url": "<?php echo $image_url[0]; ?>",
-        "width": "<?php echo $image_url[1]; ?>",
-        "height": "<?php echo $image_url[2]; ?>"
+        "url": "<?php echo $image_url[0]; ?>"
       },
       "datePublished": "<?php the_time('c') ?>",
       "dateModified": "<?php the_modified_date('c') ?>",
