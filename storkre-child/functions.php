@@ -16,6 +16,8 @@ function theme_enqueue_styles() {
   );
 }
 
+wp_cache_flush();
+
 // Global Variable
 locate_template('config/variables.php', true);
 global $amp_flag, $is_sp, $is_pc;
@@ -997,6 +999,71 @@ if (function_exists('sga_ranking_get_date')) {
   add_filter('sga_ranking_after_title', 'sga_ranking_description', 10, 2);
 }
 
+if (function_exists('sga_ranking_get_date')) {
+	add_action('rest_api_init', function() {
+		register_rest_route( 'wp/v2', '/ranking(?:/(?P<per_page>\d+))?', array(
+			'methods' => 'GET',
+			'callback' => 'get_ranking1',
+		));
+	});
+	function get_ranking1($data) {
+		$json = array();
+		$args = array(
+			// 'display_count' => $_GET['per_page'], //取得件数
+			// 'period'        => 7, //集計期間
+			'post_type'     => 'event', //投稿タイプ
+		);
+		$ranking_data = sga_ranking_get_date($args);
+		if (!empty( $ranking_data )):
+      $per_page = $_GET['per_page'] ?? 15;
+      $page = $_GET['page'] ?? 1;
+			$rank = $per_page * ($page - 1);
+			$ranking_data = array_splice($ranking_data, ($per_page * ($page - 1)), $per_page);
+      foreach ($ranking_data as $post_id):
+        $events = eo_get_events(array(
+          'post__in' => [$post_id]
+        ));
+        $rank++;
+        $title = get_the_title($post_id);
+        $link = get_permalink($post_id);
+        $thumbnail = array();
+        $thumbnail_id = get_post_thumbnail_id($post_id);
+        if($thumbnail_id) {
+          $img = wp_get_attachment_image_src( $thumbnail_id, 'thumbnail' );
+          $thumbnail = array($img[0],$img[1],$img[2]);
+        } else {
+          $thumbnail = array(get_template_directory_uri() .'/img/noimage.png', 600, 600);
+        }
+        $args = array('type' => 'event', 'order' => 'asc');
+        $taxonomies = array('event-category');
+        $terms = get_terms($taxonomies, $args);
+        array_push($json, array(
+          "id" => $post_id,
+          "rank" => $rank,
+          "title" => $title,
+          "link" => $link,
+          "thumbnailUrl" => $thumbnail,
+          "start" => eo_get_the_start('Y-m-d h:i', $events[0]->ID, $events[0]->occurrence_id),
+          "end" => eo_get_the_end('Y-m-d h:i', $events[0]->ID, $events[0]->occurrence_id),
+          "ambiguousPeriod" => CFS()->get(false, $post_id, array('format' => 'raw'))['ambiguous_ period'],
+          "otherPeriodText" => CFS()->get(false, $post_id, array('format' => 'raw'))['other_period_text'],
+          "isEndless" => CFS()->get(false, $post_id, array('format' => 'raw'))['endless_event_flag'],
+          "event-categories" =>  wp_list_pluck(get_the_terms($post_id, 'event-category'), 'term_id'),
+          "event-tags" =>  wp_list_pluck(get_the_terms($post_id, 'event-tag'), 'term_id'),
+          // "events" => $events[0]
+          // "ambiguousPeriod1" => get_post_meta('ambiguous_period', $post_id),
+          // "ambiguousPeriod1" => get_field('ambiguous_period', $post_id),
+          // "otherPeriodText" => $post->get('other_period_text'),
+        ));
+      endforeach;
+    endif;
+  
+    $response = new WP_REST_Response($json, 200);
+    $response->set_headers([ 'Cache-Control' => 'must-revalidate, no-cache, no-store, private' ]);
+  
+    return $response;
+	}
+}
 
 // if (function_exists('sga_ranking_get_date')) {
 //   $args = array(
