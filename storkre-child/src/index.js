@@ -1,7 +1,7 @@
 // import Raven from 'raven-js';
 import Layzr from 'layzr.js/dist/layzr.min.js';
 import Cookies from 'js-cookie';
-const Flickity = require('flickity-fade');;
+const Flickity = require('flickity-fade');
 
 // Raven.config('https://c64bcab93be44548afdc13db988fc2ac@sentry.io/1195109').install();
 
@@ -181,8 +181,8 @@ if (body[0].className.indexOf('app') > -1) {
   }
 }
 
-// Toppage only
-if (window.location.pathname === '/') {
+// トップページまたはトップページの仮想ページのみ
+if (window.location.pathname === '/' || window.location.pathname.indexOf('/page/') > -1) {
   if (window.location.search.indexOf('preview') === -1) {
     let sliderMain = document.getElementById('header__slider__ul'),
         sliderNav  = document.getElementById('header__slider__nav'),

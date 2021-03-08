@@ -39,7 +39,10 @@ add_action( 'widgets_init', 'theme_register_sidebars_child' );
 add_action('wp_footer', 'add_javascripts');
 function add_javascripts() {
   global $dir;
-  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210206');
+  // Debug
+  // wp_enqueue_script('app', $dir['theme'] . '/dist/scripts/app.js?20210206');
+  // Prod
+  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210308');
 }
 
 // 管理画面の情報を変更
@@ -480,15 +483,7 @@ function add_app_banner_on_widget($atts, $content = null) {
   global $url;
   $html  = '';
   $html .= '<div class="app__official__banner" id="app__banner">';
-  $html .= '<a class="app__official__banner__anchor" href="';
-
-  if (is_android()) {
-    $html .= $url['googleplay'];
-  } else {
-    $html .= $url['appstore'];
-  }
-
-  $html .= '" target="_blank">';
+  $html .= '<a class="app__official__banner__anchor" href="/app-download/" target="_blank">';
 
   if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
     $html .= '<amp-img src="/wp-content/uploads/52f4836aa0476bed0d46ef08df832d3b.jpg" width="750" height="600" alt="';

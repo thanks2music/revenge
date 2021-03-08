@@ -24,7 +24,7 @@
       } else if (ua.indexOf('Android') > 0) {
         var url = 'https://play.google.com/store/apps/details?id=com.collabo_cafe.app';
       } else {
-        var url = '/';
+        var url = 'https://apps.apple.com/jp/app/id1481548251/';
       }
 
       document.addEventListener('DOMContentLoaded', function() {
