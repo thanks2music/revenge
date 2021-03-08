@@ -18,7 +18,7 @@
   <?php endif; ?>
 <?php endif; ?>
 
-<?php if (is_front_page() && is_home() || is_paged()) { ?>
+<?php if (is_front_page() && is_home() || is_paged() && is_home()) { ?>
 <?php
 $args = array(
     'post_type' => array('post', 'event'),
