@@ -958,9 +958,6 @@ if (! function_exists('breadcrumb')) {
 
 // Simple GA Ranking
 if (function_exists('sga_ranking_get_date')) {
-  // データ件数を500件に変更
-  add_filter( 'sga_ranking_limit_filter', function($limit) { return 500; } );
-
   //サムネイル生成
   function sga_ranking_thumbnail_image($thumbnail, $id) {
    $post_url = get_permalink($id);
@@ -1055,6 +1052,9 @@ if (function_exists('sga_ranking_get_date')) {
   
     return $response;
 	}
+
+  // データ件数を500件に変更
+  add_filter( 'sga_ranking_limit_filter', function($limit) { return 500; } );
 }
 
 if (! function_exists('my_search_form')) {
