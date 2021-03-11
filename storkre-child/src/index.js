@@ -23,7 +23,6 @@ const body            = document.getElementsByTagName('body'),
       closeWorkDetail = $(wrap).find('#js__close__work__detail'),
       header          = $(wrap).find('.header'),
       modal           = $(wrap).find('.js__modal--mail'),
-      appBanner       = $(body).find('.app__official__banner__anchor'),
       des             = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 
@@ -124,19 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     element.classList.add('is-loaded');
   });
   lazyLoadInstance.update().check().handlers(true);
-
-  // for Ad
-  const head    = document.querySelector('head');
-  // Taxel by gmo recommend が重いのでドキュメント読み込み後に実行させる
-  const adTaxel = document.createElement('script');
-  adTaxel.setAttribute('src', 'https://taxel.jp/rw.js?m=703');
-  adTaxel.setAttribute('charset', 'utf-8');
-
-  head.appendChild(adTaxel);
-
-  if (appBanner[0]) {
-    setAppUrl(appBanner);
-  }
 });
 
 
