@@ -1,6 +1,10 @@
 @charset "utf-8";
 
+// Site setting
 @import 'modules/base';
+
+// Plugins
+@import 'modules/plugins';
 
 // 共通レイアウト
 @import 'partials/common/layout';

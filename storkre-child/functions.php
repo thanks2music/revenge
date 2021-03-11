@@ -11,7 +11,7 @@ function theme_enqueue_styles() {
   wp_enqueue_style('webfont-amatic', 'https://fonts.googleapis.com/css?family=Amatic+SC');
 
   wp_enqueue_style('child-style',
-    $dir['theme'] . '/dist/css/main.css?20210206',
+    $dir['theme'] . '/dist/css/main.css?20210311',
     array('style')
   );
 }

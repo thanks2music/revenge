@@ -48,9 +48,9 @@ if ($amp_flag) {
         "name": "<?php bloginfo('name'); ?>",
         "logo": {
           "@type": "ImageObject",
-          "url": "<?php echo $url['home']; ?>/wp-content/uploads/logo_og.png",
-          "width": 750,
-          "height": 394
+          "url": "<?php echo $url['home']; ?>/wp-content/uploads/og1500.png",
+          "width": 1500,
+          "height": 788
         }
       },
       "description": "<?php echo mb_substr(strip_tags($post->post_content), 0, 60); ?>"
