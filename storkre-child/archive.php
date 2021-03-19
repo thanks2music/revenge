@@ -1,10 +1,13 @@
 <?php global $is_sp, $is_pc; ?>
 <?php get_header(); ?>
-<div id="content">
+<?php
+  $term_slug = get_slug_by_path();
+  $term_content = get_term_by('slug', $term_slug, $taxonomy);
+?>
+<div id="content" class="event__term__archive">
   <?php
     if (is_tax('event-category') && $is_sp) {
-      $work_slug = get_slug_by_path();
-      $work_term = get_term_by('slug', $work_slug, $taxonomy);
+      $work_term = $term_content;
 
       if (! is_wp_error($work_term) && strpos($work_term->description, 'work__detail') !== false) {
         echo $work_term->description;
@@ -41,7 +44,6 @@
         ?>
         <h1 class="archive-title h2 <?php echo $archive_title; ?>">
           <?php if (is_category() || is_tax()) { ?>
-            <span class="gf"><?php _e( 'CATEGORY', 'moaretrotheme' ); ?></span>
             <?php single_cat_title();
               if (is_tax('event-venue')) {
                 echo 'の店舗の開催一覧';
@@ -63,6 +65,16 @@
           <h1 class="archive-title h2"><?php the_time('Y年'); ?></h1>
         <?php } ?>
       </div>
+
+      <?php
+        if (is_tax('event-tag')) {
+          $shop_term = $term_content;
+
+          if (! is_wp_error($shop_term) && strpos($shop_term->description, 'shop__detail') !== false) {
+            echo $shop_term->description;
+          }
+        }
+      ?>
 
       <?php
         $toplayout = get_option('opencage_archivelayout');
