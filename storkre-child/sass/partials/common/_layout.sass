@@ -65,6 +65,56 @@
       width: 50%
       max-width: 154px
 
+// Simple レイアウトを親テーマから持ってきた
+.top-post-list 
+  .post-list 
+    position: relative 
+
+    a 
+      display: block 
+      padding: 1.9em .7em 
+      text-decoration: none 
+      color: #666 
+      position: relative 
+
+    .eyecatch 
+      // width: 42% 
+      // float: left 
+      // max-height: 180px 
+      // overflow: hidden 
+      // position: relative 
+
+    .entry-content 
+      padding: 0 0 0 3% 
+      overflow: hidden 
+
+      .entry-title 
+        font-size: 20px
+        margin: 0 0 5px
+        color: #333
+        line-height: 1.6
+
+      p 
+        margin-bottom: 0.3em 
+
+  .eyecatch 
+    .cat-name 
+      background: var(--key-color)
+      text-align: center
+      position: absolute 
+      top: 0 
+      right: inherit
+      color: #fff
+      font-size: 0.7em 
+      font-weight: bold 
+      padding: 0.1em 0.5em 
+      min-width: 8em 
+      opacity: .9 
+
+      &:empty 
+        &:before 
+          content: "カテゴリ未選択" 
+
 // 人気の投稿
 .widget.popular-posts
   li
