@@ -1729,3 +1729,4 @@ EOF;
 
 return $amp_style;
 }
+
