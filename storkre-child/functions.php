@@ -683,6 +683,23 @@ function is_app($key = 'layout') {
   return false;
 }
 
+function is_amp(){
+  //AMPチェック
+  $is_amp = false;
+  if ( empty($_GET['amp']) ) {
+    return false;
+  }
+ 
+  //ampのパラメーターが1かつ投稿ページの
+  //かつsingleページのみ$is_ampをtrueにする
+  if(is_single() &&
+     $_GET['amp'] === '1'
+    ) {
+    $is_amp = true;
+  }
+  return $is_amp;
+}
+
 function is_web() {
   if (! is_app()) {
     return true;
@@ -1482,6 +1499,24 @@ if (! empty($_GET['amp'])) {
     }
   }
 }
+
+// WEBだけ実行
+function custom_youtube_oembed($code){
+  if ( is_amp() ) {
+    return $code;
+  }
+
+  if(strpos($code, 'youtu.be') !== false || strpos($code, 'youtube.com') !== false){
+    $html = preg_replace("@src=(['\"])?([^'\">\s]*)@", "data-src=$1$2", $code);
+    $html = '<div class="work__detail__video">' . $html . '</div>';
+
+    return $html;
+  }
+  return $code;
+}
+
+add_filter('embed_handler_html', 'custom_youtube_oembed');
+add_filter('embed_oembed_html', 'custom_youtube_oembed');
 
 function get_event_date($cf) {
   $date = '';
