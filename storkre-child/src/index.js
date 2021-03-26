@@ -125,26 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
   lazyLoadInstance.update().check().handlers(true);
 });
 
-function twitterLazyLoad(src) {
-  const scriptTag = document.createElement('script');
-  scriptTag.src = src;
-  scriptTag.async = true;
-
-  document.body.appendChild(scriptTag);
-}
-
-function doTwitterLazyLoad(elem) {
-  const twitterEmbed = elem.find('.twitter-tweet');
-  // const instaEmbed = document.getElementsByClassName('instagram-media');
-
-  try {
-    if (twitterEmbed.length !== 0) twitterLazyLoad('https://platform.twitter.com/widgets.js');
-    // if (instaEmbed.length !== 0) twitterLazyLoad('//www.instagram.com/embed.js');
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   const photoSwipe = $(body).find('.pswp');
@@ -173,12 +153,6 @@ if (body[0].className.indexOf('single') > -1) {
       $(wrap).after(data);
     });
   }
-
-  // Twitter LazyLoad
-  document.addEventListener('scroll', doTwitterLazyLoad(main), {
-    once: true,
-    passive: true
-  });
 }
 
 if (body[0].className.indexOf('app') > -1) {

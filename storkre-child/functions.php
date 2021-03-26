@@ -1523,20 +1523,6 @@ function custom_youtube_oembed($code){
 add_filter('embed_handler_html', 'custom_youtube_oembed');
 add_filter('embed_oembed_html', 'custom_youtube_oembed');
 
-function lazyload_twitter_instagram($content) {
-  if ( is_amp() ) {
-    return $content;
-  }
-  $content = str_replace('<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>','', $content);
-  $content = str_replace('<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>','', $content);
-  // Insta
-  // $content = str_replace('<p><script async src="//www.instagram.com/embed.js"></script></p>','', $content);
-  // $content = str_replace('<p><script async="" src="//www.instagram.com/embed.js"></script></p>','', $content);
-
-  return $content;
-}
-add_filter('the_content', 'lazyload_twitter_instagram', 99);
-
 function get_event_date($cf) {
   $date = '';
   $start = $cf['_eventorganiser_schedule_start_start'][0];
