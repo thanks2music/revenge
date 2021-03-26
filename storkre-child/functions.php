@@ -11,7 +11,7 @@ function theme_enqueue_styles() {
   wp_enqueue_style('webfont-amatic', 'https://fonts.googleapis.com/css?family=Amatic+SC');
 
   wp_enqueue_style('child-style',
-    $dir['theme'] . '/dist/css/main.css?20210311',
+    $dir['theme'] . '/dist/css/main.css?20210326',
     array('style')
   );
 }
@@ -1502,12 +1502,17 @@ if (! empty($_GET['amp'])) {
 
 // WEBだけ実行
 function custom_youtube_oembed($code){
-  if ( is_amp() ) {
+  if ( is_amp()) {
     return $code;
   }
 
-  if(strpos($code, 'youtu.be') !== false || strpos($code, 'youtube.com') !== false){
-    $html = preg_replace("@src=(['\"])?([^'\">\s]*)@", "data-src=$1$2", $code);
+  if(strpos($code, 'youtu.be') !== false || strpos($code, 'youtube.com') !== false) {
+    if (is_web()) {
+      $html = preg_replace("@src=(['\"])?([^'\">\s]*)@", "data-src=$1$2", $code);
+    } else {
+      $html = $code;
+    }
+
     $html = '<div class="work__detail__video">' . $html . '</div>';
 
     return $html;
