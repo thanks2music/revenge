@@ -476,7 +476,7 @@
                 <?php if ( has_post_thumbnail()) { ?>
                   <figure class="cc-home__post__article__eyecatch">
                     <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
-                    <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
+                    <?php the_post_thumbnail('photoswipe_thumbnails', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                     <div class="cc-home__post__article__category"><?php echo $cat_name; ?></div>
 
                     <?php
@@ -503,7 +503,7 @@
                       <?php if (! empty($other_period)) { ?>
                         <span class="event-icon gf"><?php echo $other_period; ?></span>
                       <?php } elseif (! empty($date_dom)) { ?>
-                        <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
+                        <span class="event-date gf"><?php echo $date_dom; ?></span>
                       <?php } ?>
                     <?php } ?>
                     <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
@@ -518,13 +518,13 @@
               </a>
             </article>
         <?php } else { // トップページの下層サブページ ?>
-          <article <?php post_class('post-list animated fadeIn'); ?> role="article hoge">
+          <article <?php post_class('post-list animated fadeIn cc-home__post__article--sub-page'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
               <?php if ( has_post_thumbnail()) { ?>
-                <figure class="eyecatch">
+                <figure class="eyecatch cc-home__post__article--sub-page__eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
-                  <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
+                  <?php the_post_thumbnail('photoswipe_thumbnails', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                   <span class="cat-name cat__name__home"><?php echo $cat_name; ?></span>
 
                   <?php
@@ -543,7 +543,7 @@
                 </figure>
               <?php } ?>
 
-              <section class="entry-content remix">
+              <section class="entry-content remix cc-home__post__article--sub-page__content">
                 <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
 
                 <p class="byline entry-meta vcard">
@@ -551,7 +551,7 @@
                     <?php if (! empty($other_period)) { ?>
                       <span class="event-icon gf"><?php echo $other_period; ?></span>
                     <?php } elseif (! empty($date_dom)) { ?>
-                      <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
+                      <span class="event-date gf"><?php echo $date_dom; ?></span>
                     <?php } ?>
                   <?php } ?>
                   <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>

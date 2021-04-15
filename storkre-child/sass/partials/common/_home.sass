@@ -6,11 +6,81 @@
     display: flex
     flex-wrap: wrap
     justify-content: space-around
-    padding: 20px
+    padding: 20px 26px 0 20px
+
+    .sp &
+      padding: 20px 18px 0 20px
 
   &__article
     flex-basis: calc(100% / 3 - 15px) 
     padding-bottom: 20px
+
+    .sp &
+      flex-basis: calc(100% / 2 - 15px) 
+
+    // ページネーションの下層ページ
+    &--sub-page
+      .sp.home #main &
+        padding: 0 .75em
+
+      a
+        .home #main &
+          display: flex
+          border-top: 0
+          padding: 10px 15px
+
+        .pc.home #main &
+          padding: 15px 15px 10px 15px
+
+        &:first-child
+          .pc.home #main &
+            padding-top: 10px
+
+      // figure
+      &__eyecatch
+        border: 1px solid #e6e6e6
+        background: #f9f9f9
+
+        .home #main &
+          float: none
+          max-height: auto
+          width: 100%
+          flex-basis: 40%
+          padding: 0
+          margin-right: 15px
+
+        img
+          .home #main &
+            display: block
+            width: inherit
+            height: inherit
+            position: absolute
+            top: 50%
+            transform: translateY(-50%)
+            object-fit: contain
+            object-position: center center
+            max-height: 100%
+
+      // section
+      &__content
+        .home #main &
+          flex-basis: calc(60% - 15px)
+          padding: 0
+
+        .entry-title
+          .home #main &
+            font-size: 16px
+
+          .sp.home #main &
+            font-size: 14px
+
+        .event-date
+          .sp.home #main &
+            font-size: 12px
+
+        .description
+          font-size: 12px
+          line-height: 1.7
 
     &__anchor
       .home #main &
@@ -20,6 +90,24 @@
     &__eyecatch
       position: relative
       margin: 0 0 10px
+      height: 138px // 最大幅
+      border: 1px solid #e6e6e6
+      background: #f9f9f9
+      position: relative
+      overflow: hidden
+
+      .sp &
+        height: 100px
+
+      img
+        display: block
+        width: inherit
+        height: inherit
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        object-fit: contain
+        object-position: center center
 
       .home #main &
         float: none
@@ -29,6 +117,9 @@
     &__title
       .home #main &
         font-size: 16px
+
+      .sp.home #main &
+        font-size: 14px
 
     &__content
 
@@ -64,6 +155,10 @@
   border-left: 1px solid #e6e6e6
   border-bottom: 1px solid #e6e6e6
   margin-bottom: 40px
+
+  .sp &
+    margin-right: 10px
+    margin-left: 10px
 
   &--horizontal
     display: flex
@@ -121,10 +216,17 @@
       object-fit: contain
       object-position: center center
 
+      .custom-html-widget &
+        margin-bottom: 0
+
   &__event-time
     color: var(--key-color)
     font-size: .85em
     margin: 0
+
+    .sp &
+      font-size: 12px
+      white-space: nowrap
 
   &__excerpt
     margin: 5px 0
@@ -200,6 +302,9 @@
     position: relative
     margin: 48px 35px 0 25px
 
+    .sp &
+      margin: 20px 25px 0 25px
+
     &:before
       content: ''
       position: absolute
@@ -230,6 +335,11 @@
   #main
     &.cc__main
       padding: 0
+
+  &.pc.paged
+    #main
+      padding: 35px
+
 
   &.pc
     .homewidget.popular-posts
