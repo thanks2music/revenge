@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
   lazyLoadInstance.update().check().handlers(true);
 });
 
-
 // for Single
 if (body[0].className.indexOf('single') > -1) {
   const photoSwipe = $(body).find('.pswp');
