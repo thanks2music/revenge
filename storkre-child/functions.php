@@ -42,7 +42,7 @@ function add_javascripts() {
   // Debug
   // wp_enqueue_script('app', $dir['theme'] . '/dist/scripts/app.js?20210206');
   // Prod
-  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210311');
+  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210423');
 }
 
 // 管理画面の情報を変更
@@ -1507,13 +1507,9 @@ function custom_youtube_oembed($code){
   }
 
   if(strpos($code, 'youtu.be') !== false || strpos($code, 'youtube.com') !== false) {
-    if (is_web()) {
-      $html = preg_replace("@src=(['\"])?([^'\">\s]*)@", "data-src=$1$2", $code);
-    } else {
-      $html = $code;
-    }
-
-    $html = '<div class="work__detail__video">' . $html . '</div>';
+    // アプリもWEBもYouTubeは遅延読み込みに変更
+    $html = preg_replace("@src=(['\"])?([^'\">\s]*)@", "data-youtube=$1$2", $code);
+    $html = '<div class="video__responsive"><div class="video__responsive__button"><span></span></div>' . $html . '</div>';
 
     return $html;
   }
