@@ -22,7 +22,7 @@ const body            = document.getElementsByTagName('body'),
       selectCategory  = $(wrap).find('.eo__event_categories select'),
       closeWorkDetail = $(wrap).find('#js__close__work__detail'),
       header          = $(wrap).find('.header'),
-      modal           = $(wrap).find('.js__modal--mail'),
+      youtube         = $(wrap).find('.video__responsive'),
       des             = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 
@@ -39,25 +39,6 @@ function setAppUrl(dom) {
     dom.attr('href', 'https://apps.apple.com/jp/app/id1481548251/');
   }
 }
-
-modal.on('click', function(e) {
-  let target = $(this).attr('href'),
-      targetModal = $(target),
-      closeButton = targetModal.find('.js__modal-close');
-
-  if (targetModal.length) {
-    targetModal.addClass('is-show');
-  }
-
-  if (closeButton.length) {
-    closeButton.on('click', function(e) {
-      targetModal.removeClass('is-show');
-      e.preventDefault();
-    });
-  }
-
-  e.preventDefault();
-});
 
 $(window).on('scroll', (e) => {
   setTimeout(() => {
@@ -111,6 +92,20 @@ selectCategory.on('change', function() {
 // Load後
 document.addEventListener('DOMContentLoaded', () => {
   $(body).addClass('loaded');
+
+  // YouTubeをサムネイル表示に変更する
+  youtube.each(function () {
+    let iframe = $(this).find('iframe');
+    let url = iframe.attr('data-youtube');
+    let id = url.match(/[\/?=]([a-zA-Z0-9_-]{11})[&\?]?/)[1];
+    // iframe.before('<img src="http://img.youtube.com/vi/'+id+'/mqdefault.jpg" />').remove();
+    iframe.before('<img data-src="https://i.ytimg.com/vi/' +id+ '/maxresdefault.jpg" src="/wp-content/uploads/dummy.png" width="1280" height="720" alt="" />').remove();
+
+    $(this).on('click', function() {
+      $(this).html('<iframe src="https://www.youtube.com/embed/'+id+'" loading="lazy" width="728" height="410" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+      $(this).find('img').remove();
+    });
+  });
 
   // @description img data-srcがあり、class="lazy" があるimg要素は遅延読み込みさせる
   const lazyLoadInstance = Layzr({
