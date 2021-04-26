@@ -2,7 +2,7 @@
 <div id="content">
 <div id="inner-content" class="wrap cf">
 
-<main id="main" class="m-all t-all d-5of7 cf" role="main">
+<main id="main" class="m-all t-all d-5of7 cf cc__main" role="main">
 <?php
 	$toplayout = get_option('opencage_toppage_archivelayout');
 	$toplayoutsp = get_option('opencage_toppage_sp_archivelayout');

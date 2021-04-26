@@ -1,5 +1,11 @@
 <?php global $url; ?>
 <div class="top-post-list">
+<?php if (! is_paged() && is_front_page() && is_home()) { ?>
+  <h2 class="cc-headline__h2">
+    <p class="cc-headline__h2__text">最新ニュース</p>
+  </h2>
+  <div class="cc-home__post__container">
+<?php } ?>
 <?php // モバイルかつトップページの場合 ?>
 <?php if (! is_paged() && is_mobile() && is_home()) { ?>
   <?php dynamic_sidebar('widget_sp_puread_home'); ?>
@@ -10,13 +16,13 @@
 <?php } ?>
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  $ads_infeed = 10;
+  $ads_infeed = 9;
   $ads_infeed_count = 0;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
-      'posts_per_page' => 25,
+      'posts_per_page' => 18,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
@@ -260,7 +266,7 @@
           <section class="entry-content remix">
             <h1 class="h2 entry-title"><?php the_title(); ?></h1>
 
-            <p class="byline entry-meta vcard">
+            <p class="byline entry-meta vcard event__period-text">
               <?php if (! empty($other_period)) { ?>
                 <span class="event-date gf"><?php echo $other_period; ?></span>
               <?php } elseif (! empty($date_dom)) { ?>
@@ -462,13 +468,63 @@
             </div>
           </article>
         <?php } else { // トップページの新着一覧 ?>
-          <article <?php post_class('post-list animated fadeIn'); ?> role="article">
+          <?php // 純粋なトップページ (ページネーション/サブページを含まない) ?>
+          <?php if (!is_paged() && is_home() && is_front_page()) { ?>
+            <article <?php post_class('post-list animated fadeIn cc-home__post__article'); ?> role="article">
+              <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf cc-home__post__article__anchor">
+
+                <?php if ( has_post_thumbnail()) { ?>
+                  <figure class="cc-home__post__article__eyecatch">
+                    <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
+                    <?php the_post_thumbnail('photoswipe_thumbnails', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
+                    <div class="cc-home__post__article__category"><?php echo $cat_name; ?></div>
+
+                    <?php
+                      if (is_user_logged_in()) { ?>
+                      <div class="cc-logged-user">
+                        <div class="cc-logged-user__information">
+                          <p class="cc-logged-user__information-important">公開時間: <?php the_time("Y年m月d日 H時i分"); ?></p>
+                          <p>担当者: <?php  the_author(); ?></p>
+                      </div>
+                    <?php } ?>
+                  </figure>
+                <?php } else { ?>
+                  <figure class="eyecatch noimg">
+                    <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png">
+                    <span class="cat-name cat__name__none"><?php echo $cat_name; ?></span>
+                  </figure>
+                <?php } ?>
+
+                <section class="entry-content remix cc-home__post__article__content">
+                  <h1 class="entry-title cc-home__post__article__title" rel="bookmark"><?php the_title(); ?></h1>
+
+                  <p class="byline entry-meta vcard cc-home__post__article__meta">
+                    <?php if ($post_type === 'event') { ?>
+                      <?php if (! empty($other_period)) { ?>
+                        <span class="event-icon gf"><?php echo $other_period; ?></span>
+                      <?php } elseif (! empty($date_dom)) { ?>
+                        <span class="event-date gf"><?php echo $date_dom; ?></span>
+                      <?php } ?>
+                    <?php } ?>
+                    <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
+                    <span class="author name entry-author">
+                    <span class="fn"><?php the_author_meta('nickname'); ?></span>
+                    </span>
+                  </p>
+                  <?php if (! is_mobile() && is_paged()) { ?>
+                    <div class="description"><?php the_excerpt(); ?></div>
+                  <?php } ?>
+                </section>
+              </a>
+            </article>
+        <?php } else { // トップページの下層サブページ ?>
+          <article <?php post_class('post-list animated fadeIn cc-home__post__article--sub-page'); ?> role="article">
             <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" class="cf">
 
               <?php if ( has_post_thumbnail()) { ?>
-                <figure class="eyecatch">
+                <figure class="eyecatch cc-home__post__article--sub-page__eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
-                  <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
+                  <?php the_post_thumbnail('photoswipe_thumbnails', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
                   <span class="cat-name cat__name__home"><?php echo $cat_name; ?></span>
 
                   <?php
@@ -487,7 +543,7 @@
                 </figure>
               <?php } ?>
 
-              <section class="entry-content remix">
+              <section class="entry-content remix cc-home__post__article--sub-page__content">
                 <h1 class="h2 entry-title" rel="bookmark"><?php the_title(); ?></h1>
 
                 <p class="byline entry-meta vcard">
@@ -495,7 +551,7 @@
                     <?php if (! empty($other_period)) { ?>
                       <span class="event-icon gf"><?php echo $other_period; ?></span>
                     <?php } elseif (! empty($date_dom)) { ?>
-                      <span class="event-date gf">期間 : <?php echo $date_dom; ?></span>
+                      <span class="event-date gf"><?php echo $date_dom; ?></span>
                     <?php } ?>
                   <?php } ?>
                   <span class="date gf updated"><?php the_time('Y/m/d'); ?></span>
@@ -510,6 +566,7 @@
               </section>
             </a>
           </article>
+        <?php } ?>
       <?php } ?>
     <?php } // end while the_post();
     } else { ?>
@@ -531,5 +588,10 @@
     wp_pagenavi(array('query' => $the_query));
   }
   // Reset WP_Query
-  wp_reset_postdata(); ?>
+  wp_reset_postdata();
+
+  if (! is_paged() && is_front_page() && is_home()) {
+    echo '</div>'; // end .home__post__container
+  }
+?>
 </div><?php // end div.top-post-list ?>
