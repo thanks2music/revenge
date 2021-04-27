@@ -23,6 +23,7 @@ const body            = document.getElementsByTagName('body'),
       closeWorkDetail = $(wrap).find('#js__close__work__detail'),
       header          = $(wrap).find('.header'),
       youtube         = $(wrap).find('.video__responsive'),
+      params          = window.location.search,
       des             = $(wrap).find('.site_description');
 const cloneHeader = header.clone(true);
 
@@ -38,6 +39,10 @@ function setAppUrl(dom) {
   } else if (url.indexOf('apple') > -1) {
     dom.attr('href', 'https://apps.apple.com/jp/app/id1481548251/');
   }
+}
+
+function is_app() {
+  return (params.indexOf('layout=app') > -1 ? true : false);
 }
 
 $(window).on('scroll', (e) => {
@@ -98,11 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let iframe = $(this).find('iframe');
     let url = iframe.attr('data-youtube');
     let id = url.match(/[\/?=]([a-zA-Z0-9_-]{11})[&\?]?/)[1];
-    // iframe.before('<img src="http://img.youtube.com/vi/'+id+'/mqdefault.jpg" />').remove();
     iframe.before('<img data-src="https://i.ytimg.com/vi/' +id+ '/maxresdefault.jpg" src="/wp-content/uploads/dummy.png" width="1280" height="720" alt="" />').remove();
 
     $(this).on('click', function() {
-      $(this).html('<iframe src="https://www.youtube.com/embed/'+id+'" loading="lazy" width="728" height="410" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+      $(this).html('<iframe src="https://www.youtube.com/embed/'+id+'" loading="lazy" width="728" height="410" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
       $(this).find('img').remove();
     });
   });
