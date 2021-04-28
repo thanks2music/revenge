@@ -41,10 +41,6 @@ function setAppUrl(dom) {
   }
 }
 
-function is_app() {
-  return (params.indexOf('layout=app') > -1 ? true : false);
-}
-
 $(window).on('scroll', (e) => {
   setTimeout(() => {
     const currentPos = $(window).scrollTop();

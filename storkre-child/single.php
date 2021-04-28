@@ -1,5 +1,5 @@
 <?php global $amp_flag, $is_sp, $is_pc;
-  if ($amp_flag) {
+  if (is_amp()) {
     get_template_part('single-amp');
   } elseif (is_app()) {
     get_template_part('single-app');
