@@ -1410,6 +1410,26 @@ function replace_tweet_url_to_amp_html($the_content) {
 
 add_filter('the_content', 'replace_tweet_url_to_amp_html');
 
+function html_convert_to_amp_html($the_content){
+  if (! is_amp() ) {
+   return $the_content;
+  }
+
+  // Instagramをamp-instagramに置換する
+  $pattern = '/<blockquote class="instagram-media".+?"https:\/\/www.instagram.com\/p\/(.+?)\/".+?<\/blockquote>/is';
+  $append = '<p><amp-instagram layout="responsive" data-shortcode="$1" width="1" height="1" ></amp-instagram></p>';
+  $the_content = preg_replace($pattern, $append, $the_content);
+
+  //スクリプトを除去する
+  $pattern = '/<script.+?<\/script>/is';
+  $append = '';
+  $the_content = preg_replace($pattern, $append, $the_content);
+
+  return $the_content;
+}
+
+add_filter('the_content','html_convert_to_amp_html', 999999999); // 出来るだけ遅く実行
+
 function replace_img_for_amp($the_content) {
   global $amp_flag;
   $pattern_anchor = '/<a class="single_photoswipe.*?\s*=\s*[\"|\'](.*?)[\"|\'].*?>|<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
@@ -1521,29 +1541,7 @@ if (! empty($_GET['amp'])) {
       return $the_content;
     }
 
-    function replace_video_for_amp($the_content) {
-      $pattern = '/<video.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?<\/video>/i';
-      $get_video_element = preg_match_all($pattern, $the_content, $matches);
-
-      if (! empty($matches[0])) {
-        foreach($matches[0] as $key => $value) {
-          $poster = preg_match('/poster\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $poster_path);
-          $video = preg_match('/src\s*=\s*[\"|\'](.*?)[\"|\'].*>/i', $value, $video_path);
-          $search = $value;
-          $replace = '<div class="amp__video"><amp-video width="480" height="270" layout="responsive" src="';
-          $replace .= $video_path[1] . '" poster="' . $poster_path[1] . '" controls>';
-          $replace .= '<source type="video/mp4" src="' . $video_path[1] . '"></amp-video></div>';
-          $the_content = str_replace($search, $replace, $the_content);
-        }
-
-        return $the_content;
-      }
-    }
     add_filter('the_content', 'replace_youtube_for_amp');
-
-    if (strpos($_SERVER['REQUEST_URI'], 'usamaru-cafe2018-winter') !== false || strpos($_SERVER['REQUEST_URI'], 'ojamajodoremi-20th-anniversary-cafe2019') !== false) {
-      add_filter('the_content', 'replace_video_for_amp');
-    }
   }
 }
 
