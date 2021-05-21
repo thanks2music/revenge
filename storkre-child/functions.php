@@ -1416,8 +1416,8 @@ function html_convert_to_amp_html($the_content){
   }
 
   // Instagramをamp-instagramに置換する
-  $pattern = '/<blockquote class="instagram-media".+?"https:\/\/www.instagram.com\/p\/(.+?)\/".+?<\/blockquote>/is';
-  $append = '<p><amp-instagram layout="responsive" data-shortcode="$1" width="1" height="1" ></amp-instagram></p>';
+  $pattern = '{<blockquote class="instagram-media"[^>]+?"https://www.instagram.com/p/([^/]+?)/[^"]*?".+?</blockquote>}is';
+  $append = '<amp-instagram layout="responsive" data-shortcode="$1" width="1" height="1" ></amp-instagram>';
   $the_content = preg_replace($pattern, $append, $the_content);
 
   //スクリプトを除去する

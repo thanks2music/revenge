@@ -455,40 +455,46 @@
         .archivettl .archive__title__author &
           font-size: .8rem
 
-// 吹き出し
-.amp .voice
-  display: flex
-  justify-content: flex-start
-  margin: 1em 0
+.amp
+  // Instagram
+  amp-instagram
+    border: 1px solid #dbdbdb
+    border-radius: 6px
 
-  figure
-    flex-basis: 20%
-    margin-right: 3%
+  // 吹き出し
+  .voice
+    display: flex
+    justify-content: flex-start
+    margin: 1em 0
 
-    img
-      border-radius: 50%
+    figure
+      flex-basis: 20%
+      margin-right: 3%
 
-  figcaption
-    font-size: .65em
-    text-align: center
+      img
+        border-radius: 50%
 
-  .voicecomment
-    flex-basis: 77%
-    border: 3px solid #eee
-    background: #fff
-    color: #333;
-    padding: 2.5%
-    position: relative
-    border-radius: 5px
+    figcaption
+      font-size: .65em
+      text-align: center
 
-    &:before
-      content: ''
-      position: absolute
-      border-right: 8px solid #eee
-      border-bottom: 8px solid transparent
-      border-top: 8px solid transparent
-      top: 10px
-      left: -11px
+    .voicecomment
+      flex-basis: 77%
+      border: 3px solid #eee
+      background: #fff
+      color: #333;
+      padding: 2.5%
+      position: relative
+      border-radius: 5px
+
+      &:before
+        content: ''
+        position: absolute
+        border-right: 8px solid #eee
+        border-bottom: 8px solid transparent
+        border-top: 8px solid transparent
+        top: 10px
+        left: -11px
 
 // for Rinker
 .l-rinker
