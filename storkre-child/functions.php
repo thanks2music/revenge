@@ -780,6 +780,17 @@ function is_android() {
   }
 }
 
+function curl_get_contents( $url, $timeout = 60 ){
+  $ch = curl_init();
+  curl_setopt( $ch, CURLOPT_URL, $url );
+  curl_setopt( $ch, CURLOPT_HEADER, false );
+  curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+  curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
+  $result = curl_exec( $ch );
+  curl_close( $ch );
+  return $result;
+}
+
 // ライターの場合一部サブメニューを書き換え
 function hide_and_edit_event_submenu() {
 // ユーザー情報取得
