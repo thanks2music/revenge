@@ -14,5 +14,10 @@
   remove_action('wp_head','rest_output_link_wp_head');
   remove_action('wp_head','wp_oembed_add_discovery_links');
   remove_action('wp_head','wp_oembed_add_host_js');
+  // RSSの削除
+  // remove_action('do_feed_rdf', 'do_feed_rdf');
+  // remove_action('do_feed_rss', 'do_feed_rss');
+  // remove_action('do_feed_rss2', 'do_feed_rss2');
+  // remove_action('do_feed_atom', 'do_feed_atom');
 ?>
 
