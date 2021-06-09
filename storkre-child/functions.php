@@ -1447,6 +1447,10 @@ function html_convert_to_amp_html($the_content){
   $append = '<amp-instagram layout="responsive" data-shortcode="$1" width="1" height="1" ></amp-instagram>';
   $the_content = preg_replace($pattern, $append, $the_content);
 
+  // Styleタグを除去する
+  $the_content = preg_replace('/ +style=["][^"]*?["]/i', '', $the_content);
+  $the_content = preg_replace('/ +style=[\'][^\']*?[\']/i', '', $the_content);
+
   //スクリプトを除去する
   $pattern = '/<script.+?<\/script>/is';
   $append = '';
