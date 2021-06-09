@@ -535,21 +535,20 @@ add_shortcode('css_accordion', 'add_accordion_shortcode');
 
 // RSSフィードにカスタム投稿タイプも含める
 function add_custom_post_feed($query) {
-    // フィードリクエストの場合に実行
-    if (is_feed()) {
-        // post_type（投稿タイプ）が空なら全体の RSS
-        $post_type = $query->get('post_type');
-        if (empty($post_type)) {
-            // 通常の投稿とカスタム投稿タイプを指定
-            $query->set('post_type', array(
-                'post',
-                'event', // カスタム投稿タイプ名を指定
-            ));
-        }
-        return $query;
+  // フィードリクエストの場合に実行
+  if (is_feed()) {
+    // post_type（投稿タイプ）が空なら全体の RSS
+    $post_type = $query->get('post_type');
+    if (empty($post_type)) {
+      // 通常の投稿とカスタム投稿タイプを指定
+      $query->set('post_type', array(
+        'post',
+        'event', // カスタム投稿タイプ名を指定
+      ));
     }
+    return $query;
+  }
 }
-// pre_get_posts フィルターに追加
 add_filter('pre_get_posts', 'add_custom_post_feed');
 
 function add_event_post_thumbnails_shortcode($atts, $content = null) {
