@@ -94,6 +94,23 @@ selectCategory.on('change', function() {
   }, 100);
 });
 
+function youtubeImgReplace(element) {
+  let youtubeImgUrl = 'https://i.ytimg.com/vi/';
+  let id = element.src.match(/[\/?=]([a-zA-Z0-9_-]{11})[&\?]?/)[1];
+  let imgUrl = youtubeImgUrl + id + '/hqdefault.jpg';
+
+  let image = new Image();
+  image.src = element.src;
+  image.onload = function(){
+    let imageWidth = image.naturalWidth;
+    let imageHeight = image.naturalHeight;
+
+    if (imageWidth === 120) { // YouTubeのサムネイル画像が404時の時のサイズ
+      $(element).attr('src', imgUrl);
+    }
+  };
+}
+
 // Load後
 document.addEventListener('DOMContentLoaded', () => {
   $(body).addClass('loaded');
@@ -101,9 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // YouTubeをサムネイル表示に変更する
   youtube.each(function () {
     let iframe = $(this).find('iframe');
+    let youtubeImgUrl = 'https://i.ytimg.com/vi/';
     let url = iframe.attr('data-youtube');
     let id = url.match(/[\/?=]([a-zA-Z0-9_-]{11})[&\?]?/)[1];
-    iframe.before('<img data-src="https://i.ytimg.com/vi/' +id+ '/maxresdefault.jpg" src="/wp-content/uploads/dummy.png" width="1280" height="720" alt="" />').remove();
+    let imgUrl = youtubeImgUrl + id + '/maxresdefault.jpg';
+    iframe.before('<img data-src="' +imgUrl+ '" src="/wp-content/uploads/dummy.png" width="1280" height="720" alt="" />').remove();
 
     $(this).on('click', function() {
       $(this).html('<iframe src="https://www.youtube.com/embed/'+id+'" loading="lazy" width="728" height="410" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
@@ -122,6 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
     element.classList.add('is-loaded');
   });
   lazyLoadInstance.update().check().handlers(true);
+
+  lazyLoadInstance.on('src:after', (element) => {
+    if (element.offsetParent.className === 'video__responsive') {
+      youtubeImgReplace(element);
+    }
+  });
 });
 
 // for Single
