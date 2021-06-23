@@ -43,6 +43,7 @@
     "babel-preset-env": "^1.7.0",
     "flickity-fullscreen": "^1.1.1",
     "flickity-imagesloaded": "^2.0.0",
+    "fs": "0.0.1-security",
     "js-cookie": "^2.2.0",
     "natives": "^1.1.6",
     "npm": "^6.9.0",
