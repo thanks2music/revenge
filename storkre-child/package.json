@@ -49,6 +49,6 @@
     "npm": "^6.9.0",
     "raven-js": "^3.24.2",
     "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "^4.16.5"
+    "webpack": "^4.46.0"
   }
 }
