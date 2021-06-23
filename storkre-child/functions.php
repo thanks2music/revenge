@@ -42,7 +42,7 @@ function add_javascripts() {
   // Debug
   // wp_enqueue_script('app', $dir['theme'] . '/dist/scripts/app.js?20210206');
   // Prod
-  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210423');
+  wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210623');
 }
 
 // 管理画面の情報を変更
