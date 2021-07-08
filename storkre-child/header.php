@@ -1,6 +1,6 @@
 <!doctype html>
 <?php
-  global $is_sp, $is_pc, $amp_flag;
+  global $is_sp, $is_pc, $amp_flag, $url;
 ?>
 
   <html lang="ja">
@@ -15,8 +15,8 @@
     <link rel="amphtml" href="<?php echo get_permalink() .'?amp=1'; ?>">
   <?php } ?>
 
-  <?php if ( get_theme_mod( 'opencage_appleicon' ) ) : ?><link rel="apple-touch-icon" href="<?php echo get_theme_mod( 'opencage_appleicon' ); ?>"><?php endif; ?>
-  <?php if ( get_theme_mod( 'opencage_favicon' ) ) : ?><link rel="icon" href="<?php echo get_theme_mod( 'opencage_favicon' ); ?>"><?php endif; ?>
+  <link rel="icon" href="<?php echo $url['home']; ?>/wp-content/uploads/favicon_64.png">
+  <link rel="apple-touch-icon" href="<?php echo $url['home']; ?>/wp-content/uploads/apple-touch-icon180x180.png">
 
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
