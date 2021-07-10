@@ -63,6 +63,15 @@ function remove_footer_admin () {
 }
 add_filter('admin_footer_text', 'remove_footer_admin');
 
+// デフォルトのフィードを無効にする
+// 参考: https://meshikui.com/2018/11/13/1326/
+// remove_filter('do_feed_rdf', 'do_feed_rdf', 10);
+// remove_filter('do_feed_rss', 'do_feed_rss', 10);
+// remove_filter('do_feed_rss2', 'do_feed_rss2', 10);
+// remove_filter('do_feed_atom', 'do_feed_atom', 10);
+// add_action('do_feed_rss2', 'custom_feed_rss2', 10, 1);
+// add_action('do_feed_atom', 'custom_feed_atom', 10, 1);
+
 // <moreads>をADXとアドセンスに置き換える
 // add_filter('the_content', 'adMoreReplace');
 
@@ -523,6 +532,24 @@ function add_accordion_shortcode($atts, $content = null) {
   return $content;
 }
 add_shortcode('css_accordion', 'add_accordion_shortcode');
+
+// RSSフィードにカスタム投稿タイプも含める
+function add_custom_post_feed($query) {
+  // フィードリクエストの場合に実行
+  if (is_feed()) {
+    // post_type（投稿タイプ）が空なら全体の RSS
+    $post_type = $query->get('post_type');
+    if (empty($post_type)) {
+      // 通常の投稿とカスタム投稿タイプを指定
+      $query->set('post_type', array(
+        'post',
+        'event', // カスタム投稿タイプ名を指定
+      ));
+    }
+    return $query;
+  }
+}
+add_filter('pre_get_posts', 'add_custom_post_feed');
 
 function add_event_post_thumbnails_shortcode($atts, $content = null) {
   extract(shortcode_atts(array(
@@ -1419,6 +1446,10 @@ function html_convert_to_amp_html($the_content){
   $pattern = '{<blockquote class="instagram-media"[^>]+?"https://www.instagram.com/p/([^/]+?)/[^"]*?".+?</blockquote>}is';
   $append = '<amp-instagram layout="responsive" data-shortcode="$1" width="1" height="1" ></amp-instagram>';
   $the_content = preg_replace($pattern, $append, $the_content);
+
+  // Styleタグを除去する
+  $the_content = preg_replace('/ +style=["][^"]*?["]/i', '', $the_content);
+  $the_content = preg_replace('/ +style=[\'][^\']*?[\']/i', '', $the_content);
 
   //スクリプトを除去する
   $pattern = '/<script.+?<\/script>/is';
