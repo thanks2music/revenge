@@ -14,7 +14,7 @@
       height: 300px
 
     +mediaquery('min', 1025px)
-      height: 520px
+      height: 400px
 
     &.header__slider__dummy--is-hide
       display: none
@@ -44,7 +44,7 @@
         height: 300px
 
       +mediaquery('min', 1025px)
-        height: 520px
+        height: 400px
 
     a
       display: block
@@ -52,6 +52,13 @@
     figure
       img
         width: 100%
+
+        // 縦幅がでかすぎる気がしている
+        .pc &
+          display: inline-block
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
 
   &__nav
     display: flex
