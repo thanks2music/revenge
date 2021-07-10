@@ -19,7 +19,7 @@
                   echo $amp_img;
                 ?>
                 <?php } else { ?>
-                  <?php $nextpost_img = get_the_post_thumbnail_url($nextpost->ID,'post-thum'); ?>
+                  <?php $nextpost_img = get_the_post_thumbnail_url($nextpost->ID,'home-thum'); ?>
                   <img src="<?php echo $nextpost_img; ?>" alt="<?php echo esc_attr($nextpost->post_title); ?>">
                 <?php } ?>
               </figure>
@@ -61,7 +61,7 @@
                   echo $amp_img;
                 ?>
                 <?php } else { ?>
-                  <?php $prevpost_img = get_the_post_thumbnail_url($prevpost->ID,'post-thum'); ?>
+                  <?php $prevpost_img = get_the_post_thumbnail_url($prevpost->ID,'home-thum'); ?>
                   <img src="<?php echo $prevpost_img; ?>" alt="<?php echo esc_attr($prevpost->post_title); ?>"></figure>
                 <?php } ?>
               </figure>
@@ -128,7 +128,7 @@
 <a href="<?php the_permalink() ?>">
 <figure class="eyecatch">
 <?php if(has_post_thumbnail()) { ?>
-<?php the_post_thumbnail('post-thum'); ?>
+<?php the_post_thumbnail('home-thum'); ?>
 <?php } else { ?>
 <img src="<?php echo get_template_directory_uri(); ?>/library/images/noimg.png" />
 <?php } ?>

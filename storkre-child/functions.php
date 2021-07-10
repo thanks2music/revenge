@@ -1702,12 +1702,25 @@ add_action( 'transition_post_status', 'mail_for_pending', 10, 3 );
 if (! function_exists('add_mythumbnail_size')) {
   function add_mythumbnail_size() {
     add_theme_support('post-thumbnails');
-    add_image_size('period-thum', 672, 416, true);
     add_image_size('home-thum', 486, 290, true);
-    add_image_size('post-thum', 300, 200, true);
   }
   add_action( 'after_setup_theme', 'add_mythumbnail_size' );
 }
+
+function disable_image_sizes( $new_sizes ) {
+  // thumbnail = 300px
+  // この2つに揃えたいので無効化しない
+  // unset( $new_sizes['thumbnail'] );
+  unset( $new_sizes['medium'] );
+  unset( $new_sizes['large'] );
+  unset( $new_sizes['medium_large'] );
+  unset( $new_sizes['1536x1536'] );
+  unset( $new_sizes['2048x2048'] );
+  return $new_sizes;
+}
+add_filter( 'intermediate_image_sizes_advanced', 'disable_image_sizes' );
+
+add_filter( 'big_image_size_threshold', '__return_false' );
 
 function minify_css($data) {
   // コメント削除
