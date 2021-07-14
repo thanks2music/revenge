@@ -713,6 +713,16 @@ add_action('init', function (){
   return $content_type;
 }, 10, 2 );
 
+function rss_post_thumbnail($content) {
+  global $post;
+  if(has_post_thumbnail($post->ID)) {
+    $content = '<figure>' . get_the_post_thumbnail($post->ID, 'full', array('class'=>'type:primaryImage')) . '</figure>' . $content;
+  }
+  return $content;
+}
+add_filter('the_excerpt_rss', 'rss_post_thumbnail');
+add_filter('the_content_feed', 'rss_post_thumbnail');
+
 add_action('pre_get_posts', 'add_event_post_to_main_query');
 function add_event_post_to_main_query($wp_query) {
   if (! is_admin() && ! is_single() && $wp_query->is_main_query()) {
