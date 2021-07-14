@@ -698,6 +698,38 @@ function get_custom_fields_value() {
   return get_post_custom();
 }
 
+// カスタムフィード追加
+add_action('init', function (){
+  add_feed('googlenews', function () {
+    get_template_part('rss');
+  });
+  });
+
+  //SmartNewsのHTTP header for Content-type
+  add_filter( 'feed_content_type', function ( $content_type, $type ) {
+  if ( 'googlenews' === $type ) {
+    return feed_content_type( 'rss2' );
+  }
+  return $content_type;
+}, 10, 2 );
+
+function rss_post_thumbnail($content) {
+  global $post;
+  if(has_post_thumbnail($post->ID)) {
+    $content = '<figure>' . get_the_post_thumbnail($post->ID, 'full', array('class'=>'type:primaryImage')) . '</figure>' . $content;
+  }
+  return $content;
+}
+add_filter('the_excerpt_rss', 'rss_post_thumbnail');
+add_filter('the_content_feed', 'rss_post_thumbnail');
+
+add_action('pre_get_posts', 'add_event_post_to_main_query');
+function add_event_post_to_main_query($wp_query) {
+  if (! is_admin() && ! is_single() && ! is_page() && $wp_query->is_main_query()) {
+    $wp_query->set('post_type', array('post', 'event'));
+  }
+}
+
 function is_dev() {
   $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
@@ -1158,12 +1190,6 @@ if (!function_exists('pagination')) {
       'total' => $wp_query->max_num_pages
     ) );
     echo "</nav>\n";
-  }
-}
-add_action('pre_get_posts', 'home_posts_type');
-function home_posts_type($wp_query) {
-  if (! is_admin() && $wp_query->is_main_query() && $wp_query->is_home()) {
-    $wp_query->set('post_type', array('post', 'event'));
   }
 }
 
