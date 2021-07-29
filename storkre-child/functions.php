@@ -730,6 +730,27 @@ function add_event_post_to_main_query($wp_query) {
   }
 }
 
+// RSSフィードから特定の記事を除外
+function exclude_tag_rss($query) {
+  if ($query->is_feed) {
+    $query->set('meta_query',
+      array(
+        array(
+          'key'=>'exclude_feed_flag',
+          'compare' => 'NOT EXISTS'
+        ),
+        array(
+          'key'=>'exclude_feed_flag',
+          'value'=>'1',
+          'compare'=>'!='
+        ),
+       'relation'=>'OR'
+      )
+    );
+  }
+}
+add_filter('pre_get_posts', 'exclude_tag_rss');
+
 function is_dev() {
   $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
