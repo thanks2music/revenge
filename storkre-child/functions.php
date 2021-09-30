@@ -1276,7 +1276,7 @@ add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
 
 function get_the_genre_name($terms) {
   $length = count($terms);
-  $target_genre  = ['restaurant', 'cafe', 'news', 'karaoke', '25stage', 'gengaten-tenjikai', 'feature', 'stamp-rally', 'amusement', 'fashion', 'theme-park', 'pop-up-store', 'only-shop', 'kuji', 'convenience-store'];
+  $target_genre  = ['restaurant', 'cafe', 'news', 'karaoke', '25stage', 'gengaten-tenjikai', 'feature', 'stamp-rally', 'amusement', 'fashion', 'theme-park', 'pop-up-store', 'only-shop', 'kuji', 'convenience-store', 'comics-release', 'new-anime', 'goods', 'illust', 'interview'];
   $term_slug = [];
   $genre_name = '';
 
