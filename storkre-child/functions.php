@@ -1569,8 +1569,8 @@ function replace_img_for_amp($the_content) {
 
   return $the_content;
 }
-// デフォルトのプラグイン実行優先順位は10、ショートコードの展開が11なので、ここではショートコード展開前に置換する
-add_filter('the_content', 'replace_img_for_amp');
+// デフォルトのプラグイン実行優先順位は10、ショートコードの展開がデフォルトでは11。プラグイン諸々実行後に置換する
+add_filter('the_content', 'replace_img_for_amp', 201);
 
 // AMPだけ実行
 if (! empty($_GET['amp'])) {
