@@ -683,6 +683,82 @@ function add_custom_fields_to_rest() {
   );
 }
 
+add_action('admin_head-post-new.php', 'event_validation_publish_admin_hook'); // 新規イベント投稿画面でのみ関数を呼び出す
+add_action('admin_head-post.php', 'event_validation_publish_admin_hook'); // 投稿イベント編集画面でのみ関数を呼び出す
+function event_validation_publish_admin_hook(){
+    global $post;
+
+    if (is_admin() && $post->post_type == 'event') {
+    ?>
+    <script language="javascript" type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('#publish').on('click', function() {
+                if(jQuery(this).data("valid")) {
+                  return true;
+                }
+
+                var form_data = jQuery('#post').serializeArray();
+                var data = {
+                    action: 'event_validation_pre_submit_validation',
+                    security: '<?php echo wp_create_nonce( 'pre_publish_validation' ); ?>',
+                    form_data: jQuery.param(form_data),
+                };
+
+                jQuery.post(ajaxurl, data, function(response) {
+                    if (response.indexOf('true') > -1 || response == true) {
+                      jQuery('#publish').data("valid", true).trigger('click');
+                    } else {
+                      alert("エラー: " + response);
+                      jQuery("#publish").data("valid", false);
+                    }
+                    jQuery('#ajax-loading').hide();
+                    jQuery('#publish').removeClass('button-primary-disabled');
+                    jQuery('#save-post').removeClass('button-disabled');
+                });
+                return false;
+            });
+        });
+    </script>
+    <?php
+    }
+}
+
+add_action('wp_ajax_event_validation_pre_submit_validation', 'pre_submit_validation');
+
+function pre_submit_validation(){
+  //簡単なセキュリティのチェック
+  check_ajax_referer( 'pre_publish_validation', 'security' );
+
+  parse_str( $_POST['form_data'], $vars);
+
+  // 本文に含まれていたらNGなワード
+  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>'];
+  // 抜粋に含まれていたらNGなワード
+  $ng_words_excerpt = ['抜粋を入れてください', 'YYY'];
+
+  // 本文チェック
+  foreach ($ng_words_content as $ng) {
+    //バリデーションの実行
+    if (strpos($vars['content'], $ng) !== false) {
+      echo '投稿記事中に"' . $ng . '"が見つかりました。';
+      die();
+    }
+  }
+
+  // 抜粋チェック
+  foreach ($ng_words_excerpt as $ng) {
+    //バリデーションの実行
+    if (strpos($vars['excerpt'], $ng) !== false) {
+      echo '投稿記事中に"' . $ng . '"が見つかりました。';
+      die();
+    }
+  }
+
+  //問題が無い場合はtrueを返す
+  echo 'true';
+  die();
+}
+
 function my_filter_rest_endpoints($endpoints) {
   if (isset($endpoints['/wp/v2/users'])) {
     unset($endpoints['/wp/v2/users']);
