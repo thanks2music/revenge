@@ -690,34 +690,41 @@ function event_validation_publish_admin_hook(){
 
     if (is_admin() && $post->post_type == 'event') {
     ?>
-    <script language="javascript" type="text/javascript">
-        jQuery(document).ready(function() {
-            jQuery('#publish').on('click', function() {
-                if(jQuery(this).data("valid")) {
-                  return true;
-                }
+    <script>
+      jQuery(document).ready(function() {
+        jQuery('#publish').on('click', function() {
+          var post_status = jQuery('#post-status-display').text(),
+              post_title  = jQuery('#title').val();
 
-                var form_data = jQuery('#post').serializeArray();
-                var data = {
-                    action: 'event_validation_pre_submit_validation',
-                    security: '<?php echo wp_create_nonce( 'pre_publish_validation' ); ?>',
-                    form_data: jQuery.param(form_data),
-                };
+          if(jQuery(this).data("valid")) {
+            return true;
+          }
 
-                jQuery.post(ajaxurl, data, function(response) {
-                    if (response.indexOf('true') > -1 || response == true) {
-                      jQuery('#publish').data("valid", true).trigger('click');
-                    } else {
-                      alert("エラー: " + response);
-                      jQuery("#publish").data("valid", false);
-                    }
-                    jQuery('#ajax-loading').hide();
-                    jQuery('#publish').removeClass('button-primary-disabled');
-                    jQuery('#save-post').removeClass('button-disabled');
-                });
-                return false;
-            });
+          if (post_status.indexOf('非公開') !== -1 &&  post_title.indexOf('テンプレート') !== -1) {
+            return true;
+          }
+
+          var form_data = jQuery('#post').serializeArray();
+          var data = {
+              action: 'event_validation_pre_submit_validation',
+              security: '<?php echo wp_create_nonce( 'pre_publish_validation' ); ?>',
+              form_data: jQuery.param(form_data),
+          };
+
+          jQuery.post(ajaxurl, data, function(response) {
+              if (response.indexOf('true') > -1 || response == true) {
+                jQuery('#publish').data("valid", true).trigger('click');
+              } else {
+                alert("エラー: " + response);
+                jQuery("#publish").data("valid", false);
+              }
+              jQuery('#ajax-loading').hide();
+              jQuery('#publish').removeClass('button-primary-disabled');
+              jQuery('#save-post').removeClass('button-disabled');
+          });
+          return false;
         });
+      });
     </script>
     <?php
     }
