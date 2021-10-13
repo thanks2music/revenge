@@ -766,6 +766,9 @@ function pre_submit_validation(){
   die();
 }
 
+// キャプション付きで画像を追加した際のstyle属性を削除する (wp-caption)
+add_filter( 'img_caption_shortcode_width', function(){ return 0; } );
+
 function my_filter_rest_endpoints($endpoints) {
   if (isset($endpoints['/wp/v2/users'])) {
     unset($endpoints['/wp/v2/users']);
