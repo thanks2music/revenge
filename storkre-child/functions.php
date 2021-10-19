@@ -961,7 +961,9 @@ $js = <<< EOF
 <script>
 window.addEventListener('DOMContentLoaded', function() {
   var event = document.querySelector('#menu-posts-event>a');
-  event.href = '/wp-admin/edit.php?post_status=draft&post_type=event';
+  event.href = '/wp-admin/edit.php?post_status=private&post_type=event';
+  // 消さないでくださいテンプレート
+  document.getElementById('post-62876').style.display = "none";
 });
 </script>
 
