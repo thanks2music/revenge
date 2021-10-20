@@ -45,6 +45,13 @@ function add_javascripts() {
   wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210623');
 }
 
+// 管理画面用のスタイル
+function wp_custom_admin_styles() {
+  global $dir;
+  wp_enqueue_style( 'wp_custom_admin_css', $dir['theme'] . '/dist/css/wp-admin.css' );
+}
+add_action( 'admin_enqueue_scripts', 'wp_custom_admin_styles', 100 );
+
 // 管理画面の情報を変更
 function my_custom_logo() {
   $background_style = '<style type="text/css">#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before { content: ""; display: block; width: 18px; height: 18px; background: url(/wp-content/uploads/favicon_64.png) no-repeat; background-size: cover;}</style>';
