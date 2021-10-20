@@ -50,7 +50,7 @@ function wp_custom_admin_styles() {
   global $dir;
   wp_enqueue_style( 'wp_custom_admin_css', $dir['theme'] . '/dist/css/wp-admin.css' );
 }
-add_action( 'admin_enqueue_scripts', 'wp_custom_admin_styles', 100 );
+add_action( 'admin_enqueue_scripts', 'wp_custom_admin_styles' );
 
 // 管理画面の情報を変更
 function my_custom_logo() {
@@ -967,10 +967,13 @@ $js = <<< EOF
 
 <script>
 window.addEventListener('DOMContentLoaded', function() {
-  var event = document.querySelector('#menu-posts-event>a');
+  var event = document.querySelector('#menu-posts-event>a'),
+      event_post_for_app = document.getElementById('post-62876');
   event.href = '/wp-admin/edit.php?post_status=private&post_type=event';
   // 消さないでくださいテンプレート
-  document.getElementById('post-62876').style.display = "none";
+  if (event_post_for_app) {
+    event_post_for_app.style.display = "none";
+  }
 });
 </script>
 
