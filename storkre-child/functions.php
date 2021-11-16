@@ -718,6 +718,8 @@ function event_validation_publish_admin_hook(){
               form_data: jQuery.param(form_data),
           };
 
+          console.dir(form_data);
+
           jQuery.post(ajaxurl, data, function(response) {
               if (response.indexOf('true') > -1 || response == true) {
                 jQuery('#publish').data("valid", true).trigger('click');
@@ -751,6 +753,10 @@ function pre_submit_validation(){
   $ng_words_excerpt = ['抜粋を入れてください', 'YYY'];
   // パーマリンクに含まれていたらNGなワード
   $ng_words_slug = ['-template'];
+  // 日付 (1週間以上前はNGとする)
+  $ng_date_time = strtotime(date("Y-m-d", strtotime("-1 week")));
+  $target_time_string = $vars['eo_input']['StartDate'];
+  $target_time  = strtotime($target_time_string);
 
   // 本文チェック
   foreach ($ng_words_content as $ng) {
@@ -774,9 +780,15 @@ function pre_submit_validation(){
   foreach ($ng_words_slug as $ng) {
     //バリデーションの実行
     if (strpos($vars['post_name'], $ng) !== false) {
-      echo 'パーマリンクに"' . $ng . '"が見つかりました。';
+      echo 'イベント日付が過去に設定されています。';
       die();
     }
+  }
+
+  // 日付チェック
+  if ($ng_date_time > $target_time) {
+    echo 'イベント日付が過去に設定されています。';
+    die();
   }
 
   //問題が無い場合はtrueを返す
