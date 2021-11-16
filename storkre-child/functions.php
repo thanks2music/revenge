@@ -749,6 +749,8 @@ function pre_submit_validation(){
   $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>'];
   // 抜粋に含まれていたらNGなワード
   $ng_words_excerpt = ['抜粋を入れてください', 'YYY'];
+  // パーマリンクに含まれていたらNGなワード
+  $ng_words_slug = ['-template'];
 
   // 本文チェック
   foreach ($ng_words_content as $ng) {
@@ -764,6 +766,15 @@ function pre_submit_validation(){
     //バリデーションの実行
     if (strpos($vars['excerpt'], $ng) !== false) {
       echo '投稿記事中に"' . $ng . '"が見つかりました。';
+      die();
+    }
+  }
+
+  // パーマリンクチェック
+  foreach ($ng_words_slug as $ng) {
+    //バリデーションの実行
+    if (strpos($vars['post_name'], $ng) !== false) {
+      echo 'パーマリンクに"' . $ng . '"が見つかりました。';
       die();
     }
   }
