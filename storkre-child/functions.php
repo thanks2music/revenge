@@ -718,8 +718,6 @@ function event_validation_publish_admin_hook(){
               form_data: jQuery.param(form_data),
           };
 
-          console.dir(form_data);
-
           jQuery.post(ajaxurl, data, function(response) {
               if (response.indexOf('true') > -1 || response == true) {
                 jQuery('#publish').data("valid", true).trigger('click');
@@ -780,7 +778,7 @@ function pre_submit_validation(){
   foreach ($ng_words_slug as $ng) {
     //バリデーションの実行
     if (strpos($vars['post_name'], $ng) !== false) {
-      echo 'イベント日付が過去に設定されています。';
+      echo 'パーマリンクに"' . $ng . '"が見つかりました。';
       die();
     }
   }
