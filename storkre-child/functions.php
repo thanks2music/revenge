@@ -718,6 +718,8 @@ function event_validation_publish_admin_hook(){
               form_data: jQuery.param(form_data),
           };
 
+          console.dir(form_data);
+
           jQuery.post(ajaxurl, data, function(response) {
               if (response.indexOf('true') > -1 || response == true) {
                 jQuery('#publish').data("valid", true).trigger('click');
@@ -783,10 +785,12 @@ function pre_submit_validation(){
     }
   }
 
-  // 日付チェック
-  if ($ng_date_time > $target_time) {
-    echo 'イベント日付が過去に設定されています。';
-    die();
+  // 日付チェックは、下書きかつ「公開」の時のみ実行
+  if ($vars['post_status'] === 'draft' && $vars['original_publish'] === '公開') {
+    if ($ng_date_time > $target_time) {
+      echo 'イベント日付が過去に設定されています。';
+      die();
+    }
   }
 
   //問題が無い場合はtrueを返す
