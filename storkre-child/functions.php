@@ -748,13 +748,13 @@ function pre_submit_validation(){
   parse_str( $_POST['form_data'], $vars);
 
   // 本文に含まれていたらNGなワード
-  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>'];
+  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '電話を入れる', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>'];
   // 抜粋に含まれていたらNGなワード
   $ng_words_excerpt = ['抜粋を入れてください', 'YYY'];
   // パーマリンクに含まれていたらNGなワード
   $ng_words_slug = ['-template'];
   // 日付 (1週間以上前はNGとする)
-  $ng_date_time = strtotime(date("Y-m-d", strtotime("-1 week")));
+  $ng_date_time = strtotime(date("Y-m-d", strtotime("-1 month")));
   $target_time_string = $vars['eo_input']['StartDate'];
   $target_time  = strtotime($target_time_string);
 
