@@ -134,7 +134,13 @@
       <hr class="hr__gradient">
 
       <div class="ad__taxel__gmo-recommend">
-        <div id="gmo_rw_12370" data-gmoad="rw"></div>
+        <div data-cptid="1511018">
+        <script>
+          gnshbrequest.cmd.push(function() {
+            gnshbrequest.applyPassback("1511018", "[data-cptid='1511018']");
+          });
+        </script>
+        </div>
       </div>
     <?php } else { ?>
     <?php } ?>
