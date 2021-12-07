@@ -3,9 +3,13 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <?php if ($is_sp && is_web()) { ?>
-  <?php // GMO YDN Tag ?>
-  <script src="//cdn.gmossp-sp.jp/ads/loader.js?space_id=g908845" charset="utf-8" language="JavaScript"></script>
-  <script language='javascript'>
-      gmossp_forsp.ad('g908845');
+  <?php // Geniee Tag for Google Ad Manager ?>
+  <script async src="https://cpt.geniee.jp/hb/v1/213660/461/wrapper.min.js"></script>
+  <script>
+    window.gnshbrequest = window.gnshbrequest || {cmd:[]};
+      gnshbrequest.cmd.push(function(){
+        gnshbrequest.registerPassback("1511018");
+        gnshbrequest.forceInternalRequest();
+    });
   </script>
 <?php } ?>
