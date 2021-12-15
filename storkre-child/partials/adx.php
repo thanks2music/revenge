@@ -4,7 +4,6 @@
 
 <?php if ($is_sp && is_web()) { ?>
   <?php // Geniee Tag for Google Ad Manager ?>
-  <script async src="https://cpt.geniee.jp/hb/v1/213660/461/wrapper.min.js"></script>
   <script>
     window.gnshbrequest = window.gnshbrequest || {cmd:[]};
       gnshbrequest.cmd.push(function(){
@@ -12,4 +11,5 @@
         gnshbrequest.forceInternalRequest();
     });
   </script>
+  <script async src="https://cpt.geniee.jp/hb/v1/213660/461/wrapper.min.js"></script>
 <?php } ?>
