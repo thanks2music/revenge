@@ -87,6 +87,7 @@
   <body <?php body_class($body_class); ?>>
     <?php get_template_part('partials/meta/gtm'); ?>
     <?php if ($is_sp) {
+      get_template_part('partials/ad_geniee');
       get_template_part('partials/app/smart_banner');
     } ?>
     <div id="container" class="<?php echo esc_html(get_option('post_options_ttl'));?> <?php echo esc_html(get_option('side_options_sidebarlayout'));?> <?php echo esc_html(get_option('post_options_date'));?>">

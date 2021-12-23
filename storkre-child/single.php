@@ -132,17 +132,6 @@
       </div>
 
       <hr class="hr__gradient">
-
-      <div class="ad__taxel__gmo-recommend">
-        <div data-cptid="1511018">
-        <script>
-          gnshbrequest.cmd.push(function() {
-            gnshbrequest.applyPassback("1511018", "[data-cptid='1511018']");
-          });
-        </script>
-        </div>
-      </div>
-    <?php } else { ?>
     <?php } ?>
 
     <?php if (get_option('fbbox_options_url')) : ?>
