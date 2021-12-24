@@ -469,7 +469,26 @@
                 <figure class="eyecatch">
                   <?php // NOTE: 引数にclassを指定し、「lazy」classをつけると遅延読み込みの対象にする ?>
                   <?php the_post_thumbnail('home-thum', array('class' => 'lazy attachment-home-thum size-home-thum wp-post-image')); ?>
-                  <span class="cat-name cat__name__home"><?php echo $cat_name; ?></span>
+                  <span class="cat-name cat__name__home">
+                  <?php
+                    if (is_user_logged_in()) {
+                      if (is_home() && is_front_page()) {
+                        echo $cat_name;
+                      } else if (empty($cat_name)) {
+                        $cat_name = 'ニュース';
+                        echo $cat_name;
+                      } else {
+                        $cat_name = 'ニュース';
+                        echo $cat_name;
+                      }
+                    } else { 
+                      if (empty($cat_name)) {
+                        $cat_name = 'ニュース';
+                        echo $cat_name;
+                      }
+                    }
+                  ?>
+                  </span>
 
                   <?php
                     if (is_user_logged_in()) { ?>
