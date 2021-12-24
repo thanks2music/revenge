@@ -50,12 +50,15 @@ $(function() {
     var topBtn = $('#page-top');
     topBtn.css('bottom', '-100px');
     var showFlag = false;
+    var clickFlag = false;
+    var articleNavigation = $('.cc-jump-section');
+
     //スクロールが400に達したらボタン表示
     $(window).scroll(function () {
         if ($(this).scrollTop() > 400) {
             if (showFlag == false) {
                 showFlag = true;
-                topBtn.stop().animate({'bottom' : '120px'}, 200); 
+                topBtn.stop().animate({'bottom' : '150px'}, 200); 
             }
         } else {
             if (showFlag) {
@@ -64,12 +67,23 @@ $(function() {
             }
         }
     });
+
     //スクロールしてトップ
-    topBtn.click(function () {
+    topBtn.click(function (e) {
+      if (clickFlag && articleNavigation[0]) {
+        var headerHeight = $("#inner-header").height();
+        var articlePos = articleNavigation.offset().top - headerHeight;
         $('body,html').animate({
-            scrollTop: 0
+          scrollTop: articlePos
         }, 500);
-        return false;
+      } else {
+        $('body,html').animate({
+          scrollTop: 0
+        }, 500);
+      }
+
+      clickFlag = true;
+      e.preventDefault;
     });
 });
   loadGravatars();
