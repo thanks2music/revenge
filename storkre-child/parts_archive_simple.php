@@ -10,13 +10,13 @@
 <?php } ?>
 <?php
   $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-  $ads_infeed = 6;
+  $ads_infeed = 10;
   $ads_infeed_count = 0;
 
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
-      'posts_per_page' => 12,
+      'posts_per_page' => 20,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
