@@ -748,9 +748,9 @@ function pre_submit_validation(){
   parse_str( $_POST['form_data'], $vars);
 
   // 本文に含まれていたらNGなワード
-  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '電話を入れる', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>'];
+  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '電話を入れる', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>', '使った'];
   // 抜粋に含まれていたらNGなワード
-  $ng_words_excerpt = ['抜粋を入れてください', 'YYY'];
+  $ng_words_excerpt = ['抜粋を入れてください', 'YYY', '使った'];
   // パーマリンクに含まれていたらNGなワード
   $ng_words_slug = ['-template'];
   // 日付 (1週間以上前はNGとする)
