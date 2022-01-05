@@ -485,6 +485,8 @@
                       if (empty($cat_name)) {
                         $cat_name = 'ニュース';
                         echo $cat_name;
+                      } else {
+                        echo $cat_name;
                       }
                     }
                   ?>
