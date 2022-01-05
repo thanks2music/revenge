@@ -81,7 +81,8 @@
 <?php if (function_exists('related_posts') && ! $amp_flag) { ?>
 <?php related_posts(); ?>
 <?php } else {?>
-<?php get_template_part('gad-related'); ?>
+	<?php get_template_part('gad-related'); ?>
+	<?php dynamic_sidebar('widget_single_foot_content'); ?>
 <?php } ?>
 
 <?php if(get_the_author_meta('description') && !get_option('post_options_authorbox')) : ?>

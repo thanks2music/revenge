@@ -60,6 +60,16 @@ function theme_register_sidebars_child() {
     'before_title' => '<h4 class="widgettitle"><span>',
     'after_title' => '</span></h4>',
   ));
+
+  register_sidebar(array(
+    'id' => 'widget_single_foot_content',
+    'name' => '共通: 記事詳細ページ下部',
+    'description' => 'トップページ下部で表示しているコンテンツなどを表示させます。',
+    'before_widget' => '<div id="%1$s" class="single__foot__content %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<h4 class="widgettitle">',
+    'after_title' => '</h4>',
+  ));
 }
 
 // 人気記事

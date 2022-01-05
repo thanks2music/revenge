@@ -16,7 +16,7 @@
   if (is_home() || is_front_page() || is_post_type_archive()) {
     $args = array(
       'post_type' => array('post', 'event'),
-      'posts_per_page' => 25,
+      'posts_per_page' => 20,
       'order' => 'DESC',
       'orderby' => 'date modified',
       'post_status' => 'publish',
