@@ -11,9 +11,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <?php if (is_single()) { ?>
-    <link rel="amphtml" href="<?php echo get_permalink() .'?amp=1'; ?>">
-  <?php } ?>
+  <?php if (is_single()) {
+    $post_type = get_post_type();
+
+    if ($post_type === 'event') {
+      $not_amp_page_flag = get_post_meta($post->ID, 'not_amp_page', true);
+
+      if (empty($not_amp_page_flag)) { ?>
+        <link rel="amphtml" href="<?php echo get_permalink() .'?amp=1'; ?>">
+      <?php }
+    }
+  } ?>
 
   <link rel="icon" href="<?php echo $url['home']; ?>/wp-content/uploads/favicon_64.png">
   <link rel="apple-touch-icon" href="<?php echo $url['home']; ?>/wp-content/uploads/apple-touch-icon180x180.png">
