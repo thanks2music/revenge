@@ -25,16 +25,7 @@
 
   <link rel="icon" href="<?php echo $url['home']; ?>/wp-content/uploads/favicon_64.png">
   <link rel="apple-touch-icon" href="<?php echo $url['home']; ?>/wp-content/uploads/apple-touch-icon180x180.png">
-
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-
-  <!--[if IE]>
-  <?php if ( get_theme_mod( 'opencage_favicon_ie' ) ) : ?><link rel="shortcut icon" href="<?php echo get_theme_mod( 'opencage_favicon_ie' ); ?>"><?php endif; ?>
-  <![endif]-->
-  <!--[if lt IE 9]>
-  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-  <![endif]-->
 
   <?php get_template_part('head'); ?>
   <?php if (is_prod()) { ?>
@@ -59,37 +50,6 @@
 
     if (is_ios()) {
       $body_class .= ' ios';
-    }
-
-    if (is_tax($event_taxonomy_cat, 'collabo-period')) {
-      $terms = get_the_terms($post->ID, $event_taxonomy_cat);
-      $term_len = count($terms);
-
-      for($i = 0; $i < $term_len; $i++) {
-        if (! empty($terms[$i]->description)) {
-          $des = $terms[$i]->description;
-        }
-
-        // 親カテゴリがあったら
-        // for 期間別一覧の子カテゴリ
-        if ($terms[$i]->parent !== 0) {
-          // 親の情報を取得
-          $term_parent_id = $terms[$i]->parent;
-          $term_parent = get_term($term_parent_id, $event_taxonomy_cat);
-          $parent_des = $term_parent->description;
-
-          // 親カテゴリの紹介文があるか
-          if (isset($parent_des) && $parent_des === 'common') {
-            $body_class .= ' period child-period';
-          }
-        }
-
-        // 期間別一覧の場合
-        // 紹介文で分岐
-        if (isset($des) && $des === 'common') {
-          $body_class .= ' period';
-        }
-      }
     }
   ?>
   <body <?php body_class($body_class); ?>>
