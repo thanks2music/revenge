@@ -54,7 +54,7 @@ add_action( 'admin_enqueue_scripts', 'wp_custom_admin_styles' );
 
 // 管理画面の情報を変更
 function my_custom_logo() {
-  $background_style = '<style type="text/css">#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before { content: ""; display: block; width: 18px; height: 18px; background: url(/wp-content/uploads/favicon_64.png) no-repeat; background-size: cover;}</style>';
+  $background_style = '<style type="text/css">#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before { content: ""; display: block; width: 18px; height: 18px; background: url(/wp-content/uploads/favicon_64.png) no-repeat; background-size: cover;} .is-no-child { background: #ff5dab}</style>';
   echo $background_style;
 }
 add_action('admin_head', 'my_custom_logo');
@@ -570,7 +570,7 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
 
   $posts = get_posts($args);
 
-  if ($atts['layout'] === 'vertical') {
+  if (isset($atts['layout']) && $atts['layout'] === 'vertical') {
     // ホームの縦表示一覧
     foreach($posts as $post) {
       setup_postdata($post);
@@ -587,7 +587,7 @@ function add_event_post_thumbnails_shortcode($atts, $content = null) {
       $str .= '</a>';
       $str .= '</article>';
     }
-  } else if ($atts['layout'] === 'horizontal') {
+  } else if (isset($atts['layout']) && $atts['layout'] === 'horizontal') {
     // ホームの横表示一覧
     foreach($posts as $post) {
       setup_postdata($post);
@@ -748,9 +748,10 @@ function pre_submit_validation(){
   parse_str( $_POST['form_data'], $vars);
 
   // 本文に含まれていたらNGなワード
-  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '電話を入れる', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>', '使った'];
+  $ng_words_content = ['URLを入れる', '&copy; XXX', 'ここに広告アフィリエイトのショートコード', '抜粋を入れてください', 'XXXの記事一覧', 'href="XXX"', '電話を入れる', '「XXX」公式サイト', 'href="https://goo.gl/maps/XXX"', 'YYY</caption>'];
+  array_push($ng_words_content, 'OOO先生', 'N月NN日', 'キャラ名・キャラ名・キャラ名', '「GGG」', '「MMM」', '△△△', 'XXX ×', '「XXX」', '●,000円', '●●● 全●種', '◯月◯日');
   // 抜粋に含まれていたらNGなワード
-  $ng_words_excerpt = ['抜粋を入れてください', 'YYY', '使った'];
+  $ng_words_excerpt = ['抜粋を入れてください', 'YYY'];
   // パーマリンクに含まれていたらNGなワード
   $ng_words_slug = ['-template'];
   // 日付 (1週間以上前はNGとする)
@@ -995,6 +996,19 @@ window.addEventListener('DOMContentLoaded', function() {
   var event = document.querySelector('#menu-posts-event>a'),
       event_post_for_app = document.getElementById('post-62876');
   event.href = '/wp-admin/edit.php?post_status=private&post_type=event';
+
+  var eventCategoryList = jQuery('#event-category-all li');
+  if (eventCategoryList.length) {
+    eventCategoryList.each(function () {
+    var li = jQuery(this);
+    var isHierarchy = li.find('.children');
+
+      if (isHierarchy.length === 0 && ! li.parent().hasClass('children')) {
+        li.addClass('is-no-child');
+      }
+    });
+  }
+
   // 消さないでくださいテンプレート
   if (event_post_for_app) {
     event_post_for_app.style.display = "none";
@@ -1425,11 +1439,12 @@ function get_the_genre_name($terms) {
 
 function get_the_work_term_name($terms, $value = 'name') {
   $length = count($terms);
-  $ignore_terms = ['cafe', 'news', 'collabo-period', 'event', 'karaoke', 'restaurant'];
+  $ignore_terms = ['cafe', 'works', 'news', 'collabo-period', 'event', 'karaoke', 'restaurant'];
   $term_name = [];
   for($i = 0; $i < $length; $i++) {
-    // 親カテゴリがあるカテゴリを除外
-    if ($terms[$i]->parent === 0) {
+    // 親カテゴリがある場合は「期間」を除外する
+    // NOTE: 381 = 期間カテゴリ
+    if ($terms[$i]->parent !== 381) {
       $term_name[] .= $terms[$i]->slug;
     }
   }
