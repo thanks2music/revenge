@@ -73,6 +73,24 @@ add_filter('admin_footer_text', 'remove_footer_admin');
 // <moreads>をADXとアドセンスに置き換える
 // add_filter('the_content', 'adMoreReplace');
 
+// 記事中のGoogleアドセンスを他の広告に差し替えるのに使用
+function is_hide_google_adsense($id) {
+  // flux_show_flag = カスタムフィールド
+  $flux_ad_show_flag =  get_post_meta($id, 'flux_show_flag');
+  // カスタムフィールドでフラグをONにしたら、Googleアドセンスを表示させない
+  $hide_google_adsensse = false;
+
+  if (empty($flux_ad_show_flag)) {
+    $hide_google_adsensse = false;
+  } else if ($flux_ad_show_flag[0] === '1') {
+    $hide_google_adsensse = true;
+  } else if ($flux_ad_show_flag[0] === '0') {
+    $hide_google_adsensse = false;
+  }
+
+  return $hide_google_adsensse;
+}
+
 function get_moreads_tags($device) {
 $moretags = [];
 // AMP - CC_AMP_Article1_Responsive
@@ -333,6 +351,7 @@ $moretags['pc'][] = <<< EOF
 
 EOF;
 
+
 if ($device === 'pc') {
   return $moretags['pc'];
 } else if ($device === 'sp') {
@@ -373,11 +392,17 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
   // SPだけ実行
 } else if ($is_sp) {
   function replace_sp_moreads($the_content) {
+    global $post;
     $pattern = '/<p><moreads><\/moreads><\/p>/is';
     $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
     $moreads_count_inpost = count($moreads_content[0]);
     $moreads = get_moreads_tags('sp');
     $moreads_tag_count = count($moreads);
+
+    // カスタムフィールドがONの場合、moreadsを空にする
+    if (is_hide_google_adsense($post->ID)) {
+      $moreads = array_fill(0, $moreads_tag_count, '');
+    }
 
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
@@ -399,11 +424,17 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
   // PCだけ実行
 } else if ($is_pc) {
   function replace_pc_moreads($the_content) {
+    global $post;
     $pattern = '/<p><moreads><\/moreads><\/p>/is';
     $serach_moreads = preg_match_all($pattern, $the_content, $moreads_content);
     $moreads_count_inpost = count($moreads_content[0]);
     $moreads = get_moreads_tags('pc');
     $moreads_tag_count = count($moreads);
+
+    // カスタムフィールドがONの場合、moreadsを空にする
+    if (is_hide_google_adsense($post->ID)) {
+      $moreads = array_fill(0, $moreads_tag_count, '');
+    }
 
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
