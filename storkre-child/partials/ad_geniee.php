@@ -7,3 +7,10 @@
   </script>
 </div>
 
+<div data-cptid="1550280">
+<script>
+  window.gnshbrequest.cmd.push(function() {
+    window.gnshbrequest.applyPassback("1550280", "[data-cptid='1550280']");
+  });
+</script>
+</div>
