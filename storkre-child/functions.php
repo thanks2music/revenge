@@ -436,8 +436,6 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
       $moreads = array_fill(0, $moreads_tag_count, '');
     }
 
-    print_r($moreads);
-
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
       $end_tags = end($moreads);
