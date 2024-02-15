@@ -400,9 +400,12 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
     $moreads_tag_count = count($moreads);
 
     // カスタムフィールドがONの場合、moreadsを空にする
-    if (is_hide_google_adsense($post->ID)) {
-      $moreads = array_fill(0, $moreads_tag_count, '');
-    }
+    // if (is_hide_google_adsense($post->ID)) {
+    //   $moreads = array_fill(0, $moreads_tag_count, '');
+    // }
+
+    // FLUXタグを本格導入のため、全記事で読み込む - moreadsを空にする
+    $moreads = array_fill(0, $moreads_tag_count, '');
 
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
@@ -432,9 +435,12 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
     $moreads_tag_count = count($moreads);
 
     // カスタムフィールドがONの場合、moreadsを空にする
-    if (is_hide_google_adsense($post->ID)) {
-      $moreads = array_fill(0, $moreads_tag_count, '');
-    }
+    // if (is_hide_google_adsense($post->ID)) {
+    //   $moreads = array_fill(0, $moreads_tag_count, '');
+    // }
+
+    // FLUXタグを本格導入のため、全記事で読み込む - moreadsを空にする
+    $moreads = array_fill(0, $moreads_tag_count, '');
 
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
