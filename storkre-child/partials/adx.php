@@ -2,7 +2,7 @@
 <?php // Google Adsense ?>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-<?php if (is_single() && is_hide_google_adsense($post->ID)) { ?>
+<?php if (is_web()) { ?>
   <script src="https://flux-cdn.com/client/1000300/collabo-cafe_01514.min.js" async></script>
 <?php } ?>
 
