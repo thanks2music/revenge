@@ -3,7 +3,10 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <?php if (is_web()) { ?>
-  <script src="https://flux-cdn.com/client/1000300/collabo-cafe_01514.min.js" async></script>
+<?php
+// NOTE: CPM下落調査のため、FLUXタグを一時的に外す
+// <script src="https://flux-cdn.com/client/1000300/collabo-cafe_01514.min.js" async></script>
+// ?>
 <?php } ?>
 
 <?php if ($is_sp && is_web()) { ?>

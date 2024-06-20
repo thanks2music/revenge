@@ -63,7 +63,12 @@
 
 
     <?php if (is_active_sidebar('addbanner-sp-titleunder')) { ?>
-      <?php if (wp_is_mobile() && ! is_hide_google_adsense($post->ID)) { // NOTE: FLUXタグを読み込む時はGoogleアドセンスを表示しない ?>
+      <?php
+        // NOTE: FLUXタグを読み込む時はGoogleアドセンスを表示しない
+        // if (wp_is_mobile() && ! is_hide_google_adsense($post->ID)) {
+        // NOTE: CPM下落調査のため、FLUXの制御を一時的に外す
+        if (wp_is_mobile()) {
+      ?>
         <div class="ad__title-under">
           <?php dynamic_sidebar( 'addbanner-sp-titleunder' ); ?>
         </div>
@@ -73,11 +78,12 @@
     <section class="entry-content cf">
 
     <?php if (is_active_sidebar('addbanner-pc-titleunder') && ! wp_is_mobile()) { ?>
-      <?php if (! is_hide_google_adsense($post->ID)) { ?>
+      <?php
+        // NOTE: CPM下落調査のため、FLUXの制御を一時的に外す
+        // if (! is_hide_google_adsense($post->ID)) { ?>
         <div class="ad__title-under">
           <?php dynamic_sidebar( 'addbanner-pc-titleunder' ); ?>
         </div>
-      <?php } ?>
     <?php } ?>
 
     <?php

@@ -404,8 +404,9 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
     //   $moreads = array_fill(0, $moreads_tag_count, '');
     // }
 
-    // FLUXタグを本格導入のため、全記事で読み込む - moreadsを空にする
-    $moreads = array_fill(0, $moreads_tag_count, '');
+    // NOTE: CPM下落調査のため、FLUXを読み込むのを一時停止する
+    // NOTE: FLUXタグを使う場合は、下記のコメントアウトを消して「moreadsを空にする」
+    // $moreads = array_fill(0, $moreads_tag_count, '');
 
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
@@ -439,8 +440,9 @@ if (! empty($_GET['amp']) && $_GET['amp'] === '1') {
     //   $moreads = array_fill(0, $moreads_tag_count, '');
     // }
 
-    // FLUXタグを本格導入のため、全記事で読み込む - moreadsを空にする
-    $moreads = array_fill(0, $moreads_tag_count, '');
+    // NOTE: CPM下落調査のため、FLUXを読み込むのを一時停止する
+    // NOTE: FLUXタグを使う場合は、下記のコメントアウトを消して「moreadsを空にする」
+    // $moreads = array_fill(0, $moreads_tag_count, '');
 
     if ($moreads_tag_count < $moreads_count_inpost) {
       $diff_count = $moreads_count_inpost - $moreads_tag_count;
