@@ -25,7 +25,7 @@
     ?>
     <article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?> role="article">
     <?php dynamic_sidebar( 'addbanner-titletop' ); ?>
-    <header class="article-header entry-header">
+    <header class="article-header entry-header cc__article__header">
     <p class="byline entry-meta cf">
       <?php if (is_singular('post')) {
         $cat = get_the_category();
