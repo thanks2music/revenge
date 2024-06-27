@@ -45,12 +45,13 @@ function add_javascripts() {
   wp_enqueue_script('app', $dir['theme'] . '/dist/min/app.js?20210623');
 }
 
-// 管理画面用のスタイル
-function wp_custom_admin_styles() {
+// 管理画面用
+function wp_custom_admin_assets() {
   global $dir;
   wp_enqueue_style( 'wp_custom_admin_css', $dir['theme'] . '/dist/css/wp-admin.css' );
+  wp_enqueue_script( 'wp_custom_admin_js', $dir['theme'] . '/admin/wp-admin.js' );
 }
-add_action( 'admin_enqueue_scripts', 'wp_custom_admin_styles' );
+add_action( 'admin_enqueue_scripts', 'wp_custom_admin_assets' );
 
 // 管理画面の情報を変更
 function my_custom_logo() {
